@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_admin_User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginId" Type="varchar" MaxLength="255" />
+    <Property Name="UserType" Type="int" />
+    <Property Name="Password" Type="varchar" MaxLength="255" />
+    <Property Name="CenterName" Type="int" />
+    <Property Name="ActiveStatus" Type="tinyint" />
+    <Property Name="IsLogin" Type="tinyint" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="EmailId" Type="varchar" MaxLength="150" />
+    <Property Name="UserImage" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="int" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_CompanyDetail">
+    <Key>
+      <PropertyRef Name="CompanyCode" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" />
+    <Property Name="Year" Type="varchar" MaxLength="4" />
+    <Property Name="PlotNO" Type="varchar" MaxLength="10" />
+    <Property Name="BuildingName" Type="varchar" MaxLength="50" />
+    <Property Name="Floor" Type="varchar" MaxLength="10" />
+    <Property Name="FlatNo" Type="varchar" MaxLength="20" />
+    <Property Name="RoadName" Type="varchar" MaxLength="50" />
+    <Property Name="RoadNo" Type="varchar" MaxLength="20" />
+    <Property Name="SuburbName" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="int" />
+    <Property Name="PostalCode" Type="varbinary" MaxLength="20" />
+    <Property Name="Province" Type="int" />
+    <Property Name="Country" Type="int" />
+    <Property Name="Telephone" Type="varchar" MaxLength="20" />
+    <Property Name="Fax" Type="varchar" MaxLength="20" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Website" Type="varchar" MaxLength="150" />
+    <Property Name="IDPaths" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_CompanyShare">
+    <Key>
+      <PropertyRef Name="CompanyShareID" />
+    </Key>
+    <Property Name="CompanyShareID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyID" Type="varchar" MaxLength="50" />
+    <Property Name="SAID" Type="int" />
+    <Property Name="Share" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_IndividualDetail">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="IndividualID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="SAID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="PhotoPath" Type="varchar" MaxLength="150" />
+    <Property Name="IDPaths" Type="varchar" MaxLength="150" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_Province">
+    <Key>
+      <PropertyRef Name="ProvinceID" />
+    </Key>
+    <Property Name="ProvinceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Province" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_TrustDetail">
+    <Key>
+      <PropertyRef Name="TrustCode" />
+    </Key>
+    <Property Name="TrustID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrustCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TrustName" Type="varchar" MaxLength="50" />
+    <Property Name="Year" Type="varchar" MaxLength="4" />
+    <Property Name="PlotNO" Type="varchar" MaxLength="20" />
+    <Property Name="BuildingName" Type="varchar" MaxLength="50" />
+    <Property Name="Floor" Type="varchar" MaxLength="20" />
+    <Property Name="FlatNo" Type="varchar" MaxLength="20" />
+    <Property Name="RoadName" Type="varchar" MaxLength="50" />
+    <Property Name="RoadNo" Type="varchar" MaxLength="20" />
+    <Property Name="SuburbName" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="int" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+    <Property Name="Province" Type="int" />
+    <Property Name="Country" Type="int" />
+    <Property Name="Telephone" Type="varchar" MaxLength="20" />
+    <Property Name="Fax" Type="varchar" MaxLength="20" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Website" Type="varchar" MaxLength="150" />
+    <Property Name="IDPaths" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Staus" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PWD" Type="varchar" MaxLength="100" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="TrustRegistrationID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_UserAddressDetail">
+    <Key>
+      <PropertyRef Name="UserAddressDetailID" />
+    </Key>
+    <Property Name="UserAddressDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="int" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="HouseNo" Type="varchar" MaxLength="20" />
+    <Property Name="BuildingName" Type="varchar" MaxLength="50" />
+    <Property Name="Floor" Type="varchar" MaxLength="10" />
+    <Property Name="Flat" Type="varchar" MaxLength="20" />
+    <Property Name="RoadName" Type="varchar" MaxLength="50" />
+    <Property Name="RoadNo" Type="varchar" MaxLength="20" />
+    <Property Name="SuburbName" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="int" />
+    <Property Name="PostalCode" Type="varbinary" MaxLength="20" />
+    <Property Name="Province" Type="int" />
+    <Property Name="Country" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_UserBankDetail">
+    <Key>
+      <PropertyRef Name="UserBankDetailID" />
+    </Key>
+    <Property Name="UserBankDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="int" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="TAXreference" Type="varchar" MaxLength="50" />
+    <Property Name="BankName" Type="varchar" MaxLength="50" />
+    <Property Name="BranchNumber" Type="int" />
+    <Property Name="AccountNumber" Type="int" />
+    <Property Name="AccountType" Type="varchar" MaxLength="50" />
+    <Property Name="Currency" Type="varchar" MaxLength="50" />
+    <Property Name="SWIFT" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbl_UserMasterDetail">
+    <Key>
+      <PropertyRef Name="UserMasterDetailID" />
+    </Key>
+    <Property Name="UserMasterDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SpouseID" Type="varchar" MaxLength="50" />
+    <Property Name="ChildrenID1" Type="varchar" MaxLength="50" />
+    <Property Name="ChildrenID2" Type="varchar" MaxLength="50" />
+    <Property Name="ChildrenID3" Type="varchar" MaxLength="50" />
+    <Property Name="ChildrenID4" Type="varchar" MaxLength="50" />
+    <Property Name="ChildrenID5" Type="varchar" MaxLength="50" />
+    <Property Name="TrustID" Type="varchar" MaxLength="50" />
+    <Property Name="CompanyID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="bit" />
+  </EntityType>
+  <Association Name="FK_tbl_CompanyShare_tbl_CompanyDetail">
+    <End Role="tbl_CompanyDetail" Type="Self.tbl_CompanyDetail" Multiplicity="0..1" />
+    <End Role="tbl_CompanyShare" Type="Self.tbl_CompanyShare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_CompanyDetail">
+        <PropertyRef Name="CompanyCode" />
+      </Principal>
+      <Dependent Role="tbl_CompanyShare">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_UserMasterDetail_tbl_TrustDetail">
+    <End Role="tbl_TrustDetail" Type="Self.tbl_TrustDetail" Multiplicity="0..1" />
+    <End Role="tbl_UserMasterDetail" Type="Self.tbl_UserMasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_TrustDetail">
+        <PropertyRef Name="TrustCode" />
+      </Principal>
+      <Dependent Role="tbl_UserMasterDetail">
+        <PropertyRef Name="TrustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_UserMasterDetail_tbl_User">
+    <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="0..1" />
+    <End Role="tbl_UserMasterDetail" Type="Self.tbl_UserMasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_UserMasterDetail">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="crm_dev_dbModelStoreContainer">
+    <EntitySet Name="tbl_admin_User" EntityType="Self.tbl_admin_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_IndividualDetail" EntityType="Self.tbl_IndividualDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TrustDetail" EntityType="Self.tbl_TrustDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UserAddressDetail" EntityType="Self.tbl_UserAddressDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UserBankDetail" EntityType="Self.tbl_UserBankDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UserMasterDetail" EntityType="Self.tbl_UserMasterDetail" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tbl_CompanyShare_tbl_CompanyDetail" Association="Self.FK_tbl_CompanyShare_tbl_CompanyDetail">
+      <End Role="tbl_CompanyDetail" EntitySet="tbl_CompanyDetail" />
+      <End Role="tbl_CompanyShare" EntitySet="tbl_CompanyShare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_UserMasterDetail_tbl_TrustDetail" Association="Self.FK_tbl_UserMasterDetail_tbl_TrustDetail">
+      <End Role="tbl_TrustDetail" EntitySet="tbl_TrustDetail" />
+      <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_UserMasterDetail_tbl_User" Association="Self.FK_tbl_UserMasterDetail_tbl_User">
+      <End Role="tbl_User" EntitySet="tbl_User" />
+      <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

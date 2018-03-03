@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CallCenterToolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblClass">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblClientRequest">
+    <Key>
+      <PropertyRef Name="ClientReqId" />
+    </Key>
+    <Property Name="ClientReqId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Destination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepartingFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepartureDate" Type="DateTime" Precision="0" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+    <Property Name="NoOfPax" Type="Int32" />
+    <Property Name="NoOfAdults" Type="Int32" />
+    <Property Name="NoOfInfants" Type="Int32" />
+    <Property Name="NoOfChilds" Type="Int32" />
+    <Property Name="AdditionalInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Class" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="AssignedTo" Type="Int32" />
+    <Property Name="LeadStatus" Type="Int32" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblClientRequest_AssignedTo" FromRole="tblClientRequest" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblClientRequest_CreatedBy" FromRole="tblClientRequest" ToRole="tblUser" />
+    <NavigationProperty Name="tblLeadStatu" Relationship="Self.FK_tblClientRequest_LeadStatus" FromRole="tblClientRequest" ToRole="tblLeadStatus" />
+    <NavigationProperty Name="tblUser2" Relationship="Self.FK_tblClientRequest_UpdatedBy" FromRole="tblClientRequest" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblCountry">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblCustomerInfo">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="NedbankAccountHolder" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblCustomerType">
+    <Key>
+      <PropertyRef Name="CustomerTypeId" />
+    </Key>
+    <Property Name="CustomerTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblDepartureDestination">
+    <Key>
+      <PropertyRef Name="DestinationId" />
+    </Key>
+    <Property Name="DestinationId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DeptDestination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblLeadQueueFormat">
+    <Key>
+      <PropertyRef Name="LeadQueueId" />
+    </Key>
+    <Property Name="LeadQueueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SlNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LeadRefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateAndTime" Type="DateTime" Precision="3" />
+    <Property Name="LeadCreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LeadAllocatedTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LeadStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TCResponseTime" Type="Time" Precision="7" />
+    <Property Name="LeadClosedOn" Type="DateTime" Precision="0" />
+    <Property Name="LeadComeOut" Type="DateTime" Precision="0" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblLeadStatu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="LeadStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblClientRequests" Relationship="Self.FK_tblClientRequest_LeadStatus" FromRole="tblLeadStatus" ToRole="tblClientRequest" />
+  </EntityType>
+  <EntityType Name="tblSpecialService">
+    <Key>
+      <PropertyRef Name="SpecialServicesId" />
+    </Key>
+    <Property Name="SpecialServicesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Services" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblState">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LoginId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserType" Type="Int32" />
+    <Property Name="UserStatus" Type="Int32" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblClientRequests" Relationship="Self.FK_tblClientRequest_AssignedTo" FromRole="tblUser" ToRole="tblClientRequest" />
+    <NavigationProperty Name="tblClientRequests1" Relationship="Self.FK_tblClientRequest_CreatedBy" FromRole="tblUser" ToRole="tblClientRequest" />
+    <NavigationProperty Name="tblClientRequests2" Relationship="Self.FK_tblClientRequest_UpdatedBy" FromRole="tblUser" ToRole="tblClientRequest" />
+    <NavigationProperty Name="tblUserType" Relationship="Self.FK_tblUser_tblUserType" FromRole="tblUser" ToRole="tblUserType" />
+    <NavigationProperty Name="tblUserStatu" Relationship="Self.FK_tblUserTable_tblUserTable" FromRole="tblUser" ToRole="tblUserStatus" />
+  </EntityType>
+  <EntityType Name="tblUserStatu">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUserTable_tblUserTable" FromRole="tblUserStatus" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblUserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblUserType" FromRole="tblUserType" ToRole="tblUser" />
+  </EntityType>
+  <Association Name="FK_tblClientRequest_AssignedTo">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="AssignedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_CreatedBy">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_LeadStatus">
+    <End Role="tblLeadStatus" Type="Self.tblLeadStatu" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLeadStatus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="LeadStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_UpdatedBy">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUser_tblUserType">
+    <End Role="tblUserType" Type="Self.tblUserType" Multiplicity="0..1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUserType">
+        <PropertyRef Name="UserTypeId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUserTable_tblUserTable">
+    <End Role="tblUserStatus" Type="Self.tblUserStatu" Multiplicity="0..1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUserStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="UserStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CallCenterToolEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblCities" EntityType="Self.tblCity" />
+    <EntitySet Name="tblClasses" EntityType="Self.tblClass" />
+    <EntitySet Name="tblClientRequests" EntityType="Self.tblClientRequest" />
+    <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
+    <EntitySet Name="tblCustomerInfoes" EntityType="Self.tblCustomerInfo" />
+    <EntitySet Name="tblCustomerTypes" EntityType="Self.tblCustomerType" />
+    <EntitySet Name="tblDepartureDestinations" EntityType="Self.tblDepartureDestination" />
+    <EntitySet Name="tblLeadQueueFormats" EntityType="Self.tblLeadQueueFormat" />
+    <EntitySet Name="tblLeadStatus" EntityType="Self.tblLeadStatu" />
+    <EntitySet Name="tblSpecialServices" EntityType="Self.tblSpecialService" />
+    <EntitySet Name="tblStates" EntityType="Self.tblState" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <EntitySet Name="tblUserStatus" EntityType="Self.tblUserStatu" />
+    <EntitySet Name="tblUserTypes" EntityType="Self.tblUserType" />
+    <AssociationSet Name="FK_tblClientRequest_AssignedTo" Association="Self.FK_tblClientRequest_AssignedTo">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_CreatedBy" Association="Self.FK_tblClientRequest_CreatedBy">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_LeadStatus" Association="Self.FK_tblClientRequest_LeadStatus">
+      <End Role="tblLeadStatus" EntitySet="tblLeadStatus" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_UpdatedBy" Association="Self.FK_tblClientRequest_UpdatedBy">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUser_tblUserType" Association="Self.FK_tblUser_tblUserType">
+      <End Role="tblUserType" EntitySet="tblUserTypes" />
+      <End Role="tblUser" EntitySet="tblUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUserTable_tblUserTable" Association="Self.FK_tblUserTable_tblUserTable">
+      <End Role="tblUserStatus" EntitySet="tblUserStatus" />
+      <End Role="tblUser" EntitySet="tblUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

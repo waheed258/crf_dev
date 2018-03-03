@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CallCenterToolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblClass">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassType" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblClientRequest">
+    <Key>
+      <PropertyRef Name="ClientReqId" />
+    </Key>
+    <Property Name="ClientReqId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Destination" Type="varchar" MaxLength="50" />
+    <Property Name="DepartingFrom" Type="varchar" MaxLength="50" />
+    <Property Name="DepartureDate" Type="date" />
+    <Property Name="ReturnDate" Type="date" />
+    <Property Name="NoOfPax" Type="int" />
+    <Property Name="NoOfAdults" Type="int" />
+    <Property Name="NoOfInfants" Type="int" />
+    <Property Name="NoOfChilds" Type="int" />
+    <Property Name="AdditionalInfo" Type="varchar" MaxLength="100" />
+    <Property Name="Class" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="AssignedTo" Type="int" />
+    <Property Name="LeadStatus" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblCountry">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblCustomerInfo">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" />
+    <Property Name="MobileNum" Type="varchar" MaxLength="20" />
+    <Property Name="City" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailId" Type="varchar" MaxLength="150" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="NedbankAccountHolder" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblCustomerType">
+    <Key>
+      <PropertyRef Name="CustomerTypeId" />
+    </Key>
+    <Property Name="CustomerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerType" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblDepartureDestination">
+    <Key>
+      <PropertyRef Name="DestinationId" />
+    </Key>
+    <Property Name="DestinationId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeptDestination" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblLeadQueueFormat">
+    <Key>
+      <PropertyRef Name="LeadQueueId" />
+    </Key>
+    <Property Name="LeadQueueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SlNo" Type="varchar" MaxLength="50" />
+    <Property Name="LeadRefNo" Type="varchar" MaxLength="50" />
+    <Property Name="DateAndTime" Type="datetime" />
+    <Property Name="LeadCreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="LeadAllocatedTo" Type="varchar" MaxLength="50" />
+    <Property Name="LeadStatus" Type="varchar" MaxLength="50" />
+    <Property Name="TCResponseTime" Type="time" Precision="7" />
+    <Property Name="LeadClosedOn" Type="date" />
+    <Property Name="LeadComeOut" Type="date" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblLeadStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="LeadStatus" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblSpecialServices">
+    <Key>
+      <PropertyRef Name="SpecialServicesId" />
+    </Key>
+    <Property Name="SpecialServicesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Services" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblState">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="EmailId" Type="varchar" MaxLength="50" />
+    <Property Name="Location" Type="varchar" MaxLength="50" />
+    <Property Name="LoginId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserType" Type="int" />
+    <Property Name="UserStatus" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUserStatus">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_tblClientRequest_AssignedTo">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="AssignedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_CreatedBy">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_LeadStatus">
+    <End Role="tblLeadStatus" Type="Self.tblLeadStatus" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLeadStatus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="LeadStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblClientRequest_UpdatedBy">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblClientRequest" Type="Self.tblClientRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="tblClientRequest">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUser_tblUserType">
+    <End Role="tblUserType" Type="Self.tblUserType" Multiplicity="0..1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUserType">
+        <PropertyRef Name="UserTypeId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUserTable_tblUserTable">
+    <End Role="tblUserStatus" Type="Self.tblUserStatus" Multiplicity="0..1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUserStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="UserStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CallCenterToolModelStoreContainer">
+    <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClass" EntityType="Self.tblClass" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClientRequest" EntityType="Self.tblClientRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCustomerInfo" EntityType="Self.tblCustomerInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCustomerType" EntityType="Self.tblCustomerType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDepartureDestination" EntityType="Self.tblDepartureDestination" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLeadQueueFormat" EntityType="Self.tblLeadQueueFormat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLeadStatus" EntityType="Self.tblLeadStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSpecialServices" EntityType="Self.tblSpecialServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblState" EntityType="Self.tblState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserStatus" EntityType="Self.tblUserStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUserType" EntityType="Self.tblUserType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblClientRequest_AssignedTo" Association="Self.FK_tblClientRequest_AssignedTo">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_CreatedBy" Association="Self.FK_tblClientRequest_CreatedBy">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_LeadStatus" Association="Self.FK_tblClientRequest_LeadStatus">
+      <End Role="tblLeadStatus" EntitySet="tblLeadStatus" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblClientRequest_UpdatedBy" Association="Self.FK_tblClientRequest_UpdatedBy">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblClientRequest" EntitySet="tblClientRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUser_tblUserType" Association="Self.FK_tblUser_tblUserType">
+      <End Role="tblUserType" EntitySet="tblUserType" />
+      <End Role="tblUser" EntitySet="tblUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUserTable_tblUserTable" Association="Self.FK_tblUserTable_tblUserTable">
+      <End Role="tblUserStatus" EntitySet="tblUserStatus" />
+      <End Role="tblUser" EntitySet="tblUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

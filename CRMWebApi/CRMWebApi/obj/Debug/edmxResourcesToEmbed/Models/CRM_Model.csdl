@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_dev_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_admin_User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LoginId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserType" Type="Int32" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CenterName" Type="Int32" />
+    <Property Name="ActiveStatus" Type="Byte" />
+    <Property Name="IsLogin" Type="Byte" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="UserImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_CompanyDetail">
+    <Key>
+      <PropertyRef Name="CompanyCode" />
+    </Key>
+    <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="PlotNO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="BuildingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Floor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FlatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="RoadName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoadNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SuburbName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="Int32" />
+    <Property Name="PostalCode" Type="Binary" MaxLength="20" FixedLength="false" />
+    <Property Name="Province" Type="Int32" />
+    <Property Name="Country" Type="Int32" />
+    <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Website" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="IDPaths" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="tbl_CompanyShare" Relationship="Self.FK_tbl_CompanyShare_tbl_CompanyDetail" FromRole="tbl_CompanyDetail" ToRole="tbl_CompanyShare" />
+  </EntityType>
+  <EntityType Name="tbl_CompanyShare">
+    <Key>
+      <PropertyRef Name="CompanyShareID" />
+    </Key>
+    <Property Name="CompanyShareID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAID" Type="Int32" />
+    <Property Name="Share" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="tbl_CompanyDetail" Relationship="Self.FK_tbl_CompanyShare_tbl_CompanyDetail" FromRole="tbl_CompanyShare" ToRole="tbl_CompanyDetail" />
+  </EntityType>
+  <EntityType Name="tbl_Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_IndividualDetail">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="IndividualID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SAID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhotoPath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="IDPaths" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_Province">
+    <Key>
+      <PropertyRef Name="ProvinceID" />
+    </Key>
+    <Property Name="ProvinceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Province" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_TrustDetail">
+    <Key>
+      <PropertyRef Name="TrustCode" />
+    </Key>
+    <Property Name="TrustID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TrustCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TrustName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="PlotNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="BuildingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Floor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FlatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="RoadName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoadNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SuburbName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="Int32" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Province" Type="Int32" />
+    <Property Name="Country" Type="Int32" />
+    <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Website" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="IDPaths" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Staus" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="tbl_UserMasterDetail" Relationship="Self.FK_tbl_UserMasterDetail_tbl_TrustDetail" FromRole="tbl_TrustDetail" ToRole="tbl_UserMasterDetail" />
+  </EntityType>
+  <EntityType Name="tbl_User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PWD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="TrustRegistrationID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="tbl_UserMasterDetail" Relationship="Self.FK_tbl_UserMasterDetail_tbl_User" FromRole="tbl_User" ToRole="tbl_UserMasterDetail" />
+  </EntityType>
+  <EntityType Name="tbl_UserAddressDetail">
+    <Key>
+      <PropertyRef Name="UserAddressDetailID" />
+    </Key>
+    <Property Name="UserAddressDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SAID" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HouseNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="BuildingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Floor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Flat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="RoadName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoadNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SuburbName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="Int32" />
+    <Property Name="PostalCode" Type="Binary" MaxLength="20" FixedLength="false" />
+    <Property Name="Province" Type="Int32" />
+    <Property Name="Country" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_UserBankDetail">
+    <Key>
+      <PropertyRef Name="UserBankDetailID" />
+    </Key>
+    <Property Name="UserBankDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SAID" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TAXreference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BranchNumber" Type="Int32" />
+    <Property Name="AccountNumber" Type="Int32" />
+    <Property Name="AccountType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SWIFT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_UserMasterDetail">
+    <Key>
+      <PropertyRef Name="UserMasterDetailID" />
+    </Key>
+    <Property Name="UserMasterDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="SpouseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChildrenID1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChildrenID2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChildrenID3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChildrenID4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChildrenID5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TrustID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+    <NavigationProperty Name="tbl_TrustDetail" Relationship="Self.FK_tbl_UserMasterDetail_tbl_TrustDetail" FromRole="tbl_UserMasterDetail" ToRole="tbl_TrustDetail" />
+    <NavigationProperty Name="tbl_User" Relationship="Self.FK_tbl_UserMasterDetail_tbl_User" FromRole="tbl_UserMasterDetail" ToRole="tbl_User" />
+  </EntityType>
+  <Association Name="FK_tbl_CompanyShare_tbl_CompanyDetail">
+    <End Role="tbl_CompanyDetail" Type="Self.tbl_CompanyDetail" Multiplicity="0..1" />
+    <End Role="tbl_CompanyShare" Type="Self.tbl_CompanyShare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_CompanyDetail">
+        <PropertyRef Name="CompanyCode" />
+      </Principal>
+      <Dependent Role="tbl_CompanyShare">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_UserMasterDetail_tbl_TrustDetail">
+    <End Role="tbl_TrustDetail" Type="Self.tbl_TrustDetail" Multiplicity="0..1" />
+    <End Role="tbl_UserMasterDetail" Type="Self.tbl_UserMasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_TrustDetail">
+        <PropertyRef Name="TrustCode" />
+      </Principal>
+      <Dependent Role="tbl_UserMasterDetail">
+        <PropertyRef Name="TrustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_UserMasterDetail_tbl_User">
+    <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="0..1" />
+    <End Role="tbl_UserMasterDetail" Type="Self.tbl_UserMasterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_UserMasterDetail">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="crm_dev_dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_admin_User" EntityType="Self.tbl_admin_User" />
+    <EntitySet Name="tbl_City" EntityType="Self.tbl_City" />
+    <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" />
+    <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" />
+    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" />
+    <EntitySet Name="tbl_IndividualDetail" EntityType="Self.tbl_IndividualDetail" />
+    <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" />
+    <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" />
+    <EntitySet Name="tbl_TrustDetail" EntityType="Self.tbl_TrustDetail" />
+    <EntitySet Name="tbl_User" EntityType="Self.tbl_User" />
+    <EntitySet Name="tbl_UserAddressDetail" EntityType="Self.tbl_UserAddressDetail" />
+    <EntitySet Name="tbl_UserBankDetail" EntityType="Self.tbl_UserBankDetail" />
+    <EntitySet Name="tbl_UserMasterDetail" EntityType="Self.tbl_UserMasterDetail" />
+    <AssociationSet Name="FK_tbl_CompanyShare_tbl_CompanyDetail" Association="Self.FK_tbl_CompanyShare_tbl_CompanyDetail">
+      <End Role="tbl_CompanyDetail" EntitySet="tbl_CompanyDetail" />
+      <End Role="tbl_CompanyShare" EntitySet="tbl_CompanyShare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_UserMasterDetail_tbl_TrustDetail" Association="Self.FK_tbl_UserMasterDetail_tbl_TrustDetail">
+      <End Role="tbl_TrustDetail" EntitySet="tbl_TrustDetail" />
+      <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_UserMasterDetail_tbl_User" Association="Self.FK_tbl_UserMasterDetail_tbl_User">
+      <End Role="tbl_User" EntitySet="tbl_User" />
+      <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
