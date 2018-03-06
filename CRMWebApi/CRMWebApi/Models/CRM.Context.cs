@@ -38,5 +38,6 @@ namespace CRMWebApi.Models
         public DbSet<tbl_UserAddressDetail> tbl_UserAddressDetail { get; set; }
         public DbSet<tbl_UserBankDetail> tbl_UserBankDetail { get; set; }
         public DbSet<tbl_UserMasterDetail> tbl_UserMasterDetail { get; set; }
+        public DbSet<tbl_ClientReg> tbl_ClientReg { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_admin_User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -34,6 +34,26 @@
           </Key>
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbl_ClientReg">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="SAId" Type="int" />
+          <Property Name="Company" Type="varchar" MaxLength="200" />
+          <Property Name="CompanyRegNo" Type="varchar" MaxLength="20" />
+          <Property Name="Mobile" Type="varchar" MaxLength="20" />
+          <Property Name="EmailId" Type="varchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="int" />
+          <Property Name="UpdatedOn" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
         </EntityType>
         <EntityType Name="tbl_CompanyDetail">
           <Key>
@@ -272,6 +292,7 @@
         <EntityContainer Name="crm_dev_dbModelStoreContainer">
           <EntitySet Name="tbl_admin_User" EntityType="Self.tbl_admin_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ClientReg" EntityType="Self.tbl_ClientReg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
@@ -296,8 +317,7 @@
             <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="crm_dev_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -597,7 +617,28 @@
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
           </AssociationSet>
+          <EntitySet Name="tbl_ClientReg" EntityType="crm_dev_dbModel.tbl_ClientReg" />
         </EntityContainer>
+        <EntityType Name="tbl_ClientReg">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SAId" Type="Int32" />
+          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyRegNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="Int32" />
+          <Property Name="UpdatedOn" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -842,6 +883,27 @@
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ClientReg">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_ClientReg">
+              <MappingFragment StoreEntitySet="tbl_ClientReg">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="CompanyRegNo" ColumnName="CompanyRegNo" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="SAId" ColumnName="SAId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -11,7 +11,8 @@
             Company: $scope.Company,
             CompanyRegNo: $scope.CompanyRegNo,
             Mobile: $scope.Mobile,
-            EmailId: $scope.EmailId
+            EmailId: $scope.EmailId,
+            Status:$scope.ActiveStatus
             //MobileNumber: $scope.MobileNumber,
             //PhoneNumber: $scope.PhoneNumber,
             //EmailId: $scope.EmailId
@@ -44,6 +45,7 @@
         $scope.CompanyRegNo = "";
         $scope.Mobile = "";
         $scope.EmailId = "";
+        $scope.Status = "";
     }
 
     $scope.ClientList = function () {
@@ -60,4 +62,17 @@
 
     }
     $scope.ClientList();
+
+    $scope.ActiveStatues = function () {
+        var apiRoute = 'http://localhost:17746/api/Status';
+        var status = CrudService.getAll(apiRoute);
+        status.then(function (response) {
+            debugger
+            $scope.ActiveStatues = response.data;
+        },
+    function (error) {
+        console.log("Error: " + error);
+    });
+    }
+    $scope.ActiveStatues();
 }]);
