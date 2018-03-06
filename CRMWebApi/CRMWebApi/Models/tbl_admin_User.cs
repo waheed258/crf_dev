@@ -18,9 +18,7 @@ namespace CRMWebApi.Models
         public string LoginId { get; set; }
         public Nullable<int> UserType { get; set; }
         public string Password { get; set; }
-        public Nullable<int> CenterName { get; set; }
         public Nullable<byte> ActiveStatus { get; set; }
-        public Nullable<byte> IsLogin { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MobileNumber { get; set; }
