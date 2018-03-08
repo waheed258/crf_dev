@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "ManageUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="pageheader">
+    @*<h3><i class="fa fa-home"></i> Forms Validation </h3>*@
+    @*<div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+            <li> <a href="forms-validation.html#"> Home </a> </li>
+            <li class="active"> Forms Validation </li>
+        </ol>
+    </div>*@
+</div>
+<div id="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <!-- Panel heading -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">Manage User</h3>
+                </div>
+                <!-- Panel body -->
+                <form id="registrationForm" class="form-horizontal">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-xs-1 control-label">First Name</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="firstName" placeholder="First name" />
+                            </div>
+                            <label class="col-xs-1 control-label">Last Name</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control"  placeholder="Last name" />
+                            </div>
+                            <label class="col-xs-1 control-label">Username</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="username" placeholder="User name" />
+                            </div>
+                            <label class="col-xs-1 control-label">Password</label>
+                            <div class="col-xs-2">
+                                <input type="password" class="form-control" name="password" placeholder="Password" />
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label class="col-xs-1 control-label">Email</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="email" placeholder="Email" />
+                            </div>
+                            <label class="col-xs-1 control-label">Phone</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="phone" placeholder="Phone" />
+                            </div>
+                            <label class="col-xs-1 control-label">Mobile</label>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control" name="mobile" placeholder="Mobile" />
+                            </div>
+                            <label class="col-xs-1 control-label">User Type</label>
+                            <div class="col-xs-2">                                
+                                <select class="form-control selectpicker">
+                                    <option>HTML</option>
+                                    <option>CSS</option>
+                                    <option>jQuery</option>
+                                    <option>Javascript</option>
+                                </select>                                
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <div class="col-xs-9 col-xs-offset-1">
+                                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>            
+        </div>
+        
+    </div>
+</div>
+
