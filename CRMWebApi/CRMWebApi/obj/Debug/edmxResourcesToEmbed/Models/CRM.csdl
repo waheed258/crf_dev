@@ -1,28 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="crm_dev_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="tbl_admin_User">
-    <Key>
-      <PropertyRef Name="UserID" />
-    </Key>
-    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LoginId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="UserType" Type="Int32" />
-    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="CenterName" Type="Int32" />
-    <Property Name="ActiveStatus" Type="Byte" />
-    <Property Name="IsLogin" Type="Byte" />
-    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="UserImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="UpdatedBy" Type="Int32" />
-    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
-  </EntityType>
   <EntityType Name="tbl_City">
     <Key>
       <PropertyRef Name="CityID" />
@@ -271,7 +248,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="crm_dev_dbEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="tbl_admin_User" EntityType="Self.tbl_admin_User" />
     <EntitySet Name="tbl_City" EntityType="Self.tbl_City" />
     <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" />
     <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" />
@@ -296,5 +272,74 @@
       <End Role="tbl_User" EntitySet="tbl_User" />
       <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
     </AssociationSet>
+    <EntitySet Name="tbl_ClientReg" EntityType="crm_dev_dbModel.tbl_ClientReg" />
+    <EntitySet Name="tbl_Branch" EntityType="crm_dev_dbModel.tbl_Branch" />
+    <EntitySet Name="tbl_Consultant" EntityType="crm_dev_dbModel.tbl_Consultant" />
+    <EntitySet Name="tbl_Designation" EntityType="crm_dev_dbModel.tbl_Designation" />
+    <EntitySet Name="tbl_UserType" EntityType="crm_dev_dbModel.tbl_UserType" />
   </EntityContainer>
+  <EntityType Name="tbl_ClientReg">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SAId" Type="Int32" />
+    <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyRegNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="Int32" />
+    <Property Name="UpdatedOn" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_Branch">
+    <Key>
+      <PropertyRef Name="BranchId" />
+    </Key>
+    <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_Consultant">
+    <Key>
+      <PropertyRef Name="ConsultantId" />
+    </Key>
+    <Property Name="ConsultantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="LoginId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Designation" Type="Int32" />
+    <Property Name="Branch" Type="Int32" />
+    <Property Name="ConsultantType" Type="Int32" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="tbl_Designation">
+    <Key>
+      <PropertyRef Name="DesignationId" />
+    </Key>
+    <Property Name="DesignationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_UserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

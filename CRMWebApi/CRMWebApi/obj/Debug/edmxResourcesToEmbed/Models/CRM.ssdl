@@ -1,27 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="tbl_admin_User">
+  <EntityType Name="tbl_Branch">
     <Key>
-      <PropertyRef Name="UserID" />
+      <PropertyRef Name="BranchId" />
     </Key>
-    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="LoginId" Type="varchar" MaxLength="255" />
-    <Property Name="UserType" Type="int" />
-    <Property Name="Password" Type="varchar" MaxLength="255" />
-    <Property Name="CenterName" Type="int" />
-    <Property Name="ActiveStatus" Type="tinyint" />
-    <Property Name="IsLogin" Type="tinyint" />
-    <Property Name="FirstName" Type="varchar" MaxLength="50" />
-    <Property Name="LastName" Type="varchar" MaxLength="50" />
-    <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
-    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
-    <Property Name="EmailId" Type="varchar" MaxLength="150" />
-    <Property Name="UserImage" Type="varchar" MaxLength="255" />
-    <Property Name="CreatedBy" Type="int" />
-    <Property Name="UpdatedBy" Type="int" />
-    <Property Name="CreatedOn" Type="datetime" />
-    <Property Name="UpdatedOn" Type="datetime" />
-    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+    <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchName" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_City">
     <Key>
@@ -29,6 +13,26 @@
     </Key>
     <Property Name="CityID" Type="int" Nullable="false" />
     <Property Name="City" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_ClientReg">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" />
+    <Property Name="SAId" Type="int" />
+    <Property Name="Company" Type="varchar" MaxLength="200" />
+    <Property Name="CompanyRegNo" Type="varchar" MaxLength="20" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="EmailId" Type="varchar" MaxLength="150" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="int" />
+    <Property Name="UpdatedOn" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
   </EntityType>
   <EntityType Name="tbl_CompanyDetail">
     <Key>
@@ -76,12 +80,42 @@
     <Property Name="Status" Type="int" />
     <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
   </EntityType>
+  <EntityType Name="tbl_Consultant">
+    <Key>
+      <PropertyRef Name="ConsultantId" />
+    </Key>
+    <Property Name="ConsultantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+    <Property Name="EmailId" Type="varchar" MaxLength="150" />
+    <Property Name="LoginId" Type="varchar" MaxLength="255" />
+    <Property Name="Password" Type="varchar" MaxLength="255" />
+    <Property Name="Designation" Type="int" />
+    <Property Name="Branch" Type="int" />
+    <Property Name="ConsultantType" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+  </EntityType>
   <EntityType Name="tbl_Country">
     <Key>
       <PropertyRef Name="CountryID" />
     </Key>
     <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Country" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_Designation">
+    <Key>
+      <PropertyRef Name="DesignationId" />
+    </Key>
+    <Property Name="DesignationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_IndividualDetail">
     <Key>
@@ -228,6 +262,13 @@
     <Property Name="Status" Type="int" />
     <Property Name="DeleteFlag" Type="bit" />
   </EntityType>
+  <EntityType Name="tbl_UserType">
+    <Key>
+      <PropertyRef Name="UserTypeId" />
+    </Key>
+    <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserType" Type="varchar" MaxLength="50" />
+  </EntityType>
   <Association Name="FK_tbl_CompanyShare_tbl_CompanyDetail">
     <End Role="tbl_CompanyDetail" Type="Self.tbl_CompanyDetail" Multiplicity="0..1" />
     <End Role="tbl_CompanyShare" Type="Self.tbl_CompanyShare" Multiplicity="*" />
@@ -265,11 +306,14 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="crm_dev_dbModelStoreContainer">
-    <EntitySet Name="tbl_admin_User" EntityType="Self.tbl_admin_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientReg" EntityType="Self.tbl_ClientReg" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Consultant" EntityType="Self.tbl_Consultant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_IndividualDetail" EntityType="Self.tbl_IndividualDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
@@ -278,6 +322,7 @@
     <EntitySet Name="tbl_UserAddressDetail" EntityType="Self.tbl_UserAddressDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UserBankDetail" EntityType="Self.tbl_UserBankDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UserMasterDetail" EntityType="Self.tbl_UserMasterDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UserType" EntityType="Self.tbl_UserType" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_tbl_CompanyShare_tbl_CompanyDetail" Association="Self.FK_tbl_CompanyShare_tbl_CompanyDetail">
       <End Role="tbl_CompanyDetail" EntitySet="tbl_CompanyDetail" />
       <End Role="tbl_CompanyShare" EntitySet="tbl_CompanyShare" />

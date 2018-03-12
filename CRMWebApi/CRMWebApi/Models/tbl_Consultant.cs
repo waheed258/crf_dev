@@ -12,19 +12,21 @@ namespace CRMWebApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_admin_User
+    public partial class tbl_Consultant
     {
-        public int UserID { get; set; }
-        public string LoginId { get; set; }
-        public Nullable<int> UserType { get; set; }
-        public string Password { get; set; }
-        public Nullable<byte> ActiveStatus { get; set; }
+        public int ConsultantId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MobileNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailId { get; set; }
-        public string UserImage { get; set; }
+        public string LoginId { get; set; }
+        public string Password { get; set; }
+        public Nullable<int> Designation { get; set; }
+        public Nullable<int> Branch { get; set; }
+        public Nullable<int> ConsultantType { get; set; }
+        public Nullable<int> Status { get; set; }
+        public string Image { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

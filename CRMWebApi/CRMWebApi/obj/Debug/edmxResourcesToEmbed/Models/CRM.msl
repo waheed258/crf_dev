@@ -1,30 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="crm_dev_dbModelStoreContainer" CdmEntityContainer="crm_dev_dbEntities">
-    <EntitySetMapping Name="tbl_admin_User">
-      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_admin_User">
-        <MappingFragment StoreEntitySet="tbl_admin_User">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-          <ScalarProperty Name="UserType" ColumnName="UserType" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="CenterName" ColumnName="CenterName" />
-          <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
-          <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-          <ScalarProperty Name="UserImage" ColumnName="UserImage" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_City">
       <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_City">
         <MappingFragment StoreEntitySet="tbl_City">
@@ -239,6 +215,75 @@
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ClientReg">
+      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_ClientReg">
+        <MappingFragment StoreEntitySet="tbl_ClientReg">
+          <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="CompanyRegNo" ColumnName="CompanyRegNo" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="SAId" ColumnName="SAId" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Branch">
+      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Branch">
+        <MappingFragment StoreEntitySet="tbl_Branch">
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Consultant">
+      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Consultant">
+        <MappingFragment StoreEntitySet="tbl_Consultant">
+          <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ConsultantType" ColumnName="ConsultantType" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ConsultantId" ColumnName="ConsultantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Designation">
+      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Designation">
+        <MappingFragment StoreEntitySet="tbl_Designation">
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_UserType">
+      <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_UserType">
+        <MappingFragment StoreEntitySet="tbl_UserType">
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

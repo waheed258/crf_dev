@@ -25,7 +25,6 @@ namespace CRMWebApi.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<tbl_admin_User> tbl_admin_User { get; set; }
         public DbSet<tbl_City> tbl_City { get; set; }
         public DbSet<tbl_CompanyDetail> tbl_CompanyDetail { get; set; }
         public DbSet<tbl_CompanyShare> tbl_CompanyShare { get; set; }
@@ -39,5 +38,9 @@ namespace CRMWebApi.Models
         public DbSet<tbl_UserBankDetail> tbl_UserBankDetail { get; set; }
         public DbSet<tbl_UserMasterDetail> tbl_UserMasterDetail { get; set; }
         public DbSet<tbl_ClientReg> tbl_ClientReg { get; set; }
+        public DbSet<tbl_Branch> tbl_Branch { get; set; }
+        public DbSet<tbl_Consultant> tbl_Consultant { get; set; }
+        public DbSet<tbl_Designation> tbl_Designation { get; set; }
+        public DbSet<tbl_UserType> tbl_UserType { get; set; }
     }
 }
