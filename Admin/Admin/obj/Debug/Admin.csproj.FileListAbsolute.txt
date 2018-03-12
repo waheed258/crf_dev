@@ -1,0 +1,52 @@
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Admin.dll.config
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Admin.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Admin.pdb
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Antlr3.Runtime.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Microsoft.Web.Infrastructure.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Newtonsoft.Json.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Helpers.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Mvc.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Optimization.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Razor.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.Deployment.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.Razor.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\WebGrease.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Helpers.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Mvc.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Optimization.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.Razor.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.Deployment.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\System.Web.WebPages.Razor.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Newtonsoft.Json.xml
+E:\CRM Project\CRMAdmin\Admin\Admin\bin\Antlr3.Runtime.pdb
+E:\CRM Project\CRMAdmin\Admin\Admin\obj\Debug\Admin.csprojResolveAssemblyReference.cache
+E:\CRM Project\CRMAdmin\Admin\Admin\obj\Debug\Admin.dll
+E:\CRM Project\CRMAdmin\Admin\Admin\obj\Debug\Admin.pdb
+D:\CRM\Admin\Admin\bin\Admin.dll.config
+D:\CRM\Admin\Admin\bin\Admin.dll
+D:\CRM\Admin\Admin\bin\Admin.pdb
+D:\CRM\Admin\Admin\bin\Antlr3.Runtime.dll
+D:\CRM\Admin\Admin\bin\Microsoft.Web.Infrastructure.dll
+D:\CRM\Admin\Admin\bin\Newtonsoft.Json.dll
+D:\CRM\Admin\Admin\bin\System.Web.Helpers.dll
+D:\CRM\Admin\Admin\bin\System.Web.Mvc.dll
+D:\CRM\Admin\Admin\bin\System.Web.Optimization.dll
+D:\CRM\Admin\Admin\bin\System.Web.Razor.dll
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.Deployment.dll
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.dll
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.Razor.dll
+D:\CRM\Admin\Admin\bin\WebGrease.dll
+D:\CRM\Admin\Admin\bin\System.Web.Helpers.xml
+D:\CRM\Admin\Admin\bin\System.Web.Mvc.xml
+D:\CRM\Admin\Admin\bin\System.Web.Optimization.xml
+D:\CRM\Admin\Admin\bin\System.Web.Razor.xml
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.xml
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.Deployment.xml
+D:\CRM\Admin\Admin\bin\System.Web.WebPages.Razor.xml
+D:\CRM\Admin\Admin\bin\Newtonsoft.Json.xml
+D:\CRM\Admin\Admin\bin\Antlr3.Runtime.pdb
+D:\CRM\Admin\Admin\obj\Debug\Admin.csprojResolveAssemblyReference.cache
+D:\CRM\Admin\Admin\obj\Debug\Admin.dll
+D:\CRM\Admin\Admin\obj\Debug\Admin.pdb
