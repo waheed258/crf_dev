@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Advisor">
+          <Key>
+            <PropertyRef Name="AdvisorId" />
+          </Key>
+          <Property Name="AdvisorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="EmailId" Type="varchar" MaxLength="150" />
+          <Property Name="LoginId" Type="varchar" MaxLength="255" />
+          <Property Name="Password" Type="varchar" MaxLength="255" />
+          <Property Name="Designation" Type="int" />
+          <Property Name="Branch" Type="int" />
+          <Property Name="AdvisorType" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Image" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+        </EntityType>
         <EntityType Name="tbl_Branch">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -184,6 +207,13 @@
           <Property Name="Staus" Type="int" />
           <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
         </EntityType>
+        <EntityType Name="tbl_TypeofAdvisor">
+          <Key>
+            <PropertyRef Name="AdvisorTypeId" />
+          </Key>
+          <Property Name="AdvisorTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdvisorType" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tbl_User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -311,6 +341,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="crm_dev_dbModelStoreContainer">
+          <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientReg" EntityType="Self.tbl_ClientReg" Schema="dbo" store:Type="Tables" />
@@ -323,6 +354,7 @@
           <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TrustDetail" EntityType="Self.tbl_TrustDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserAddressDetail" EntityType="Self.tbl_UserAddressDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_UserBankDetail" EntityType="Self.tbl_UserBankDetail" Schema="dbo" store:Type="Tables" />
@@ -622,6 +654,8 @@
           <EntitySet Name="tbl_Consultant" EntityType="crm_dev_dbModel.tbl_Consultant" />
           <EntitySet Name="tbl_Designation" EntityType="crm_dev_dbModel.tbl_Designation" />
           <EntitySet Name="tbl_UserType" EntityType="crm_dev_dbModel.tbl_UserType" />
+          <EntitySet Name="tbl_Advisor" EntityType="crm_dev_dbModel.tbl_Advisor" />
+          <EntitySet Name="tbl_TypeofAdvisor" EntityType="crm_dev_dbModel.tbl_TypeofAdvisor" />
         </EntityContainer>
         <EntityType Name="tbl_ClientReg">
           <Key>
@@ -686,6 +720,36 @@
           </Key>
           <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_Advisor">
+          <Key>
+            <PropertyRef Name="AdvisorId" />
+          </Key>
+          <Property Name="AdvisorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="LoginId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="Int32" />
+          <Property Name="Branch" Type="Int32" />
+          <Property Name="AdvisorType" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="tbl_TypeofAdvisor">
+          <Key>
+            <PropertyRef Name="AdvisorTypeId" />
+          </Key>
+          <Property Name="AdvisorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdvisorType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -976,6 +1040,38 @@
               <MappingFragment StoreEntitySet="tbl_UserType">
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Advisor">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Advisor">
+              <MappingFragment StoreEntitySet="tbl_Advisor">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdvisorType" ColumnName="AdvisorType" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AdvisorId" ColumnName="AdvisorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TypeofAdvisor">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_TypeofAdvisor">
+              <MappingFragment StoreEntitySet="tbl_TypeofAdvisor">
+                <ScalarProperty Name="AdvisorType" ColumnName="AdvisorType" />
+                <ScalarProperty Name="AdvisorTypeId" ColumnName="AdvisorTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

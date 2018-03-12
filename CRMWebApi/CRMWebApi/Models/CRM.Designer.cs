@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\CRM Project\CRMAdmin\CRMWebApi\CRMWebApi\Models\CRM.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\pc\Desktop\CRM\12-03\CRMWebApi\CRMWebApi\Models\CRM.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

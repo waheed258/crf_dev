@@ -42,5 +42,7 @@ namespace CRMWebApi.Models
         public DbSet<tbl_Consultant> tbl_Consultant { get; set; }
         public DbSet<tbl_Designation> tbl_Designation { get; set; }
         public DbSet<tbl_UserType> tbl_UserType { get; set; }
+        public DbSet<tbl_Advisor> tbl_Advisor { get; set; }
+        public DbSet<tbl_TypeofAdvisor> tbl_TypeofAdvisor { get; set; }
     }
 }
