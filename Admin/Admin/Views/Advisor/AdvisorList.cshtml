@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "AdvisorList";
+}
+
+
+<script src="@Url.Content("~/Scripts/angular.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/ng/ngApp/ngApp.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/ng/ngService/ngCrudService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/ng/ngControllers/ngNewAdvisorController.js")" type="text/javascript"></script>
+
+<div class="content-wrapper" ng-controller="AdvisorController" ng-app="myapp">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="header-icon">
+            <i class="fa fa-users"></i>
+        </div>
+        <div class="header-title">
+            <h1>Advisor List</h1>
+            <small></small>
+
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-bd lobidrag">
+                    <div class="panel-heading">
+
+                    </div>
+                    <div class="panel-body">
+                        <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                        <div class="btn-group">
+                        </div>
+                        <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                        <div class="table-responsive">
+                            <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr class="info">
+                                        <th>Id</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr ng-repeat="Advisor in AdvisorList">
+                                        <td>{{Advisor.AdvisorId}}</td>
+                                        <td>{{Advisor.FirstName}}</td>
+                                        <td>{{Advisor.LastName}}</td>
+                                        <td>{{Advisor.MobileNumber}}</td>
+                                        <td>{{Advisor.PhoneNumber}}</td>
+                                        <td>{{Advisor.EmailId}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-add btn-sm" data-toggle="modal" title="Edit" data-target="#Update" ng-click="GetDetails(Advisor)"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" title="Delete" data-target="#Delete" ng-click="GetDetails(Advisor)"><i class="fa fa-trash-o"></i> </button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- customer Modal1 -->
+        <div class="modal fade" id="Update" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3><i class="fa fa-user m-r-5"></i> Update Advisor</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" ng-submit="Update(Advisor)">
+                                    <fieldset>
+                                        <div class="col-md-12 form-group alert alert-success" ng-show="successMessagebool ">
+                                            {{successMessage}}
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-md-4 form-group">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter First Name" required ng-model="Advisor.FirstName" tabindex="1">
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-md-4 form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Enter Email" required ng-model="Advisor.EmailId" tabindex="5">
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-md-4 form-group">
+                                            <label>Designation</label>
+                                            <select class="form-control" required tabindex="9" id="Designation" ng-model="Advisor.DesignationId">
+                                                <option value="" selected>Choose Designation</option>
+                                                <option ng-repeat="Designation in Designations" ng-selected="Designation.DesignationId === DestinationSelected"
+                                                        value="{{Designation.DesignationId}}">
+                                                    {{Designation.Designation}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter last Name" required ng-model="Advisor.LastName" tabindex="2">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Login ID</label>
+                                            <input type="text" class="form-control" placeholder="Login ID" ng-model="Advisor.LoginId" required tabindex="6">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Branch</label>
+                                            <select class="form-control" ng-model="Advisor.BranchId" required tabindex="10">
+                                                <option value="" selected>Choose Branch</option>
+                                                <option ng-repeat="Branch in Branchs" ng-selected="Branch.BranchId === BranchSelected"
+                                                        value="{{Branch.BranchId}}">
+                                                    {{Branch.BranchName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Mobile</label>
+                                            <input type="text" class="form-control" placeholder="Enter Mobile" required ng-model="Advisor.MobileNumber" tabindex="3">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" placeholder="Password" required id="password" ng-model="Advisor.Password" tabindex="7">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Advisor Type</label>
+                                            <select class="form-control" ng-model="Advisor.AdvisorTypeId" required tabindex="11">
+                                                <option value="" selected>Choose Advisor Type</option>
+                                                <option ng-repeat="AdvisorType in AdvisorTypes" ng-selected="AdvisorType.AdvisorTypeId === AdvisorSelected"
+                                                        value="{{AdvisorType.AdvisorTypeId}}">
+                                                    {{AdvisorType.AdvisorType}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" placeholder="Enter Phone" required ng-model="Advisor.PhoneNumber" tabindex="4">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" ng-model="Advisor.AdvisorStatusId" required tabindex="12">
+                                                <option value="" selected>Choose Status</option>
+                                                <option ng-repeat="Status in Statues" ng-selected="Status.AdvisorStatusId === StatusSelected"
+                                                        value="{{Status.AdvisorStatusId}}">
+                                                    {{Status.AdvisorStatus}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label>Role</label>
+                                            <select class="form-control" ng-model="Advisor.RoleId" required tabindex="9">
+                                                <option value="" selected>Choose Role</option>
+                                                <option ng-repeat="AdvisorRole in AdvisorRoles" ng-selected="AdvisorRole.RoleId === RoleSelected"
+                                                        value="{{AdvisorRole.RoleId}}">
+                                                    {{AdvisorRole.Role}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        
+
+                                        <div class="col-md-12 form-group user-form-group">
+                                            <div class="pull-left">                                             
+                                                <button type="submit" class="btn btn-add btn-sm">Save</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="Close()">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- Modal -->
+        <!-- Customer Modal2 -->
+        <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3><i class="fa fa-user m-r-5"></i> Delete Advisor</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-horizontal" ng-submit="Delete(Advisor)">
+                                    <fieldset>
+                                        <div class="col-md-12 form-group alert alert-success" ng-show="successMessagebool ">
+                                            {{successMessage}}
+                                        </div>
+                                        <div class="col-md-12 form-group user-form-group">
+                                            <label class="control-label">Are you sure you want to Delete Advisor</label>
+                                            <div class="pull-right">                                               
+                                                <button type="submit" class="btn btn-add btn-sm">YES</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="Close()">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </section>
+    <!-- /.content -->
+</div>
+
