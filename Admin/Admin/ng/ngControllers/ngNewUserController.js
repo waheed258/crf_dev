@@ -49,18 +49,20 @@
         $scope.ConfirmPassword = "";
     }
     //GetUserList
-    $scope.UserList = function () {
-        var apiRoute = 'http://localhost:17746/api/Consultant';
+    $scope.Advisors = function () {
+        var apiRoute = 'http://localhost:17746/api/Advisor';
         var student = CrudService.getAll(apiRoute);
         student.then(function (response) {
             debugger
-            $scope.UserList = response.data;
+            $scope.Advisors = response.data;
         },
     function (error) {
         console.log("Error: " + error);
     });
     }
-    $scope.UserList();
+    $scope.Advisors();
+
+
     //Get UserTypes
     $scope.ConsultantTypes = function () {
         var apiRoute = 'http://localhost:17746/api/UserType';
