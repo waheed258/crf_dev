@@ -27,10 +27,11 @@ namespace CRMWebApi.Models
         public Nullable<int> AdvisorType { get; set; }
         public Nullable<int> Status { get; set; }
         public string Image { get; set; }
+        public Nullable<int> AdvisorRole { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public byte[] DeleteFlag { get; set; }
+        public Nullable<int> DeleteFlag { get; set; }
     }
 }

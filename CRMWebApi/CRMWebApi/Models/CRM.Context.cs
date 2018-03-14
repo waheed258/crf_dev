@@ -37,12 +37,14 @@ namespace CRMWebApi.Models
         public DbSet<tbl_UserAddressDetail> tbl_UserAddressDetail { get; set; }
         public DbSet<tbl_UserBankDetail> tbl_UserBankDetail { get; set; }
         public DbSet<tbl_UserMasterDetail> tbl_UserMasterDetail { get; set; }
-        public DbSet<tbl_ClientReg> tbl_ClientReg { get; set; }
         public DbSet<tbl_Branch> tbl_Branch { get; set; }
         public DbSet<tbl_Consultant> tbl_Consultant { get; set; }
         public DbSet<tbl_Designation> tbl_Designation { get; set; }
         public DbSet<tbl_UserType> tbl_UserType { get; set; }
-        public DbSet<tbl_Advisor> tbl_Advisor { get; set; }
         public DbSet<tbl_TypeofAdvisor> tbl_TypeofAdvisor { get; set; }
+        public DbSet<tbl_AdvisorStatus> tbl_AdvisorStatus { get; set; }
+        public DbSet<tbl_RoleMaster> tbl_RoleMaster { get; set; }
+        public DbSet<tbl_Advisor> tbl_Advisor { get; set; }
+        public DbSet<tbl_ClientReg> tbl_ClientReg { get; set; }
     }
 }

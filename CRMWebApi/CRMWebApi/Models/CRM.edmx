@@ -22,11 +22,19 @@
           <Property Name="AdvisorType" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="Image" Type="varchar" MaxLength="255" />
+          <Property Name="AdvisorRole" Type="int" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+          <Property Name="DeleteFlag" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_AdvisorStatus">
+          <Key>
+            <PropertyRef Name="AdvisorStatusId" />
+          </Key>
+          <Property Name="AdvisorStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdvisorStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_Branch">
           <Key>
@@ -53,14 +61,17 @@
           <Property Name="SAId" Type="int" />
           <Property Name="Company" Type="varchar" MaxLength="200" />
           <Property Name="CompanyRegNo" Type="varchar" MaxLength="20" />
+          <Property Name="Trust" Type="varchar" MaxLength="200" />
+          <Property Name="TrustRegNo" Type="varchar" MaxLength="20" />
           <Property Name="Mobile" Type="varchar" MaxLength="20" />
           <Property Name="EmailId" Type="varchar" MaxLength="150" />
-          <Property Name="CreatedBy" Type="int" />
-          <Property Name="UpdatedBy" Type="int" />
-          <Property Name="CreatedOn" Type="int" />
-          <Property Name="UpdatedOn" Type="int" />
+          <Property Name="VerifiedBy" Type="int" />
+          <Property Name="VerifiedOn" Type="date" />
+          <Property Name="VerifiedThrough" Type="varchar" MaxLength="25" />
+          <Property Name="ClientFeedback" Type="varchar" MaxLength="4000" />
+          <Property Name="AdvisorFeedback" Type="varchar" MaxLength="4000" />
           <Property Name="Status" Type="int" />
-          <Property Name="DeleteFlag" Type="binary" MaxLength="1" />
+          <Property Name="DeleteFlag" Type="int" />
         </EntityType>
         <EntityType Name="tbl_CompanyDetail">
           <Key>
@@ -168,6 +179,13 @@
           </Key>
           <Property Name="ProvinceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Province" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbl_RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_Status">
           <Key>
@@ -342,6 +360,7 @@
         </Association>
         <EntityContainer Name="crm_dev_dbModelStoreContainer">
           <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AdvisorStatus" EntityType="Self.tbl_AdvisorStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientReg" EntityType="Self.tbl_ClientReg" Schema="dbo" store:Type="Tables" />
@@ -352,6 +371,7 @@
           <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_IndividualDetail" EntityType="Self.tbl_IndividualDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_RoleMaster" EntityType="Self.tbl_RoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Status" EntityType="Self.tbl_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TrustDetail" EntityType="Self.tbl_TrustDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
@@ -649,34 +669,16 @@
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_UserMasterDetail" EntitySet="tbl_UserMasterDetail" />
           </AssociationSet>
-          <EntitySet Name="tbl_ClientReg" EntityType="crm_dev_dbModel.tbl_ClientReg" />
           <EntitySet Name="tbl_Branch" EntityType="crm_dev_dbModel.tbl_Branch" />
           <EntitySet Name="tbl_Consultant" EntityType="crm_dev_dbModel.tbl_Consultant" />
           <EntitySet Name="tbl_Designation" EntityType="crm_dev_dbModel.tbl_Designation" />
           <EntitySet Name="tbl_UserType" EntityType="crm_dev_dbModel.tbl_UserType" />
-          <EntitySet Name="tbl_Advisor" EntityType="crm_dev_dbModel.tbl_Advisor" />
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="crm_dev_dbModel.tbl_TypeofAdvisor" />
+          <EntitySet Name="tbl_AdvisorStatus" EntityType="crm_dev_dbModel.tbl_AdvisorStatus" />
+          <EntitySet Name="tbl_RoleMaster" EntityType="crm_dev_dbModel.tbl_RoleMaster" />
+          <EntitySet Name="tbl_Advisor" EntityType="crm_dev_dbModel.tbl_Advisor" />
+          <EntitySet Name="tbl_ClientReg" EntityType="crm_dev_dbModel.tbl_ClientReg" />
         </EntityContainer>
-        <EntityType Name="tbl_ClientReg">
-          <Key>
-            <PropertyRef Name="ClientID" />
-          </Key>
-          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SAId" Type="Int32" />
-          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyRegNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="CreatedOn" Type="Int32" />
-          <Property Name="UpdatedOn" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
-        </EntityType>
         <EntityType Name="tbl_Branch">
           <Key>
             <PropertyRef Name="BranchId" />
@@ -721,6 +723,27 @@
           <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tbl_TypeofAdvisor">
+          <Key>
+            <PropertyRef Name="AdvisorTypeId" />
+          </Key>
+          <Property Name="AdvisorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdvisorType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_AdvisorStatus">
+          <Key>
+            <PropertyRef Name="AdvisorStatusId" />
+          </Key>
+          <Property Name="AdvisorStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdvisorStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tbl_Advisor">
           <Key>
             <PropertyRef Name="AdvisorId" />
@@ -738,18 +761,35 @@
           <Property Name="AdvisorType" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AdvisorRole" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="DeleteFlag" Type="Binary" MaxLength="1" FixedLength="true" />
+          <Property Name="DeleteFlag" Type="Int32" />
         </EntityType>
-        <EntityType Name="tbl_TypeofAdvisor">
+        <EntityType Name="tbl_ClientReg">
           <Key>
-            <PropertyRef Name="AdvisorTypeId" />
+            <PropertyRef Name="ClientID" />
           </Key>
-          <Property Name="AdvisorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdvisorType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SAId" Type="Int32" />
+          <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyRegNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Trust" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TrustRegNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="VerifiedBy" Type="Int32" />
+          <Property Name="VerifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="VerifiedThrough" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ClientFeedback" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="AdvisorFeedback" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="DeleteFlag" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -974,27 +1014,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ClientReg">
-            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_ClientReg">
-              <MappingFragment StoreEntitySet="tbl_ClientReg">
-                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="CompanyRegNo" ColumnName="CompanyRegNo" />
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="SAId" ColumnName="SAId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Branch">
             <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Branch">
               <MappingFragment StoreEntitySet="tbl_Branch">
@@ -1043,6 +1062,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TypeofAdvisor">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_TypeofAdvisor">
+              <MappingFragment StoreEntitySet="tbl_TypeofAdvisor">
+                <ScalarProperty Name="AdvisorType" ColumnName="AdvisorType" />
+                <ScalarProperty Name="AdvisorTypeId" ColumnName="AdvisorTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AdvisorStatus">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_AdvisorStatus">
+              <MappingFragment StoreEntitySet="tbl_AdvisorStatus">
+                <ScalarProperty Name="AdvisorStatus" ColumnName="AdvisorStatus" />
+                <ScalarProperty Name="AdvisorStatusId" ColumnName="AdvisorStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_RoleMaster">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_RoleMaster">
+              <MappingFragment StoreEntitySet="tbl_RoleMaster">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Advisor">
             <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Advisor">
               <MappingFragment StoreEntitySet="tbl_Advisor">
@@ -1051,6 +1094,7 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AdvisorRole" ColumnName="AdvisorRole" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="AdvisorType" ColumnName="AdvisorType" />
@@ -1067,11 +1111,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TypeofAdvisor">
-            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_TypeofAdvisor">
-              <MappingFragment StoreEntitySet="tbl_TypeofAdvisor">
-                <ScalarProperty Name="AdvisorType" ColumnName="AdvisorType" />
-                <ScalarProperty Name="AdvisorTypeId" ColumnName="AdvisorTypeId" />
+          <EntitySetMapping Name="tbl_ClientReg">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_ClientReg">
+              <MappingFragment StoreEntitySet="tbl_ClientReg">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdvisorFeedback" ColumnName="AdvisorFeedback" />
+                <ScalarProperty Name="ClientFeedback" ColumnName="ClientFeedback" />
+                <ScalarProperty Name="VerifiedThrough" ColumnName="VerifiedThrough" />
+                <ScalarProperty Name="VerifiedOn" ColumnName="VerifiedOn" />
+                <ScalarProperty Name="VerifiedBy" ColumnName="VerifiedBy" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="TrustRegNo" ColumnName="TrustRegNo" />
+                <ScalarProperty Name="Trust" ColumnName="Trust" />
+                <ScalarProperty Name="CompanyRegNo" ColumnName="CompanyRegNo" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="SAId" ColumnName="SAId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

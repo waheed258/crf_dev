@@ -21,13 +21,16 @@ namespace CRMWebApi.Models
         public Nullable<int> SAId { get; set; }
         public string Company { get; set; }
         public string CompanyRegNo { get; set; }
+        public string Trust { get; set; }
+        public string TrustRegNo { get; set; }
         public string Mobile { get; set; }
         public string EmailId { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-        public Nullable<int> UpdatedBy { get; set; }
-        public Nullable<int> CreatedOn { get; set; }
-        public Nullable<int> UpdatedOn { get; set; }
+        public Nullable<int> VerifiedBy { get; set; }
+        public Nullable<System.DateTime> VerifiedOn { get; set; }
+        public string VerifiedThrough { get; set; }
+        public string ClientFeedback { get; set; }
+        public string AdvisorFeedback { get; set; }
         public Nullable<int> Status { get; set; }
-        public byte[] DeleteFlag { get; set; }
+        public Nullable<int> DeleteFlag { get; set; }
     }
 }
