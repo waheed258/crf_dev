@@ -1,4 +1,4 @@
-﻿app.controller('newClientController', ['$scope', 'CrudService', function ($scope, CrudService) {
+﻿app.controller('ClientController', ['$scope', 'CrudService', function ($scope, CrudService) {
     $scope.dtInstance = {};
     debugger;
     $scope.Save = function () {
@@ -11,19 +11,24 @@
             Company: $scope.Company,
             CompanyRegNo: $scope.CompanyRegNo,
             Mobile: $scope.Mobile,
-            EmailId: $scope.EmailId          
+            EmailId: $scope.EmailId,
+            Trust: $scope.Trust,
+            TrustRegNo: $scope.TrustRegNo
         }
-        if (CrudService.post) {
-            client.Status= '1';
-        }
-        // Base Url 
 
-        var apiRoute = 'http://localhost:17746/api/clientreg';
+        if (CrudService.post) {
+            client.Status = '1';
+            client.DeleteFlag = '1';
+        }
+        //// Base Url 
+
+        var apiRoute = 'http://localhost:17746/api/ClientRegistration';
 
         var saveUser = CrudService.post(apiRoute, client);
         saveUser.then(function (response) {
             if (response.data != "") {
-                alert("Data Saved Successfully");
+                $scope.successMessage = "Form Updated successfully";
+                $scope.successMessagebool = true;
                 $scope.Clear();
             } else {
                 alert("Some error");
@@ -44,69 +49,15 @@
         $scope.CompanyRegNo = "";
         $scope.Mobile = "";
         $scope.EmailId = "";
-    }
-
-    $scope.ClientList = function () {
-        var apiRoute = 'http://localhost:17746/api/clientreg';
-        var student = CrudService.getAll(apiRoute);
-        student.then(function (response) {
-            debugger
-            $scope.ClientList = response.data;
-        },
-    function (error) {
-        console.log("Error: " + error);
-    });
-    }
-    $scope.ClientList();
-
-    $scope.ActiveStatues = function () {
-        var apiRoute = 'http://localhost:17746/api/Status';
-        var status = CrudService.getAll(apiRoute);
-        status.then(function (response) {
-            debugger
-            $scope.ActiveStatues = response.data;
-        },
-    function (error) {
-        console.log("Error: " + error);
-    });
-    }
-    $scope.ActiveStatues();
-
-
-    $scope.Delete = function (client) {
-        debugger
-        var apiRoute = 'http://localhost:17746/api/clientreg/' + client.ClientID;
-        var deleteclient = CrudService.delete(apiRoute);
-        deleteclient.then(function (response) {
-            if (response.data != "") {             
-                alert("Data Deleted Successfully");
-                $scope.ClientList();
-                //$scope.Clear();
-            } else {
-                alert("Some error");
-            }
-
-        }, function (error) {
-            console.log("Error: " + error);
-        });
+        $scope.Trust = "";
+        $scope.TrustRegNo = "";
     }
 
 
+    $scope.Cancel = function () {
+        $scope.Clear();
+    }
 
-    //$scope.Active = function (client) {
-    //    client.Status = '2';
-    //    debugger
-    //    var apiRoute = 'http://localhost:17746/api/clientreg/' + client.ClientID;
-    //    var activeclient = CrudService.put(apiRoute);
-    //    activeclient.then(function (response) {
-    //        if (response.data != "") {
-    //            alert("Activated Successfully");              
-    //        } else {
-    //            alert("Some error");
-    //        }
-    //    });
-        
-    //    }
- 
+
 
 }]);
