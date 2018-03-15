@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AdvisorList";
 }
 
@@ -98,7 +97,7 @@
                                         <!-- Text input-->
                                         <div class="col-md-4 form-group">
                                             <label>Designation</label>
-                                            <select class="form-control" required tabindex="9" id="Designation" ng-model="Advisor.DesignationId">
+                                            <select class="form-control" required tabindex="9" id="Designation" ng-model="DestinationSelected">
                                                 <option value="" selected>Choose Designation</option>
                                                 <option ng-repeat="Designation in Designations" ng-selected="Designation.DesignationId === DestinationSelected"
                                                         value="{{Designation.DesignationId}}">
@@ -116,7 +115,7 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label>Branch</label>
-                                            <select class="form-control" ng-model="Advisor.BranchId" required tabindex="10">
+                                            <select class="form-control" ng-model="BranchSelected" required tabindex="10">
                                                 <option value="" selected>Choose Branch</option>
                                                 <option ng-repeat="Branch in Branchs" ng-selected="Branch.BranchId === BranchSelected"
                                                         value="{{Branch.BranchId}}">
@@ -134,7 +133,7 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label>Advisor Type</label>
-                                            <select class="form-control" ng-model="Advisor.AdvisorTypeId" required tabindex="11">
+                                            <select class="form-control" ng-model="AdvisorSelected" required tabindex="11">
                                                 <option value="" selected>Choose Advisor Type</option>
                                                 <option ng-repeat="AdvisorType in AdvisorTypes" ng-selected="AdvisorType.AdvisorTypeId === AdvisorSelected"
                                                         value="{{AdvisorType.AdvisorTypeId}}">
@@ -148,7 +147,7 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label>Status</label>
-                                            <select class="form-control" ng-model="Advisor.AdvisorStatusId" required tabindex="12">
+                                            <select class="form-control" ng-model="StatusSelected" required tabindex="12">
                                                 <option value="" selected>Choose Status</option>
                                                 <option ng-repeat="Status in Statues" ng-selected="Status.AdvisorStatusId === StatusSelected"
                                                         value="{{Status.AdvisorStatusId}}">
@@ -156,10 +155,9 @@
                                                 </option>
                                             </select>
                                         </div>
-
                                         <div class="col-md-4 form-group">
                                             <label>Role</label>
-                                            <select class="form-control" ng-model="Advisor.RoleId" required tabindex="9">
+                                            <select class="form-control" ng-model="RoleSelected" required tabindex="9">
                                                 <option value="" selected>Choose Role</option>
                                                 <option ng-repeat="AdvisorRole in AdvisorRoles" ng-selected="AdvisorRole.RoleId === RoleSelected"
                                                         value="{{AdvisorRole.RoleId}}">
@@ -168,14 +166,14 @@
                                             </select>
                                         </div>
 
-                                        
+
 
                                         <div class="col-md-12 form-group user-form-group">
-                                            <div class="pull-left">                                             
+                                            <div class="pull-left">
                                                 <button type="submit" class="btn btn-add btn-sm">Save</button>
                                             </div>
                                         </div>
-                                        
+
                                     </fieldset>
                                 </form>
                             </div>
@@ -209,7 +207,7 @@
                                         </div>
                                         <div class="col-md-12 form-group user-form-group">
                                             <label class="control-label">Are you sure you want to Delete Advisor</label>
-                                            <div class="pull-right">                                               
+                                            <div class="pull-right">
                                                 <button type="submit" class="btn btn-add btn-sm">YES</button>
                                             </div>
                                         </div>

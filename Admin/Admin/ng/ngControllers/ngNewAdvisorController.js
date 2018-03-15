@@ -1,10 +1,7 @@
 ﻿app.controller('AdvisorController', ['$scope', 'CrudService', function ($scope, CrudService) {
-   
-   
 
     //Save A Record
     $scope.Save = function () {
-       
         var advisor = {
             FirstName: $scope.FirstName,
             LastName: $scope.LastName,
@@ -17,14 +14,14 @@
             Branch: $scope.Branch,
             AdvisorType: $scope.AdvisorType,
             Status: $scope.Status,
-            AdvisorRole:$scope.AdvisorRole
+            AdvisorRole: $scope.AdvisorRole
             //UserImage: $scope.UserImage,
         }
 
-        if (CrudService.post) {           
+        if (CrudService.post) {
             advisor.DeleteFlag = '1';
         }
-     
+
         var apiRoute = 'http://localhost:17746/api/Advisor';
         var saveAdvisor = CrudService.post(apiRoute, advisor);
         saveAdvisor.then(function (response) {
@@ -39,7 +36,7 @@
             console.log("Error: " + error);
         });
 
-        
+
     }
 
     //Clear the data
@@ -56,7 +53,7 @@
         $scope.AdvisorType = "";
         $scope.Status = "";
         $scope.ConfirmPassword = "";
-        $scope.AdvisorRole=""
+        $scope.AdvisorRole = ""
     }
 
 
@@ -65,7 +62,7 @@
         var apiRoute = 'http://localhost:17746/api/Advisor';
         var student = CrudService.getAll(apiRoute);
         student.then(function (response) {
-        $scope.AdvisorList = response.data;
+            $scope.AdvisorList = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -78,8 +75,8 @@
     $scope.AdvisorTypes = function () {
         var apiRoute = 'http://localhost:17746/api/AdvisorType';
         var usertype = CrudService.getAll(apiRoute);
-        usertype.then(function (response) {         
-        $scope.AdvisorTypes = response.data;
+        usertype.then(function (response) {
+            $scope.AdvisorTypes = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -93,7 +90,7 @@
         var apiRoute = 'http://localhost:17746/api/AdvisorStatus';
         var status = CrudService.getAll(apiRoute);
         status.then(function (response) {
-        $scope.Statues = response.data;
+            $scope.Statues = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -106,7 +103,7 @@
         var apiRoute = 'http://localhost:17746/api/Destination';
         var status = CrudService.getAll(apiRoute);
         status.then(function (response) {
-        $scope.Designations = response.data;
+            $scope.Designations = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -119,7 +116,7 @@
         var apiRoute = 'http://localhost:17746/api/Branch';
         var status = CrudService.getAll(apiRoute);
         status.then(function (response) {
-        $scope.Branchs = response.data;
+            $scope.Branchs = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -129,7 +126,6 @@
 
 
     //Get Role
-
     $scope.AdvisorRoles = function () {
         var apiRoute = 'http://localhost:17746/api/RoleMaster';
         var role = CrudService.getAll(apiRoute);
@@ -148,8 +144,8 @@
         var deleteAdvisor = CrudService.delete(apiRoute);
         deleteAdvisor.then(function (response) {
             if (response.data != "") {
-                 location.reload();
-               // alert("Data Delete Successfully");                
+                location.reload();
+                // alert("Data Delete Successfully");                
             } else {
                 alert("Some error");
             }
@@ -159,17 +155,15 @@
     }
 
     //To get Details of Particular record
-
     $scope.GetDetails = function (Advisor) {
-       
+
         var apiRoute = 'http://localhost:17746/api/Advisor';
         var ID = Advisor.AdvisorId;
-        var showAdvisor = CrudService.getbyID(apiRoute,ID);
+        var showAdvisor = CrudService.getbyID(apiRoute, ID);
         showAdvisor.then(function (response) {
             if (response.data != "") {
                 $scope.Advisor = response.data;
                 $scope.successMessagebool = false;
-                $scope.DestinationSelected = $scope.Advisor.Designation;
                 $scope.DestinationSelected = $scope.Advisor.Designation;
                 $scope.BranchSelected = $scope.Advisor.Branch;
                 $scope.AdvisorSelected = $scope.Advisor.AdvisorType;
@@ -184,28 +178,24 @@
             console.log("Error: " + error);
         });
     }
-   
-
 
     $scope.Update = function (Advisor) {
-        debugger;
-        Advisor.Designation = Advisor.DesignationId
-        Advisor.Branch = Advisor.BranchId
-        Advisor.Status = Advisor.AdvisorStatusId
-        Advisor.AdvisorType = Advisor.AdvisorTypeId
-        Advisor.AdvisorRole = Advisor.RoleId
+        Advisor.Designation = $scope.DestinationSelected
+        Advisor.Branch = $scope.BranchSelected
+        Advisor.Status = $scope.StatusSelected
+        Advisor.AdvisorType = $scope.AdvisorSelected
+        Advisor.AdvisorRole = $scope.RoleSelected
         var apiRoute = 'http://localhost:17746/api/Advisor/' + Advisor.AdvisorId;
         var saveAdvisor = CrudService.put(apiRoute, Advisor);
-        saveAdvisor.then(function (response) {            
+        saveAdvisor.then(function (response) {
             $scope.successMessage = "Form Updated successfully";
             $scope.successMessagebool = true;
             $scope.PopupClear();
-           
+
         }, function (error) {
             console.log("Error: " + error);
         });
     }
-    
 
     $scope.PopupClear = function () {
         $scope.Advisor.FirstName = "";
@@ -215,16 +205,15 @@
         $scope.Advisor.EmailId = "";
         $scope.Advisor.LoginId = "";
         $scope.Advisor.Password = "";
-        $scope.Advisor.DesignationId = "";
-        $scope.Advisor.BranchId = "";
-        $scope.Advisor.AdvisorTypeId = "";
-        $scope.Advisor.AdvisorStatusId = "";
-        $scope.Advisor.RoleId = ""
+        $scope.DestinationSelected = "";
+        $scope.BranchSelected = "";
+        $scope.AdvisorSelected = "";
+        $scope.StatusSelected = "";
+        $scope.RoleSelected = ""
     }
 
-    $scope.Close=function()
-    {
+    $scope.Close = function () {
         location.reload();
     }
-    
+
 }]);
