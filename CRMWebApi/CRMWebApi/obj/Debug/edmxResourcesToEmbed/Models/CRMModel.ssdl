@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_AccountType">
+    <Key>
+      <PropertyRef Name="AccountTypeID" />
+    </Key>
+    <Property Name="AccountTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccountType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_AddressDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_AddressDetail">
+    <Key>
+      <PropertyRef Name="AddressDetailID" />
+    </Key>
+    <Property Name="AddressDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" />
+    <Property Name="HouseNo" Type="varchar" MaxLength="20" />
+    <Property Name="BuildingName" Type="varchar" MaxLength="50" />
+    <Property Name="Floor" Type="varchar" MaxLength="20" />
+    <Property Name="FlatNo" Type="varchar" MaxLength="20" />
+    <Property Name="RoadName" Type="varchar" MaxLength="50" />
+    <Property Name="RoadNo" Type="varchar" MaxLength="20" />
+    <Property Name="SuburbName" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="int" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="50" />
+    <Property Name="Province" Type="int" />
+    <Property Name="Country" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Advisor">
+    <Key>
+      <PropertyRef Name="AdvisorID" />
+    </Key>
+    <Property Name="AdvisorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="LoginId" Type="varchar" MaxLength="255" />
+    <Property Name="Password" Type="varchar" MaxLength="255" />
+    <Property Name="Designation" Type="int" />
+    <Property Name="Branch" Type="int" />
+    <Property Name="AdvisorType" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+    <Property Name="AdvisorRole" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_AdvisorStatus">
+    <Key>
+      <PropertyRef Name="AdvisorStatusID" />
+    </Key>
+    <Property Name="AdvisorStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdvisorStatus" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_BankDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_BankDetail">
+    <Key>
+      <PropertyRef Name="BankDetailID" />
+    </Key>
+    <Property Name="BankDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="ReferenceID" Type="varchar" MaxLength="15" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" />
+    <Property Name="BankName" Type="varchar" MaxLength="50" />
+    <Property Name="BranchNumber" Type="varchar" MaxLength="50" />
+    <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
+    <Property Name="AccountType" Type="int" />
+    <Property Name="Currency" Type="varchar" MaxLength="100" />
+    <Property Name="SWIFT" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_Beneficiary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_Beneficiary">
+    <Key>
+      <PropertyRef Name="BeneficiaryID" />
+    </Key>
+    <Property Name="BeneficiaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentificationCode" Type="varchar" MaxLength="100" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Branch">
+    <Key>
+      <PropertyRef Name="BranchID" />
+    </Key>
+    <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Children">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="ChildrenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="TaxRefNo" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="int" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_ClientPersonal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_ClientPersonal">
+    <Key>
+      <PropertyRef Name="ClientPersonalID" />
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="ClientPersonalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="100" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="TaxRefNo" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_ClientRegistration">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="ClientRegistartionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+    <Property Name="CompanyName" Type="nchar" MaxLength="100" />
+    <Property Name="CompanyRegNo" Type="varchar" MaxLength="20" />
+    <Property Name="TrustName" Type="varchar" MaxLength="100" />
+    <Property Name="TrustRegNo" Type="varchar" MaxLength="20" />
+    <Property Name="VerifiedBy" Type="int" />
+    <Property Name="VerifiedOn" Type="date" />
+    <Property Name="VerifiedThough" Type="varchar" MaxLength="25" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_ClientRegStatus">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_ClientService">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_ClientServiceMaster">
+    <Key>
+      <PropertyRef Name="ClientServiceID" />
+    </Key>
+    <Property Name="ClientServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="ClientService" Type="int" />
+    <Property Name="DetailInformation" Type="varchar" MaxLength="3000" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_ClientType">
+    <Key>
+      <PropertyRef Name="ClientTypeID" />
+    </Key>
+    <Property Name="ClientTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_CompanyDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_CompanyDetail">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="100" />
+    <Property Name="YearOfEstablishment" Type="date" />
+    <Property Name="FaxNo" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Website" Type="varchar" MaxLength="150" />
+    <Property Name="Fax" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_CompanyShare">
+    <Key>
+      <PropertyRef Name="CompanyShareID" />
+    </Key>
+    <Property Name="CompanyShareID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyID" Type="varchar" MaxLength="50" />
+    <Property Name="SAID" Type="int" />
+    <Property Name="Share" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_Credentials">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="CredentialsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="GenaratePassword" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_Designation">
+    <Key>
+      <PropertyRef Name="DesignationID" />
+    </Key>
+    <Property Name="DesignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_Director' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_Director">
+    <Key>
+      <PropertyRef Name="DirectorID" />
+    </Key>
+    <Property Name="DirectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_FeedBack">
+    <Key>
+      <PropertyRef Name="FeedBackID" />
+    </Key>
+    <Property Name="FeedBackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="ClientSAID" Type="varchar" MaxLength="20" />
+    <Property Name="ClientFeedBack" Type="varchar" MaxLength="4000" />
+    <Property Name="AdvisorFeedBack" Type="varchar" MaxLength="4000" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Province">
+    <Key>
+      <PropertyRef Name="ProvinceID" />
+    </Key>
+    <Property Name="ProvinceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Province" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tbl_RoleMaster">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Spouse">
+    <Key>
+      <PropertyRef Name="SAID" />
+    </Key>
+    <Property Name="SpouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="TaxRefNo" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Trust">
+    <Key>
+      <PropertyRef Name="UIC" />
+    </Key>
+    <Property Name="TrustID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="TrustName" Type="varchar" MaxLength="100" />
+    <Property Name="YearOfFoundation" Type="date" />
+    <Property Name="Telephone" Type="varchar" MaxLength="15" />
+    <Property Name="FaxNo" Type="varchar" MaxLength="20" />
+    <Property Name="EmailID" Type="varchar" MaxLength="100" />
+    <Property Name="Website" Type="varchar" MaxLength="100" />
+    <Property Name="TaxRefNo" Type="varchar" MaxLength="100" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_Trustee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_Trustee">
+    <Key>
+      <PropertyRef Name="TrusteeID" />
+    </Key>
+    <Property Name="TrusteeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentificationCode" Type="varchar" MaxLength="100" />
+    <Property Name="UIC" Type="varchar" MaxLength="15" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_TrustSettler">
+    <Key>
+      <PropertyRef Name="TrustSettlerID" />
+    </Key>
+    <Property Name="TrustSettlerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SAID" Type="varchar" MaxLength="15" />
+    <Property Name="ReferenceUIC" Type="varchar" MaxLength="15" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="EmailID" Type="varchar" MaxLength="150" />
+    <Property Name="Mobile" Type="varchar" MaxLength="20" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="AdvisorID" Type="int" />
+    <Property Name="TimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_TypeofAdvisor">
+    <Key>
+      <PropertyRef Name="AdvisorTypeID" />
+    </Key>
+    <Property Name="AdvisorTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdvisorType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="crm_dev_dbModelStoreContainer">
+    <EntitySet Name="tbl_AccountType" EntityType="Self.tbl_AccountType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AdvisorStatus" EntityType="Self.tbl_AdvisorStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Children" EntityType="Self.tbl_Children" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientRegistration" EntityType="Self.tbl_ClientRegistration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientRegStatus" EntityType="Self.tbl_ClientRegStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientService" EntityType="Self.tbl_ClientService" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientServiceMaster" EntityType="Self.tbl_ClientServiceMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ClientType" EntityType="Self.tbl_ClientType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Credentials" EntityType="Self.tbl_Credentials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_FeedBack" EntityType="Self.tbl_FeedBack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_RoleMaster" EntityType="Self.tbl_RoleMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Spouse" EntityType="Self.tbl_Spouse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Trust" EntityType="Self.tbl_Trust" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AddressDetail" EntityType="Self.tbl_AddressDetail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_AddressDetail].[AddressDetailID] AS [AddressDetailID], 
+[tbl_AddressDetail].[Type] AS [Type], 
+[tbl_AddressDetail].[SAID] AS [SAID], 
+[tbl_AddressDetail].[ReferenceSAID] AS [ReferenceSAID], 
+[tbl_AddressDetail].[UIC] AS [UIC], 
+[tbl_AddressDetail].[HouseNo] AS [HouseNo], 
+[tbl_AddressDetail].[BuildingName] AS [BuildingName], 
+[tbl_AddressDetail].[Floor] AS [Floor], 
+[tbl_AddressDetail].[FlatNo] AS [FlatNo], 
+[tbl_AddressDetail].[RoadName] AS [RoadName], 
+[tbl_AddressDetail].[RoadNo] AS [RoadNo], 
+[tbl_AddressDetail].[SuburbName] AS [SuburbName], 
+[tbl_AddressDetail].[City] AS [City], 
+[tbl_AddressDetail].[PostalCode] AS [PostalCode], 
+[tbl_AddressDetail].[Province] AS [Province], 
+[tbl_AddressDetail].[Country] AS [Country], 
+[tbl_AddressDetail].[Status] AS [Status], 
+[tbl_AddressDetail].[CreatedBy] AS [CreatedBy], 
+[tbl_AddressDetail].[UpdatedOn] AS [UpdatedOn], 
+[tbl_AddressDetail].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_AddressDetail] AS [tbl_AddressDetail]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_BankDetail].[BankDetailID] AS [BankDetailID], 
+[tbl_BankDetail].[Type] AS [Type], 
+[tbl_BankDetail].[SAID] AS [SAID], 
+[tbl_BankDetail].[ReferenceID] AS [ReferenceID], 
+[tbl_BankDetail].[UIC] AS [UIC], 
+[tbl_BankDetail].[BankName] AS [BankName], 
+[tbl_BankDetail].[BranchNumber] AS [BranchNumber], 
+[tbl_BankDetail].[AccountNumber] AS [AccountNumber], 
+[tbl_BankDetail].[AccountType] AS [AccountType], 
+[tbl_BankDetail].[Currency] AS [Currency], 
+[tbl_BankDetail].[SWIFT] AS [SWIFT], 
+[tbl_BankDetail].[CreatedBy] AS [CreatedBy], 
+[tbl_BankDetail].[UpdatedBy] AS [UpdatedBy], 
+[tbl_BankDetail].[UpdatedOn] AS [UpdatedOn], 
+[tbl_BankDetail].[Status] AS [Status], 
+[tbl_BankDetail].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_BankDetail] AS [tbl_BankDetail]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_Beneficiary].[BeneficiaryID] AS [BeneficiaryID], 
+[tbl_Beneficiary].[IdentificationCode] AS [IdentificationCode], 
+[tbl_Beneficiary].[UIC] AS [UIC], 
+[tbl_Beneficiary].[SAID] AS [SAID], 
+[tbl_Beneficiary].[FirstName] AS [FirstName], 
+[tbl_Beneficiary].[LastName] AS [LastName], 
+[tbl_Beneficiary].[EmailID] AS [EmailID], 
+[tbl_Beneficiary].[Mobile] AS [Mobile], 
+[tbl_Beneficiary].[UpdatedOn] AS [UpdatedOn], 
+[tbl_Beneficiary].[AdvisorID] AS [AdvisorID], 
+[tbl_Beneficiary].[Status] AS [Status], 
+[tbl_Beneficiary].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_Beneficiary] AS [tbl_Beneficiary]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_ClientPersonal" EntityType="Self.tbl_ClientPersonal" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_ClientPersonal].[ClientPersonalID] AS [ClientPersonalID], 
+[tbl_ClientPersonal].[SAID] AS [SAID], 
+[tbl_ClientPersonal].[FirstName] AS [FirstName], 
+[tbl_ClientPersonal].[LastName] AS [LastName], 
+[tbl_ClientPersonal].[EmailID] AS [EmailID], 
+[tbl_ClientPersonal].[Phone] AS [Phone], 
+[tbl_ClientPersonal].[Mobile] AS [Mobile], 
+[tbl_ClientPersonal].[TaxRefNo] AS [TaxRefNo], 
+[tbl_ClientPersonal].[DateOfBirth] AS [DateOfBirth], 
+[tbl_ClientPersonal].[TimeStamp] AS [TimeStamp], 
+[tbl_ClientPersonal].[UpdatedOn] AS [UpdatedOn], 
+[tbl_ClientPersonal].[AdvisorID] AS [AdvisorID], 
+[tbl_ClientPersonal].[Status] AS [Status]
+FROM [dbo].[tbl_ClientPersonal] AS [tbl_ClientPersonal]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_CompanyDetail].[CompanyID] AS [CompanyID], 
+[tbl_CompanyDetail].[ReferenceSAID] AS [ReferenceSAID], 
+[tbl_CompanyDetail].[UIC] AS [UIC], 
+[tbl_CompanyDetail].[CompanyName] AS [CompanyName], 
+[tbl_CompanyDetail].[YearOfEstablishment] AS [YearOfEstablishment], 
+[tbl_CompanyDetail].[FaxNo] AS [FaxNo], 
+[tbl_CompanyDetail].[EmailID] AS [EmailID], 
+[tbl_CompanyDetail].[Website] AS [Website], 
+[tbl_CompanyDetail].[Fax] AS [Fax], 
+[tbl_CompanyDetail].[UpdatedOn] AS [UpdatedOn], 
+[tbl_CompanyDetail].[AdvisorID] AS [AdvisorID], 
+[tbl_CompanyDetail].[Status] AS [Status], 
+[tbl_CompanyDetail].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_CompanyDetail] AS [tbl_CompanyDetail]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_Director" EntityType="Self.tbl_Director" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_Director].[DirectorID] AS [DirectorID], 
+[tbl_Director].[ReferenceSAID] AS [ReferenceSAID], 
+[tbl_Director].[CompanyID] AS [CompanyID], 
+[tbl_Director].[FirstName] AS [FirstName], 
+[tbl_Director].[LastName] AS [LastName], 
+[tbl_Director].[EmailID] AS [EmailID], 
+[tbl_Director].[Mobile] AS [Mobile], 
+[tbl_Director].[Phone] AS [Phone], 
+[tbl_Director].[UpdatedOn] AS [UpdatedOn], 
+[tbl_Director].[AdvisorID] AS [AdvisorID], 
+[tbl_Director].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_Director] AS [tbl_Director]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_Trustee" EntityType="Self.tbl_Trustee" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_Trustee].[TrusteeID] AS [TrusteeID], 
+[tbl_Trustee].[IdentificationCode] AS [IdentificationCode], 
+[tbl_Trustee].[UIC] AS [UIC], 
+[tbl_Trustee].[SAID] AS [SAID], 
+[tbl_Trustee].[FirstName] AS [FirstName], 
+[tbl_Trustee].[LastName] AS [LastName], 
+[tbl_Trustee].[EmailID] AS [EmailID], 
+[tbl_Trustee].[Mobile] AS [Mobile], 
+[tbl_Trustee].[UpdatedOn] AS [UpdatedOn], 
+[tbl_Trustee].[AdvisorID] AS [AdvisorID], 
+[tbl_Trustee].[Status] AS [Status], 
+[tbl_Trustee].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_Trustee] AS [tbl_Trustee]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[tbl_TrustSettler].[TrustSettlerID] AS [TrustSettlerID], 
+[tbl_TrustSettler].[SAID] AS [SAID], 
+[tbl_TrustSettler].[ReferenceUIC] AS [ReferenceUIC], 
+[tbl_TrustSettler].[FirstName] AS [FirstName], 
+[tbl_TrustSettler].[LastName] AS [LastName], 
+[tbl_TrustSettler].[EmailID] AS [EmailID], 
+[tbl_TrustSettler].[Mobile] AS [Mobile], 
+[tbl_TrustSettler].[Phone] AS [Phone], 
+[tbl_TrustSettler].[UpdatedOn] AS [UpdatedOn], 
+[tbl_TrustSettler].[AdvisorID] AS [AdvisorID], 
+[tbl_TrustSettler].[TimeStamp] AS [TimeStamp]
+FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

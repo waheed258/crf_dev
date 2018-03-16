@@ -143,3 +143,40 @@ E:\CRM Project\CRMAdmin\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.xml
 E:\CRM Project\CRMAdmin\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Deployment.xml
 E:\CRM Project\CRMAdmin\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Razor.xml
 E:\CRM Project\CRMAdmin\CRMWebApi\CRMWebApi\bin\Antlr3.Runtime.pdb
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\CRMWebApi.dll.config
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\CRMWebApi.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\CRMWebApi.pdb
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\Antlr3.Runtime.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\EntityFramework.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\Microsoft.Web.Infrastructure.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\Newtonsoft.Json.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Net.Http.Formatting.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Cors.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Helpers.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.Cors.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.WebHost.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Mvc.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Optimization.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Razor.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Deployment.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Razor.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\WebGrease.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\EntityFramework.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\Newtonsoft.Json.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Net.Http.Formatting.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.Cors.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Helpers.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Http.WebHost.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Mvc.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Optimization.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.Razor.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Deployment.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\System.Web.WebPages.Razor.xml
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\bin\Antlr3.Runtime.pdb
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\obj\Debug\CRMWebApi.csprojResolveAssemblyReference.cache
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\obj\Debug\CRMWebApi.dll
+D:\CRM\crf_dev\CRMWebApi\CRMWebApi\obj\Debug\CRMWebApi.pdb

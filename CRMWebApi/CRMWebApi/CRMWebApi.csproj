@@ -129,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -150,74 +149,111 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AdvisorTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CRM.Context.cs">
+    <Compile Include="Models\CRMModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CRM.Context.tt</DependentUpon>
+      <DependentUpon>CRMModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CRM.cs">
+    <Compile Include="Models\CRMModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CRM.Designer.cs">
+    <Compile Include="Models\CRMModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CRM.edmx</DependentUpon>
+      <DependentUpon>CRMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AccountType.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AddressDetail.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Advisor.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_AdvisorStatus.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_BankDetail.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Beneficiary.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Branch.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Children.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_City.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_ClientReg.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_ClientPersonal.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ClientRegistration.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ClientRegStatus.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ClientService.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ClientServiceMaster.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ClientType.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CompanyDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_CompanyShare.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbl_Consultant.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Country.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Credentials.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Designation.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_IndividualDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_Director.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_FeedBack.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Province.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_Status.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_RoleMaster.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_TrustDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_Spouse.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_User.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_Trust.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_UserAddressDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_Trustee.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_UserBankDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_TrustSettler.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_UserMasterDetail.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbl_UserType.cs">
-      <DependentUpon>CRM.tt</DependentUpon>
+    <Compile Include="Models\tbl_TypeofAdvisor.cs">
+      <DependentUpon>CRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,22 +277,22 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\CRM.edmx">
+    <EntityDeploy Include="Models\CRMModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CRM.Designer.cs</LastGenOutput>
+      <LastGenOutput>CRMModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CRM.Context.tt">
+    <Content Include="Models\CRMModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CRM.edmx</DependentUpon>
-      <LastGenOutput>CRM.Context.cs</LastGenOutput>
+      <DependentUpon>CRMModel.edmx</DependentUpon>
+      <LastGenOutput>CRMModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CRM.edmx.diagram">
-      <DependentUpon>CRM.edmx</DependentUpon>
+    <Content Include="Models\CRMModel.edmx.diagram">
+      <DependentUpon>CRMModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\CRM.tt">
+    <Content Include="Models\CRMModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CRM.edmx</DependentUpon>
-      <LastGenOutput>CRM.cs</LastGenOutput>
+      <DependentUpon>CRMModel.edmx</DependentUpon>
+      <LastGenOutput>CRMModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
