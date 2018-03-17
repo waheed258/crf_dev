@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="crm_dev_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_AccountType">
           <Key>
             <PropertyRef Name="AccountTypeID" />
@@ -69,8 +69,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_AddressDetail' does not have a 
           <Property Name="AdvisorStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdvisorStatus" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_BankDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_BankDetail">
           <Key>
             <PropertyRef Name="BankDetailID" />
@@ -409,6 +407,7 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
           <EntitySet Name="tbl_AccountType" EntityType="Self.tbl_AccountType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AdvisorStatus" EntityType="Self.tbl_AdvisorStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Children" EntityType="Self.tbl_Children" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
@@ -450,26 +449,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
 [tbl_AddressDetail].[UpdatedOn] AS [UpdatedOn], 
 [tbl_AddressDetail].[TimeStamp] AS [TimeStamp]
 FROM [dbo].[tbl_AddressDetail] AS [tbl_AddressDetail]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_BankDetail].[BankDetailID] AS [BankDetailID], 
-[tbl_BankDetail].[Type] AS [Type], 
-[tbl_BankDetail].[SAID] AS [SAID], 
-[tbl_BankDetail].[ReferenceID] AS [ReferenceID], 
-[tbl_BankDetail].[UIC] AS [UIC], 
-[tbl_BankDetail].[BankName] AS [BankName], 
-[tbl_BankDetail].[BranchNumber] AS [BranchNumber], 
-[tbl_BankDetail].[AccountNumber] AS [AccountNumber], 
-[tbl_BankDetail].[AccountType] AS [AccountType], 
-[tbl_BankDetail].[Currency] AS [Currency], 
-[tbl_BankDetail].[SWIFT] AS [SWIFT], 
-[tbl_BankDetail].[CreatedBy] AS [CreatedBy], 
-[tbl_BankDetail].[UpdatedBy] AS [UpdatedBy], 
-[tbl_BankDetail].[UpdatedOn] AS [UpdatedOn], 
-[tbl_BankDetail].[Status] AS [Status], 
-[tbl_BankDetail].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_BankDetail] AS [tbl_BankDetail]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -568,8 +547,7 @@ FROM [dbo].[tbl_Trustee] AS [tbl_Trustee]</DefiningQuery>
 FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="crm_dev_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
