@@ -49,20 +49,19 @@
                                 <tbody>
 
                                     <tr ng-repeat="Advisor in AdvisorList">
-                                        <td>{{Advisor.AdvisorId}}</td>
+                                        <td>{{Advisor.AdvisorID}}</td>
                                         <td>{{Advisor.FirstName}}</td>
                                         <td>{{Advisor.LastName}}</td>
-                                        <td>{{Advisor.MobileNumber}}</td>
-                                        <td>{{Advisor.PhoneNumber}}</td>
-                                        <td>{{Advisor.EmailId}}</td>
+                                        <td>{{Advisor.Mobile}}</td>
+                                        <td>{{Advisor.Phone}}</td>
+                                        <td>{{Advisor.EmailID}}</td>
                                         <td>
                                             <button type="button" class="btn btn-add btn-sm" data-toggle="modal" title="Edit" data-target="#Update" ng-click="GetDetails(Advisor)"><i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" title="Delete" data-target="#Delete" ng-click="GetDetails(Advisor)"><i class="fa fa-trash-o"></i> </button>
                                         </td>
                                     </tr>
-
                                 </tbody>
-                            </table>
+                            </table>                           
                         </div>
                     </div>
                 </div>
@@ -73,7 +72,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*@
                         <h3><i class="fa fa-user m-r-5"></i> Update Advisor</h3>
                     </div>
                     <div class="modal-body">
