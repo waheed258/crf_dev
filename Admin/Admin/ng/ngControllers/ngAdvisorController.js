@@ -153,7 +153,7 @@
     $scope.GetDetails = function (Advisor) {
 
         var apiRoute = 'http://localhost:17746/api/Advisor';
-        var ID = Advisor.AdvisorId;
+        var ID = Advisor.AdvisorID;
         var showAdvisor = CrudService.getbyID(apiRoute, ID);
         showAdvisor.then(function (response) {
             if (response.data != "") {
@@ -180,7 +180,7 @@
         Advisor.Status = $scope.StatusSelected
         Advisor.AdvisorType = $scope.AdvisorSelected
         Advisor.AdvisorRole = $scope.RoleSelected
-        var apiRoute = 'http://localhost:17746/api/Advisor/' + Advisor.AdvisorId;
+        var apiRoute = 'http://localhost:17746/api/Advisor/' + Advisor.AdvisorID;
         var saveAdvisor = CrudService.put(apiRoute, Advisor);
         saveAdvisor.then(function (response) {
             $scope.successMessage = "Form Updated successfully";
@@ -195,9 +195,9 @@
     $scope.PopupClear = function () {
         $scope.Advisor.FirstName = "";
         $scope.Advisor.LastName = "";
-        $scope.Advisor.MobileNumber = "";
-        $scope.Advisor.PhoneNumber = "";
-        $scope.Advisor.EmailId = "";
+        $scope.Advisor.Mobile = "";
+        $scope.Advisor.Phone = "";
+        $scope.Advisor.EmailID = "";
         $scope.Advisor.LoginId = "";
         $scope.Advisor.Password = "";
         $scope.DestinationSelected = "";
