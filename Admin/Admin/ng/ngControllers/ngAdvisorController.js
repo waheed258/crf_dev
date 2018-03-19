@@ -1,5 +1,8 @@
 ﻿app.controller('Advisor', ['$scope', 'CrudService', function ($scope, CrudService) {
     
+
+    $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+
     //Get Advisor Types
     $scope.AdvisorTypes = function () {
         var apiRoute = 'http://localhost:17746/api/AdvisorType';
@@ -121,10 +124,11 @@
 
     //GetList
     $scope.AdvisorList = function () {
-        var apiRoute = 'http://localhost:17746/api/Advisor';
+       
+        var apiRoute = 'http://localhost:17746/api/GetActiveAdvisor';
         var student = CrudService.getAll(apiRoute);
         student.then(function (response) {
-            $scope.AdvisorList = response.data;
+            $scope.AdvisorList = response.data;            
         },
     function (error) {
         console.log("Error: " + error);
@@ -133,22 +137,7 @@
     $scope.AdvisorList();
 
 
-    //Delete a Record
-    $scope.Delete = function (Advisor) {
-        var apiRoute = 'http://localhost:17746/api/Advisor/' + Advisor.AdvisorId
-        var deleteAdvisor = CrudService.delete(apiRoute);
-        deleteAdvisor.then(function (response) {
-            if (response.data != "") {
-                location.reload();
-                // alert("Data Delete Successfully");                
-            } else {
-                alert("Some error");
-            }
-        }, function (error) {
-            console.log("Error: " + error);
-        });
-    }
-
+   
     //To get Details of Particular record
     $scope.GetDetails = function (Advisor) {
 
