@@ -28,12 +28,12 @@
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_TypeofAdvisor" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_AddressDetail" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_BankDetail" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="crm_dev_dbModel.tbl_ClientPersonal" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_CompanyDetail" Width="1.5" PointX="6.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_Director" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_TrustSettler" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_Beneficiary" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="crm_dev_dbModel.tbl_Trustee" Width="1.5" PointX="15.375" PointY="9.75" />
+        <EntityTypeShape EntityType="crm_dev_dbModel.tbl_ClientPersonal" Width="1.5" PointX="9.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
