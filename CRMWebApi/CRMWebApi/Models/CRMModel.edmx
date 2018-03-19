@@ -12,8 +12,6 @@
           <Property Name="AccountTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccountType" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_AddressDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_AddressDetail">
           <Key>
             <PropertyRef Name="AddressDetailID" />
@@ -405,6 +403,7 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
         </EntityType>
         <EntityContainer Name="crm_dev_dbModelStoreContainer">
           <EntitySet Name="tbl_AccountType" EntityType="Self.tbl_AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AddressDetail" EntityType="Self.tbl_AddressDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AdvisorStatus" EntityType="Self.tbl_AdvisorStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" Schema="dbo" store:Type="Tables" />
@@ -426,30 +425,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
           <EntitySet Name="tbl_Spouse" EntityType="Self.tbl_Spouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Trust" EntityType="Self.tbl_Trust" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_AddressDetail" EntityType="Self.tbl_AddressDetail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_AddressDetail].[AddressDetailID] AS [AddressDetailID], 
-[tbl_AddressDetail].[Type] AS [Type], 
-[tbl_AddressDetail].[SAID] AS [SAID], 
-[tbl_AddressDetail].[ReferenceSAID] AS [ReferenceSAID], 
-[tbl_AddressDetail].[UIC] AS [UIC], 
-[tbl_AddressDetail].[HouseNo] AS [HouseNo], 
-[tbl_AddressDetail].[BuildingName] AS [BuildingName], 
-[tbl_AddressDetail].[Floor] AS [Floor], 
-[tbl_AddressDetail].[FlatNo] AS [FlatNo], 
-[tbl_AddressDetail].[RoadName] AS [RoadName], 
-[tbl_AddressDetail].[RoadNo] AS [RoadNo], 
-[tbl_AddressDetail].[SuburbName] AS [SuburbName], 
-[tbl_AddressDetail].[City] AS [City], 
-[tbl_AddressDetail].[PostalCode] AS [PostalCode], 
-[tbl_AddressDetail].[Province] AS [Province], 
-[tbl_AddressDetail].[Country] AS [Country], 
-[tbl_AddressDetail].[Status] AS [Status], 
-[tbl_AddressDetail].[CreatedBy] AS [CreatedBy], 
-[tbl_AddressDetail].[UpdatedOn] AS [UpdatedOn], 
-[tbl_AddressDetail].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_AddressDetail] AS [tbl_AddressDetail]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [tbl_Beneficiary].[BeneficiaryID] AS [BeneficiaryID], 
