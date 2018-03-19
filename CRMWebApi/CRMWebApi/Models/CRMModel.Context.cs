@@ -48,11 +48,11 @@ namespace CRMWebApi.Models
         public DbSet<tbl_TypeofAdvisor> tbl_TypeofAdvisor { get; set; }
         public DbSet<tbl_AddressDetail> tbl_AddressDetail { get; set; }
         public DbSet<tbl_BankDetail> tbl_BankDetail { get; set; }
-        public DbSet<tbl_Beneficiary> tbl_Beneficiary { get; set; }
         public DbSet<tbl_ClientPersonal> tbl_ClientPersonal { get; set; }
         public DbSet<tbl_CompanyDetail> tbl_CompanyDetail { get; set; }
         public DbSet<tbl_Director> tbl_Director { get; set; }
-        public DbSet<tbl_Trustee> tbl_Trustee { get; set; }
         public DbSet<tbl_TrustSettler> tbl_TrustSettler { get; set; }
+        public DbSet<tbl_Beneficiary> tbl_Beneficiary { get; set; }
+        public DbSet<tbl_Trustee> tbl_Trustee { get; set; }
     }
 }

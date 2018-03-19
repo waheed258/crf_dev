@@ -88,14 +88,12 @@
           <Property Name="Status" Type="int" />
           <Property Name="TimeStamp" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_Beneficiary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_Beneficiary">
           <Key>
             <PropertyRef Name="BeneficiaryID" />
           </Key>
           <Property Name="BeneficiaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdentificationCode" Type="varchar" MaxLength="100" />
+          <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
           <Property Name="UIC" Type="varchar" MaxLength="15" />
           <Property Name="SAID" Type="varchar" MaxLength="15" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
@@ -357,14 +355,12 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_Director' does not have a prima
           <Property Name="TimeStamp" Type="datetime" />
           <Property Name="Status" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_Trustee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_Trustee">
           <Key>
             <PropertyRef Name="TrusteeID" />
           </Key>
           <Property Name="TrusteeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdentificationCode" Type="varchar" MaxLength="100" />
+          <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
           <Property Name="UIC" Type="varchar" MaxLength="15" />
           <Property Name="SAID" Type="varchar" MaxLength="15" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
@@ -407,6 +403,7 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
           <EntitySet Name="tbl_Advisor" EntityType="Self.tbl_Advisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AdvisorStatus" EntityType="Self.tbl_AdvisorStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Children" EntityType="Self.tbl_Children" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
@@ -424,23 +421,8 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
           <EntitySet Name="tbl_RoleMaster" EntityType="Self.tbl_RoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Spouse" EntityType="Self.tbl_Spouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Trust" EntityType="Self.tbl_Trust" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Trustee" EntityType="Self.tbl_Trustee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_Beneficiary].[BeneficiaryID] AS [BeneficiaryID], 
-[tbl_Beneficiary].[IdentificationCode] AS [IdentificationCode], 
-[tbl_Beneficiary].[UIC] AS [UIC], 
-[tbl_Beneficiary].[SAID] AS [SAID], 
-[tbl_Beneficiary].[FirstName] AS [FirstName], 
-[tbl_Beneficiary].[LastName] AS [LastName], 
-[tbl_Beneficiary].[EmailID] AS [EmailID], 
-[tbl_Beneficiary].[Mobile] AS [Mobile], 
-[tbl_Beneficiary].[UpdatedOn] AS [UpdatedOn], 
-[tbl_Beneficiary].[AdvisorID] AS [AdvisorID], 
-[tbl_Beneficiary].[Status] AS [Status], 
-[tbl_Beneficiary].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_Beneficiary] AS [tbl_Beneficiary]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="tbl_ClientPersonal" EntityType="Self.tbl_ClientPersonal" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [tbl_ClientPersonal].[ClientPersonalID] AS [ClientPersonalID], 
@@ -489,22 +471,6 @@ FROM [dbo].[tbl_CompanyDetail] AS [tbl_CompanyDetail]</DefiningQuery>
 [tbl_Director].[AdvisorID] AS [AdvisorID], 
 [tbl_Director].[TimeStamp] AS [TimeStamp]
 FROM [dbo].[tbl_Director] AS [tbl_Director]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbl_Trustee" EntityType="Self.tbl_Trustee" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_Trustee].[TrusteeID] AS [TrusteeID], 
-[tbl_Trustee].[IdentificationCode] AS [IdentificationCode], 
-[tbl_Trustee].[UIC] AS [UIC], 
-[tbl_Trustee].[SAID] AS [SAID], 
-[tbl_Trustee].[FirstName] AS [FirstName], 
-[tbl_Trustee].[LastName] AS [LastName], 
-[tbl_Trustee].[EmailID] AS [EmailID], 
-[tbl_Trustee].[Mobile] AS [Mobile], 
-[tbl_Trustee].[UpdatedOn] AS [UpdatedOn], 
-[tbl_Trustee].[AdvisorID] AS [AdvisorID], 
-[tbl_Trustee].[Status] AS [Status], 
-[tbl_Trustee].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_Trustee] AS [tbl_Trustee]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -807,23 +773,6 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
           <Property Name="Status" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Beneficiary">
-          <Key>
-            <PropertyRef Name="BeneficiaryID" />
-          </Key>
-          <Property Name="BeneficiaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdentificationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UIC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="AdvisorID" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_ClientPersonal">
           <Key>
             <PropertyRef Name="ClientPersonalID" />
@@ -877,23 +826,6 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
           <Property Name="AdvisorID" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Trustee">
-          <Key>
-            <PropertyRef Name="TrusteeID" />
-          </Key>
-          <Property Name="TrusteeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdentificationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UIC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="AdvisorID" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_TrustSettler">
           <Key>
             <PropertyRef Name="TrustSettlerID" />
@@ -934,13 +866,47 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" />
           <EntitySet Name="tbl_AddressDetail" EntityType="Self.tbl_AddressDetail" />
           <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" />
-          <EntitySet Name="tbl_Beneficiary" EntityType="Self.tbl_Beneficiary" />
           <EntitySet Name="tbl_ClientPersonal" EntityType="Self.tbl_ClientPersonal" />
           <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" />
           <EntitySet Name="tbl_Director" EntityType="Self.tbl_Director" />
-          <EntitySet Name="tbl_Trustee" EntityType="Self.tbl_Trustee" />
           <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" />
+          <EntitySet Name="tbl_Beneficiary" EntityType="crm_dev_dbModel.tbl_Beneficiary" />
+          <EntitySet Name="tbl_Trustee" EntityType="crm_dev_dbModel.tbl_Trustee" />
         </EntityContainer>
+        <EntityType Name="tbl_Beneficiary">
+          <Key>
+            <PropertyRef Name="BeneficiaryID" />
+          </Key>
+          <Property Name="BeneficiaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferenceSAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UIC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="AdvisorID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Trustee">
+          <Key>
+            <PropertyRef Name="TrusteeID" />
+          </Key>
+          <Property Name="TrusteeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferenceSAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UIC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="AdvisorID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1251,24 +1217,6 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Beneficiary">
-            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Beneficiary">
-              <MappingFragment StoreEntitySet="tbl_Beneficiary">
-                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
-                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
-                <ScalarProperty Name="UIC" ColumnName="UIC" />
-                <ScalarProperty Name="SAID" ColumnName="SAID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_ClientPersonal">
             <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_ClientPersonal">
               <MappingFragment StoreEntitySet="tbl_ClientPersonal">
@@ -1324,24 +1272,6 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Trustee">
-            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Trustee">
-              <MappingFragment StoreEntitySet="tbl_Trustee">
-                <ScalarProperty Name="TrusteeID" ColumnName="TrusteeID" />
-                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
-                <ScalarProperty Name="UIC" ColumnName="UIC" />
-                <ScalarProperty Name="SAID" ColumnName="SAID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TrustSettler">
             <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_TrustSettler">
               <MappingFragment StoreEntitySet="tbl_TrustSettler">
@@ -1356,6 +1286,42 @@ FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Beneficiary">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Beneficiary">
+              <MappingFragment StoreEntitySet="tbl_Beneficiary">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SAID" ColumnName="SAID" />
+                <ScalarProperty Name="UIC" ColumnName="UIC" />
+                <ScalarProperty Name="ReferenceSAID" ColumnName="ReferenceSAID" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Trustee">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Trustee">
+              <MappingFragment StoreEntitySet="tbl_Trustee">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SAID" ColumnName="SAID" />
+                <ScalarProperty Name="UIC" ColumnName="UIC" />
+                <ScalarProperty Name="ReferenceSAID" ColumnName="ReferenceSAID" />
+                <ScalarProperty Name="TrusteeID" ColumnName="TrusteeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

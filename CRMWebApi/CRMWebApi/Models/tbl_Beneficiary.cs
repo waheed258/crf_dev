@@ -15,7 +15,7 @@ namespace CRMWebApi.Models
     public partial class tbl_Beneficiary
     {
         public int BeneficiaryID { get; set; }
-        public string IdentificationCode { get; set; }
+        public string ReferenceSAID { get; set; }
         public string UIC { get; set; }
         public string SAID { get; set; }
         public string FirstName { get; set; }
