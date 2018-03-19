@@ -138,11 +138,8 @@
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_ClientPersonal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_ClientPersonal">
           <Key>
-            <PropertyRef Name="ClientPersonalID" />
             <PropertyRef Name="SAID" />
           </Key>
           <Property Name="ClientPersonalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -212,8 +209,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_ClientPersonal' does not have a
           <Property Name="ClientTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_CompanyDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_CompanyDetail">
           <Key>
             <PropertyRef Name="CompanyID" />
@@ -275,8 +270,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_CompanyDetail' does not have a 
           <Property Name="DesignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Designation" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_Director' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_Director">
           <Key>
             <PropertyRef Name="DirectorID" />
@@ -372,8 +365,6 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_Director' does not have a prima
           <Property Name="Status" Type="int" />
           <Property Name="TimeStamp" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_TrustSettler">
           <Key>
             <PropertyRef Name="TrustSettlerID" />
@@ -407,86 +398,26 @@ warning 6002: The table/view 'crm_dev_db.dbo.tbl_TrustSettler' does not have a p
           <EntitySet Name="tbl_Branch" EntityType="Self.tbl_Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Children" EntityType="Self.tbl_Children" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ClientPersonal" EntityType="Self.tbl_ClientPersonal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientRegistration" EntityType="Self.tbl_ClientRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientRegStatus" EntityType="Self.tbl_ClientRegStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientService" EntityType="Self.tbl_ClientService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientServiceMaster" EntityType="Self.tbl_ClientServiceMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClientType" EntityType="Self.tbl_ClientType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CompanyShare" EntityType="Self.tbl_CompanyShare" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Credentials" EntityType="Self.tbl_Credentials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Director" EntityType="Self.tbl_Director" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_FeedBack" EntityType="Self.tbl_FeedBack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_RoleMaster" EntityType="Self.tbl_RoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Spouse" EntityType="Self.tbl_Spouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Trust" EntityType="Self.tbl_Trust" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Trustee" EntityType="Self.tbl_Trustee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_ClientPersonal" EntityType="Self.tbl_ClientPersonal" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_ClientPersonal].[ClientPersonalID] AS [ClientPersonalID], 
-[tbl_ClientPersonal].[SAID] AS [SAID], 
-[tbl_ClientPersonal].[FirstName] AS [FirstName], 
-[tbl_ClientPersonal].[LastName] AS [LastName], 
-[tbl_ClientPersonal].[EmailID] AS [EmailID], 
-[tbl_ClientPersonal].[Phone] AS [Phone], 
-[tbl_ClientPersonal].[Mobile] AS [Mobile], 
-[tbl_ClientPersonal].[TaxRefNo] AS [TaxRefNo], 
-[tbl_ClientPersonal].[DateOfBirth] AS [DateOfBirth], 
-[tbl_ClientPersonal].[TimeStamp] AS [TimeStamp], 
-[tbl_ClientPersonal].[UpdatedOn] AS [UpdatedOn], 
-[tbl_ClientPersonal].[AdvisorID] AS [AdvisorID], 
-[tbl_ClientPersonal].[Status] AS [Status]
-FROM [dbo].[tbl_ClientPersonal] AS [tbl_ClientPersonal]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_CompanyDetail].[CompanyID] AS [CompanyID], 
-[tbl_CompanyDetail].[ReferenceSAID] AS [ReferenceSAID], 
-[tbl_CompanyDetail].[UIC] AS [UIC], 
-[tbl_CompanyDetail].[CompanyName] AS [CompanyName], 
-[tbl_CompanyDetail].[YearOfEstablishment] AS [YearOfEstablishment], 
-[tbl_CompanyDetail].[FaxNo] AS [FaxNo], 
-[tbl_CompanyDetail].[EmailID] AS [EmailID], 
-[tbl_CompanyDetail].[Website] AS [Website], 
-[tbl_CompanyDetail].[Fax] AS [Fax], 
-[tbl_CompanyDetail].[UpdatedOn] AS [UpdatedOn], 
-[tbl_CompanyDetail].[AdvisorID] AS [AdvisorID], 
-[tbl_CompanyDetail].[Status] AS [Status], 
-[tbl_CompanyDetail].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_CompanyDetail] AS [tbl_CompanyDetail]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbl_Director" EntityType="Self.tbl_Director" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_Director].[DirectorID] AS [DirectorID], 
-[tbl_Director].[ReferenceSAID] AS [ReferenceSAID], 
-[tbl_Director].[CompanyID] AS [CompanyID], 
-[tbl_Director].[FirstName] AS [FirstName], 
-[tbl_Director].[LastName] AS [LastName], 
-[tbl_Director].[EmailID] AS [EmailID], 
-[tbl_Director].[Mobile] AS [Mobile], 
-[tbl_Director].[Phone] AS [Phone], 
-[tbl_Director].[UpdatedOn] AS [UpdatedOn], 
-[tbl_Director].[AdvisorID] AS [AdvisorID], 
-[tbl_Director].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_Director] AS [tbl_Director]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[tbl_TrustSettler].[TrustSettlerID] AS [TrustSettlerID], 
-[tbl_TrustSettler].[SAID] AS [SAID], 
-[tbl_TrustSettler].[ReferenceUIC] AS [ReferenceUIC], 
-[tbl_TrustSettler].[FirstName] AS [FirstName], 
-[tbl_TrustSettler].[LastName] AS [LastName], 
-[tbl_TrustSettler].[EmailID] AS [EmailID], 
-[tbl_TrustSettler].[Mobile] AS [Mobile], 
-[tbl_TrustSettler].[Phone] AS [Phone], 
-[tbl_TrustSettler].[UpdatedOn] AS [UpdatedOn], 
-[tbl_TrustSettler].[AdvisorID] AS [AdvisorID], 
-[tbl_TrustSettler].[TimeStamp] AS [TimeStamp]
-FROM [dbo].[tbl_TrustSettler] AS [tbl_TrustSettler]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
