@@ -7,36 +7,31 @@
             Title:$scope.Title,
             FirstName: $scope.FirstName,
             LastName: $scope.LastName,
-            SAId: $scope.SAId,
-            Company: $scope.Company,
+            SAID: $scope.SAID,
+            CompanyName: $scope.Company,
             CompanyRegNo: $scope.CompanyRegNo,
-            Mobile: $scope.Mobile,
+            MobileNumber: $scope.Mobile,
             EmailId: $scope.EmailId,
-            Trust: $scope.Trust,
+            TrustName: $scope.Trust,
             TrustRegNo: $scope.TrustRegNo
         }
 
-        if (CrudService.post) {
-            client.Status = '1';
-            client.DeleteFlag = '1';
-        }
+        
         //// Base Url 
 
         var apiRoute = 'http://localhost:17746/api/ClientRegistration';
-
+        client.Status = '1';
         var saveUser = CrudService.post(apiRoute, client);
         saveUser.then(function (response) {
             if (response.data != "") {
-                $scope.successMessage = "Form Updated successfully";
-                $scope.successMessagebool = true;
+                $('#Success').modal('show');
                 $scope.Clear();
             } else {
-                alert("Some error");
+                $('#Failure').modal('show');
             }
-
         }, function (error) {
-            console.log("Error: " + error);
-        });        
+            $('#Failure').modal('show');
+        });
     }
   
  
@@ -44,7 +39,7 @@
         $scope.Title = "";
         $scope.FirstName = "";
         $scope.LastName = "";
-        $scope.SAId = "";
+        $scope.SAID = "";
         $scope.Company = "";
         $scope.CompanyRegNo = "";
         $scope.Mobile = "";

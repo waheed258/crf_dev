@@ -4,8 +4,10 @@
 
 <script src="@Url.Content("~/Scripts/angular.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/ng/ngApp/ngApp.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/ng/ngControllers/ngNewClientController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/ng/ngControllers/ngClientController.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/ng/ngService/ngCrudService.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+
 
 <div class="content-wrapper" ng-app="myapp" ng-controller="newClientController">
     <!-- Content Header (Page header) -->
@@ -49,13 +51,20 @@
                             </div>*@
                         <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
                         <div class="table-responsive">
-                            <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                            Search <input type="text" ng-model="search" placeholder="Enter text to search" />
+
+                            <table id="dataTableExample1" class="table table-bordered table-striped tab-le-hover" style="margin-top:20px">
                                 <thead>
                                     <tr class="info">
-                                        <th>ClientID</th>
+
+                                        <th>
+                                            <a href=""
+                                               ng-click="orderByField='SAID'; reverseSort = !reverseSort">
+                                                SAID
+                                            </a>
+                                        </th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
-                                        <th>SAId</th>
                                         <th>Mobile</th>
                                         <th>EmailId</th>
                                         <th>Status</th>
@@ -63,19 +72,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="client in ClientList">
-                                        <td>{{client.ClientID}}</td>
+                                    <tr ng-repeat="client in ClientList | orderBy:orderByField:reverseSort | filter: search  ">
+
+                                        <td>{{client.SAID}}</td>
                                         <td>{{client.FirstName}}</td>
                                         <td>{{client.LastName}}</td>
-                                        <td>{{client.SAId}}</td>
-                                        <td>{{client.Mobile}}</td>
-                                        <td>{{client.EmailId}}</td>
+                                        <td>{{client.MobileNumber}}</td>
+                                        <td>{{client.EmailID}}</td>
                                         <td>{{client.Status}}</td>
                                         <td>
                                             <button type="button" class="btn btn-add btn-sm" data-toggle="modal" title="Edit" data-target="#Edit" ng-click="GetDetails(client)"><i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" title="Delete" data-target="#Delete" ng-click="GetDetails(client)"><i class="fa fa-trash-o"></i> </button>
                                             <button type="button" class="btn btn-add btn-sm" data-toggle="modal" title="Validate" data-target="#Validate" ng-click="GetByName(client)"><i class="fa fa-user"></i></button>
-                                            <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#AdvisorFeedback" title="Advisor Feedback" ng-click="GetDetails(client)"><i class="fa fa-comments"></i></button>
+                                            <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#ClientFeedback" title="Client Feedback" ng-click="GetDetails(client)"><i class="fa fa-comments"></i></button>
                                             <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#Status" title="Status" ng-click="GetStatusByID(client)"><i class="fa fa-check"></i></button>
                                         </td>
                                     </tr>
@@ -87,85 +96,93 @@
             </div>
         </div>
         <!-- customer Modal1 -->
-        <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width:900px">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3><i class="fa fa-user m-r-5"></i> Update Client</h3>
+                        <div class="col-md-12 form-group" style="color:green;text-align:center" ng-show="successMessagebool ">
+                            {{successMessage}}
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <form class="form-horizontal" ng-submit="Update(client)">
-                                    <fieldset>
-                                        <div class="col-md-12 form-group alert alert-success" ng-show="successMessagebool ">
-                                            {{successMessage}}
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-md-4 form-group">
-                                            <label>Title</label>
-                                            <select class="form-control" ng-model="client.Title" required tabindex="1">
-                                                <option value="" selected>Title</option>
-                                                <option value="Mr">Mr</option>
-                                                <option value="Miss">Miss</option>
-                                                <option value="Ms">Ms</option>
-                                                <option value="Mrs">Mrs</option>
-                                                <option value="Dr">Dr</option>
-                                            </select>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-md-4 form-group">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter First Name" required ng-model="client.FirstName" tabindex="2">
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-md-4 form-group">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter last Name" required ng-model="client.LastName" tabindex="3">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>SA ID</label>
-                                            <input type="number" class="form-control" placeholder="SA ID" ng-model="client.SAId" required tabindex="4">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Company</label>
-                                            <input type="text" class="form-control" placeholder="Company" ng-model="client.Company" required tabindex="5">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Company Reg Number</label>
-                                            <input type="text" class="form-control" placeholder="Company Registration Number" ng-model="client.CompanyRegNo" required tabindex="6">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Trust</label>
-                                            <input type="text" class="form-control" placeholder="Trust" ng-model="client.Trust" required tabindex="7">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Trust Reg Number</label>
-                                            <input type="text" class="form-control" placeholder="Trust Registration Number" ng-model="client.TrustRegNo" required tabindex="8">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Mobile</label>
-                                            <input type="text" class="form-control" placeholder="Enter Mobile" required ng-model="client.Mobile" tabindex="9">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" placeholder="Enter Email" required ng-model="client.EmailId" tabindex="10">
-                                        </div>
-                                        <div class="col-md-12 form-group user-form-group">
-                                            <div class="pull-right">
-                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-add btn-sm">Save</button>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <form class="" ng-submit="Update(client)">
+                                        <fieldset>
+                                            <div class="col-lg-12">
+                                                <!-- Text input-->
+                                                <div class="col-md-3 form-group">
+                                                    <label>Title</label>
+                                                    <select class="form-control" ng-model="client.Title" required tabindex="1">
+                                                        <option value="" selected>Title</option>
+                                                        <option value="Mr">Mr</option>
+                                                        <option value="Miss">Miss</option>
+                                                        <option value="Ms">Ms</option>
+                                                        <option value="Mrs">Mrs</option>
+                                                        <option value="Dr">Dr</option>
+                                                    </select>
+                                                </div>
+                                                <!-- Text input-->
+                                                <div class="col-md-3 form-group">
+                                                    <label>First Name</label>
+                                                    <input type="text" class="form-control" placeholder="Enter First Name" required ng-model="client.FirstName" tabindex="2">
+                                                </div>
+                                                <!-- Text input-->
+                                                <div class="col-md-3 form-group">
+                                                    <label>Last Name</label>
+                                                    <input type="text" class="form-control" placeholder="Enter last Name" required ng-model="client.LastName" tabindex="3">
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label>SA ID</label>
+                                                    <input type="text" class="form-control" placeholder="SA ID" ng-model="SAID" tabindex="4" readonly>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
+                                            <div class="col-lg-12">
+                                                <div class="col-md-3 form-group">
+                                                    <label>Company</label>
+                                                    <input type="text" class="form-control" placeholder="Company" ng-model="client.CompanyName" required tabindex="5">
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label>Company Reg Number</label>
+                                                    <input type="text" class="form-control" placeholder="Company Registration Number" ng-model="client.CompanyRegNo" required tabindex="6">
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label>Trust</label>
+                                                    <input type="text" class="form-control" placeholder="Trust" ng-model="client.TrustName" required tabindex="7">
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label>Trust Reg Number</label>
+                                                    <input type="text" class="form-control" placeholder="Trust Registration Number" ng-model="client.TrustRegNo" required tabindex="8">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="col-md-3 form-group">
+                                                    <label>Mobile</label>
+                                                    <input type="text" class="form-control" id="MobileNumber" placeholder="Enter Mobile" required ng-model="client.MobileNumber" tabindex="9" maxlength="10">
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" placeholder="Enter Email" required ng-model="client.EmailID" tabindex="10">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-1 form-group">
+                                                    <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                                </div>
+                                                <div class="col-md-1 form-group">
+                                                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="Close()">Close</button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="close()">Close</button>
-                    </div>
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -174,33 +191,36 @@
         <!-- /.modal -->
         <!-- Modal -->
         <!-- Customer Modal2 -->
-        <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width:900px">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3><i class="fa fa-user m-r-5"></i> Delete Customer</h3>
+                        <div class="col-md-12 form-group" style="color:green;text-align:center" ng-show="successMessagebool ">
+                            {{successMessage}}
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-horizontal" ng-submit="Update(client)">
+                                <form class="" ng-submit="Delete(client)">
                                     <fieldset>
                                         <div class="col-md-12 form-group user-form-group">
                                             <label class="control-label">Are you sure want to delete the Client?</label>
                                             @*<input type="text" class="form-control" ng-model="client.FirstName" readonly>*@
-                                            <div class="pull-right">
-                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">NO</button>
-                                                <button type="submit" class="btn btn-add btn-sm">YES</button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-1 form-group">
+                                                <button type="submit" class="btn btn-add btn-sm">Delete</button>
+                                            </div>
+                                            <div class="col-md-1 form-group">
+                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="Close()">Close</button>
                                             </div>
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -208,47 +228,49 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-        <div class="modal fade" id="Validate" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="Validate" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width:900px">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3><i class="fa fa-user m-r-5"></i>Validate Customer</h3>
+                        <div class="col-md-12 form-group" style="color:green;text-align:center" ng-show="successMessagebool ">
+                            {{successMessage}}
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-horizontal" ng-submit="Update(client)">
+                                <form class="" ng-submit="AdvisorUpdate()">
                                     <fieldset>
                                         <div class="col-md-12 form-group user-form-group">
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label>Approved By</label>
-                                                <select class="form-control" ng-model="client.AdvisorId">
+                                                <select class="form-control" ng-model="selectedAdvisor">
                                                     <option value="" selected>Choose Advisor</option>
-                                                    <option ng-repeat="Advisor in Advisors" ng-selected="Advisor.AdvisorId === selectedOption"
-                                                            value="{{Advisor.AdvisorId}}">
+                                                    <option ng-repeat="Advisor in Advisors" ng-selected="Advisor.AdvisorID === selectedAdvisor"
+                                                            value="{{Advisor.AdvisorID}}">
                                                         {{Advisor.FirstName}}
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label>Verified On</label>
-                                                <input type="date" class="form-control" ng-model="client.VerifiedOn" value="" placeholder=" enter date...">
+                                                <input type="date" class="form-control" ng-model="VerifiedOn" value="" placeholder=" enter date...">
                                             </div>
 
                                         </div>
                                         <div class="col-md-12 form-group user-form-group">
-                                            <div class="col-md-10">
+                                            <div class="col-md-7">
                                                 <label>Advisor Feedback</label>
-                                                <textarea class="form-control" rows="3" ng-model="client.AdvisorFeedback"></textarea>
+                                                <textarea class="form-control" rows="3" ng-model="AdvisorFeedback" required></textarea>
                                             </div>
 
                                         </div>
                                         <div class="col-md-12 form-group user-form-group">
-                                            <div class="col-md-4"><label>VerifiedThrough</label></div>
+                                            <div class="col-md-2"><label>VerifiedThrough</label></div>
 
-                                            <div class="col-md-5">
-                                                <select class="form-control" ng-model="client.VerifiedThrough">
+                                            <div class="col-md-4">
+                                                <select class="form-control" ng-model="VerifiedThrough">
                                                     <option value="" selected>VerifiedThrough</option>
                                                     <option value="Phone">Phone</option>
                                                     <option value="Email">Email</option>
@@ -256,20 +278,20 @@
                                             </div>
 
                                         </div>
-                                        <div class="pull-left col-md-9">
-                                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-add btn-sm">Save</button>
+                                        <div class="col-md-12">
+                                            <div class="col-md-1 form-group">
+                                                <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                            </div>
+                                            <div class="col-md-1 form-group">
+                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="Close()">Close</button>
+                                            </div>
                                         </div>
-
-
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    </div>
+
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -279,26 +301,33 @@
         <!-- /.modal -->
         <!-- /.modal -->
         <!-- /.modal -->
-        <div class="modal fade" id="AdvisorFeedback" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="ClientFeedback" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width:900px">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3><i class="fa fa-user m-r-5"></i>Advisor Feedback</h3>
+                        <h3><i class="fa fa-user m-r-5"></i>Client Feedback</h3>
+                        <div class="col-md-12 form-group" style="color:green;text-align:center" ng-show="successMessagebool">
+                            {{successMessage}}
+                        </div>
                     </div>
+
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-horizontal" ng-submit="Update(client)">
+                                <form class="" ng-submit="SaveFeedback()">
                                     <fieldset>
                                         <div class="col-md-12 form-group user-form-group">
                                             <div class="col-md-7">
-                                                <label>Advisor Feedback</label>
-                                                <textarea class="form-control" rows="3" ng-model="client.AdvisorFeedback" required></textarea>
+                                                <label>Client Feedback</label>
+                                                <textarea class="form-control" rows="3" ng-model="ClientFeedBack" required></textarea>
                                             </div>
-                                            <div class="pull-right">
-                                                <button type="button" class="btn btn-danger btn-sm">Clear</button>
-                                                <button type="submit" class="btn btn-add btn-sm">Save</button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-1 form-group">
+                                                <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                            </div>
+                                            <div class="col-md-1 form-group">
+                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="Close()">Close</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -306,30 +335,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-        <div class="modal fade" id="Status" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="Status" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" style="width:900px">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h3><i class="fa fa-user m-r-5"></i>Status</h3>
+                        <div class="col-md-12 form-group" style="color:green;text-align:center" ng-show="successMessagebool ">
+                            {{successMessage}}
+                        </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form-horizontal" ng-submit="Update(client)">
+                                <form class="" ng-submit="StatusUpdate(client)">
                                     <fieldset>
                                         <div class="col-md-12 form-group user-form-group">
                                             <div class="col-md-4">
-                                                <select class="form-control" ng-model="client.StatusID">
+                                                <select class="form-control" ng-model="selectedStatus">
                                                     <option value="" selected>Choose Status</option>
                                                     <option ng-repeat="Status in Statues" ng-selected="Status.StatusID === selectedStatus"
                                                             value="{{Status.StatusID}}">
@@ -339,18 +367,20 @@
 
                                             </div>
                                             @*<input type="text" class="form-control" ng-model="client.FirstName" readonly>*@
-                                            <div class="pull-right">
-                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-add btn-sm">YES</button>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-1 form-group">
+                                                <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                            </div>
+                                            <div class="col-md-1 form-group">
+                                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="Close()">Close</button>
                                             </div>
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -360,3 +390,26 @@
     </section>
     <!-- /.content -->
 </div>
+<script type="text/javascript">
+    $("#MobileNumber").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+    $("#MobileNumber").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "");
+            $(this).val(val);
+        }
+    });
+</script>
