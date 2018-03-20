@@ -1,6 +1,5 @@
 ﻿app.controller('ClientController', ['$scope', 'CrudService', function ($scope, CrudService) {
-    $scope.dtInstance = {};
-    debugger;
+    $scope.dtInstance = {};   
     $scope.Save = function () {
         debugger;
         var client = {
@@ -14,13 +13,11 @@
             EmailId: $scope.EmailId,
             TrustName: $scope.Trust,
             TrustRegNo: $scope.TrustRegNo
-        }
-
-        
-        //// Base Url 
+        } 
 
         var apiRoute = 'http://localhost:17746/api/ClientRegistration';
         client.Status = '1';
+        client.TimeStamp = new Date();
         var saveUser = CrudService.post(apiRoute, client);
         saveUser.then(function (response) {
             if (response.data != "") {

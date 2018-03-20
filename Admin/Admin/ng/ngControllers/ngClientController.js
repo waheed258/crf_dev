@@ -1,31 +1,19 @@
 ﻿app.controller('newClientController', ['$scope', 'CrudService', function ($scope, CrudService) {
-    var SAID = '',GetDetailsSAID='';
+    var SAID = '', GetDetailsSAID = '';
     $scope.dtInstance = {};
-    debugger;
-
 
     //Update client
     $scope.Update = function (client) {
-
-        debugger;
-        // Base Url 
-     //   client.VerifiedBy = $scope.selectedOption;
-     //   client.Status = $scope.selectedStatus;
-       
         var apiRoute = 'http://localhost:17746/api/ClientRegistration/' + client.SAID;
-
         var saveUser = CrudService.put(apiRoute, client);
         saveUser.then(function (response) {
-           
             $scope.successMessage = "Form Updated successfully";
             $scope.successMessagebool = true;
             $scope.PopupClear();
-
         }, function (error) {
             console.log("Error: " + error);
         });
     }
-
 
     //clear
     $scope.Clear = function () {
@@ -45,38 +33,33 @@
         $scope.client.FirstName = "";
         $scope.client.LastName = "";
         $scope.client.SAID = "";
-        $scope.client.Company = "";
+        $scope.client.CompanyName = "";
         $scope.client.CompanyRegNo = "";
-        $scope.client.Mobile = "";
-        $scope.client.EmailId = "";
+        $scope.client.MobileNumber = "";
+        $scope.client.EmailID = "";
         $scope.client.VerifiedOn = "";
+        $scope.client.TrustName = "";
+        $scope.client.TrustRegNo = "";
     }
 
 
     //Clients List
     $scope.ClientList = function () {
-        
         var apiRoute = 'http://localhost:17746/api/GetClient';
-            var student = CrudService.getAll(apiRoute);
-            student.then(function (response) {
-                debugger
-
-                $scope.ClientList = response.data;
-
-            },
-
-        function (error) {
-            console.log("Error: " + error);
-        });
-         
+        var student = CrudService.getAll(apiRoute);
+        student.then(function (response) {
+            $scope.ClientList = response.data;
+        },
+    function (error) {
+        console.log("Error: " + error);
+    });
     }
     $scope.ClientList();
-
 
     //Delete client
     $scope.Delete = function (client) {
         var apiRoute = 'http://localhost:17746/api/ClientRegistration/' + client.SAID;
-        CrudService.put(apiRoute,client);
+        CrudService.put(apiRoute, client);
         $scope.client.Status = '4';
         $scope.successMessage = "Client Deleted successfully";
         $scope.successMessagebool = true;
@@ -91,12 +74,11 @@
         $scope.successMessagebool = true;
     }
 
-
     //Update Advisor name
     $scope.AdvisorUpdate = function () {
         var client = {
             VerifiedOn: $scope.VerifiedOn,
-            VerifiedBy : $scope.selectedAdvisor,
+            VerifiedBy: $scope.selectedAdvisor,
             VerifiedThough: $scope.VerifiedThrough,
             SAID: SAID,
             Title: $scope.client.Title,
@@ -111,12 +93,12 @@
             Status: $scope.client.Status
         }
         var apiRoute = 'http://localhost:17746/api/ClientRegistration/' + SAID;
-        
+
         CrudService.put(apiRoute, client);
         var Feedback = {
             AdvisorID: $scope.client.VerifiedBy,
             AdvisorFeedBack: $scope.AdvisorFeedback,
-            ClientSAID : SAID
+            ClientSAID: SAID
         }
         CrudService.post('http://localhost:17746/api/FeedBack', Feedback)
         $scope.successMessage = "Form Updated successfully";
@@ -133,7 +115,7 @@
         showclient.then(function (response) {
             if (response.data != "") {
                 $scope.client = response.data;
-               $scope.SAID = client.SAID;
+                $scope.SAID = client.SAID;
                 $scope.successMessagebool = false;
 
             } else {
@@ -193,8 +175,7 @@
     }
 
     //close
-    $scope.Close = function () {
-        //$scope.ClientList();
+    $scope.Close = function () {       
         location.reload();
     }
 
@@ -225,13 +206,11 @@
     }
     $scope.Statues();
 
-
-
     //Save client Feedback
     $scope.SaveFeedback = function () {
         debugger;
         var Feedback = {
-            AdvisorID:$scope.client.VerifiedBy,
+            AdvisorID: $scope.client.VerifiedBy,
             ClientSAID: GetDetailsSAID,
             ClientFeedBack: $scope.ClientFeedBack
         }

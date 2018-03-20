@@ -5,22 +5,18 @@
         var advisor = {
             FirstName: $scope.FirstName,
             LastName: $scope.LastName,
-            MobileNumber: $scope.MobileNumber,
-            PhoneNumber: $scope.PhoneNumber,
+            Mobile: $scope.MobileNumber,
+            Phone: $scope.PhoneNumber,
             EmailId: $scope.EmailId,
             LoginId: $scope.LoginId,
             Password: $scope.Password,
             Designation: $scope.Designation,
             Branch: $scope.Branch,
-            AdvisorType: $scope.AdvisorType,
+            AdvisorType: $scope.ConsultantType,
             Status: $scope.Status,
             AdvisorRole: $scope.AdvisorRole
             //UserImage: $scope.UserImage,
-        }
-
-        if (CrudService.post) {
-            advisor.DeleteFlag = '1';
-        }
+        }       
 
         var apiRoute = 'http://localhost:17746/api/Advisor';
         var saveAdvisor = CrudService.post(apiRoute, advisor);
@@ -50,7 +46,7 @@
         $scope.Password = "";
         $scope.Designation = "";
         $scope.Branch = "";
-        $scope.AdvisorType = "";
+        $scope.ConsultantType = "";
         $scope.Status = "";
         $scope.ConfirmPassword = "";
         $scope.AdvisorRole = ""
@@ -76,7 +72,7 @@
         var apiRoute = 'http://localhost:17746/api/AdvisorType';
         var usertype = CrudService.getAll(apiRoute);
         usertype.then(function (response) {
-            $scope.AdvisorTypes = response.data;
+            $scope.ConsultantTypes = response.data;
         },
     function (error) {
         console.log("Error: " + error);
@@ -100,7 +96,7 @@
 
     //Get Designation
     $scope.Designations = function () {
-        var apiRoute = 'http://localhost:17746/api/Destination';
+        var apiRoute = 'http://localhost:17746/api/Designation';
         var status = CrudService.getAll(apiRoute);
         status.then(function (response) {
             $scope.Designations = response.data;

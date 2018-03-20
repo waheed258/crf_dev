@@ -1,6 +1,4 @@
-﻿app.controller('Advisor', ['$scope', 'CrudService', function ($scope, CrudService) {
-    
-
+﻿app.controller('Advisor', ['$scope', 'CrudService', function ($scope, CrudService) {   
     $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
 
     //Get Advisor Types
