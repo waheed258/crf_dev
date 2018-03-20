@@ -27,5 +27,6 @@ namespace CRMWebApi.Models
         public Nullable<int> AdvisorID { get; set; }
         public Nullable<System.DateTime> TimeStamp { get; set; }
         public Nullable<int> Status { get; set; }
+        public string ReferenceSAID { get; set; }
     }
 }

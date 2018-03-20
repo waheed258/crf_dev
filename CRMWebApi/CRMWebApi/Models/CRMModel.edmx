@@ -211,11 +211,11 @@
         </EntityType>
         <EntityType Name="tbl_CompanyDetail">
           <Key>
-            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="UIC" />
           </Key>
           <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
-          <Property Name="UIC" Type="varchar" MaxLength="15" />
+          <Property Name="UIC" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="100" />
           <Property Name="YearOfEstablishment" Type="date" />
           <Property Name="FaxNo" Type="varchar" MaxLength="50" />
@@ -336,6 +336,7 @@
           </Key>
           <Property Name="TrustID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UIC" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ReferenceSAID" Type="varchar" MaxLength="15" />
           <Property Name="TrustName" Type="varchar" MaxLength="100" />
           <Property Name="YearOfFoundation" Type="date" />
           <Property Name="Telephone" Type="varchar" MaxLength="15" />
@@ -650,6 +651,7 @@
           <Property Name="AdvisorID" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
+          <Property Name="ReferenceSAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_TypeofAdvisor">
           <Key>
@@ -701,24 +703,6 @@
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_CompanyDetail">
-          <Key>
-            <PropertyRef Name="CompanyID" />
-          </Key>
-          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReferenceSAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="UIC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="YearOfEstablishment" Type="DateTime" Precision="0" />
-          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Website" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="AdvisorID" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="TimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
@@ -778,12 +762,12 @@
           <EntitySet Name="tbl_TypeofAdvisor" EntityType="Self.tbl_TypeofAdvisor" />
           <EntitySet Name="tbl_AddressDetail" EntityType="Self.tbl_AddressDetail" />
           <EntitySet Name="tbl_BankDetail" EntityType="Self.tbl_BankDetail" />
-          <EntitySet Name="tbl_CompanyDetail" EntityType="Self.tbl_CompanyDetail" />
           <EntitySet Name="tbl_Director" EntityType="Self.tbl_Director" />
           <EntitySet Name="tbl_TrustSettler" EntityType="Self.tbl_TrustSettler" />
           <EntitySet Name="tbl_Beneficiary" EntityType="crm_dev_dbModel.tbl_Beneficiary" />
           <EntitySet Name="tbl_Trustee" EntityType="crm_dev_dbModel.tbl_Trustee" />
           <EntitySet Name="tbl_ClientPersonal" EntityType="crm_dev_dbModel.tbl_ClientPersonal" />
+          <EntitySet Name="tbl_CompanyDetail" EntityType="crm_dev_dbModel.tbl_CompanyDetail" />
         </EntityContainer>
         <EntityType Name="tbl_Beneficiary">
           <Key>
@@ -836,6 +820,24 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="AdvisorID" Type="Int32" />
           <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_CompanyDetail">
+          <Key>
+            <PropertyRef Name="UIC" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferenceSAID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UIC" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="YearOfEstablishment" Type="DateTime" Precision="0" />
+          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="AdvisorID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1075,6 +1077,7 @@
           <EntitySetMapping Name="tbl_Trust">
             <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_Trust">
               <MappingFragment StoreEntitySet="tbl_Trust">
+                <ScalarProperty Name="ReferenceSAID" ColumnName="ReferenceSAID" />
                 <ScalarProperty Name="TrustID" ColumnName="TrustID" />
                 <ScalarProperty Name="UIC" ColumnName="UIC" />
                 <ScalarProperty Name="TrustName" ColumnName="TrustName" />
@@ -1142,25 +1145,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_CompanyDetail">
-            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_CompanyDetail">
-              <MappingFragment StoreEntitySet="tbl_CompanyDetail">
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="ReferenceSAID" ColumnName="ReferenceSAID" />
-                <ScalarProperty Name="UIC" ColumnName="UIC" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="YearOfEstablishment" ColumnName="YearOfEstablishment" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
               </MappingFragment>
@@ -1252,6 +1236,25 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="SAID" ColumnName="SAID" />
                 <ScalarProperty Name="ClientPersonalID" ColumnName="ClientPersonalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CompanyDetail">
+            <EntityTypeMapping TypeName="crm_dev_dbModel.tbl_CompanyDetail">
+              <MappingFragment StoreEntitySet="tbl_CompanyDetail">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="YearOfEstablishment" ColumnName="YearOfEstablishment" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="UIC" ColumnName="UIC" />
+                <ScalarProperty Name="ReferenceSAID" ColumnName="ReferenceSAID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
