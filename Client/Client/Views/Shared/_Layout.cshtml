@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRM Admin Panel</title>
+    <title>CRM Client Panel</title>
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="~/assets/dist/img/ico/favicon.png" type="image/x-icon">
     <!-- Start Global Mandatory Style
@@ -17,11 +17,11 @@
     <!--<link href="assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->
     <!-- Lobipanel css -->
     <link href="~/assets/plugins/lobipanel/lobipanel.min.css" rel="stylesheet" type="text/css" />
-    <!-- Pace css -->
-    <link href="~/assets/plugins/pace/flash.css" rel="stylesheet" type="text/css" />
+
     <!-- Font Awesome -->
-    <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />   
-   
+    <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Pe-icon -->
+    <link href="~/assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css" />
     <!-- Themify icons -->
     <link href="~/assets/themify-icons/themify-icons.css" rel="stylesheet" type="text/css" />
     <!-- End Global Mandatory Style
@@ -34,7 +34,6 @@
     <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
     <!-- End Theme Layout Style
        =====================================================================-->
-
 </head>
 <body class="hold-transition sidebar-mini">
     <!--preloader-->
@@ -59,16 +58,7 @@
                     <!-- Sidebar toggle button-->
                     <span class="sr-only">Toggle navigation</span>
                     <span class="pe-7s-angle-left-circle"></span>
-                </a>
-                <!-- searchbar-->
-                @*<a href="#search"><span class="pe-7s-search"></span></a>
-                    <div id="search">
-                        <button type="button" class="close">×</button>
-                        <form>
-                            <input type="search" value="" placeholder="Search.." />
-                            <button type="submit" class="btn btn-add">Search...</button>
-                        </form>
-                    </div>*@
+                </a>                
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- user -->
@@ -81,8 +71,7 @@
                                     <a href="profile.html">
                                         <i class="fa fa-user"></i> User Profile
                                     </a>
-                                </li>
-                                @*<li><a href="#"><i class="fa fa-inbox"></i> Inbox</a></li>*@
+                                </li>                                
                                 <li>
                                     <a href="login.html">
                                         <i class="fa fa-sign-out"></i> Signout
@@ -144,7 +133,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="clist.html">Add Beneficiary  </a></li>                           
+                            <li><a href="clist.html">Add Beneficiary  </a></li>
                         </ul>
                     </li>
                     <li>
