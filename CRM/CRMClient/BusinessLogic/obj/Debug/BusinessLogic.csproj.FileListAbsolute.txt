@@ -1,0 +1,9 @@
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\BusinessLogic.dll
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\BusinessLogic.pdb
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\BusinessObjects.dll
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\DataLogic.dll
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\BusinessObjects.pdb
+E:\Activ8\CRMClient\BusinessLogic\bin\Debug\DataLogic.pdb
+E:\Activ8\CRMClient\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+E:\Activ8\CRMClient\BusinessLogic\obj\Debug\BusinessLogic.dll
+E:\Activ8\CRMClient\BusinessLogic\obj\Debug\BusinessLogic.pdb

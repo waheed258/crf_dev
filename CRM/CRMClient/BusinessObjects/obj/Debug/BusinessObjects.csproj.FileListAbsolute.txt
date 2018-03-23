@@ -1,0 +1,4 @@
+E:\Activ8\CRMClient\BusinessObjects\bin\Debug\BusinessObjects.dll
+E:\Activ8\CRMClient\BusinessObjects\bin\Debug\BusinessObjects.pdb
+E:\Activ8\CRMClient\BusinessObjects\obj\Debug\BusinessObjects.dll
+E:\Activ8\CRMClient\BusinessObjects\obj\Debug\BusinessObjects.pdb
