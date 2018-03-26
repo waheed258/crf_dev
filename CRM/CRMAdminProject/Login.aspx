@@ -56,7 +56,7 @@
                             </div>
                             <div>                               
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-add" OnClick="btnLogin_Click"/>
-                                <asp:Label ID="lblError" runat="server"></asp:Label>
+                                <asp:Label ID="lblError" runat="server" style="color:red"></asp:Label>
                             </div>
 
                         </div>

@@ -8,6 +8,8 @@ namespace EntityManager
     public class CredentialsBO
     {
         public string SAID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string EmailID { get; set; }
         public string GenaratePassword { get; set; }
         public string Password { get; set; }

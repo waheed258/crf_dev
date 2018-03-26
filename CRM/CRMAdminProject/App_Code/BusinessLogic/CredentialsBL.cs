@@ -8,9 +8,9 @@ using DataManager;
 
 namespace BusinessLogic
 {
-    public class CredentialsBL:DataUtilities
+    public class CredentialsBL : DataUtilities
     {
-        public int ManageCredentials(CredentialsBO _objCredentials,char Operation)
+        public int ManageCredentials(CredentialsBO _objCredentials, char Operation)
         {
             Hashtable hsparams = new Hashtable
             {
@@ -20,7 +20,9 @@ namespace BusinessLogic
                 {"@inGenaratePassword",_objCredentials.GenaratePassword},
                 {"@inPassword",DBNull.Value},
                 {"@inCreatedBy",DBNull.Value},
-                {"@inUpdatedBy",DBNull.Value}
+                {"@inUpdatedBy",DBNull.Value},
+                {"@FirstName",_objCredentials.FirstName},
+                {"@LastName",_objCredentials.LastName}
             };
             return ExecuteNonQuery("CredentialsManager", hsparams);
         }

@@ -30,7 +30,7 @@ public partial class AdminForms_Login : System.Web.UI.Page
         {
             if (txtUserName.Text == "admin" && txtPassword.Text == "admin")
             {
-                Response.Redirect("NewAdvisor.aspx");
+                Response.Redirect("AdminForms/Dashboard.aspx");
             }
             else
             {
@@ -45,7 +45,7 @@ public partial class AdminForms_Login : System.Web.UI.Page
                         Session["Name"] = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
                         Session["AdvisorType"] = ds.Tables[0].Rows[0]["AdvisorType"].ToString();
                         Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
-                        Response.Redirect("NewAdvisor.aspx", false);
+                        Response.Redirect("AdminForms/Dashboard.aspx", false);
                     }
                     else
                     {

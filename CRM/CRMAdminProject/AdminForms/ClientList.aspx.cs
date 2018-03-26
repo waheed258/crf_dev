@@ -124,7 +124,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, 'S');
                 if (result > 0)
                 {
-                    ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString());
+                    int res =  ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString(), ViewState["FirstName"].ToString(), ViewState["LastName"].ToString());                    
                     SendMail();
                     message.Text = "Status Updated Successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -135,6 +135,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 }
                 else
                 {
+                    message.Text = "Something went wron please try again!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }
             }
@@ -150,22 +152,27 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     }
     protected void gvClientsList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
-        if (e.CommandName == "Status")
+        try
         {
-            GetClientStatus();
-            sectionClientList.Visible = false;
-            editSection.Visible = false;
-            statusSection.Visible = true;
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            string Status = ((Label)row.FindControl("lblCStatus")).Text.ToString();
-            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-            ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
-            ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
-            ddlClientStatus.SelectedValue = Status;
-           
+            if (e.CommandName == "Status")
+            {
+                GetClientStatus();
+                sectionClientList.Visible = false;
+                editSection.Visible = false;
+                statusSection.Visible = true;
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                string Status = ((Label)row.FindControl("lblCStatus")).Text.ToString();
+                ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
+                ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
+                ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
+                ddlClientStatus.SelectedValue = Status;
+
+            }
         }
+        catch { }
     }
     protected void GetClientStatus()
     {
@@ -189,12 +196,14 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     #region
 
 
-    protected int ManageCredentials(string SA_Id,string Email)
+    protected int ManageCredentials(string SA_Id,string Email,string FirstName,string LastName)
     {
         CredentialsBO _objCre = new CredentialsBO
         {
             SAID = SA_Id,
             EmailID=Email,
+            FirstName = FirstName,
+            LastName=LastName,
             GenaratePassword=GenarateDynamicPassword()
         };
         return new CredentialsBL().ManageCredentials(_objCre,'A'); 
