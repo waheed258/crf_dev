@@ -57,20 +57,22 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <div class="header-title">
-                        <h1>Advisor</h1>
-                    </div>
-                </section>
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <!-- Form controls -->
-                        <div class="col-sm-12">
-                            <div class="panel panel-bd">
+    <asp:ScriptManager ID="scr1" runat="server"></asp:ScriptManager>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-title">
+                <h1>Advisor</h1>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- Form controls -->
+                <div class="col-sm-12">
+                    <div class="panel panel-bd">
+                        <asp:UpdatePanel ID="up1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
                                 <div class="panel-heading">
                                     <div class="panel-title">
                                         <h5>Add Advisor</h5>
@@ -183,38 +185,40 @@
                                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" class="btn btn-add" ValidationGroup="Advisor" OnClick="btnSubmit_Click" />
                                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnCancel_Click" />
                                 </div>
-                            </div>
-                        </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
-                </section>
-                <!-- /.content -->
-
-                <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header modal-header-primary">
-                                <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <fieldset>
-                                            <div class="col-md-12 form-group user-form-group">
-                                                <label class="control-label" style="color: green">Advisor Added Successfully!</label>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
                 </div>
             </div>
-        
+        </section>
+        <!-- /.content -->
+
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <label class="control-label" style="color: green">Advisor Added Successfully!</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+
 </asp:Content>
 
