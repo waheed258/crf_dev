@@ -50,6 +50,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             sectionAdvisorList.Visible = false;
             txtLastName.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
             txtMobileNum.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblMobile")).Text.ToString();
+            txtPhoneNum.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblPhone")).Text.ToString();
             txtEmailId.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
             txtLoginId.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblLoginId")).Text.ToString();
             txtPassword.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblPassword")).Text.ToString();
@@ -63,6 +64,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlStatus.SelectedValue = Status;
             string Role = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblRole")).Text.ToString();
             ddlRole.SelectedValue = Role;
+           
         }
         catch { }
     }
@@ -150,7 +152,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     {
         try
         {
-            advisorentity.AdvisorID = Convert.ToInt32(ViewState["AdvisorID"]);
+            advisorentity.AdvisorID = Convert.ToInt32(ViewState["AdvisorID"]);          
             advisorentity.FirstName = txtFirstName.Text;
             advisorentity.LastName = txtLastName.Text;
             advisorentity.Mobile = txtMobileNum.Text;
@@ -162,8 +164,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             advisorentity.Branch = Convert.ToInt32(ddlBranch.SelectedValue);
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
-            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
-            advisorentity.Image = "";
+            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);            
             //need to initialize with login advisor id
             advisorentity.UpdatedBy = 0;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');

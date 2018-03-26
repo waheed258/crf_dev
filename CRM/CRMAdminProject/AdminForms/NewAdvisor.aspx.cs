@@ -109,6 +109,16 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
     {
         try
         {
+           
+            string fileNamemain = string.Empty;
+            if (fuImageUpload.HasFile)
+            {
+                string extension = System.IO.Path.GetExtension(fuImageUpload.PostedFile.FileName);
+                fileNamemain = txtLoginId.Text + extension;
+                fuImageUpload.SaveAs(Server.MapPath("/AdvisorImages/") + fileNamemain);
+                hfImage.Value = fileNamemain;
+            }
+            
             advisorentity.FirstName = txtFirstName.Text;
             advisorentity.LastName = txtLastName.Text;
             advisorentity.Mobile = txtMobileNum.Text;
@@ -121,7 +131,8 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
             advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
-            advisorentity.Image = "";
+
+            advisorentity.Image = hfImage.Value;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'i');
             if (result == 1)
             {
