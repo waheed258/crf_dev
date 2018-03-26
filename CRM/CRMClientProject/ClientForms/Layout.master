@@ -104,7 +104,7 @@
                 <!-- sidebar menu -->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="#">
+                        <a href="Dashboard.aspx">
                             <i class="fa fa-tachometer"></i><span>Dashboard</span>
                             <span class="pull-right-container"></span>
                         </a>
@@ -117,7 +117,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Client him/her </a></li>
+                            <li><a href="#">Client</a></li>
                             <li><a href="#">Spouse </a></li>
                             <li><a href="#">Children  </a></li>
 
