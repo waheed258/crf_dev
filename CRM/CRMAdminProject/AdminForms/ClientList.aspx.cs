@@ -237,22 +237,22 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         string SmtpServer = "smtp.gmail.com"; ;
         int SmtpPort = 587;
-        string MailFrom = "skr.addada@gmail.com";
+        string MailFrom = "";
         string DisplayNameFrom = "Active8 CRM";
-        string FromPassword = "$@i./159/*A";
-        string MailTo = "saikishore.addada@dinoosys.com"; ;
+        string FromPassword = "";
+        string MailTo = ViewState["Email"].ToString();
         string DisplayNameTo = "";
         string MailCc = "";
         string DisplayNameCc = "";
         string MailBcc = "";
-        string Subject = "Your booking reference" + " status changed";
+        string Subject = "Your reference" + " status changed";
         string MailText;
         string Attachment = "";
 
 
         MailCc = "";
 
-        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"] + "</b> <br/>Password : <b>" + GenarateDynamicPassword() + "</b>" +
+        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"].ToString() + "</b> <br/>Password : <b>" + GenarateDynamicPassword() + "</b>" +
             "</b>. <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
 
         CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, "", "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
