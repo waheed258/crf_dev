@@ -1,7 +1,0 @@
-E:\Activ8\CRMAdmin\DataLogic\bin\Debug\DataLogic.dll
-E:\Activ8\CRMAdmin\DataLogic\bin\Debug\DataLogic.pdb
-E:\Activ8\CRMAdmin\DataLogic\bin\Debug\BusinessObjects.dll
-E:\Activ8\CRMAdmin\DataLogic\bin\Debug\BusinessObjects.pdb
-E:\Activ8\CRMAdmin\DataLogic\obj\Debug\DataLogic.csprojResolveAssemblyReference.cache
-E:\Activ8\CRMAdmin\DataLogic\obj\Debug\DataLogic.dll
-E:\Activ8\CRMAdmin\DataLogic\obj\Debug\DataLogic.pdb

@@ -1,4 +1,0 @@
-E:\Activ8\CRMAdmin\BusinessObjects\bin\Debug\BusinessObjects.dll
-E:\Activ8\CRMAdmin\BusinessObjects\bin\Debug\BusinessObjects.pdb
-E:\Activ8\CRMAdmin\BusinessObjects\obj\Debug\BusinessObjects.dll
-E:\Activ8\CRMAdmin\BusinessObjects\obj\Debug\BusinessObjects.pdb
