@@ -104,7 +104,7 @@
                 <!-- sidebar menu -->
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="#">
                             <i class="fa fa-tachometer"></i><span>Dashboard</span>
                             <span class="pull-right-container"></span>
                         </a>
@@ -117,9 +117,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="add-customer.html">Client him/her </a></li>
-                            <li><a href="clist.html">Spouse </a></li>
-                            <li><a href="clist.html">Children  </a></li>
+                            <li><a href="#">Client him/her </a></li>
+                            <li><a href="#">Spouse </a></li>
+                            <li><a href="#">Children  </a></li>
 
                         </ul>
                     </li>
@@ -131,9 +131,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="clist.html">Add Trust  </a></li>
-                            <li><a href="clist.html">Add Trust Settler </a></li>
-                            <li><a href="clist.html">Add Trustees  </a></li>
+                            <li><a href="#">Add Trust  </a></li>
+                            <li><a href="#">Add Trust Settler </a></li>
+                            <li><a href="#">Add Trustees  </a></li>
                         </ul>
                     </li>
 
@@ -145,7 +145,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="clist.html">Add Beneficiary  </a></li>
+                            <li><a href="#">Add Beneficiary  </a></li>
                         </ul>
                     </li>
                     <li>
@@ -156,7 +156,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="clist.html">Add Company</a></li>
+                            <li><a href="#">Add Company</a></li>
                         </ul>
                     </li>
 

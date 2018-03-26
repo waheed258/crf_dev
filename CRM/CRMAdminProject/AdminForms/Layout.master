@@ -130,7 +130,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="deposit.html">Location Wise</a></li>
+                                <li><a href="#">Location Wise</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -141,20 +141,20 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="invoice.html">Accept Ownership of SR</a></li>
-                                <li><a href="ninvoices.html">Allocate ownership of SR
+                                <li><a href="#">Accept Ownership of SR</a></li>
+                                <li><a href="#">Allocate ownership of SR
                                 <br />
                                     to other staff</a></li>
-                                <li><a href="recurring.html">Add followup date and time</a></li>
-                                <li><a href="nrecurring.html">Add Client feedback and
+                                <li><a href="#">Add followup date and time</a></li>
+                                <li><a href="#">Add Client feedback and
                                 <br />
                                     update next followup</a></li>
-                                <li><a href="quote.html">Work in process SR</a></li>
-                                <li><a href="nquote.html">Un-accepted SR</a></li>
-                                <li><a href="payment.html">Client Profile and Wealth
+                                <li><a href="#">Work in process SR</a></li>
+                                <li><a href="#">Un-accepted SR</a></li>
+                                <li><a href="#">Client Profile and Wealth
                                 <br />
                                     flowchart</a></li>
-                                <li><a href="taxeport.html">Upload Documents</a></li>
+                                <li><a href="#">Upload Documents</a></li>
                             </ul>
                         </li>
                     </ul>
