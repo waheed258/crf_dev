@@ -73,6 +73,11 @@
                                             <asp:Label runat="server" ID="lblMobile" Text='<%#Eval("Mobile") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                       <asp:TemplateField HeaderText="Phone" Visible="false">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Email ID">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
@@ -117,7 +122,7 @@
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblRole" Text='<%#Eval("AdvisorRole") %>'></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>                                     
                                     <asp:TemplateField HeaderText="Action">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit.png"
@@ -192,7 +197,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Password</label>
-                                    <asp:TextBox ID="txtPassword" class="form-control" runat="server" placeholder="Enter Password" MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" class="form-control" runat="server" placeholder="Enter Password"  MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
                                         ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
@@ -240,6 +245,7 @@
                                         ErrorMessage="Please Select Role" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
+                           
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>

@@ -46,6 +46,7 @@ namespace BusinessLogic
             {
                 hashtable.Add("@AdvisorID", 0);
                 hashtable.Add("@UpdatedBy", 0);
+                hashtable.Add("@Image", advisorEntity.Image);
             }
             else
             {
@@ -63,7 +64,7 @@ namespace BusinessLogic
             hashtable.Add("@Branch", advisorEntity.Branch);
             hashtable.Add("@AdvisorType", advisorEntity.AdvisorType);
             hashtable.Add("@Status", advisorEntity.Status);
-            hashtable.Add("@Image", advisorEntity.Image);
+            
             hashtable.Add("@AdvisorRole", advisorEntity.AdvisorRole);
             hashtable.Add("@Operation", Operation);           
             
