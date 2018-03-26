@@ -53,6 +53,11 @@
                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientsList_RowEditing"
                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvClientsList_RowCommand">
                                 <Columns>
+                                    <asp:TemplateField HeaderText="S No.">
+                                        <ItemTemplate>
+                                            <%#Container.DataItemIndex+1%>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="SAID">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
@@ -243,7 +248,7 @@
                         <div class="panel-body">
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>Title</label>
+                                    <label>Status</label>
                                     <asp:DropDownList ID="ddlClientStatus" runat="server" class="form-control">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvClientStatus" runat="server" ErrorMessage="Please select Status" Display="Dynamic"

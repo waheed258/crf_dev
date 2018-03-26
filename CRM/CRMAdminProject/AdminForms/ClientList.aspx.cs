@@ -17,7 +17,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         if (!IsPostBack)
         {
             GetGridData();
-            
+
             sectionClientList.Visible = true;
             editSection.Visible = false;
             statusSection.Visible = false;
@@ -113,25 +113,34 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     }
     protected void btnStatusSubmit_Click(object sender, EventArgs e)
     {
-        int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
-        clientRegEntity.Status = Status;
-        clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
-
-        int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, 'S');
-        if (result == 1)
+        try
         {
-            message.Text = "Status Updated Successfully!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            sectionClientList.Visible = true;
-            statusSection.Visible = false;
-            editSection.Visible = false;
-            GetGridData();
-        }
-        else
-        {
-            Clear();
-        }
+            if (ddlClientStatus.SelectedItem.Text == "Active")
+            {
+                int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
+                clientRegEntity.Status = Status;
+                clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
+                int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, 'S');
+                if (result > 0)
+                {
+                    ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString());
+                    SendMail();
+                    message.Text = "Status Updated Successfully!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    sectionClientList.Visible = true;
+                    statusSection.Visible = false;
+                    editSection.Visible = false;
+                    GetGridData();
+                }
+                else
+                {
+                    Clear();
+                }
+            }
+           
+        }
+        catch { }
     }
     protected void btnStatusCancel_Click(object sender, EventArgs e)
     {
@@ -141,6 +150,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     }
     protected void gvClientsList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+
         if (e.CommandName == "Status")
         {
             GetClientStatus();
@@ -150,8 +160,11 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             string Status = ((Label)row.FindControl("lblCStatus")).Text.ToString();
+            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
+            ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
             ddlClientStatus.SelectedValue = Status;
+           
         }
     }
     protected void GetClientStatus()
@@ -170,4 +183,83 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
 
         }
     }
+
+
+    //Mail Code
+    #region
+
+
+    protected int ManageCredentials(string SA_Id,string Email)
+    {
+        CredentialsBO _objCre = new CredentialsBO
+        {
+            SAID = SA_Id,
+            EmailID=Email,
+            GenaratePassword=GenarateDynamicPassword()
+        };
+        return new CredentialsBL().ManageCredentials(_objCre,'A'); 
+    }
+
+
+    private string GenarateDynamicPassword()
+    {
+        string allowedChars = "";
+
+        allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
+
+        allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+
+        allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
+
+        char[] sep = { ',' };
+
+        string[] arr = allowedChars.Split(sep);
+
+        string passwordString = "";
+
+        string temp = "";
+
+        Random rand = new Random();
+
+        for (int i = 0; i < 6; i++)
+        {
+
+            temp = arr[rand.Next(0, arr.Length)];
+
+            passwordString += temp;
+
+        }
+
+        return passwordString;
+    }
+
+    public void SendMail()
+    {
+        string SmtpServer = "smtp.gmail.com"; ;
+        int SmtpPort = 587;
+        string MailFrom = "skr.addada@gmail.com";
+        string DisplayNameFrom = "Active8 CRM";
+        string FromPassword = "$@i./159/*A";
+        string MailTo = "saikishore.addada@dinoosys.com"; ;
+        string DisplayNameTo = "";
+        string MailCc = "";
+        string DisplayNameCc = "";
+        string MailBcc = "";
+        string Subject = "Your booking reference" + " status changed";
+        string MailText;
+        string Attachment = "";
+
+
+        MailCc = "";
+
+        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"] + "</b> <br/>Password : <b>" + GenarateDynamicPassword() + "</b>" +
+            "</b>. <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
+
+        CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, "", "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
+
+
+    }
+
+
+    #endregion
 }
