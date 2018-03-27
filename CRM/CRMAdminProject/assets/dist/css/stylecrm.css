@@ -2298,15 +2298,15 @@ i.fa-dot-circle-o {
 /*--- Buttons denger ---*/
 
 .btn-danger {
-    background-color: #E5343D;
-    border-color: #BF2D35;
+    background-color: #c12834;
+    border-color:#c12834;
 }
 
     .btn-danger:hover,
     .btn-danger:focus,
     .btn-danger:active {
-        background-color: #e7575e;
-        border-color: #BF2D35;
+        background-color: #c12834;
+        border-color: #c12834;
     }
 
     .btn-danger.btn-transparent {
