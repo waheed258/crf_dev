@@ -12,15 +12,17 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     DataSet dataset = new DataSet();
     NewClientRegistrationBL newClientRegistrationBL = new NewClientRegistrationBL();
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
+    FeedbackEntity feedbackEntity = new FeedbackEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             GetGridData();
-
             sectionClientList.Visible = true;
             editSection.Visible = false;
             statusSection.Visible = false;
+            validateSection.Visible = false;
+            ClientFeedbackSection.Visible = false;
         }
     }
     protected void GetGridData()
@@ -84,6 +86,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             }
             else
             {
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
         }
@@ -110,6 +114,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         sectionClientList.Visible = true;
         editSection.Visible = false;
         statusSection.Visible = false;
+        ClientFeedbackSection.Visible = false;
+        validateSection.Visible = false;
     }
     protected void btnStatusSubmit_Click(object sender, EventArgs e)
     {
@@ -121,16 +127,42 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 clientRegEntity.Status = Status;
                 clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
-                int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, 'S');
+                int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
                 if (result > 0)
                 {
-                    int res =  ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString(), ViewState["FirstName"].ToString(), ViewState["LastName"].ToString());                    
+                    int res = ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString(), ViewState["FirstName"].ToString(), ViewState["LastName"].ToString());
                     SendMail();
                     message.Text = "Status Updated Successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     sectionClientList.Visible = true;
                     statusSection.Visible = false;
                     editSection.Visible = false;
+                    ClientFeedbackSection.Visible = false;
+                    validateSection.Visible = false;
+                    GetGridData();
+                }
+                else
+                {
+                    message.Text = "Something went wron please try again!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);                    
+                }
+            }
+            else
+            {
+                int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
+                clientRegEntity.Status = Status;
+                clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
+
+                int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
+                if (result > 0)
+                {
+                    message.Text = "Status Updated Successfully!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    sectionClientList.Visible = true;
+                    statusSection.Visible = false;
+                    editSection.Visible = false;
+                    ClientFeedbackSection.Visible = false;
+                    validateSection.Visible = false;
                     GetGridData();
                 }
                 else
@@ -140,7 +172,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                     Clear();
                 }
             }
-           
+
         }
         catch { }
     }
@@ -154,22 +186,37 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
+            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+            int RowIndex = row.RowIndex;
+            ViewState["Status"] = ((Label)row.FindControl("lblCStatus")).Text.ToString();
+            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
+            ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+            ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
+            ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
             if (e.CommandName == "Status")
             {
                 GetClientStatus();
                 sectionClientList.Visible = false;
                 editSection.Visible = false;
                 statusSection.Visible = true;
-                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-                int RowIndex = row.RowIndex;
-                string Status = ((Label)row.FindControl("lblCStatus")).Text.ToString();
-                ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-                ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
-                ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
-                ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
-                ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
-                ddlClientStatus.SelectedValue = Status;
+                ddlClientStatus.SelectedValue = ViewState["Status"].ToString();
 
+            }
+            else if (e.CommandName == "Validate")
+            {
+                sectionClientList.Visible = false;
+                editSection.Visible = false;
+                statusSection.Visible = false;
+                validateSection.Visible = true;
+            }
+            else if (e.CommandName == "Feedback")
+            {
+                ClientFeedbackSection.Visible = true;
+                sectionClientList.Visible = false;
+                editSection.Visible = false;
+                statusSection.Visible = false;
+                validateSection.Visible = false;
             }
         }
         catch { }
@@ -196,17 +243,17 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     #region
 
 
-    protected int ManageCredentials(string SA_Id,string Email,string FirstName,string LastName)
+    protected int ManageCredentials(string SA_Id, string Email, string FirstName, string LastName)
     {
         CredentialsBO _objCre = new CredentialsBO
         {
             SAID = SA_Id,
-            EmailID=Email,
+            EmailID = Email,
             FirstName = FirstName,
-            LastName=LastName,
-            GenaratePassword=GenarateDynamicPassword()
+            LastName = LastName,
+            GenaratePassword = GenarateDynamicPassword()
         };
-        return new CredentialsBL().ManageCredentials(_objCre,'A'); 
+        return new CredentialsBL().ManageCredentials(_objCre, 'A');
     }
 
 
@@ -246,22 +293,22 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         string SmtpServer = "smtp.gmail.com"; ;
         int SmtpPort = 587;
-        string MailFrom = "";
+        string MailFrom = "skr.addada@gmail.com";
         string DisplayNameFrom = "Active8 CRM";
-        string FromPassword = "";
-        string MailTo = ViewState["Email"].ToString();
+        string FromPassword = "$@i./159/*A";
+        string MailTo = "saikishore.addada@dinoosys.com"; ;
         string DisplayNameTo = "";
         string MailCc = "";
         string DisplayNameCc = "";
         string MailBcc = "";
-        string Subject = "Your reference" + " status changed";
+        string Subject = "Your booking reference" + " status changed";
         string MailText;
         string Attachment = "";
 
 
         MailCc = "";
 
-        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"].ToString() + "</b> <br/>Password : <b>" + GenarateDynamicPassword() + "</b>" +
+        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"] + "</b> <br/>Password : <b>" + GenarateDynamicPassword() + "</b>" +
             "</b>. <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
 
         CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, "", "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
@@ -271,4 +318,82 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
 
 
     #endregion
+    protected void ButtonValidate_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            clientRegEntity.Status = Convert.ToInt32(ViewState["Status"]);
+            clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
+            clientRegEntity.SAID = ViewState["SAID"].ToString();
+            clientRegEntity.VerifiedThough = ddlVerifiedThrough.SelectedItem.Text;
+            clientRegEntity.VerifiedOn = txtVerifiedOn.Text;
+            feedbackEntity.AdvisorFeedBack = txtAdvisorFeedback.Text;
+            int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'V');
+
+            if (result > 0)
+            {
+                message.Text = "Client Validated Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                sectionClientList.Visible = true;
+                statusSection.Visible = false;
+                editSection.Visible = false;
+                ClientFeedbackSection.Visible = false;
+                validateSection.Visible = false;
+                txtVerifiedOn.Text = "";
+                txtAdvisorFeedback.Text = "";
+                ddlVerifiedThrough.SelectedValue = "-1";
+                GetGridData();
+            }
+            else
+            {
+                message.Text = "Something went wron please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);                
+            }
+        }
+        catch { }
+    }
+    protected void btnClose_Click(object sender, EventArgs e)
+    {
+        sectionClientList.Visible = true;
+        editSection.Visible = false;
+        statusSection.Visible = false;
+        ClientFeedbackSection.Visible = false;
+        validateSection.Visible = false;
+    }
+    protected void btnSaveFeedback_Click(object sender, EventArgs e)
+    {
+        try
+        {                       
+            clientRegEntity.SAID = ViewState["SAID"].ToString();  
+            feedbackEntity.ClientFeedBack = txtClientFeedback.Text;
+            int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'C');
+            if (result > 0)
+            {
+                message.Text = "Feedback saved Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                sectionClientList.Visible = true;
+                statusSection.Visible = false;
+                editSection.Visible = false;
+                ClientFeedbackSection.Visible = false;
+                validateSection.Visible = false;
+                txtClientFeedback.Text = "";
+                GetGridData();
+            }
+            else
+            {
+                message.Text = "Something went wron please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
+        }
+        catch { }
+    }
+    protected void btnCancelFeedback_Click(object sender, EventArgs e)
+    {
+        txtClientFeedback.Text = "";
+        sectionClientList.Visible = true;
+        editSection.Visible = false;
+        statusSection.Visible = false;
+        ClientFeedbackSection.Visible = false;
+        validateSection.Visible = false;
+    }
 }

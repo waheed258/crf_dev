@@ -51,6 +51,7 @@ public partial class Login : System.Web.UI.Page
                     if (passowrd == txtPassword.Text)
                     {
                         Session["ClientName"] = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
+                        Session["SAID"] = ds.Tables[0].Rows[0]["SAID"].ToString();
                         Response.Redirect("ClientForms/Dashboard.aspx", false);
                     }
                     else

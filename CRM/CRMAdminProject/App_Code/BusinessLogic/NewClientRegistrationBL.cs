@@ -52,7 +52,7 @@ namespace BusinessLogic
             return result;
         }
 
-        public int ChangeClientActions(ClientRegistrationEntity clientinfo, char Operation)
+        public int ChangeClientActions(ClientRegistrationEntity clientinfo,FeedbackEntity feedbackEntity, char Operation)
         {
             Hashtable hashtable = new Hashtable();
             if (Operation == 'S')
@@ -62,6 +62,31 @@ namespace BusinessLogic
                 hashtable.Add("@VerifiedOn", DBNull.Value);
                 hashtable.Add("@VerifiedThough", DBNull.Value);
                 hashtable.Add("@ClientRegistrationID", clientinfo.ClientRegistartionID);
+                hashtable.Add("@ClientSAID", DBNull.Value);
+                hashtable.Add("@ClientFeedback", DBNull.Value);
+                hashtable.Add("@AdvisorFeedback", DBNull.Value);
+            }
+            else if (Operation == 'V')
+            {
+                hashtable.Add("@ClientStatus", clientinfo.Status);
+                hashtable.Add("@VerifiedBy", DBNull.Value);
+                hashtable.Add("@VerifiedOn", clientinfo.VerifiedOn);
+                hashtable.Add("@VerifiedThough", clientinfo.VerifiedThough);
+                hashtable.Add("@ClientRegistrationID", clientinfo.ClientRegistartionID);
+                hashtable.Add("@ClientSAID", clientinfo.SAID);
+                hashtable.Add("@ClientFeedback", DBNull.Value);
+                hashtable.Add("@AdvisorFeedback", feedbackEntity.AdvisorFeedBack);
+            }
+            else
+            {
+                hashtable.Add("@ClientStatus", DBNull.Value);
+                hashtable.Add("@VerifiedBy", DBNull.Value);
+                hashtable.Add("@VerifiedOn", DBNull.Value);
+                hashtable.Add("@VerifiedThough", DBNull.Value);
+                hashtable.Add("@ClientRegistrationID", DBNull.Value);
+                hashtable.Add("@ClientSAID", clientinfo.SAID);
+                hashtable.Add("@ClientFeedback", feedbackEntity.ClientFeedBack);
+                hashtable.Add("@AdvisorFeedback", DBNull.Value);
             }
             hashtable.Add("@Operation", Operation);
             DataUtilities dataUtilities = new DataUtilities();

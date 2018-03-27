@@ -235,6 +235,82 @@
                 </div>
             </div>
         </section>
+        <section class="content" id="validateSection" runat="server">
+            <div class="row">
+                <!-- Form controls -->
+                <div class="col-sm-12">
+                    <div class="panel panel-bd">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Validate</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-3">
+                                    <label>Verified On</label>
+                                    <asp:TextBox ID="txtVerifiedOn" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvVerifiedOn" runat="server" ErrorMessage="Please Select Date" ControlToValidate="txtVerifiedOn" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>VerifiedThrough</label>
+                                    <asp:DropDownList ID="ddlVerifiedThrough" runat="server" class="form-control">
+                                        <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
+                                        <asp:ListItem Text="Phone" Value="Phone"></asp:ListItem>
+                                        <asp:ListItem Text="Email" Value="Email"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvVerifiedThrough" runat="server" ErrorMessage="Please Select Verified Through" ControlToValidate="ddlVerifiedThrough" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>Advisor Feedback</label>
+                                    <asp:TextBox ID="txtAdvisorFeedback" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvAdvisorFeedback" runat="server" ErrorMessage="Please Enter Feedback" ControlToValidate="txtAdvisorFeedback" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="col-sm-5"></div>
+                            <asp:Button ID="ButtonValidate" runat="server" Text="Validate" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="ButtonValidate_Click" />
+                            <asp:Button ID="btnClose" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnClose_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content" id="ClientFeedbackSection" runat="server">
+            <div class="row">
+                <!-- Form controls -->
+                <div class="col-sm-12">
+                    <div class="panel panel-bd">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h5>Client Feedback</h5>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-5">
+                                    <label>Client Feedback</label>
+                                    <asp:TextBox ID="txtClientFeedback" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvClientFeedback" runat="server" ErrorMessage="Please Enter Feedback" ControlToValidate="txtClientFeedback" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="col-sm-5"></div>
+                            <asp:Button ID="btnSaveFeedback" runat="server" Text="Save" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="btnSaveFeedback_Click" />
+                            <asp:Button ID="btnCancelFeedback" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnCancelFeedback_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="content" id="statusSection" runat="server">
             <div class="row">
                 <!-- Form controls -->
