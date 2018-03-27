@@ -443,8 +443,8 @@ hr {
         border: none;
         min-height: 60px;
         border-radius: 0;
-        background-color: #052748;
-        border-bottom: 1px solid #052748;
+        background-color: #fff;
+        border-bottom: 1px solid #fff;
     }
 
 .layout-top-nav .main-header .navbar {
@@ -564,11 +564,11 @@ a.sidebar-toggle .pe-7s-angle-left-circle {
     padding: 0 15px;
     font-weight: 300;
     overflow: hidden;
-    background-color: #052748;
+    background-color: #fff;
     color: #241d1d;
     -webkit-transition: width 0.3s ease-in-out;
     transition: width 0.3s ease-in-out;
-    border-bottom: 2px solid #052748;
+    border-bottom: 2px solid #fff;
 }
 
     .main-header .logo .logo-lg {
@@ -681,15 +681,15 @@ a.sidebar-toggle .pe-7s-angle-left-circle {
     }
 
     .navbar-nav > li > a:focus {
-        background-color: #222;
+        /*background-color: #222;
         background: #222;
-        color: #009688;
+        color: #009688;*/
     }
 
     .navbar-nav > li > a:visited {
-        background-color: #222;
+        /*background-color: #222;
         background: #222;
-        color: #009688;
+        color: #009688;*/
     }
 
     .navbar-nav > li > a:active {
@@ -711,8 +711,8 @@ a.sidebar-toggle .pe-7s-angle-left-circle {
 .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
-    background-color: #222;
-    border-color: #222;
+    background-color: #fff;
+    border-color: #fff;
 }
 
 .navbar-nav > li > a > i:hover {
@@ -991,7 +991,7 @@ a.sidebar-toggle .pe-7s-angle-left-circle {
     transition: width 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
-    background-color: #055988;
+    background-color: #c12834;
 }
 
 @media (max-width: 767px) {
@@ -1125,7 +1125,7 @@ a.sidebar-toggle .pe-7s-angle-left-circle {
         .sidebar-menu > li:hover > a,
         .sidebar-menu > li.active > a {
             color: #fff;
-            background: #2f7fab;
+            background: #c12834;
         }
 
         .sidebar-menu > li > a > .fa,
@@ -1742,9 +1742,9 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
-    color: #e4e5e7;
+    color: black;
     cursor: pointer;
-    background-color: #009688;
+    background-color: #ddebf3;
     height: 130px;
     margin-bottom: 25px;
     border-radius: 4px;
@@ -1754,9 +1754,9 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
-    color: #e4e5e7;
+    color: black;
     cursor: pointer;
-    background-color: #009688;
+    background-color: #ddebf3;
     height: 130px;
     margin-bottom: 25px;
     border-radius: 4px;
@@ -1766,9 +1766,9 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
-    color: #e4e5e7;
+    color: black;
     cursor: pointer;
-    background-color: #009688;
+    background-color: #ddebf3;
     height: 130px;
     margin-bottom: 25px;
     border-radius: 4px;
@@ -1778,9 +1778,9 @@ the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)*/
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
-    color: #e4e5e7;
+    color: black;
     cursor: pointer;
-    background-color: #009688;
+    background-color: #ddebf3;
     height: 130px;
     margin-bottom: 25px;
     border-radius: 4px;
@@ -2013,7 +2013,7 @@ i.fa-dot-circle-o {
 
 .panel-bd > .panel-heading {
     color: #010611;
-    background-color: #55b7e6; /*sai*/
+    background-color: #c12834; /*sai*/
     padding: 4px 15px !important;
     border-color: #b7b9bf;
     position: relative;
@@ -4254,7 +4254,7 @@ pre {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #fff;
+    color: black;
 }
 /* Buzz Out */
 
@@ -5124,7 +5124,7 @@ table.text-center th {
 }
 
 ::-webkit-scrollbar-track-piece {
-    background-color: #c4c5c6;
+    /*background-color: #c4c5c6;*/
 }
 
 ::-webkit-scrollbar-thumb:vertical {

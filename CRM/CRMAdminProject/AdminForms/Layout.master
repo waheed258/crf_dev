@@ -60,10 +60,10 @@
                 <a href="Dashboard.aspx" class="logo">
                     <!-- Logo -->
                     <span class="logo-mini">
-                        <img src="../assets/dist/img/mini-logo.png" alt="" />
+                        <img src="../assets/dist/img/logo-mini.jpg" alt="" />
                     </span>
                     <span class="logo-lg">
-                        <img src="../assets/dist/img/logo.png" alt="" />
+                        <img src="../assets/dist/img/logo.jpg" alt="" />
                     </span>
                 </a>
                 <!-- Header Navbar -->
@@ -170,7 +170,7 @@
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2018 <a href="#">Dinoosys</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2018 <a href="#">Activ8</a>.</strong> All rights reserved.
             </footer>
         </div>
         <!-- /.wrapper -->

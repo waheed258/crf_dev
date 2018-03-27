@@ -287,7 +287,7 @@ option{
 /*-- start-responsive-design --*/
 @media (max-width:1440px){
 .w3layouts_main_grid {
-	width: 39%;
+	width: 85%;
 }
 }
 @media (max-width: 1366px){
@@ -297,7 +297,7 @@ option{
 }
 @media (max-width: 1280px){
 .w3layouts_main_grid {
-	width: 44%;
+	width: 85%;
 }
 }
 @media (max-width: 1080px){
@@ -311,12 +311,19 @@ option{
 }
 @media (max-width: 1024px){
 .w3layouts_main_grid {
-	width: 55%;
+	width: 85%;
 }
 }
+
+@media (max-width: 1920px){
+.w3layouts_main_grid {
+	width: 85%;
+}
+}
+
 @media (max-width: 991px){
 .w3layouts_main_grid {
-	width: 57%;
+	width: 85%;
 }
 }
 @media (max-width: 800px){
@@ -327,7 +334,7 @@ option{
 	padding: 3em 0;
 }
 .w3layouts_main_grid {
-	width: 71%;
+	width: 85%;
 }
 }
 @media (max-width: 768px){
