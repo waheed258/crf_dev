@@ -37,7 +37,7 @@
                                     <i class="pe-7s-unlock"></i>
                                 </div>
                                 <div class="header-title">
-                                    <h3>Login</h3>
+                                    <h3>Client Login</h3>
                                     <small><strong>Please enter your credentials to login.</strong></small>
                                 </div>
                             </div>

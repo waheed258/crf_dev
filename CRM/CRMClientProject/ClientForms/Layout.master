@@ -56,7 +56,7 @@
     <!-- Site wrapper -->
     <div class="wrapper">
         <header class="main-header">
-            <a href="index.html" class="logo">
+            <a href="Dashboard.aspx" class="logo">
                 <!-- Logo -->
                 <span class="logo-mini">
                     <img src="../assets/dist/img/mini-logo.png" alt=""/>
@@ -81,7 +81,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="profile.html">
+                                    <a href="#">
                                         <i class="fa fa-user"></i>User Profile
                                     </a>
                                 </li>

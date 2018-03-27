@@ -20,7 +20,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="NewAdvisor.aspx">
+                            <a href="#">
                                 <div id="cardbox1">
                                     <div class="statistic-box">
                                         <i class="fa fa-user-plus fa-3x"></i>
@@ -34,7 +34,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="AdvisorList.aspx">
+                            <a href="#">
                                 <div id="cardbox2">
                                     <div class="statistic-box">
                                         <i class="fa fa-user-plus fa-3x"></i>
@@ -48,7 +48,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="ClientList.aspx">
+                            <a href="#">
                                 <div id="cardbox3">
                                     <div class="statistic-box">
                                         <i class="fa fa-user-plus fa-3x"></i>
@@ -63,7 +63,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="ClientList.aspx">
+                            <a href="#">
                                 <div id="cardbox4">
                                     <div class="statistic-box">
                                         <i class="fa fa-user-plus fa-3x"></i>
