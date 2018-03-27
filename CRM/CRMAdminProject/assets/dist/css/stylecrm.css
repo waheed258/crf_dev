@@ -2582,9 +2582,9 @@ i.fa-dot-circle-o {
 @media (max-width: 499px) {
     .tab-content .panel-body {
         background: #fff;
-        border: 1px solid gray;
+        border: 1px solid #cfd8dc;
         border-radius: 2px;
-        padding: 20px;
+        /*padding: 20px;*/
         position: relative;
         margin-top: 15px;
     }
