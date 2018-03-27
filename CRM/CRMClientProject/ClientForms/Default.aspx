@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <form id="form" runat="server">
+  
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
@@ -238,7 +238,6 @@
             </div>
             <!-- /.content -->
         </div>
-    </form>
-
+    
 </asp:Content>
 
