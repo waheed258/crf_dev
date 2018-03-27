@@ -26,8 +26,9 @@ namespace EntityManager
         public string PostalCode { get; set; }
         public int? Province { get; set; }
         public int? Country { get; set; }
+        public int? AdvisorId { get; set; }
         public int? Status { get; set; }
         public int? CreatedBy { get; set; }
-        public string UpdatedOn { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }
