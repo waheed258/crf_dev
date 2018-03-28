@@ -12,7 +12,7 @@ using DataManager;
 
 namespace BusinessLogic
 {
-    public class ClientProfileBL
+    public class BasicDropdownBL
     {
         DataUtilities dataUtilities = new DataUtilities();
         DataSet ds = new DataSet();
@@ -39,6 +39,8 @@ namespace BusinessLogic
             ds = dataUtilities.ExecuteDataSet("GetAccountType");
             return ds;
         }
+
+       
 
     }
 }
