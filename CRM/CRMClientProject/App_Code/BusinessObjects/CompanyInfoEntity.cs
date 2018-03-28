@@ -15,10 +15,10 @@ namespace EntityManager
         public string UIC { get; set; }
         public string CompanyName { get; set; }
         public string YearOfEstablishment { get; set; }
+        public string Telephone { get; set; }
         public string FaxNo { get; set; }
         public string EmailID { get; set; }
-        public string Website { get; set; }
-        public string Fax { get; set; }
+        public string Website { get; set; }        
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
         public int? Status { get; set; }

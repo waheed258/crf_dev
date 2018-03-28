@@ -137,7 +137,6 @@
                                 <li><a href="#">Add Trustees  </a></li>
                             </ul>
                         </li>
-
                         <li>
                             <a href="note.html">
                                 <i class="fa fa-user-circle"></i><span>Beneficiary</span>
@@ -157,7 +156,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Add Company</a></li>
+                                <li><a href="CompanyDetails.aspx">Add Company</a></li>
                             </ul>
                         </li>
 

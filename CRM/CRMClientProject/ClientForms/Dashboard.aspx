@@ -48,7 +48,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="#">
+                            <a href="CompanyDetails.aspx">
                                 <div id="cardbox3">
                                     <div class="statistic-box">
                                         <i class="fa fa-user-plus fa-3x"></i>

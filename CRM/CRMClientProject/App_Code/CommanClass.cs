@@ -12,11 +12,12 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Globalization;
 using BusinessLogic;
+using EntityManager;
 
 public class CommanClass
 {
     DataSet ds = new DataSet();
-    BasicDropdownBL _objBasicDropdownBL = new BasicDropdownBL();
+    BasicDropdownBL _objBasicDropdownBL = new BasicDropdownBL();    
     public void GetCountry(DropDownList ddlCountry)
     {
         try
