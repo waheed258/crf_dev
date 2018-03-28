@@ -16,11 +16,12 @@ using BusinessLogic;
 public class CommanClass
 {
     DataSet ds = new DataSet();
+    BasicDropdownBL _objBasicDropdownBL = new BasicDropdownBL();
     public void GetCountry(DropDownList ddlCountry)
     {
         try
         {
-            ds =new  ClientProfileBL().GetCountry();
+            ds = _objBasicDropdownBL.GetCountry();
             ddlCountry.DataSource = ds;
             ddlCountry.DataTextField = "Country";
             ddlCountry.DataValueField = "CountryID";
@@ -36,7 +37,7 @@ public class CommanClass
     {
         try
         {
-            ds =new  ClientProfileBL().GetProvince();
+            ds = _objBasicDropdownBL.GetProvince();
             ddlProvince.DataSource = ds;
             ddlProvince.DataTextField = "Province";
             ddlProvince.DataValueField = "ProvinceID";
@@ -52,7 +53,7 @@ public class CommanClass
     {
         try
         {
-            ds =new ClientProfileBL().GetCity();
+            ds = _objBasicDropdownBL.GetCity();
             ddlCity.DataSource = ds;
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "CityID";
@@ -68,7 +69,7 @@ public class CommanClass
     {
         try
         {
-            ds =new  ClientProfileBL().GetAccountType();
+            ds = _objBasicDropdownBL.GetAccountType();
             ddlAccountType.DataSource = ds;
             ddlAccountType.DataTextField = "AccountType";
             ddlAccountType.DataValueField = "AccountTypeID";
