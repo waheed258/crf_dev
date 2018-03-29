@@ -173,6 +173,11 @@
                                                             <asp:Label runat="server" ID="lblCompanyID" Text='<%#Eval("CompanyID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Reference SAID" Visible="false">
+                                                       <ItemTemplate>
+                                                           <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                       </ItemTemplate>
+                                                   </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="UIC">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
