@@ -40,11 +40,12 @@ namespace BusinessLogic
             return ExecuteNonQuery("InsUpAddressDetail", hsparams);
         }
 
-        public DataSet GetAddressDetails(string SAID)
+        public DataSet GetAddressDetails(string SAID,int Type)
         {
             var newAddress = new List<AddressEntity>();
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@ReferenceSAID", SAID);
+            hashtable.Add("@Type", Type);
             DataSet ds = dataUtilities.ExecuteDataSet("usp_GetAddressDetails", hashtable);
             return ds;
         }
