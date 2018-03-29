@@ -13,6 +13,7 @@ namespace EntityManager
         public int ChildrenID { get; set; }
         public string SAID { get; set; }
         public string ReferenceSAID { get; set; }
+        public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailID { get; set; }

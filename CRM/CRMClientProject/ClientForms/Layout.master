@@ -119,8 +119,8 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="#">Client</a></li>
-                                <li><a href="#">Spouse </a></li>
-                                <li><a href="#">Children  </a></li>
+                                <li><a href="Spouse.aspx">Spouse </a></li>
+                                <li><a href="ChildDetails.aspx">Children  </a></li>
 
                             </ul>
                         </li>
