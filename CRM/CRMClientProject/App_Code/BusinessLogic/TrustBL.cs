@@ -24,11 +24,22 @@ namespace BusinessLogic
                         {"@inEmailID",_objTrust.EmailID},
                         {"@inWebsite",_objTrust.Website},
                         {"@inTaxRefNo",_objTrust.TaxRefNo},
-                        {"@inAdvisorID",_objTrust.AdvisorID},
+                        {"@inAdvisorID",DBNull.Value},
                         {"@inStatus",_objTrust.Status},
                         {"@OperationName",operation}
                     };
             return ExecuteNonQuery("TrustManager", hsparams);
+        }
+
+
+        public DataSet GetTrust(string ReferenceSAId,string UIC,char operation)
+        {
+            Hashtable hsparams = new Hashtable();
+            hsparams.Add("@inReferenceSAID", ReferenceSAId);
+            hsparams.Add("@inUIC", UIC);
+            hsparams.Add("@OperationName", operation);
+
+            return ExecuteDataSet("GetTrust", hsparams);
         }
     }
 }
