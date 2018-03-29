@@ -135,6 +135,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             int RowIndex = row.RowIndex;
             ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnCompantDetails.Visible = false;
@@ -174,6 +175,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
+            companyInfoEntity.ReferenceSAID = ViewState["CompanyReferenceSAID"].ToString();
             companyInfoEntity.CompanyID = Convert.ToInt32(ViewState["CompanyID"]);
             companyInfoEntity.UIC = txtCompanyUIC.Text;
             companyInfoEntity.CompanyName = txtCompanyName.Text;
