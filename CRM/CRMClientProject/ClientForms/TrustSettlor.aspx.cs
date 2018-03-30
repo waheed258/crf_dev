@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
 using BusinessLogic;
 using EntityManager;
-
-public partial class ClientForms_TrustDetails : System.Web.UI.Page
+public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
-    TrustBL _objTrustBL = new TrustBL();
     DataSet ds = new DataSet();
+    TrustSettlerBL _ObjTrustSettlerBL = new TrustSettlerBL();
     BankBL bankBL = new BankBL();
     BankInfoEntity bankEntity = new BankInfoEntity();
     AddressBL addressBL = new AddressBL();
@@ -33,9 +32,15 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
-                    GetTrustGrid();
-                    BindBankDetails();
-                    BindAddressDetails();
+                    if (!string.IsNullOrEmpty(Request.QueryString["x"]))
+                    {
+                        EncryptDecrypt ObjEn = new EncryptDecrypt();
+                        txtTrustUIC.Text = ObjEn.Decrypt(Request.QueryString["x"].ToString());
+                        GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+                        BindBankDetails();
+                        BindAddressDetails();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -46,28 +51,94 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Trust Info Methods
-    /// Trust Info Events
+    /// Trust Settler Methods, Events
+    /// Settler Grid
     /// </summary>
-    /// <returns></returns>
-    #region TrustDetails
+    /// <param name="RefUIC"></param>
+    #region TrustDSettler
+    private void GetTrustSettlerGrid(string RefUIC)
+    {
+        ds = _ObjTrustSettlerBL.GetTrustSettler(0, RefUIC);
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            gvTrustSettler.DataSource = ds.Tables[0];
+        else
+            gvTrustSettler.DataSource = null;
+        gvTrustSettler.DataBind();
 
-    protected void btnSubmitTrust_Click(object sender, EventArgs e)
+    }
+
+    private void BindTrustSettler(int TrId)
+    {
+        ds = _ObjTrustSettlerBL.GetTrustSettler(TrId, txtTrustUIC.Text.Trim());
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        {
+            hfTrustSettlerId.Value = ds.Tables[0].Rows[0]["TrustSettlerID"].ToString();
+            txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+            txtTrustUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
+            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+            btnSubmit.Text = "Update";
+        }
+    }
+
+    private int TrustSettlerManager()
+    {
+        int Result;
+        TrustSettlerEntity _objSettler = new TrustSettlerEntity
+        {
+            TrustSettlerID = Convert.ToInt32(hfTrustSettlerId.Value.Trim()),
+            SAID = txtSAID.Text.Trim(),
+            ReferenceSAID = Session["SAID"].ToString(),
+            ReferenceUIC = txtTrustUIC.Text.Trim(),
+            FirstName = txtFirstName.Text.Trim(),
+            LastName = txtLastName.Text.Trim(),
+            EmailID = txtEmail.Text.Trim(),
+            Mobile = txtMobile.Text.Trim(),
+            Phone = txtPhone.Text.Trim(),
+            TaxRefNo = txtTaxRefNo.Text.Trim(),
+            Status = 1
+        };
+
+        if (btnSubmit.Text == "Update")
+        {
+            Result = _ObjTrustSettlerBL.TrustSettlerInsertUpdate(_objSettler, 'u');
+        }
+        else
+        {
+            Result = _ObjTrustSettlerBL.TrustSettlerInsertUpdate(_objSettler, 'i');
+        }
+        return Result;
+    }
+
+    private void ClearTrustSettlerControls()
+    {
+        btnSubmit.Text = "Save";
+        hfTrustSettlerId.Value = "0";
+        txtSAID.Text = "";
+        txtTaxRefNo.Text = "";
+        txtFirstName.Text = "";
+        txtLastName.Text = "";
+        txtEmail.Text = "";
+        txtMobile.Text = "";
+        txtPhone.Text = "";
+    }
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
         {
-            int res = ManageTrust();
+            int res = TrustSettlerManager();
             if (res > 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Information Updated Successfully !!.');", true);
-                ClearTrustControls();
-                GetTrustGrid();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Settler Information Updated Successfully !!.');", true);
+                ClearTrustSettlerControls();
+                GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
             }
             else
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Information not Saved please check the Details !!');", true);
-            }
-
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('please try again !!');", true);
         }
         catch (Exception ex)
         {
@@ -75,142 +146,59 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         }
     }
 
-    protected void btnCancleTrust_Click(object sender, EventArgs e)
+    protected void btnCancel_Click(object sender, EventArgs e)
     {
-        ClearTrustControls();
+        ClearTrustSettlerControls();
     }
 
-    private int ManageTrust()
-    {
-        TrustEntity _objTrust = new TrustEntity
-        {
-            UIC = txtUIC.Text.Trim(),
-            TrustName = txtTrustName.Text.Trim(),
-            YearOfFoundation = txtYearofFoundation.Text.Trim(),
-            TaxRefNo = txtTaxRef.Text.Trim(),
-            Telephone = txtTelephone.Text.Trim(),
-            EmailID = txtEmail.Text.Trim(),
-            FaxNo = txtFax.Text.Trim(),
-            Website = txtWebsite.Text.Trim(),
-            ReferenceSAID = Session["SAID"].ToString(),
-            Status = 1
-        };
-        int res;
-        if (btnSubmitTrust.Text == "Update")
-            res = _objTrustBL.TrustManager(_objTrust, 'U');
-        else
-            res = _objTrustBL.TrustManager(_objTrust, 'I');
-
-        return res;
-    }
-
-    private void ClearTrustControls()
-    {
-        btnSubmitTrust.Text = "Save";
-        txtUIC.Text = "";
-        txtTrustName.Text = "";
-        txtYearofFoundation.Text = "";
-        txtTaxRef.Text = "";
-        txtTelephone.Text = "";
-        txtEmail.Text = "";
-        txtFax.Text = "";
-        txtWebsite.Text = "";
-    }
-
-    private void BindTrust(string UIC)
-    {
-        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(),UIC);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-        {
-            txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-            txtTrustName.Text = ds.Tables[0].Rows[0]["TrustName"].ToString();
-            txtYearofFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
-            txtTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
-            txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
-            txtTaxRef.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-            btnSubmitTrust.Text = "Update";
-        }
-    }
-
-    private void GetTrustGrid()
-    {
-        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), "0");
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-        {
-            gvTrust.DataSource = ds.Tables[0];
-            gvTrust.DataBind();
-        }
-        else
-        {
-            gvTrust.DataSource = null;
-            gvTrust.DataBind();
-        }
-    }
-
-    protected void gvTrust_RowCommand(object sender, GridViewCommandEventArgs e)
+   
+    protected void gvTrustSettler_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
         {
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
-            ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
-
-            string UIC = e.CommandArgument.ToString();
-            EncryptDecrypt ObjEn = new EncryptDecrypt();
-            ObjEn.Encrypt(UIC);
-            
-            switch (e.CommandName)
+            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            ViewState["TrusteeSettlerId"] = ((Label)row.FindControl("lblTrustSettlerId")).Text.ToString();
+            if (e.CommandName == "EditTrustSettler")
             {
-                case "EditTrust":
-                    BindTrust(UIC);
-                    break;
-                case "EditTrustee":
-                    Response.Redirect("Trustee.aspx?x=" + ObjEn.Encrypt(UIC) , false);
-                    break;
-                case "EditSettler":
-                    Response.Redirect("TrustSettlor.aspx?x=" + ObjEn.Encrypt(UIC), false);
-                    break;
-                case "EditBeneficiary":
-                    Response.Redirect("Beneficiary.aspx?x=" + ObjEn.Encrypt(UIC) + "&t=" + ObjEn.Encrypt("1"), false);
-                    break;
-                case "Address":
-                    btnUpdateAddress.Visible = false;
-                    btnAddressSubmit.Visible = true;
-                    addressmessage.InnerText = "Save Address Details";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
-                    break;
-                case "Bank":
-                    bankmessage.InnerText = "Save Bank Details";
-                    btnBankSubmit.Visible = true;
-                    btnUpdateBank.Visible = false;
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
-                    break;
-                case "DeleteTrust":
-                    ViewState["flag"] = 1;
-                    lbldeletemessage.Text = "Are you sure, you want to delete Child Details?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-                    break;
+                int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
+                BindTrustSettler(TrustSettlerId);
             }
-
+            else if (e.CommandName == "DeleteSettler")
+            {
+                ViewState["flag"] = 1;
+                lbldeletemessage.Text = "Are you sure, you want to delete Trst Settlor Details?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+            }
+            else if (e.CommandName == "Address")
+            {
+                btnUpdateAddress.Visible = false;
+                btnAddressSubmit.Visible = true;
+                addressmessage.InnerText = "Save Address Details";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+            }
+            else if (e.CommandName == "Bank")
+            {
+                bankmessage.InnerText = "Save Bank Details";
+                btnBankSubmit.Visible = true;
+                btnUpdateBank.Visible = false;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+            }
         }
-        catch { }
-    }
-
-    protected void gvTrust_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        gvTrust.PageIndex = e.NewPageIndex;
-        GetTrustGrid();
+        catch
+        {
+        }
     }
 
     #endregion
 
 
+
+
     /// <summary>
     /// Address Details Methods
     /// Address Details Info Events
-    /// Address Grid
     /// </summary>
     /// <returns></returns>
     #region Address Details
@@ -219,7 +207,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         try
         {
-            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 4);
+            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = ds.Tables[0];
@@ -254,8 +242,8 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         try
         {
-            addressEntity.Type = 4;
-            addressEntity.UIC = ViewState["UIC"].ToString();
+            addressEntity.Type = 5;
+            addressEntity.UIC = "0";
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -265,7 +253,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             addressEntity.PostalCode = txtPostalCode.Text;
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.ReferenceSAID = Session["SAID"].ToString();
-            addressEntity.SAID = "0";
+            addressEntity.SAID = ViewState["SAID"].ToString();
             addressEntity.SuburbName = txtSuburbName.Text;
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.RoadName = txtRoadName.Text;
@@ -286,7 +274,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 message.Text = "Please try again!";
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -296,10 +284,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         try
         {
             addressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
-            addressEntity.Type = 4;
-            addressEntity.SAID ="0";
+            addressEntity.Type = 5;
+            addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
-            addressEntity.UIC = ViewState["AddressUIC"].ToString();
+            addressEntity.UIC = "0";
             addressEntity.HouseNo = txtHouseNo.Text;
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Floor = txtFloor.Text;
@@ -345,7 +333,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
-            ViewState["AddressUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
             if (e.CommandName == "EditAddress")
@@ -391,7 +379,6 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     /// <summary>
     /// Bank Details Methods
     /// Bank Details Info Events
-    /// Bank Grid
     /// </summary>
     /// <returns></returns>
     #region Bank Details
@@ -400,16 +387,16 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         try
         {
-            bankEntity.Type = 4;
+            bankEntity.Type = 5;
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
             bankEntity.AccountType = Convert.ToInt32(ddlAccountType.SelectedValue);
             bankEntity.Currency = txtCurrency.Text;
             bankEntity.SWIFT = txtSwift.Text;
-            bankEntity.SAID = "0";
+            bankEntity.SAID = ViewState["SAID"].ToString();
             bankEntity.ReferenceID = Session["SAID"].ToString();
-            bankEntity.UIC = ViewState["UIC"].ToString();
+            bankEntity.UIC = "0";
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
@@ -426,7 +413,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 message.Text = "Please try again!";
             }
         }
-        catch 
+        catch
         {
 
         }
@@ -436,10 +423,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         try
         {
             bankEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
-            bankEntity.Type = 4;
-            bankEntity.SAID ="0";
+            bankEntity.Type = 5;
+            bankEntity.SAID = ViewState["BankSAID"].ToString();
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
-            bankEntity.UIC = ViewState["BankUIC"].ToString();
+            bankEntity.UIC = "0";
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -486,7 +473,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         try
         {
 
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 4);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];
@@ -509,7 +496,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
-            ViewState["BankUIC"] = ((Label)row.FindControl("lblBankUIC")).Text.ToString();
+            ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
             if (e.CommandName == "EditBank")
@@ -553,12 +540,20 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
 
+                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]));
+
+                if (res > 0)
+                {
+                    ClearTrustSettlerControls();
+                    GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+                }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
                 int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
                 if (result == 1)
                 {
+                    ClearBankControls();
                     BindBankDetails();
                 }
             }
@@ -567,27 +562,27 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
                 if (result == 1)
                 {
+                    ClearAddressControls();
                     BindAddressDetails();
                 }
             }
         }
-        catch 
+        catch
         {
 
         }
 
     }
 
-
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
 
     }
-    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
+    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
     {
 
     }
-    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
+    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
 
     }

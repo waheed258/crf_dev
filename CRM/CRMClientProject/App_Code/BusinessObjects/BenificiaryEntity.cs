@@ -18,8 +18,10 @@ namespace EntityManager
         public string LastName { get; set; }
         public string EmailID { get; set; }
         public string Mobile { get; set; }
+        public string Phone { get; set; }
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
+        public int? Type { get; set; }
         public int? Status { get; set; }
     }
 }

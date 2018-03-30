@@ -25,21 +25,28 @@ namespace BusinessLogic
                         {"@inEmailID",_objTrustee.EmailID},
                         {"@inMobile",_objTrustee.Mobile},
                         {"@inAdvisorID",DBNull.Value},
-                        {"@inStatus",1},
+                        {"@inStatus",_objTrustee.Status},
                         {"@OperationName",operation}
                     };
 
-            return ExecuteNonQuery("InsertUpdateTrustee", hsparams);
+            return ExecuteNonQuery("TrusteeManager", hsparams);
         }
 
-        public DataSet GetTrustee(int TrusteeId,string ReferenceUCID, char operation)
+        public DataSet GetTrustee(int TrusteeId,string ReferenceUCID)
         {
             Hashtable hsparams = new Hashtable();
             hsparams.Add("@inTrusteeID", TrusteeId);
             hsparams.Add("@inReferenceUIC", ReferenceUCID);
-            hsparams.Add("@inOperationName", operation);
 
             return ExecuteDataSet("GetTrustee", hsparams);
+        }
+
+        public int DeleteTrustee(int TrusteeId)
+        {
+            Hashtable hsparams = new Hashtable();
+            hsparams.Add("@inTrusteeID", TrusteeId);
+
+            return ExecuteNonQuery("DetateTrustee", hsparams);
         }
     }
 }

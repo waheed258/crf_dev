@@ -30,14 +30,14 @@
                    });
 
 
-                   $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                   $("[id *=ContentPlaceHolder1_gvSpouse]").children('tbody').
                            children('tr').each(function (index) {
                                if (index == 0)
                                    $(this).show();
                            });
                }
                else {
-                   $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                   $("[id *=ContentPlaceHolder1_gvSpouse]").children('tbody').
                            children('tr').each(function () {
                                $(this).show();
                            });
@@ -268,29 +268,29 @@
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Phone</label>
-                                                <asp:TextBox ID="txtPhoneNum" class="form-control" runat="server" placeholder="Enter Phone Number" MaxLength="10"></asp:TextBox>
+                                                <asp:TextBox ID="txtPhoneNum" CssClass="form-control" runat="server" placeholder="Enter Phone Number" MaxLength="10"></asp:TextBox>
                                                 <asp:RegularExpressionValidator ID="revPhoneNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhoneNum" ForeColor="#d0582e" ValidationGroup="Spouse"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Tax Reference Number</label>
-                                                <asp:TextBox ID="txtTaxRefNum" runat="server" class="form-control" placeholder="Enter Tax Reference Number"></asp:TextBox>
+                                                <asp:TextBox ID="txtTaxRefNum" runat="server" CssClass="form-control" placeholder="Enter Tax Reference Number"></asp:TextBox>
 
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Date Of Birth</label>
-                                                <asp:TextBox ID="txtDateOfBirth" class="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
-                                        <asp:Button ID="btnSpouseSubmit" runat="server" Text="Submit" class="btn btn-primary" ValidationGroup="Spouse" OnClick="btnSpouseSubmit_Click" />
+                                        <asp:Button ID="btnSpouseSubmit" runat="server" Text="Submit" CssClass="btn btn-primary" ValidationGroup="Spouse" OnClick="btnSpouseSubmit_Click" />
                                         <asp:Button ID="btnUpdateSpouse" runat="server" Text="Update" ValidationGroup="Spouse" CssClass="btn btn-primary" OnClick="btnUpdateSpouse_Click"></asp:Button>
-                                        <asp:Button ID="btnSpouseCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnSpouseCancel_Click" />
+                                        <asp:Button ID="btnSpouseCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnSpouseCancel_Click" />
                                     </div>
 
                                     <div class="panel panel-bd" id="spouselist" runat="server">
@@ -325,6 +325,7 @@
                                                 EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvSpouse_RowEditing" OnRowDeleting="gvSpouse_RowDeleting"
                                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvSpouse_RowCommand">
+                                                <PagerStyle CssClass="pagination_grid" />
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Spouse ID" Visible="false">
                                                         <ItemTemplate>
@@ -445,6 +446,7 @@
                                             EmptyDataText="There are no data records to display." OnPageIndexChanging="gvAddress_PageIndexChanging"
                                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddress_RowEditing" OnRowDeleting="gvAddress_RowDeleting"
                                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddress_RowCommand">
+                                            <PagerStyle CssClass="pagination_grid" />
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                     <ItemTemplate>
@@ -564,7 +566,8 @@
                                             EmptyDataText="There are no data records to display." OnPageIndexChanging="gdvBankList_PageIndexChanging"
                                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
                                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand">
-                                            <Columns>
+                                           <PagerStyle CssClass="pagination_grid" />
+                                             <Columns>
                                                 <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>

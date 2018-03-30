@@ -133,20 +133,20 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         Response.Redirect("Dashboard.aspx");
     }
-    protected void gvCompany_RowEditing(object sender, GridViewEditEventArgs e)
-    {
-
-    }
+  
     protected void gvCompany_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
         {
+            string UIC = e.CommandArgument.ToString();
+            EncryptDecrypt ObjEn = new EncryptDecrypt();
+            ObjEn.Encrypt(UIC);
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
             ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-            if (e.CommandName == "Edit")
+            if (e.CommandName == "EditCompany")
             {
                 btnCompantDetails.Visible = false;
                 btnUpdateCompany.Visible = true;
@@ -172,11 +172,16 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 addressmessage.InnerText = "Save Address Details";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
             }
-            else if (e.CommandName == "Delete")
+            else if (e.CommandName == "DeleteCompany")
             {
                 ViewState["flag"] = 1;
                 lbldeletemessage.Text = "Are you sure, you want to delete Company Details?";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+            }
+
+            else if (e.CommandName == "EditBeneficiary")
+            {
+                Response.Redirect("Beneficiary.aspx?x=" + ObjEn.Encrypt(UIC) + "&t=" + ObjEn.Encrypt("2"), false);
             }
         }
         catch { }
@@ -375,7 +380,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 message.Text = "Bank details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBank();
-                GetBankDetails();               
+                GetBankDetails();
             }
             else
             {
@@ -496,10 +501,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         }
 
     }
-    protected void gvCompany_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
+ 
     protected void gvBankDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
 

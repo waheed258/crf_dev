@@ -11,6 +11,7 @@ using System.Data;
 
 public partial class ClientForms_Spouse : System.Web.UI.Page
 {
+     CommanClass _objComman = new CommanClass();
     SpouseEntity spouseEntity = new SpouseEntity();
     SpouseBL spouseBL = new SpouseBL();
     AddressBL addressBL = new AddressBL();
@@ -24,16 +25,29 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
     {    
         if (!IsPostBack)
         {
-            ViewState["ps"] = 5;
-            BindSpouseDetails();
-            btnUpdateSpouse.Visible = false;
-            GetCity();
-            GetCountry();
-            GetProvince();
-            GetAccountType();
-            BindAddressDetails();
-            BindBankDetails();
-        }
+
+            try
+            {
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                {
+                    Response.Redirect("../Login.aspx", false);
+                }
+                else
+                {
+                    _objComman.GetCountry(ddlCountry);
+                    _objComman.GetProvince(ddlProvince);
+                    _objComman.GetCity(ddlCity);
+                    _objComman.GetAccountType(ddlAccountType);
+                    ViewState["ps"] = 5;
+                    BindSpouseDetails();
+                    btnUpdateSpouse.Visible = false;
+                    BindAddressDetails();
+                    BindBankDetails();
+                }
+            }
+            catch { }
+            }
+
     }
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {

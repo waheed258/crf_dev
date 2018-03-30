@@ -166,9 +166,10 @@
                                                 <asp:GridView ID="gvCompany" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="CompanyID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvCompany_RowEditing"
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" OnRowDeleting="gvCompany_RowDeleting" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
-                                                    <Columns>
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" 
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;"  ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
+                                                   <PagerStyle CssClass="pagination_grid" />
+                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Company ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCompanyID" Text='<%#Eval("CompanyID") %>'></asp:Label>
@@ -217,13 +218,13 @@
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
-                                                                    CommandName="Edit" ToolTip="Edit" />
+                                                                    CommandName="EditCompany" ToolTip="Edit" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Delete">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                                    CommandName="Delete" ToolTip="Edit" />
+                                                                    CommandName="DeleteCompany" ToolTip="Edit" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Add Bank Details">
@@ -232,10 +233,17 @@
                                                                     CommandName="Bank" ToolTip="Bank Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+
                                                         <asp:TemplateField HeaderText="Add Address Details">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAddress" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/address.png"
                                                                     CommandName="Address" ToolTip="Address Details" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                            <asp:TemplateField HeaderText="Beneficiary">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnBeneficiary" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
+                                                                    CommandName="EditBeneficiary" ToolTip="Beneficiary Details" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -258,6 +266,7 @@
                                                     EmptyDataText="There are no data records to display. Please add bank details."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvBankDetails_RowEditing"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDeleting="gvBankDetails_RowDeleting" OnRowCommand="gvBankDetails_RowCommand">
+                                                    <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Bank ID" Visible="false">
                                                             <ItemTemplate>
@@ -346,7 +355,8 @@
                                                     EmptyDataText="There are no data records to display. Please add address details."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddressDetails_RowEditing"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddressDetails_RowCommand">
-                                                    <Columns>
+                                                   <PagerStyle CssClass="pagination_grid" />
+                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>

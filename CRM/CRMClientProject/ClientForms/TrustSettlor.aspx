@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Trustee.aspx.cs" Inherits="ClientForms_Trustee" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="TrustSettlor.aspx.cs" Inherits="ClientForms_TrustSettlor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
@@ -192,7 +192,7 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
-                <h1>Trustee Information</h1>
+                <h1>Trust Settlor Information</h1>
             </div>
         </div>
         <!-- Main content -->
@@ -203,69 +203,82 @@
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Add Trustee</h5>
+                                <h5>Add Trust Settlor</h5>
                             </div>
                         </div>
                         <div class="panel-body">
 
                             <ul class="nav nav-tabs">
-                                <asp:HiddenField ID="hfTrusteeId" runat="server" Value="0" />
-                                <li class="active"><a href="#tabTrust" data-toggle="tab">Trustee Details</a></li>
+                                <li class="active"><a href="#tabTrust" data-toggle="tab">Settlor Details</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
                             </ul>
 
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabTrust">
+                                    <div>
+                                        <asp:HiddenField ID="hfTrustSettlerId" runat="server" Value="0" />
+                                    </div>
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">UIC</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <label class="control-label">Trust Registration Number</label>
+                                                <asp:TextBox ID="txtTrustUIC" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">SAID </label>
+
+                                                <label class="control-label">SAID</label>
                                                 <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
                                                 <asp:TextBox ID="txtFirstName" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvtxtFirstName" runat="server" ControlToValidate="txtFirstName" Display="Dynamic"
-                                                    ErrorMessage="Enter First Name"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="rfvtxtFirstName" runat="server" ControlToValidate="txtFirstName" Display="Dynamic" ErrorMessage="Enter First Name"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Last Name</label>
                                                 <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
-                                                    ErrorMessage="Enter LAst Name"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Enter Last Name"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
+
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Reference No.</label>
+                                                <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference Number."
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
-                                                    ErrorMessage="Enter Email ID"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="rfvtxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
+                                                    ErrorMessage="Enter Email Id"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
-                                                    ErrorMessage="Enter Mobile"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Enter Mobile Number"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Phone</label>
+                                                <asp:TextBox ID="txtPhone" CssClass="form-control" runat="server"></asp:TextBox>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
-                                        <asp:Button ID="btnSubmit" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmit_Click" CssClass="btn btn-primary"></asp:Button>
+                                        <asp:Button ID="btnSubmit" runat="server" Text="Save" ValidationGroup="Settler" OnClick="btnSubmit_Click" CssClass="btn btn-primary"></asp:Button>
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
@@ -275,7 +288,8 @@
                                                 <h5>List of Trustees</h5>
                                             </div>
                                         </div>
-                                        <div class="row" id="search" runat="server">
+
+                                       <div class="row" id="search" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
                                                     <asp:DropDownList ID="DropPage" runat="server"
@@ -296,11 +310,10 @@
                                         </div>
                                         <div class="panel-body" style="margin-top: 10px">
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvTrustee" runat="server" Width="100%"
-                                                    AutoGenerateColumns="False" DataKeyNames="TrusteeID" CssClass="rounded-corners"
-                                                    EmptyDataText="There are no data records to display."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvTrustee_RowCommand">
+                                                <asp:GridView ID="gvTrustSettler" runat="server" Width="100%"
+                                                    AutoGenerateColumns="False" DataKeyNames="TrustSettlerID" CssClass="rounded-corners"
+                                                    EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvTrustSettler_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="S No.">
@@ -308,9 +321,9 @@
                                                                 <%#Container.DataItemIndex+1 %>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Trustee Id" Visible="false">
+                                                        <asp:TemplateField HeaderText="Trust Settlor Id" Visible="false">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblTrusteeId" Text='<%#Eval("TrusteeID") %>'></asp:Label>
+                                                                <asp:Label runat="server" ID="lblTrustSettlerId" Text='<%#Eval("TrustSettlerID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Client SAID">
@@ -318,12 +331,12 @@
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Trust Registration #">
+                                                        <asp:TemplateField HeaderText="Client UIC" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("ReferenceUIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Trustee SAID">
+                                                        <asp:TemplateField HeaderText="SAID">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -333,12 +346,17 @@
                                                                 <asp:Label runat="server" ID="lblFirstName" Text='<%#Eval("FirstName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Last Name">
+                                                        <asp:TemplateField HeaderText="LastName">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblLastName" Text='<%#Eval("LastName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
+                                                        <asp:TemplateField HeaderText="Tax Ref No." Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTaxRefNo" Text='<%#Eval("TaxRefNo") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Mobile" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblMobile" Text='<%#Eval("Mobile") %>'></asp:Label>
@@ -349,11 +367,16 @@
                                                                 <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Phone" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
 
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
-                                                                    CommandName="EditTrustee" ToolTip="Edit" CommandArgument='<%#Eval("TrusteeID") %>' />
+                                                                    CommandName="EditTrustSettler" ToolTip="Edit" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -373,7 +396,7 @@
                                                         <asp:TemplateField HeaderText="Delete">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                                    CommandName="DeleteTrustee" ToolTip="Delete Trustee" CommandArgument='<%#Eval("TrusteeID") %>' />
+                                                                    CommandName="DeleteSettler" ToolTip="Address Details" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -381,10 +404,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="tabAddress">
 
-                                   <div class="row" id="searchaddress" runat="server">
+                                </div>
+
+
+                                <div class="tab-pane fade" id="tabAddress">
+                                      <div class="row" id="searchaddress" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-4" style="margin-top: 15px">
                                                 <asp:DropDownList ID="dropAddress" runat="server"
@@ -404,7 +429,7 @@
                                         </div>
                                     </div>
                                     <div class="panel-body" style="margin-top:10px;">
-
+                                        
                                         <div class="table-responsive">
                                             <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
@@ -516,6 +541,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="tabBank">
                                     <div class="row" id="searchbank" runat="server">
                                         <div class="col-lg-12">
@@ -618,8 +644,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -869,5 +893,6 @@
         </div>
 
     </div>
+
 </asp:Content>
 

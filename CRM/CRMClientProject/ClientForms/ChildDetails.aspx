@@ -327,6 +327,7 @@
                                                 EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvChildDetails_RowEditing" OnRowDeleting="gvChildDetails_RowDeleting"
                                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvChildDetails_RowCommand" OnPageIndexChanging="gvChildDetails_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Children ID" Visible="false">
                                                         <ItemTemplate>
@@ -437,7 +438,8 @@
                                             EmptyDataText="There are no data records to display."
                                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
                                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand" OnPageIndexChanging="gdvBankList_PageIndexChanging">
-                                            <Columns>
+                                           <PagerStyle CssClass="pagination_grid" />
+                                             <Columns>
                                                 <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
@@ -527,7 +529,8 @@
                                             EmptyDataText="There are no data records to display."
                                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAddress_RowEditing" OnRowDeleting="gvAddress_RowDeleting"
                                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddress_RowCommand" OnPageIndexChanging="gvAddress_PageIndexChanging">
-                                            <Columns>
+                                           <PagerStyle CssClass="pagination_grid" />
+                                             <Columns>
                                                 <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>

@@ -45,6 +45,8 @@
     <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
     <!-- End Theme Layout Style
          =====================================================================-->
+
+    <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" /><!--Pagenation-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -118,34 +120,10 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Client</a></li>
+                                <li><a href="ClientPersonal.aspx">Client</a></li>
                                 <li><a href="Spouse.aspx">Spouse </a></li>
                                 <li><a href="ChildDetails.aspx">Children  </a></li>
 
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-list"></i><span>Trusts</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Add Trust  </a></li>
-                                <li><a href="#">Add Trust Settler </a></li>
-                                <li><a href="#">Add Trustees  </a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="note.html">
-                                <i class="fa fa-user-circle"></i><span>Beneficiary</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Add Beneficiary  </a></li>
                             </ul>
                         </li>
                         <li>
@@ -159,6 +137,20 @@
                                 <li><a href="CompanyDetails.aspx">Add Company</a></li>
                             </ul>
                         </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list"></i><span>Trusts</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="TrustDetails.aspx"> Trust  </a></li>
+                                
+                            </ul>
+                        </li>
+
+
 
                     </ul>
                 </div>

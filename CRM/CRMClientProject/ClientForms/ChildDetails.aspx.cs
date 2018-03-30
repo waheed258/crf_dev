@@ -11,6 +11,7 @@ using BusinessLogic;
 
 public partial class ClientForms_ChildDetails : System.Web.UI.Page
 {
+    CommanClass _objComman = new CommanClass();
     ChildrenEntity childEntity = new ChildrenEntity();
     ChildrenBL childBL = new ChildrenBL();
     BankInfoEntity bankEntity = new BankInfoEntity();
@@ -25,15 +26,27 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            ViewState["ps"] = 5;
-            BindChildDetails();
-            BindAddressDetails();
-            BindBankDetails();
-            GetAccountType();
-            GetCity();
-            GetCountry();
-            GetProvince();
-            btnChildUpdate.Visible = false;
+            try
+            {
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                {
+                    Response.Redirect("../Login.aspx", false);
+                }
+                else
+                {
+                    _objComman.GetCountry(ddlCountry);
+                    _objComman.GetProvince(ddlProvince);
+                    _objComman.GetCity(ddlCity);
+                    _objComman.GetAccountType(ddlAccountType);
+                    ViewState["ps"] = 5;
+                    BindChildDetails();
+                    BindAddressDetails();
+                    BindBankDetails();
+                    btnChildUpdate.Visible = false;
+                }
+            }
+
+            catch { }
         }
     }
     protected void btnChildSubmit_Click(object sender, EventArgs e)
