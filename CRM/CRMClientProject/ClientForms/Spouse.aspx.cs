@@ -24,7 +24,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
     {    
         if (!IsPostBack)
         {
-            ViewState["ps"] = 10;
+            ViewState["ps"] = 5;
             BindSpouseDetails();
             btnUpdateSpouse.Visible = false;
             GetCity();
@@ -182,7 +182,6 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvSpouse.DataSource = dataset;
-                ViewState["dt"] = dataset.Tables[0];
                 gvSpouse.DataBind();
                 spouselist.Visible = true;
             }
@@ -313,7 +312,6 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-
         }
     }
     protected void btnBankSubmit_Click(object sender, EventArgs e)

@@ -2,6 +2,129 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+   <script type="text/javascript">
+       $(document).ready(function () {
+           $("#target").keyup(function () {
+               if ($("[id *=target]").val() != "") {
+                   $("[id *=ContentPlaceHolder1_gvSpouse]").children
+                   ('tbody').children('tr').each(function () {
+                       $(this).show();
+                   });
+                   $("[id *=ContentPlaceHolder1_gvSpouse]").children
+                   ('tbody').children('tr').each(function () {
+                       var match = false;
+                       $(this).children('td').each(function () {
+                           if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                               match = true;
+                               return false;
+                           }
+                       });
+                       if (match) {
+                           $(this).show();
+                           $(this).children('th').show();
+                       }
+                       else {
+                           $(this).hide();
+                           $(this).children('th').show();
+                       }
+                   });
+
+
+                   $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                           children('tr').each(function (index) {
+                               if (index == 0)
+                                   $(this).show();
+                           });
+               }
+               else {
+                   $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                           children('tr').each(function () {
+                               $(this).show();
+                           });
+               }
+           });
+       });
+       $(document).ready(function () {
+           $("#target1").keyup(function () {
+               if ($("[id *=target1]").val() != "") {
+                   $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                   ('tbody').children('tr').each(function () {
+                       $(this).show();
+                   });
+                   $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                   ('tbody').children('tr').each(function () {
+                       var match = false;
+                       $(this).children('td').each(function () {
+                           if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                               match = true;
+                               return false;
+                           }
+                       });
+                       if (match) {
+                           $(this).show();
+                           $(this).children('th').show();
+                       }
+                       else {
+                           $(this).hide();
+                           $(this).children('th').show();
+                       }
+                   });
+                   $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                           children('tr').each(function (index) {
+                               if (index == 0)
+                                   $(this).show();
+                           });
+               }
+               else {
+                   $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                           children('tr').each(function () {
+                               $(this).show();
+                           });
+               }
+           });
+       });
+       $(document).ready(function () {
+           $("#target2").keyup(function () {
+               if ($("[id *=target2]").val() != "") {
+                   $("[id *=ContentPlaceHolder1_gvAddress]").children
+                   ('tbody').children('tr').each(function () {
+                       $(this).show();
+                   });
+                   $("[id *=ContentPlaceHolder1_gvAddress]").children
+                   ('tbody').children('tr').each(function () {
+                       var match = false;
+                       $(this).children('td').each(function () {
+                           if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                               match = true;
+                               return false;
+                           }
+                       });
+                       if (match) {
+                           $(this).show();
+                           $(this).children('th').show();
+                       }
+                       else {
+                           $(this).hide();
+                           $(this).children('th').show();
+                       }
+                   });
+
+
+                   $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                           children('tr').each(function (index) {
+                               if (index == 0)
+                                   $(this).show();
+                           });
+               }
+               else {
+                   $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                           children('tr').each(function () {
+                               $(this).show();
+                           });
+               }
+           });
+       });
+  </script>
     <script type="text/javascript">
         $(document).ready(function (event) {
             $("#ContentPlaceHolder1_txtMobileNum,#ContentPlaceHolder1_txtPhoneNum,#ContentPlaceHolder1_txtSAID").bind('keypress', function (e) {
@@ -176,18 +299,27 @@
                                                 <h5>Spouse List</h5>
                                             </div>
                                         </div>
-                                        <div class="panel-body">
+                                        <div class="row">
+                                           <div class="col-lg-12">
+                                               <div class="col-lg-4" style="margin-top: 15px">
+                                                   <asp:DropDownList ID="DropPage" runat="server"
+                                                       OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                                                       AutoPostBack="true">
+                                                       <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                       <asp:ListItem Value="20">20</asp:ListItem>
+                                                       <asp:ListItem Value="50">50</asp:ListItem>
+                                                   </asp:DropDownList>
+                                                   <label class="control-label">
+                                                       Records per page</label>
+                                               </div>
+                                               <div class="col-lg-3" style="margin-top: 10px">
+                                                  <input id="target" type="text" class="form-control" placeholder="Text To Search"/>
+                                               </div>
+                                           
+                                           </div>
+                                       </div>
 
-
-                                            <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" Style="margin-top: 24px"
-                                                AutoPostBack="true">
-                                                <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                <asp:ListItem Value="20">20</asp:ListItem>
-                                                <asp:ListItem Value="50">50</asp:ListItem>
-                                            </asp:DropDownList>
-                                            <label class="control-label">
-                                                Records per page</label>
-
+                                        <div class="panel-body" style="margin-top:10px">
                                             <asp:GridView ID="gvSpouse" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="SpouseID" CssClass="rounded-corners" OnPageIndexChanging="gvSpouse_PageIndexChanging"
                                                 EmptyDataText="There are no data records to display."
@@ -279,20 +411,35 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
+
+                                                <HeaderStyle BackColor="#E8F1F3"></HeaderStyle>
+                                                <PagerSettings Mode="NumericFirstLast" />
                                             </asp:GridView>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab3">
-                                    <div class="panel-body">
-                                        <asp:DropDownList ID="DropPage1" runat="server" OnSelectedIndexChanged="DropPage1_SelectedIndexChanged" Style="margin-top: 24px"
-                                            AutoPostBack="true">
-                                            <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                            <asp:ListItem Value="20">20</asp:ListItem>
-                                            <asp:ListItem Value="50">50</asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label class="control-label">
-                                            Records per page</label>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-4" style="margin-top: 15px">
+                                                <asp:DropDownList ID="DropPage1" runat="server"
+                                                    OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
+                                                    AutoPostBack="true">
+                                                    <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                    <asp:ListItem Value="20">20</asp:ListItem>
+                                                    <asp:ListItem Value="50">50</asp:ListItem>
+                                                </asp:DropDownList>
+                                                <label class="control-label">
+                                                    Records per page</label>
+                                                
+                                            </div>
+
+                                              <div class="col-lg-3" style="margin-top: 10px">
+                                                  <input id="target2" type="text" class="form-control" placeholder="Text To Search"/>
+                                               </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" style="margin-top: 10px">
                                         <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                             AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
                                             EmptyDataText="There are no data records to display." OnPageIndexChanging="gvAddress_PageIndexChanging"
@@ -391,15 +538,27 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
-                                    <div class="panel-body">
-                                        <asp:DropDownList ID="DropPage2" runat="server" OnSelectedIndexChanged="DropPage2_SelectedIndexChanged" Style="margin-top: 24px"
-                                            AutoPostBack="true">
-                                            <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                            <asp:ListItem Value="20">20</asp:ListItem>
-                                            <asp:ListItem Value="50">50</asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label class="control-label">
-                                            Records per page</label>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-4" style="margin-top: 15px">
+                                                <asp:DropDownList ID="DropPage2" runat="server"
+                                                    OnSelectedIndexChanged="DropPage2_SelectedIndexChanged"
+                                                    AutoPostBacFk="true">
+                                                    <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                    <asp:ListItem Value="20">20</asp:ListItem>
+                                                    <asp:ListItem Value="50">50</asp:ListItem>
+                                                </asp:DropDownList>
+                                                <label class="control-label">
+                                                    Records per page</label>
+                                                 
+                                            </div>
+                                           <div class="col-lg-3" style="margin-top: 10px">
+                                                  <input id="target1" type="text" class="form-control" placeholder="Text To Search"/>
+                                               </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" style="margin-top: 10px">
                                         <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                             AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
                                             EmptyDataText="There are no data records to display." OnPageIndexChanging="gdvBankList_PageIndexChanging"
@@ -543,7 +702,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <h3><i class="fa fa-bank m-r-5" id="bankmessage" runat="server"></i>Save Bank Details</h3>
+                        <h3><i class="fa fa-bank m-r-5" id="bankmessage" runat="server"></i></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -615,7 +774,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <h3><i class="fa fa-home m-r-5" id="addressmessage" runat="server"></i>Save Address Details</h3>
+                        <h3><i class="fa fa-home m-r-5" id="addressmessage" runat="server"></i></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
