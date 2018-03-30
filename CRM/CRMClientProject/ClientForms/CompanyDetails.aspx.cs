@@ -20,19 +20,30 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     AddressBL addressBL = new AddressBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetGridData();
-            GetBankDetails();
-            GetAddressDetails();
-            btnUpdateCompany.Visible = false;
-            btnUpdateBank.Visible = false;
-            btnUpdateAddress.Visible = false;
-            commonClass.GetAccountType(ddlAccountType);
-            commonClass.GetCity(ddlCity);
-            commonClass.GetCountry(ddlCountry);
-            commonClass.GetProvince(ddlProvince);
+            if (Session["SAID"] != null)
+            {
+                if (!IsPostBack)
+                {
+                    GetGridData();
+                    GetBankDetails();
+                    GetAddressDetails();
+                    btnUpdateCompany.Visible = false;
+                    btnUpdateBank.Visible = false;
+                    btnUpdateAddress.Visible = false;
+                    commonClass.GetAccountType(ddlAccountType);
+                    commonClass.GetCity(ddlCity);
+                    commonClass.GetCountry(ddlCountry);
+                    commonClass.GetProvince(ddlProvince);
+                }
+            }
+            else
+            {
+                Response.Redirect("../Login.aspx");
+            }
         }
+        catch { }
     }
 
     protected void GetGridData()
@@ -59,10 +70,10 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = bankBL.GetBankList(Session["SAID"].ToString());
-            gvBankDetails.DataSource = dataset;           
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 8);
+            gvBankDetails.DataSource = dataset;
             gvBankDetails.DataBind();
+
         }
         catch { }
     }
@@ -71,9 +82,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString());
-            gvAddressDetails.DataSource = dataset;            
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
+            gvAddressDetails.DataSource = dataset;
             gvAddressDetails.DataBind();
         }
         catch { }
@@ -365,7 +375,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 message.Text = "Bank details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBank();
-                GetBankDetails();
+                GetBankDetails();               
             }
             else
             {
@@ -484,7 +494,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 GetAddressDetails();
             }
         }
-        
+
     }
     protected void gvCompany_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {

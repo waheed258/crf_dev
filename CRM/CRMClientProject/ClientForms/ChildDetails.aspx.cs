@@ -19,11 +19,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
-       
-        if(!IsPostBack)
+
+        if (!IsPostBack)
         {
             ViewState["ps"] = 5;
             BindChildDetails();
@@ -41,7 +41,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             childEntity.SAID = txtSAID.Text;
-            childEntity.Title=ddlTitle.SelectedValue;
+            childEntity.Title = ddlTitle.SelectedValue;
             childEntity.FirstName = txtFirstName.Text;
             childEntity.LastName = txtLastName.Text;
             childEntity.Mobile = txtMobileNum.Text;
@@ -50,16 +50,16 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = txtDateOfBirth.Text;
             childEntity.ReferenceSAID = Session["SAID"].ToString();
-        
 
-            int result = childBL.ChildCRUD(childEntity,'i');
-            if(result==1)
+
+            int result = childBL.ChildCRUD(childEntity, 'i');
+            if (result == 1)
             {
                 message.Text = "Child details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
                 BindChildDetails();
-                
+
             }
             else
             {
@@ -67,37 +67,40 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 Clear();
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
     }
-   
-   
+
+
     private void BindChildDetails()
     {
         try
         {
             gvChildDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = childBL.GetAllChilds(Session["SAID"].ToString());
+
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                gvChildDetails.DataSource = dataset;               
-                gvChildDetails.DataBind();                
+                search.Visible = true;
+                gvChildDetails.DataSource = dataset;
+                gvChildDetails.DataBind();
                 ChildList.Visible = true;
             }
             else
             {
+                search.Visible = false;
                 ChildList.Visible = false;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
     }
 
-   
+
 
     protected void gvChildDetails_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -109,20 +112,20 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ViewState["ChildrenID"] = ((Label)row.FindControl("lblChildrenID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
             if (e.CommandName == "Edit")
-            {                
+            {
                 btnChildUpdate.Visible = true;
                 btnChildSubmit.Visible = false;
                 txtSAID.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtSAID.ReadOnly = true;
-                ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();               
+                ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
                 txtFirstName.Text = ((Label)row.FindControl("lblFirstName")).Text.ToString();
                 txtLastName.Text = ((Label)row.FindControl("lblLastName")).Text.ToString();
                 txtEmailId.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                 txtMobileNum.Text = ((Label)row.FindControl("lblMobile")).Text.ToString();
-                txtPhoneNum .Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
+                txtPhoneNum.Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
                 txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                 txtDateOfBirth.Text = Convert.ToDateTime(((Label)row.FindControl("lblDateOfBirth")).Text.ToString()).Date.ToShortDateString();
-                
+
             }
 
             else if (e.CommandName == "Address")
@@ -147,11 +150,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
-        
+
     }
 
 
@@ -160,7 +163,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             childEntity.ReferenceSAID = ViewState["ReferenceSAID"].ToString();
-            childEntity.SAID = ViewState["SAID"].ToString();           
+            childEntity.SAID = ViewState["SAID"].ToString();
             childEntity.Title = ddlTitle.SelectedValue;
             childEntity.FirstName = txtFirstName.Text;
             childEntity.LastName = txtLastName.Text;
@@ -169,7 +172,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = txtDateOfBirth.Text;
-           
+
 
 
             int result = childBL.ChildCRUD(childEntity, 'u');
@@ -202,9 +205,17 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             gvAddress.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(),3);
-            gvAddress.DataSource = dataset;           
-            gvAddress.DataBind();
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchbank.Visible = true;
+                gvAddress.DataSource = dataset;
+                gvAddress.DataBind();
+            }
+            else
+            {
+                searchbank.Visible = false;
+            }
         }
         catch { }
     }
@@ -214,14 +225,22 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             gdvBankList.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(),3);
-            gdvBankList.DataSource = dataset;            
-            gdvBankList.DataBind();
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchaddress.Visible = true;
+                gdvBankList.DataSource = dataset;
+                gdvBankList.DataBind();
+            }
+            else
+            {
+                searchaddress.Visible = false;
+            }
         }
         catch { }
     }
 
-   
+
     protected void btnChildCancel_Click(object sender, EventArgs e)
     {
         Clear();
@@ -277,7 +296,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
-            if(result == 1)
+            if (result == 1)
             {
                 message.Text = "Bank details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -292,13 +311,13 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
     }
 
- 
+
     protected void gdvBankList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -449,8 +468,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         catch { }
     }
 
-   
-    
+
+
 
     protected void btnUpdateAddress_Click(object sender, EventArgs e)
     {
@@ -583,7 +602,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }

@@ -3,11 +3,52 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
-        
-            function openModal() {
-                $('#ContentPlaceHolder1_Success').modal('show');
-            }
-  
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAdvisor]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAdvisor]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvAdvisor]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAdvisor]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
     </script>
     <style type="text/css">
         tr {
@@ -31,9 +72,9 @@
     <div class="content-wrapper">
 
         <section class="content-header">
-            
+
             <div class="header-title">
-                <h1>All Advisors</h1>            
+                <h1>All Advisors</h1>
             </div>
         </section>
         <!-- Main content -->
@@ -46,7 +87,14 @@
                                 <h5>Advisor List</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="row" style="margin-top:8px;">
+                            <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    <input id="target" class="form-control" type="text" placeholder="search"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">                            
                             <asp:GridView ID="gvAdvisor" runat="server" Width="100%"
                                 AutoGenerateColumns="False" DataKeyNames="AdvisorID" CssClass="rounded-corners"
                                 EmptyDataText="There are no data records to display."
@@ -73,7 +121,7 @@
                                             <asp:Label runat="server" ID="lblMobile" Text='<%#Eval("Mobile") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                       <asp:TemplateField HeaderText="Phone" Visible="false">
+                                    <asp:TemplateField HeaderText="Phone" Visible="false">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
                                         </ItemTemplate>
@@ -122,7 +170,7 @@
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblRole" Text='<%#Eval("AdvisorRole") %>'></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>                                     
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit.png"
@@ -197,7 +245,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Password</label>
-                                    <asp:TextBox ID="txtPassword" class="form-control" runat="server" placeholder="Enter Password"  MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" class="form-control" runat="server" placeholder="Enter Password" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
                                         ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
@@ -245,7 +293,7 @@
                                         ErrorMessage="Please Select Role" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                           
+
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>

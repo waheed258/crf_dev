@@ -26,11 +26,7 @@
                     $(this).val(val);
                 }
             });
-
-
         })
-
-
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -217,7 +213,6 @@
                                 <li><a href="#tab2" data-toggle="tab">Bank Details</a></li>
                                 <li><a href="#tab3" data-toggle="tab">Address Details</a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div class="panel-body">
@@ -307,7 +302,7 @@
                                                 <h5>List of Children</h5>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row"  id="search" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
                                                     <asp:DropDownList ID="DropPage" runat="server"
@@ -418,7 +413,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
-                                    <div class="row">
+                                    <div class="row" id="searchbank" runat="server">
                                        <div class="col-lg-12">
                                            <div class="col-lg-4" style="margin-top: 15px">
                                                <asp:DropDownList ID="dropPage2" runat="server"
@@ -507,7 +502,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab3">
-                                    <div class="row">
+                                    <div class="row" id="searchaddress" runat="server">
                                        <div class="col-lg-12">
                                            <div class="col-lg-4" style="margin-top: 15px">
                                                <asp:DropDownList ID="DropPage1" runat="server"

@@ -109,7 +109,7 @@ namespace BusinessLogic
             return ds;
         }
 
-        public int CheckClient(string Email, string SAID)
+        public int CheckClient(string Email,string SAID)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@EmailID", Email);

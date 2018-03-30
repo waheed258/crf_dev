@@ -21,7 +21,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             GetGridData();
             editSection.Visible = false;
         }
-    }    
+    }
     protected void GetGridData()
     {
         try
@@ -64,7 +64,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlStatus.SelectedValue = Status;
             string Role = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblRole")).Text.ToString();
             ddlRole.SelectedValue = Role;
-           
+
         }
         catch { }
     }
@@ -152,7 +152,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     {
         try
         {
-            advisorentity.AdvisorID = Convert.ToInt32(ViewState["AdvisorID"]);          
+            advisorentity.AdvisorID = Convert.ToInt32(ViewState["AdvisorID"]);
             advisorentity.FirstName = txtFirstName.Text;
             advisorentity.LastName = txtLastName.Text;
             advisorentity.Mobile = txtMobileNum.Text;
@@ -164,7 +164,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             advisorentity.Branch = Convert.ToInt32(ddlBranch.SelectedValue);
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
-            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);            
+            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             //need to initialize with login advisor id
             advisorentity.UpdatedBy = 0;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
@@ -199,11 +199,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
         ddlRole.SelectedValue = "-1";
         ddlStatus.SelectedValue = "-1";
         txtLoginId.Text = "";
-        txtPassword.Text = ""; 
+        txtPassword.Text = "";
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         sectionAdvisorList.Visible = true;
         editSection.Visible = false;
-    }
+    }    
 }
