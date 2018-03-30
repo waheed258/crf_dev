@@ -33,14 +33,140 @@
 
     </script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvChildDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvChildDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvChildDetails]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#target1").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#target2").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+   </script>
+    <script type="text/javascript">
         function openModal() {
-            $('#ContentPlaceHolder1_Success').modal('show', { backdrop: 'static' });
+            $('#ContentPlaceHolder1_Success').modal('show');
         }
         function openBankModal() {
-            $('#ContentPlaceHolder1_bankPopup').modal('show', { backdrop: 'static' });
+            $('#ContentPlaceHolder1_bankPopup').modal('show');
         }
         function openAddressModal() {
-            $('#ContentPlaceHolder1_addressPopup').modal('show', { backdrop: 'static' });
+            $('#ContentPlaceHolder1_addressPopup').modal('show');
         }
         function openDeleteModal() {
             $('#delete').modal('show', { backdrop: 'static' });
@@ -180,16 +306,27 @@
                                             <div class="panel-title">
                                                 <h5>List of Children</h5>
                                             </div>
-                                        </div>                                   
-                                        <div class="panel-body">   
-                                            <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" Style="margin-top: 24px"
-                                                    AutoPostBack="true">
-                                                    <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                    <asp:ListItem Value="20">20</asp:ListItem>
-                                                    <asp:ListItem Value="50">50</asp:ListItem>
-                                                </asp:DropDownList>
-                                                <label class="control-label">
-                                                    Records per page</label>                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="DropPage" runat="server"
+                                                        OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                        <asp:ListItem Value="20">20</asp:ListItem>
+                                                        <asp:ListItem Value="50">50</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                   <input id="target" type="text" class="form-control" placeholder="Text To Search"/>
+                                                </div>
+                                             
+                                            </div>
+                                        </div>
+                                        <div class="panel-body" style="margin-top: 10px">
                                             <asp:GridView ID="gvChildDetails" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="ChildrenID" CssClass="rounded-corners"
                                                 EmptyDataText="There are no data records to display."
@@ -280,18 +417,116 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="tab2">
+                                    <div class="row">
+                                       <div class="col-lg-12">
+                                           <div class="col-lg-4" style="margin-top: 15px">
+                                               <asp:DropDownList ID="dropPage2" runat="server"
+                                                   OnSelectedIndexChanged="dropPage2_SelectedIndexChanged"
+                                                   AutoPostBack="true">
+                                                   <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                   <asp:ListItem Value="20">20</asp:ListItem>
+                                                   <asp:ListItem Value="50">50</asp:ListItem>
+                                               </asp:DropDownList>
+                                               <label class="control-label">
+                                                   Records per page</label>
+                                           </div>
+                                           <div class="col-lg-3" style="margin-top: 10px">
+                                                   <input id="target1" type="text" class="form-control" placeholder="Text To Search"/>
+                                                </div>
+                                       </div>
+                                   </div>
+                                    <div class="panel-body" style="margin-top: 10px">
+                                        <asp:GridView ID="gdvBankList" runat="server" Width="100%"
+                                            AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
+                                            EmptyDataText="There are no data records to display."
+                                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
+                                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand" OnPageIndexChanging="gdvBankList_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="SAID">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="ReferenceSAID">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Bank Name">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblBankName" Text='<%#Eval("BankName") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Branch Number">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblBranchNumber" Text='<%#Eval("BranchNumber") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Account Number" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblAccountNumber" Text='<%#Eval("AccountNumber") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Account Type" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblAccountType" Text='<%#Eval("AccountType") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Currency" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblCurrency" Text='<%#Eval("Currency") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="SWIFT" Visible="false">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="lblSWIFT" Text='<%#Eval("SWIFT") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderText="Edit">
+                                                    <ItemTemplate>
+                                                        <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
+                                                            CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Delete">
+                                                    <ItemTemplate>
+                                                        <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
+                                                            CommandName="Delete" ToolTip="Delete" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="tab3">
+                                    <div class="row">
+                                       <div class="col-lg-12">
+                                           <div class="col-lg-4" style="margin-top: 10px">
+                                               <asp:DropDownList ID="DropPage1" runat="server"
+                                                   OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
+                                                   AutoPostBack="true">
+                                                   <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                                                   <asp:ListItem Value="20">20</asp:ListItem>
+                                                   <asp:ListItem Value="50">50</asp:ListItem>
+                                               </asp:DropDownList>
+                                               <label class="control-label">
+                                                   Records per page</label>
+                                           </div>
+                                           <div class="col-lg-3" style="margin-top: 10px">
+                                                   <input id="target2" type="text" class="form-control" placeholder="Text To Search"/>
+                                                </div>
+                                           
+                                       </div>
+                                   </div>
                                     <div class="panel-body">
-                                       
-                                            <asp:DropDownList ID="DropPage1" runat="server" OnSelectedIndexChanged="DropPage1_SelectedIndexChanged" Style="margin-top: 24px"
-                                                AutoPostBack="true">
-                                                <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                <asp:ListItem Value="20">20</asp:ListItem>
-                                                <asp:ListItem Value="50">50</asp:ListItem>
-                                            </asp:DropDownList>
-                                            <label class="control-label">
-                                                Records per page</label>
-                                     
                                         <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                             AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
                                             EmptyDataText="There are no data records to display."
@@ -390,87 +625,7 @@
                                         </asp:GridView>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="tab2">
-                                    <div class="panel-body">
-                                         
-                                            <asp:DropDownList ID="dropPage2" runat="server" OnSelectedIndexChanged="dropPage2_SelectedIndexChanged" Style="margin-top: 24px"
-                                                AutoPostBack="true">
-                                                <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                <asp:ListItem Value="20">20</asp:ListItem>
-                                                <asp:ListItem Value="50">50</asp:ListItem>
-                                            </asp:DropDownList>
-                                            <label class="control-label">
-                                                Records per page</label>
-                                        
-                                        <asp:GridView ID="gdvBankList" runat="server" Width="100%"
-                                            AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
-                                            EmptyDataText="There are no data records to display."
-                                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
-                                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand" OnPageIndexChanging="gdvBankList_PageIndexChanging">
-                                            <Columns>
-                                                <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="ReferenceSAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Bank Name">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBankName" Text='<%#Eval("BankName") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Branch Number">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBranchNumber" Text='<%#Eval("BranchNumber") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Account Number" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblAccountNumber" Text='<%#Eval("AccountNumber") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Account Type" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblAccountType" Text='<%#Eval("AccountType") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Currency" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblCurrency" Text='<%#Eval("Currency") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SWIFT" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSWIFT" Text='<%#Eval("SWIFT") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="Edit">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
-                                                            CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Delete">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                            CommandName="Delete" ToolTip="Delete" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-
-                                            </Columns>
-                                        </asp:GridView>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

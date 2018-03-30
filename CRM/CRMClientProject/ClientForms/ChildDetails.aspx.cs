@@ -25,7 +25,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
        
         if(!IsPostBack)
         {
-            ViewState["ps"] = 10;
+            ViewState["ps"] = 5;
             BindChildDetails();
             BindAddressDetails();
             BindBankDetails();
@@ -82,8 +82,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             dataset = childBL.GetAllChilds(Session["SAID"].ToString());
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                gvChildDetails.DataSource = dataset;
-                ViewState["dt"] = dataset.Tables[0];
+                gvChildDetails.DataSource = dataset;               
                 gvChildDetails.DataBind();                
                 ChildList.Visible = true;
             }
@@ -204,8 +203,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         {
             gvAddress.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(),3);
-            gvAddress.DataSource = dataset;
-            ViewState["dt"] = dataset.Tables[0];
+            gvAddress.DataSource = dataset;           
             gvAddress.DataBind();
         }
         catch { }
@@ -217,8 +215,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         {
             gdvBankList.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = bankBL.GetBankList(Session["SAID"].ToString(),3);
-            gdvBankList.DataSource = dataset;
-            ViewState["dt"] = dataset.Tables[0];
+            gdvBankList.DataSource = dataset;            
             gdvBankList.DataBind();
         }
         catch { }
@@ -679,4 +676,5 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         }
         catch { }
     }
+
 }
