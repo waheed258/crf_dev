@@ -509,7 +509,7 @@
                                 <div class="tab-pane fade" id="tab3">
                                     <div class="row">
                                        <div class="col-lg-12">
-                                           <div class="col-lg-4" style="margin-top: 10px">
+                                           <div class="col-lg-4" style="margin-top: 15px">
                                                <asp:DropDownList ID="DropPage1" runat="server"
                                                    OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
                                                    AutoPostBack="true">
@@ -526,7 +526,7 @@
                                            
                                        </div>
                                    </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="margin-top: 10px">
                                         <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                             AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
                                             EmptyDataText="There are no data records to display."
