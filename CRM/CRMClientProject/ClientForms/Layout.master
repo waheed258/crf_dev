@@ -46,7 +46,8 @@
     <!-- End Theme Layout Style
          =====================================================================-->
 
-    <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" /><!--Pagenation-->
+    <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" />
+    <!--Pagenation-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -76,6 +77,10 @@
                         <span class="pe-7s-angle-left-circle"></span>
                     </a>
                     <div class="navbar-custom-menu">
+                        <div style="float: left; margin-top: 20px;">
+                            <b>
+                                <asp:Label ID="lblUserName" runat="server" Text=""></asp:Label></b>
+                        </div>
                         <ul class="nav navbar-nav">
                             <!-- user -->
                             <li class="dropdown dropdown-user">
@@ -145,8 +150,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="TrustDetails.aspx"> Trust  </a></li>
-                                
+                                <li><a href="TrustDetails.aspx">Trust  </a></li>
+
                             </ul>
                         </li>
 

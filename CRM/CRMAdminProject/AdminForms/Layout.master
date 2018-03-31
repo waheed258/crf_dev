@@ -73,10 +73,18 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="pe-7s-angle-left-circle"></span>
                     </a>
+
+
+
                     <div class="navbar-custom-menu">
+                        <div style="float: left; margin-top: 20px;">
+                            <b>
+                                <asp:Label ID="lblUserName" runat="server" Text=""></asp:Label></b>
+                        </div>
                         <ul class="nav navbar-nav">
                             <!-- user -->
                             <li class="dropdown dropdown-user">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="../assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user" />
                                 </a>
@@ -131,7 +139,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="ClientList.aspx">Registered Clients</a></li>
-                                <li><a href="#">Location Wise</a></li>                                 
+                                <li><a href="#">Location Wise</a></li>
                                 <li><a href="">Client Registration Form</a></li>
                             </ul>
                         </li>
@@ -159,8 +167,7 @@
                                 <li><a href="#">Upload Documents</a></li>
                             </ul>
                         </li>
-
-                           <li class="treeview">
+                        <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-cog"></i><span>Configuration</span>
                                 <span class="pull-right-container">
