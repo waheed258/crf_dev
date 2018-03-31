@@ -87,14 +87,14 @@
                                 <h5>Advisor List</h5>
                             </div>
                         </div>
-                        <div class="row" style="margin-top:8px;">
+                        <div class="row" style="margin-top: 8px;">
                             <div class="col-lg-12">
                                 <div class="col-lg-3">
-                                    <input id="target" class="form-control" type="text" placeholder="search"/>
+                                    <input id="target" class="form-control" type="text" placeholder="search" />
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-body">                            
+                        <div class="panel-body">
                             <asp:GridView ID="gvAdvisor" runat="server" Width="100%"
                                 AutoGenerateColumns="False" DataKeyNames="AdvisorID" CssClass="rounded-corners"
                                 EmptyDataText="There are no data records to display."
@@ -134,6 +134,11 @@
                                     <asp:TemplateField HeaderText="Designation">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblDesignation" Text='<%#Eval("AdvisorDesignation") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="SAID">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblAdvisorSAID" Text='<%#Eval("AdvisorSAID") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Designation" Visible="false">
@@ -200,6 +205,11 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
+                                    <label>SAID</label>
+                                    <asp:TextBox ID="txtSAId" class="form-control" runat="server" placeholder="Enter First Name" MaxLength="13" ReadOnly="true"></asp:TextBox>
+                                   
+                                </div>
+                                <div class="form-group col-sm-3">
                                     <label>First Name</label>
                                     <asp:TextBox ID="txtFirstName" class="form-control" runat="server" placeholder="Enter First Name" MaxLength="50"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName" ForeColor="#d0582e"
@@ -219,15 +229,16 @@
                                     <asp:RegularExpressionValidator ID="revMobileNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                         ControlToValidate="txtMobileNum" ForeColor="#d0582e" ValidationGroup="Advisor"></asp:RegularExpressionValidator>
                                 </div>
+
+                            </div>
+
+                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Phone</label>
                                     <asp:TextBox ID="txtPhoneNum" class="form-control" runat="server" placeholder="Enter Phone Number" MaxLength="15"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="revPhoneNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                         ControlToValidate="txtPhoneNum" ForeColor="#d0582e" ValidationGroup="Advisor"></asp:RegularExpressionValidator>
                                 </div>
-                            </div>
-
-                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Email</label>
                                     <asp:TextBox ID="txtEmailId" class="form-control" runat="server" placeholder="Enter EmailId" MaxLength="75"></asp:TextBox>
@@ -249,25 +260,17 @@
                                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
                                         ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                                <%--   <div class="form-group col-sm-3">
-                                    <label>Confirm Password</label>
-                                    <asp:TextBox ID="txtConfirmPassword" TextMode="Password" class="form-control" runat="server" placeholder="Enter Confirm Password" MaxLength="50"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvConfirmPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
-                                        ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
-                                    <asp:CompareValidator ID="cvConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword"
-                                        ControlToCompare="txtPassword" Operator="Equal" Text="Should match with Password"
-                                        ErrorMessage="Should match with Password" class="validationred"
-                                        ValidationGroup="Advisor" Display="Dynamic" ForeColor="#d0582e"></asp:CompareValidator>
-                                </div>--%>
+
+
+                            </div>
+
+                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Designation</label>
                                     <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                            </div>
-
-                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Branch</label>
                                     <asp:DropDownList ID="ddlBranch" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
@@ -286,6 +289,9 @@
                                     <asp:RequiredFieldValidator ID="rfvStatus" runat="server" ControlToValidate="ddlStatus" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Status" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
+
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Role</label>
                                     <asp:DropDownList ID="ddlRole" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>

@@ -20,6 +20,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
         {
             GetGridData();
             editSection.Visible = false;
+            GetDesignation();
+            GetBranch();
+            GetAdvisorType();
+            GetStatus();
+            GetRole();
         }
     }
     protected void GetGridData()
@@ -38,11 +43,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     {
         try
         {
-            GetDesignation();
-            GetBranch();
-            GetAdvisorType();
-            GetStatus();
-            GetRole();
+            
             int RowIndex = e.NewEditIndex;
             ViewState["AdvisorID"] = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblAdvisorID")).Text.ToString();
             txtFirstName.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
@@ -54,6 +55,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             txtEmailId.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
             txtLoginId.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblLoginId")).Text.ToString();
             txtPassword.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblPassword")).Text.ToString();
+            txtSAId.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblAdvisorSAID")).Text.ToString();
             string designation = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblDesig")).Text.ToString();
             ddlDesignation.SelectedValue = designation;
             string branch = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblBranch")).Text.ToString();
@@ -160,6 +162,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             advisorentity.EmailID = txtEmailId.Text;
             advisorentity.LoginId = txtLoginId.Text;
             advisorentity.Password = txtPassword.Text.Trim();
+            advisorentity.AdvisorSAID = txtSAId.Text.Trim();
             advisorentity.Designation = Convert.ToInt32(ddlDesignation.SelectedValue);
             advisorentity.Branch = Convert.ToInt32(ddlBranch.SelectedValue);
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
@@ -200,6 +203,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
         ddlStatus.SelectedValue = "-1";
         txtLoginId.Text = "";
         txtPassword.Text = "";
+        txtSAId.Text = "";
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {

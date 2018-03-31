@@ -1,34 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="NewAdvisor.aspx.cs" Inherits="AdminForms_NewAdvisor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="UserProfile.aspx.cs" Inherits="AdminForms_UserProfile" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtMobileNum,#ContentPlaceHolder1_txtPhoneNum,#ContentPlaceHolder1_txtSAId").bind('keypress', function (e) {
-                if (e.keyCode == '9' || e.keyCode == '16') {
-                    return;
-                }
-                var code;
-                if (e.keyCode) code = e.keyCode;
-                else if (e.which) code = e.which;
-                if (e.which == 46)
-                    return false;
-                if (code == 8 || code == 46)
-                    return true;
-                if (code < 48 || code > 57)
-                    return false;
-            });
-            $("#ContentPlaceHolder1_txtMobileNum,#ContentPlaceHolder1_txtPhoneNum,#ContentPlaceHolder1_txtSAId").bind('mouseenter', function (e) {
-                var val = $(this).val();
-                if (val != '0') {
-                    val = val.replace(/[^0-9]+/g, "");
-                    $(this).val(val);
-                }
-            });
-
-        
-        })
-    </script>
     <script type="text/javascript">
         function openModal() {
             $('#ContentPlaceHolder1_Success').modal('show');
@@ -36,13 +9,12 @@
 
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    
-            <div class="content-wrapper">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+   <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <div class="header-title">
-                        <h1>Advisor</h1>
+                        <h1>Advisor Profile</h1>
                     </div>
                 </section>
                 <!-- Main content -->
@@ -53,17 +25,15 @@
                             <div class="panel panel-bd">
                                 <div class="panel-heading">
                                     <div class="panel-title">
-                                        <h5>Add Advisor</h5>
+                                        <h5>Update Advisor</h5>
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                   
+                                  
                                     <div class="col-sm-12">
-                                        <div class="form-group col-sm-3">
+                                         <div class="form-group col-sm-3">
                                             <label>SAID</label>
-                                            <asp:TextBox ID="txtSAId" class="form-control" runat="server" placeholder="Enter SAID" MaxLength="13"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="rfvSAId" runat="server" ControlToValidate="txtSAId" ForeColor="#d0582e"
-                                                ErrorMessage="Please Enter SAID" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            <asp:TextBox ID="txtSAId" class="form-control" runat="server" placeholder="Enter SAID" MaxLength="13" ReadOnly="true"></asp:TextBox>          
                                               <asp:RegularExpressionValidator ID="revtxtSAId" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
                                         ControlToValidate="txtSAId" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
                                         </div>
@@ -87,11 +57,11 @@
                                             <asp:RegularExpressionValidator ID="revMobileNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                 ControlToValidate="txtMobileNum" ForeColor="#d0582e" ValidationGroup="Advisor"></asp:RegularExpressionValidator>
                                         </div>
-                                       
+                                      
                                     </div>
 
                                     <div class="col-sm-12">
-                                         <div class="form-group col-sm-3">
+                                          <div class="form-group col-sm-3">
                                             <label>Phone</label>
                                             <asp:TextBox ID="txtPhoneNum" class="form-control" runat="server" placeholder="Enter Phone Number" MaxLength="10"></asp:TextBox>
                                             <asp:RegularExpressionValidator ID="revPhoneNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
@@ -108,13 +78,13 @@
                                         </div>
                                         <div class="form-group col-sm-3">
                                             <label>Login ID</label>
-                                            <asp:TextBox ID="txtLoginId" class="form-control" runat="server" placeholder="Enter LoginId" MaxLength="50"></asp:TextBox>
+                                            <asp:TextBox ID="txtLoginId" class="form-control" runat="server" placeholder="Enter LoginId" MaxLength="50" ReadOnly="true"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="rfvLoginId" runat="server" ControlToValidate="txtLoginId" ForeColor="#d0582e"
                                                 ErrorMessage="Please Enter Login ID" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
                                         <div class="form-group col-sm-3">
                                             <label>Password</label>
-                                            <asp:TextBox ID="txtPassword" TextMode="Password" class="form-control" runat="server" placeholder="Enter Password" MaxLength="50"></asp:TextBox>
+                                            <asp:TextBox ID="txtPassword"  class="form-control" runat="server" placeholder="Enter Password" MaxLength="50"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
                                                 ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
@@ -123,16 +93,6 @@
 
                                     <div class="col-sm-12">
                                          <div class="form-group col-sm-3">
-                                            <label>Confirm Password</label>
-                                            <asp:TextBox ID="txtConfirmPassword" TextMode="Password" class="form-control" runat="server" placeholder="Enter Confirm Password" MaxLength="50"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="rfvConfirmPassword" runat="server" ControlToValidate="txtPassword" ForeColor="#d0582e"
-                                                ErrorMessage="Please Enter Password" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
-                                            <asp:CompareValidator ID="cvConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword"
-                                                ControlToCompare="txtPassword" Operator="Equal" Text="Should match with Password"
-                                                ErrorMessage="Should match with Password" class="validationred"
-                                                ValidationGroup="Advisor" Display="Dynamic" ForeColor="#d0582e"></asp:CompareValidator>
-                                        </div>
-                                        <div class="form-group col-sm-3">
                                             <label>Designation</label>
                                             <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
@@ -150,27 +110,34 @@
                                             <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
-                                       
-                                    </div>
-                                    <div class="col-sm-12">
-                                         <div class="form-group col-sm-3">
+                                        <div class="form-group col-sm-3">
                                             <label>Status</label>
                                             <asp:DropDownList ID="ddlStatus" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvStatus" runat="server" ControlToValidate="ddlStatus" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Status" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="col-sm-12">
                                         <div class="form-group col-sm-3">
                                             <label>Role</label>
                                             <asp:DropDownList ID="ddlRole" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvRole" runat="server" ControlToValidate="ddlRole" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Role" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
+                                         <div class="form-group col-sm-3">
+                                            <label>Upload Photo</label>
+                                            <asp:FileUpload ID="fuImageUpload" runat="server"/>
+                                            <asp:HiddenField ID="hfImage" runat="server" />
+                                             <asp:Label ID="lblImage" runat="server"></asp:Label>
+                                   
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div class="col-sm-5"></div>
-                                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" class="btn btn-add" ValidationGroup="Advisor" OnClick="btnSubmit_Click" />
-                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnCancel_Click" />
+                                    <asp:button id="btnUpdate" runat="server" text="Update" class="btn btn-add" validationgroup="advisor" onclick="btnUpdate_Click" />
+                                    <asp:button id="btncancel" runat="server" text="cancel" class="btn btn-danger" onclick="btncancel_Click" />
                                 </div>
                             </div>
                         </div>
@@ -189,7 +156,7 @@
                                     <div class="col-md-12">
                                         <fieldset>
                                             <div class="col-md-12 form-group user-form-group">
-                                                <label class="control-label" style="color: green">Advisor Added Successfully!</label>
+                                                <label class="control-label" style="color: green">Advisor Updated Successfully!</label>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -204,6 +171,5 @@
                     <!-- /.modal-dialog -->
                 </div>
             </div>
-        
 </asp:Content>
 

@@ -46,13 +46,14 @@ namespace BusinessLogic
             {
                 hashtable.Add("@AdvisorID", 0);
                 hashtable.Add("@UpdatedBy", 0);
-                hashtable.Add("@Image", advisorEntity.Image);
+               
             }
             else
             {
-                hashtable.Add("@AdvisorID", advisorEntity.AdvisorID);
+                hashtable.Add("@AdvisorID", advisorEntity.AdvisorID);                
                 hashtable.Add("@UpdatedBy", advisorEntity.UpdatedBy);
             }            
+
             hashtable.Add("@FirstName", advisorEntity.FirstName);
             hashtable.Add("@LastName", advisorEntity.LastName);
             hashtable.Add("@Mobile", advisorEntity.Mobile);
@@ -64,8 +65,9 @@ namespace BusinessLogic
             hashtable.Add("@Branch", advisorEntity.Branch);
             hashtable.Add("@AdvisorType", advisorEntity.AdvisorType);
             hashtable.Add("@Status", advisorEntity.Status);
-            
+            hashtable.Add("@Image", advisorEntity.Image);
             hashtable.Add("@AdvisorRole", advisorEntity.AdvisorRole);
+            hashtable.Add("@AdvisorSAID", advisorEntity.AdvisorSAID);
             hashtable.Add("@Operation", Operation);           
             
             int result = dataUtilities.ExecuteNonQuery("AdvisorCRUD", hashtable);
