@@ -26,7 +26,7 @@ public class BeneficiaryBL:DataUtilities
                         {"@inEmailID",_objBeneficiary.EmailID},
                         {"@inMobile",_objBeneficiary.Mobile},
                         {"@inPhone",_objBeneficiary.Phone},
-                        {"@inAdvisorID",DBNull.Value},
+                        {"@inAdvisorID",_objBeneficiary.AdvisorID},
                         {"@inStatus",_objBeneficiary.Status},
                         {"@inType",_objBeneficiary.Type},
                         {"@inOperationName",operation}

@@ -24,7 +24,7 @@ namespace BusinessLogic
                         {"@inEmailID",_objTrust.EmailID},
                         {"@inWebsite",_objTrust.Website},
                         {"@inTaxRefNo",_objTrust.TaxRefNo},
-                        {"@inAdvisorID",DBNull.Value},
+                        {"@inAdvisorID",_objTrust.AdvisorID},
                         {"@inStatus",_objTrust.Status},
                         {"@OperationName",operation}
                     };

@@ -24,7 +24,7 @@ public class TrustSettlerBL:DataUtilities
                         {"@inEmailID",_objSettler.EmailID},
                         {"@inMobile",_objSettler.Mobile},
                         {"@inPhone",_objSettler.Phone},
-                        {"@inAdvisorID",DBNull.Value},
+                        {"@inAdvisorID",_objSettler.AdvisorID},
                         {"@inTaxRefNo",_objSettler.TaxRefNo},
                         {"@inStatus",_objSettler.Status},
                         {"@inOperationName",operation}

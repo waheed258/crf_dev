@@ -39,7 +39,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     BindAddressDetails();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Something went wrong, please contact administrator";

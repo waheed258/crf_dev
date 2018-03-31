@@ -24,7 +24,7 @@ namespace BusinessLogic
                         {"@inLastName",_objTrustee.LastName},
                         {"@inEmailID",_objTrustee.EmailID},
                         {"@inMobile",_objTrustee.Mobile},
-                        {"@inAdvisorID",DBNull.Value},
+                        {"@inAdvisorID",_objTrustee.AdvisorID},
                         {"@inStatus",_objTrustee.Status},
                         {"@OperationName",operation}
                     };
