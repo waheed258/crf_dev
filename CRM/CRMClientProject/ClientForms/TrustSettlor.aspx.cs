@@ -28,6 +28,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 }
                 else
                 {
+                    message.ForeColor = System.Drawing.Color.Green;
                     _objComman.GetCountry(ddlCountry);
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
@@ -43,9 +44,9 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert(" + ex.Message + ");", true);
+
             }
         }
     }
@@ -133,16 +134,27 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             int res = TrustSettlerManager();
             if (res > 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Settler Information Updated Successfully !!.');", true);
+                if (btnSubmit.Text == "Update")
+                    message.Text = "Updated Successfully !!";
+                else
+                    message.Text = "Saved Successfully !!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
                 ClearTrustSettlerControls();
                 GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('please try again !!');", true);
+            {
+                message.ForeColor = System.Drawing.Color.Blue;
+                message.Text = "Trust Information not Saved please check the Details !!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
-        catch (Exception ex)
+        catch
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert(" + ex.Message + ");", true);
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -151,7 +163,49 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         ClearTrustSettlerControls();
     }
 
-   
+    private void GetClientRegistartion()
+    {
+
+        ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+        ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        {
+            // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+        }
+        else
+        {
+            txtFirstName.Text = "";
+            txtLastName.Text = "";
+            txtEmail.Text = "";
+            txtMobile.Text = "";
+            txtPhone.Text = "";
+            txtTaxRefNo.Text = "";
+        }
+
+    }
+    protected void txtSAID_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            GetClientRegistartion();
+        }
+        catch { }
+    }
+
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TrustDetails.aspx", false);
+    }
     protected void gvTrustSettler_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -168,7 +222,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             else if (e.CommandName == "DeleteSettler")
             {
                 ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Trst Settlor Details?";
+                lbldeletemessage.Text = "Are you sure, you want to delete Trust Settlor Details?";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
             else if (e.CommandName == "Address")
@@ -188,6 +242,9 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
         catch
         {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -202,7 +259,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     #region Address Details
-
+    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gvAddress.PageSize = Convert.ToInt32(dropAddress.SelectedValue);
+    }
     protected void BindAddressDetails()
     {
         try
@@ -220,7 +280,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 gvAddress.DataBind();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     private void ClearAddressControls()
@@ -276,7 +341,9 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnUpdateAddress_Click(object sender, EventArgs e)
@@ -319,7 +386,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 BindAddressDetails();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
@@ -361,7 +433,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gvAddress_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -383,6 +460,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
+    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gdvBankList.PageSize = Convert.ToInt32(dropBank.SelectedValue);
+    }
     protected void btnBankSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -415,7 +496,9 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnUpdateBank_Click(object sender, EventArgs e)
@@ -451,7 +534,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 BindBankDetails();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnBankCancel_Click(object sender, EventArgs e)
     {
@@ -486,7 +574,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 gdvBankList.DataBind();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gdvBankList_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -520,7 +613,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -539,9 +637,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-
                 int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]));
-
                 if (res > 0)
                 {
                     ClearTrustSettlerControls();
@@ -569,21 +665,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
     }
 
-    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
-    {
 
-    }
-    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
 }

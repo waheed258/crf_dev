@@ -55,7 +55,7 @@
                      ('tbody').children('tr').each(function () {
                          var match = false;
                          $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                             if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
                                  match = true;
                                  return false;
                              }
@@ -94,7 +94,7 @@
                      ('tbody').children('tr').each(function () {
                          var match = false;
                          $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                             if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
                                  match = true;
                                  return false;
                              }
@@ -125,10 +125,10 @@
              });
          });
     </script>
-    <script type="text/javascript">
 
+    <script type="text/javascript">
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtTelephone,ContentPlaceHolder1_txtUIC").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -142,7 +142,7 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtTelephone,ContentPlaceHolder1_txtUIC").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
@@ -152,8 +152,6 @@
 
 
         })
-
-
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -227,7 +225,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">SAID </label>
-                                                <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
@@ -266,7 +264,8 @@
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
                                         <asp:Button ID="btnSubmit" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmit_Click" CssClass="btn btn-primary"></asp:Button>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-danger"></asp:Button>
+                                        <asp:Button ID="btnCancel" runat="server" Text="Clear" Visible="false" OnClick="btnCancel_Click" CssClass="btn btn-danger"></asp:Button>
+                                         <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
                                     <div class="panel panel-bd">
@@ -384,7 +383,9 @@
                                 </div>
                                 <div class="tab-pane fade" id="tabAddress">
 
-                                   <div class="row" id="searchaddress" runat="server">
+                                  
+                                    <div class="panel-body" >
+                                         <div class="row" id="searchaddress" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-4" style="margin-top: 15px">
                                                 <asp:DropDownList ID="dropAddress" runat="server"
@@ -403,9 +404,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="margin-top:10px;">
-
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" style="margin-top:10px;">
                                             <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
@@ -517,7 +516,9 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tabBank">
-                                    <div class="row" id="searchbank" runat="server">
+                                    
+                                    <div class="panel-body" >
+                                        <div class="row" id="searchbank" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-4" style="margin-top: 15px">
                                                 <asp:DropDownList ID="dropBank" runat="server"
@@ -536,8 +537,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="margin-top: 10px;">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" style="margin-top: 10px;">
                                             <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"

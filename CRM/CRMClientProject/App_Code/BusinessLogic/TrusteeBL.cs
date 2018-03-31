@@ -46,7 +46,7 @@ namespace BusinessLogic
             Hashtable hsparams = new Hashtable();
             hsparams.Add("@inTrusteeID", TrusteeId);
 
-            return ExecuteNonQuery("DetateTrustee", hsparams);
+            return ExecuteNonQuery("DeleteTrustee", hsparams);
         }
     }
 }

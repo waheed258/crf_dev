@@ -29,6 +29,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 }
                 else
                 {
+                    message.ForeColor = System.Drawing.Color.Green;
                     _objComman.GetCountry(ddlCountry);
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
@@ -40,7 +41,9 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert(" + ex.Message + ");", true);
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Something went wrong, please contact administrator";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
     }
@@ -52,6 +55,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     /// <returns></returns>
     #region TrustDetails
 
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gvTrust.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+    }
     protected void btnSubmitTrust_Click(object sender, EventArgs e)
     {
         try
@@ -59,19 +66,28 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             int res = ManageTrust();
             if (res > 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Information Updated Successfully !!.');", true);
+                if (btnSubmitTrust.Text == "Update")
+                    message.Text = "Updated Successfully !!";
+                else
+                    message.Text = "Saved Successfully !!";
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearTrustControls();
                 GetTrustGrid();
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Trust Information not Saved please check the Details !!');", true);
+                message.ForeColor = System.Drawing.Color.Blue;
+                message.Text = "Trust Information not Saved please check the Details !!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
 
         }
-        catch (Exception ex)
+        catch
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert(" + ex.Message + ");", true);
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -119,7 +135,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
 
     private void BindTrust(string UIC)
     {
-        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(),UIC);
+        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), UIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
@@ -160,14 +176,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             string UIC = e.CommandArgument.ToString();
             EncryptDecrypt ObjEn = new EncryptDecrypt();
             ObjEn.Encrypt(UIC);
-            
+
             switch (e.CommandName)
             {
                 case "EditTrust":
                     BindTrust(UIC);
                     break;
                 case "EditTrustee":
-                    Response.Redirect("Trustee.aspx?x=" + ObjEn.Encrypt(UIC) , false);
+                    Response.Redirect("Trustee.aspx?x=" + ObjEn.Encrypt(UIC), false);
                     break;
                 case "EditSettler":
                     Response.Redirect("TrustSettlor.aspx?x=" + ObjEn.Encrypt(UIC), false);
@@ -189,13 +205,18 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     break;
                 case "DeleteTrust":
                     ViewState["flag"] = 1;
-                    lbldeletemessage.Text = "Are you sure, you want to delete Child Details?";
+                    lbldeletemessage.Text = "Are you sure, you want to delete Trust Details?";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
                     break;
             }
 
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gvTrust_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -215,6 +236,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     /// <returns></returns>
     #region Address Details
 
+    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gvAddress.PageSize = Convert.ToInt32(dropAddress.SelectedValue);
+    }
     protected void BindAddressDetails()
     {
         try
@@ -232,7 +257,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 gvAddress.DataBind();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     private void ClearAddressControls()
@@ -286,9 +316,11 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 message.Text = "Please try again!";
             }
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnUpdateAddress_Click(object sender, EventArgs e)
@@ -297,7 +329,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         {
             addressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
             addressEntity.Type = 4;
-            addressEntity.SAID ="0";
+            addressEntity.SAID = "0";
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
             addressEntity.UIC = ViewState["AddressUIC"].ToString();
             addressEntity.HouseNo = txtHouseNo.Text;
@@ -331,7 +363,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 BindAddressDetails();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
@@ -373,7 +410,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gvAddress_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -396,6 +438,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
+    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gdvBankList.PageSize = Convert.ToInt32(dropBank.SelectedValue);
+    }
     protected void btnBankSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -426,9 +472,11 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 message.Text = "Please try again!";
             }
         }
-        catch 
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnUpdateBank_Click(object sender, EventArgs e)
@@ -437,7 +485,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         {
             bankEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
             bankEntity.Type = 4;
-            bankEntity.SAID ="0";
+            bankEntity.SAID = "0";
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
             bankEntity.UIC = ViewState["BankUIC"].ToString();
             bankEntity.BankName = txtBankName.Text;
@@ -464,7 +512,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 BindBankDetails();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnBankCancel_Click(object sender, EventArgs e)
     {
@@ -499,7 +552,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 gdvBankList.DataBind();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gdvBankList_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -533,7 +591,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
 
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -552,7 +615,9 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-
+                int res = _objTrustBL.DeleteTrust(ViewState["UIC"].ToString());
+                if (res > 0)
+                    GetTrustGrid();
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
@@ -571,24 +636,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 }
             }
         }
-        catch 
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
     }
 
 
-    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
 }

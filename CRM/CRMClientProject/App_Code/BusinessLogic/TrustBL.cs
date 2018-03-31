@@ -47,7 +47,7 @@ namespace BusinessLogic
             Hashtable hsparams = new Hashtable();
             hsparams.Add("@inUIC", UIC);
 
-            return ExecuteNonQuery("DetateTrust", hsparams);
+            return ExecuteNonQuery("DeleteTrust", hsparams);
         }
     }
 }

@@ -56,7 +56,7 @@
                     ('tbody').children('tr').each(function () {
                         var match = false;
                         $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
                                 match = true;
                                 return false;
                             }
@@ -95,7 +95,7 @@
                     ('tbody').children('tr').each(function () {
                         var match = false;
                         $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
                                 match = true;
                                 return false;
                             }
@@ -126,35 +126,32 @@
             });
         });
     </script>
-    <script type="text/javascript">
-
-        $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtTelephone,ContentPlaceHolder1_txtUIC").bind('keypress', function (e) {
-                if (e.keyCode == '9' || e.keyCode == '16') {
-                    return;
-                }
-                var code;
-                if (e.keyCode) code = e.keyCode;
-                else if (e.which) code = e.which;
-                if (e.which == 46)
-                    return false;
-                if (code == 8 || code == 46)
-                    return true;
-                if (code < 48 || code > 57)
-                    return false;
-            });
-            $("#ContentPlaceHolder1_txtTelephone,ContentPlaceHolder1_txtUIC").bind('mouseenter', function (e) {
-                var val = $(this).val();
-                if (val != '0') {
-                    val = val.replace(/[^0-9]+/g, "");
-                    $(this).val(val);
-                }
-            });
-
-
-        })
+       <script type="text/javascript">
+           $(document).ready(function (event) {
+               $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax").bind('keypress', function (e) {
+                   if (e.keyCode == '9' || e.keyCode == '16') {
+                       return;
+                   }
+                   var code;
+                   if (e.keyCode) code = e.keyCode;
+                   else if (e.which) code = e.which;
+                   if (e.which == 46)
+                       return false;
+                   if (code == 8 || code == 46)
+                       return true;
+                   if (code < 48 || code > 57)
+                       return false;
+               });
+               $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax").bind('mouseenter', function (e) {
+                   var val = $(this).val();
+                   if (val != '0') {
+                       val = val.replace(/[^0-9]+/g, "");
+                       $(this).val(val);
+                   }
+               });
 
 
+           })
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -221,13 +218,13 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Trust Registration Number</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" placholder="Trust Registration Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Trust Name</label>
-                                                <asp:TextBox ID="txtTrustName" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtTrustName" CssClass="form-control" runat="server" placholder="Trust Name"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTrustName" runat="server" ControlToValidate="txtTrustName" Display="Dynamic" ErrorMessage="Enter Trust Name"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
@@ -240,7 +237,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Tax Reference No</label>
-                                                <asp:TextBox ID="txtTaxRef" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtTaxRef" CssClass="form-control" runat="server" placeholder="Tax Reference No"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRef" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -249,18 +246,18 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label>
-                                                <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server" placeholder="Telephone"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
                                                     ErrorMessage="Enter Telephone"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Fax</label>
-                                                <asp:TextBox ID="txtFax" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtFax" CssClass="form-control" runat="server" placeholder="Fax"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
-                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Email Id"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email ID"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -421,7 +418,9 @@
 
 
                                 <div class="tab-pane fade" id="tabAddress">
-                                    <div class="row" id="searchaddress" runat="server">
+                                    
+                                    <div class="panel-body" >
+                                        <div class="row" id="searchaddress" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-4" style="margin-top: 15px">
                                                 <asp:DropDownList ID="dropAddress" runat="server"
@@ -440,8 +439,6 @@
 
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="margin-top:10px;">
-
                                         <div class="table-responsive" style="margin-top: 10px;">
                                             <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
@@ -554,7 +551,9 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tabBank">
-                                    <div class="row" id="searchbank" runat="server">
+                                   
+                                    <div class="panel-body">
+                                         <div class="row" id="searchbank" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-4" style="margin-top: 15px">
                                                 <asp:DropDownList ID="dropBank" runat="server"
@@ -573,8 +572,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="panel-body" style="margin-top:10px;">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" style="margin-top:10px;">
                                             <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
