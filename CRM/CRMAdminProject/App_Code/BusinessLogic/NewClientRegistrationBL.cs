@@ -95,11 +95,16 @@ namespace BusinessLogic
         }
 
         public DataSet GetClientRegisteredList()
-        {
-            var newClientRegList = new List<ClientRegistrationEntity>();
+        {            
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@SAID", 0);
             DataSet ds = dataUtilities.ExecuteDataSet("GetAllClients", hashtable);
+            return ds;
+        }
+        public DataSet GetActiveClientList() {            
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@SAID", 0);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetActiveClients", hashtable);
             return ds;
         }
 
