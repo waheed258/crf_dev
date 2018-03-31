@@ -16,5 +16,7 @@ namespace EntityManager
         public string DetailInformation { get; set; }
 
         public string UpdatedOn { get; set; }
+
+        public int? Status { get; set; }
     }
 }

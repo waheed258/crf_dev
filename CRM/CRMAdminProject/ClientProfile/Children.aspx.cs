@@ -9,7 +9,7 @@ using EntityManager;
 using DataManager;
 using BusinessLogic;
 
-public partial class ClientForms_ChildDetails : System.Web.UI.Page
+public partial class ClientProfile_Children : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     ChildrenEntity childEntity = new ChildrenEntity();
@@ -20,10 +20,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
-
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (!IsPostBack)
         {
             try
@@ -221,7 +219,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                searchaddress.Visible = true;
+                searchaddress.Visible = true;                
             }
             else
             {
@@ -242,7 +240,6 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
-
             }
             else
             {
@@ -508,7 +505,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -594,7 +591,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
                 int result = childBL.DeleteChildDetails(ViewState["SAID"].ToString());
-                if (result > 0)
+                if (result == 1)
                 {
                     BindChildDetails();
                 }
@@ -709,5 +706,4 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         }
         catch { }
     }
-
 }

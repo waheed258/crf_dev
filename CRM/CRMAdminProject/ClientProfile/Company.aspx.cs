@@ -7,8 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using EntityManager;
 using System.Data;
-
-public partial class ClientForms_CompanyDetails : System.Web.UI.Page
+public partial class ClientProfile_Company : System.Web.UI.Page
 {
     CompanyBL companyBL = new CompanyBL();
     CompanyInfoEntity companyInfoEntity = new CompanyInfoEntity();
@@ -45,7 +44,6 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         }
         catch { }
     }
-
     protected void GetGridData()
     {
         try
@@ -133,20 +131,19 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         Response.Redirect("Dashboard.aspx");
     }
-  
+
     protected void gvCompany_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
         {
             string UIC = e.CommandArgument.ToString();
             EncryptDecrypt ObjEn = new EncryptDecrypt();
-            Session["CompanyUIC"] = UIC;
+            ObjEn.Encrypt(UIC);
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
             ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
             if (e.CommandName == "EditCompany")
             {
                 btnCompantDetails.Visible = false;
@@ -182,7 +179,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
 
             else if (e.CommandName == "EditBeneficiary")
             {
-                Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("2"), false);
+                Response.Redirect("Beneficiary.aspx?x=" + ObjEn.Encrypt(UIC) + "&t=" + ObjEn.Encrypt("2"), false);
             }
         }
         catch { }
@@ -286,7 +283,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
@@ -415,7 +412,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -502,7 +499,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         }
 
     }
- 
+
     protected void gvBankDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
 

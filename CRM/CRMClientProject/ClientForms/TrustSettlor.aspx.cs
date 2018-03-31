@@ -33,15 +33,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
-                    if (!string.IsNullOrEmpty(Request.QueryString["x"]))
-                    {
-                        EncryptDecrypt ObjEn = new EncryptDecrypt();
-                        txtTrustUIC.Text = ObjEn.Decrypt(Request.QueryString["x"].ToString());
-                        GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
-                        BindBankDetails();
-                        BindAddressDetails();
-                    }
-
+                    txtTrustUIC.Text = Session["TrustUIC"].ToString();
+                    GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+                    BindBankDetails();
+                    BindAddressDetails();
                 }
             }
             catch
@@ -61,10 +56,17 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     {
         ds = _ObjTrustSettlerBL.GetTrustSettler(0, RefUIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        {
+            settlerdetails.Visible = true;
             gvTrustSettler.DataSource = ds.Tables[0];
+            gvTrustSettler.DataBind();
+        }
         else
+        {
+            settlerdetails.Visible = false;
             gvTrustSettler.DataSource = null;
-        gvTrustSettler.DataBind();
+            gvTrustSettler.DataBind();
+        }
 
     }
 
@@ -270,12 +272,14 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchaddress.Visible = true;
                 gvAddress.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gvAddress.DataBind();
             }
             else
             {
+                searchaddress.Visible = false;
                 gvAddress.DataSource = null;
                 gvAddress.DataBind();
             }
@@ -564,12 +568,14 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ds = bankBL.GetBankList(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchbank.Visible = true;
                 gdvBankList.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gdvBankList.DataBind();
             }
             else
             {
+                searchbank.Visible = false;
                 gdvBankList.DataSource = null;
                 gdvBankList.DataBind();
             }

@@ -192,7 +192,7 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
-                <h1>Trust Settlor Information</h1>
+                <h1>Trust Settler Information</h1>
             </div>
         </div>
         <!-- Main content -->
@@ -203,13 +203,13 @@
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Add Trust Settlor</h5>
+                                <h5>Add Trust Settler</h5>
                             </div>
                         </div>
                         <div class="panel-body">
 
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tabTrust" data-toggle="tab">Settlor Details</a></li>
+                                <li class="active"><a href="#tabTrust" data-toggle="tab">Settler Details</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
                             </ul>
@@ -283,7 +283,7 @@
                                          <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
-                                    <div class="panel panel-bd">
+                                    <div class="panel panel-bd" id="settlerdetails" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Trustees</h5>
@@ -322,7 +322,7 @@
                                                                 <%#Container.DataItemIndex+1 %>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Trust Settlor Id" Visible="false">
+                                                        <asp:TemplateField HeaderText="Trust Settler Id" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblTrustSettlerId" Text='<%#Eval("TrustSettlerID") %>'></asp:Label>
                                                             </ItemTemplate>

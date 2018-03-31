@@ -109,6 +109,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             FaxNo = txtFax.Text.Trim(),
             Website = txtWebsite.Text.Trim(),
             ReferenceSAID = Session["SAID"].ToString(),
+            AdvisorID = 0,
             Status = 1
         };
         int res;
@@ -155,11 +156,13 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), "0");
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
+            trustlist.Visible = true;
             gvTrust.DataSource = ds.Tables[0];
             gvTrust.DataBind();
         }
         else
         {
+            trustlist.Visible = false;
             gvTrust.DataSource = null;
             gvTrust.DataBind();
         }
@@ -174,22 +177,21 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
 
             string UIC = e.CommandArgument.ToString();
-            EncryptDecrypt ObjEn = new EncryptDecrypt();
-            ObjEn.Encrypt(UIC);
-
+            EncryptDecrypt ObjEn = new EncryptDecrypt();            
+            Session["TrustUIC"] = UIC;
             switch (e.CommandName)
             {
                 case "EditTrust":
                     BindTrust(UIC);
                     break;
                 case "EditTrustee":
-                    Response.Redirect("Trustee.aspx?x=" + ObjEn.Encrypt(UIC), false);
+                    Response.Redirect("Trustee.aspx", false);
                     break;
                 case "EditSettler":
-                    Response.Redirect("TrustSettlor.aspx?x=" + ObjEn.Encrypt(UIC), false);
+                    Response.Redirect("TrustSettlor.aspx", false);
                     break;
-                case "EditBeneficiary":
-                    Response.Redirect("Beneficiary.aspx?x=" + ObjEn.Encrypt(UIC) + "&t=" + ObjEn.Encrypt("1"), false);
+                case "EditBeneficiary":                    
+                    Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("1"), false);
                     break;
                 case "Address":
                     btnUpdateAddress.Visible = false;
@@ -247,12 +249,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 4);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchaddress.Visible = true;
                 gvAddress.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gvAddress.DataBind();
             }
             else
             {
+                searchaddress.Visible = false;
                 gvAddress.DataSource = null;
                 gvAddress.DataBind();
             }
@@ -538,16 +542,17 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         try
         {
-
             ds = bankBL.GetBankList(Session["SAID"].ToString(), 4);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchbank.Visible = true;
                 gdvBankList.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gdvBankList.DataBind();
             }
             else
             {
+                searchbank.Visible = false;
                 gdvBankList.DataSource = null;
                 gdvBankList.DataBind();
             }

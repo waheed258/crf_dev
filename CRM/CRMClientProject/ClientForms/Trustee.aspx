@@ -268,7 +268,7 @@
                                          <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
-                                    <div class="panel panel-bd">
+                                    <div class="panel panel-bd" id="trusteedetails" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Trustees</h5>

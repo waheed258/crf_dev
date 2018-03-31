@@ -3,23 +3,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
 
-     <script type="text/javascript">
-         function openModal() {
-             $('#ContentPlaceHolder1_Success').modal('show');
-         }
-         //function openBankModal() {
-         //    $('#ContentPlaceHolder1_bankPopup').modal('show');
-         //}
-         //function openAddressModal() {
-         //    $('#ContentPlaceHolder1_addressPopup').modal('show');
-         //}
-         function openDeleteModal() {
-             $('#delete').modal('show');
-         }
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
+        //function openBankModal() {
+        //    $('#ContentPlaceHolder1_bankPopup').modal('show');
+        //}
+        //function openAddressModal() {
+        //    $('#ContentPlaceHolder1_addressPopup').modal('show');
+        //}
+        function openDeleteModal() {
+            $('#delete').modal('show');
+        }
     </script>
-
-
-       <style type="text/css">
+    <style type="text/css">
         tr {
             height: 30px;
         }
@@ -79,6 +77,9 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
                                                 <asp:TextBox ID="txtFirstName" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtFirstName" Display="Dynamic"
+                                                    ErrorMessage="Enter First Name"
+                                                    ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Last Name</label>
@@ -87,32 +88,40 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email-Id</label>
                                                 <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
+                                                    ErrorMessage="Enter Email ID"
+                                                    ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Client">
+                                                </asp:RegularExpressionValidator>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile No</label>
-                                                <asp:TextBox ID="txtMobileNo" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtMobileNo" Display="Dynamic"
+                                                    ErrorMessage="Enter PhoneNo" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtMobileNo" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Phone No</label>
-                                                <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" Display="Dynamic"
-                                                        ErrorMessage="Enter PhoneNo" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                 <asp:RegularExpressionValidator ID="rgvPhoneNo" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
-                                                    ControlToValidate="txtPhoneNo" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
+                                                <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="rgvPhoneNo" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtPhoneNo" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label>Date of Birth</label>
                                                 <asp:TextBox ID="txtDateofBirth" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                                                 <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
-                                                        ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
+                                                    ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Tax Ref No</label>
                                                 <asp:TextBox ID="txtTaxRefNo" runat="server" CssClass="form-control"></asp:TextBox>
-                                                  <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
-                                                        ErrorMessage="Enter Tax Ref No" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Ref No" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
 
                                         </div>
@@ -187,6 +196,8 @@
                                                 <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                     ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Please enter 8 digits" ValidationExpression="[0-9]{8}" Display="Dynamic"
+                                                    ControlToValidate="txtPostalCode" ForeColor="Red" ValidationGroup="Address"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Province</label>
@@ -211,7 +222,7 @@
                                     </div>
 
 
-                                     <div class="panel panel-bd" id="divAddressDetails" runat="server">
+                                    <div class="panel panel-bd" id="divAddressDetails" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Addresses</h5>
@@ -224,18 +235,18 @@
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddressDetails_RowEditing"
                                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddressDetails_RowCommand">
                                                 <PagerStyle CssClass="pagination_grid" />
-                                                 <Columns>
-                                                 <asp:TemplateField HeaderText="S.No" HeaderStyle-CssClass="panel-heading" ItemStyle-CssClass="gradeC">
-                                                    <ItemTemplate>
-                                                        <%# Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S.No" HeaderStyle-CssClass="panel-heading" ItemStyle-CssClass="gradeC">
+                                                        <ItemTemplate>
+                                                            <%# Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                   <%-- <asp:TemplateField HeaderText="UIC">
+                                                    <%-- <asp:TemplateField HeaderText="UIC">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -320,7 +331,7 @@
 
                                 </div>
 
-                                <div class="tab-pane fade" id="tabBank" >
+                                <div class="tab-pane fade" id="tabBank">
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
@@ -385,13 +396,13 @@
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvBankDetails_RowEditing"
                                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDeleting="gvBankDetails_RowDeleting" OnRowCommand="gvBankDetails_RowCommand">
                                                 <PagerStyle CssClass="pagination_grid" />
-                                                 <Columns>
+                                                <Columns>
 
                                                     <asp:TemplateField HeaderText="S.No" HeaderStyle-CssClass="panel-heading" ItemStyle-CssClass="gradeC">
-                                                    <ItemTemplate>
-                                                        <%# Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                        <ItemTemplate>
+                                                            <%# Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
                                                     <asp:TemplateField HeaderText="Bank ID" Visible="false">
                                                         <ItemTemplate>
@@ -464,7 +475,7 @@
                                             </asp:GridView>
                                         </div>
                                     </div>
-                                </div>                               
+                                </div>
 
                             </div>
 
@@ -475,40 +486,91 @@
         </div>
         <!-- /.content -->
 
-         <!-- delete user Modal2 -->
-               <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header modal-header-primary">
-                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-home m-r-5"></i> Delete</h3>
+        <!-- delete user Modal2 -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3><i class="fa fa-home m-r-5"></i>Delete</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
+                                        <div class="pull-right">
+                                            <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
                         </div>
-                        <div class="modal-body">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 
-                                    <fieldset>
-                                       <div class="col-md-12 form-group user-form-group">                                          
-                                           <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
-                                          <div class="pull-right">                                                                                          
-                                              <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                              
-                              </div>
-                           </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="message" runat="server" class="control-label" Style="color: green" />
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
-                     </div>
-                     <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-               </div>
-               <!-- /.modal -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     </div>
 
+
+    <script type="text/javascript">
+
+        $("#ContentPlaceHolder1_txtMobileNo,#ContentPlaceHolder1_txtPhoneNo,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('keypress', function (e) {
+            if (e.keyCode == '9' || e.keyCode == '16') {
+                return;
+            }
+            var code;
+            if (e.keyCode) code = e.keyCode;
+            else if (e.which) code = e.which;
+            if (e.which == 46)
+                return false;
+            if (code == 8 || code == 46)
+                return true;
+            if (code < 48 || code > 57)
+                return false;
+        });
+        $("#ContentPlaceHolder1_txtMobileNo,#ContentPlaceHolder1_txtPhoneNo,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('mouseenter', function (e) {
+            var val = $(this).val();
+            if (val != '0') {
+                val = val.replace(/[^0-9]+/g, "");
+                $(this).val(val);
+            }
+        });
+    </script>
 </asp:Content>
 

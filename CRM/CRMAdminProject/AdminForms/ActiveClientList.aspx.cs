@@ -124,7 +124,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                 GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
                 int RowIndex = row.RowIndex;
                 Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-                string url = "../ClientProfile/Spouse.aspx";
+                string url = "../ClientProfile/ClientPersonal.aspx";
                 string s = "window.open('" + url + "', '_blank');";
                 ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);                
             }

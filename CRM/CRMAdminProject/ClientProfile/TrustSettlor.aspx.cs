@@ -380,7 +380,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');

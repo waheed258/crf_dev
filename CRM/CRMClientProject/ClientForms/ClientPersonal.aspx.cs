@@ -58,12 +58,12 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
             DataSet ds = _ObjClientProfileBL.GetClientRegistartion(Session["SAID"].ToString());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                txtSAId.ReadOnly = true;
                 txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
                 txtMobileNo.Text = ds.Tables[0].Rows[0]["MobileNumber"].ToString();
-                btnSubmitClientPersonal.Text = "Edit";
             }
         }
         catch
@@ -77,20 +77,10 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            //DataSet ds = _ObjClientProfileBL.GetClientPersonal(Session["SAID"].ToString());
-
+            txtSAId.ReadOnly = true;           
             DataSet ds = _ObjClientProfileBL.GetClientPersonal(Session["SAID"].ToString());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                txtSAId.ReadOnly = true;
-                txtFirstName.ReadOnly = true;
-                txtLastName.ReadOnly = true;
-                txtEmail.ReadOnly = true;
-                txtPhoneNo.ReadOnly = true;
-                txtMobileNo.ReadOnly = true;
-                txtDateofBirth.ReadOnly = true;
-                txtTaxRefNo.ReadOnly = true;
-                ViewState["flag"] = 1;
                 txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
@@ -104,20 +94,10 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
                 }
 
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                btnSubmitClientPersonal.Text = "Edit";
+                ViewState["flag"] = 1;
             }
             else
             {
-                txtSAId.ReadOnly = false;
-                txtFirstName.ReadOnly = false;
-                txtLastName.ReadOnly = false;
-                txtEmail.ReadOnly = false;
-                txtPhoneNo.ReadOnly = false;
-                txtMobileNo.ReadOnly = false;
-                txtDateofBirth.ReadOnly = false;
-                txtTaxRefNo.ReadOnly = false;
-                ViewState["flag"] = 2;
-                btnSubmitClientPersonal.Text = "Submit";
                 GetClientRegistartion();
             }
         }
@@ -130,62 +110,37 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
     protected void btnSubmitClientPersonal_Click(object sender, EventArgs e)
     {
         try
-        {
-            if (btnSubmitClientPersonal.Text == "Edit")
+        {           
+            ClientPersonalInfoEntity.SAID = txtSAId.Text;
+            ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
+            ClientPersonalInfoEntity.LastName = txtLastName.Text;
+            ClientPersonalInfoEntity.EmailID = txtEmail.Text;
+            ClientPersonalInfoEntity.Phone = txtPhoneNo.Text;
+            ClientPersonalInfoEntity.Mobile = txtMobileNo.Text;
+            ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
+            ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
+            int result;
+            if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                if (Convert.ToInt32(ViewState["flag"]) == 1)
-                {
-                    btnSubmitClientPersonal.Text = "Update";
-                    txtSAId.ReadOnly = false;
-                    txtFirstName.ReadOnly = false;
-                    txtLastName.ReadOnly = false;
-                    txtEmail.ReadOnly = false;
-                    txtPhoneNo.ReadOnly = false;
-                    txtMobileNo.ReadOnly = false;
-                    txtDateofBirth.ReadOnly = false;
-                    txtTaxRefNo.ReadOnly = false;
-                }
-               
+                result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
+                message.Text = "Details Updated Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             else
             {
-                ClientPersonalInfoEntity.SAID = txtSAId.Text;
-                ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
-                ClientPersonalInfoEntity.LastName = txtLastName.Text;
-                ClientPersonalInfoEntity.EmailID = txtEmail.Text;
-                ClientPersonalInfoEntity.Phone = txtPhoneNo.Text;
-                ClientPersonalInfoEntity.Mobile = txtMobileNo.Text;
-                ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
-                ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
-                int result;
-                if (Convert.ToInt32(ViewState["flag"]) == 1)
-                {
-                    result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
-                    lblMessage.Text = "ClientPersonal Updated Successfully";
-                }
-                else
-                {
-                    result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'i');
-                    lblMessage.Text = "New ClientPersonal Created Successfully!";
-                }
-                if (result == 1)
-                {
-                    
-                    txtSAId.ReadOnly = true;
-                    txtFirstName.ReadOnly = true;
-                    txtLastName.ReadOnly = true;
-                    txtEmail.ReadOnly = true;
-                    txtPhoneNo.ReadOnly = true;
-                    txtMobileNo.ReadOnly = true;
-                    txtDateofBirth.ReadOnly = true;
-                    txtTaxRefNo.ReadOnly = true;
-                    btnSubmitClientPersonal.Text = "Edit";
-                }
-                else
-                {
-                    lblMessage.Text = "Please try again!";
-                }
+                result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'i');
+                message.Text = "Client details saved Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
+            if (result == 1)
+            {
+            }
+            else
+            {
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
+
         }
         catch (Exception ex)
         {
@@ -197,7 +152,7 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
     {
         Response.Redirect("Dashboard.aspx");
     }
-  
+
     protected void btnCancelAddress_Click(object sender, EventArgs e)
     {
         Response.Redirect("Dashboard.aspx");
@@ -218,9 +173,9 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
         ddlCountry.SelectedIndex = 0;
     }
 
-  
 
-    #region Bank Details 
+
+    #region Bank Details
 
     protected void btnSubmitBank_Click(object sender, EventArgs e)
     {
@@ -244,13 +199,15 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["Bankflag"]) == 1)
             {
                 BankInfoEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
-                result = new BankBL().CURDBankInfo(BankInfoEntity, 'u');
-                lblMessage.Text = "BankDetails Updated Successfully";
+                result = new BankBL().CURDBankInfo(BankInfoEntity, 'u');              
+                message.Text = "Bank details updated Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             else
             {
-                result = new BankBL().CURDBankInfo(BankInfoEntity, 'i');
-                lblMessage.Text = "New Bank Created Successfully!";
+                result = new BankBL().CURDBankInfo(BankInfoEntity, 'i');                
+                message.Text = "Bank details saved Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             if (result == 1)
             {
@@ -259,7 +216,8 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
             }
             else
             {
-                lblMessage.Text = "Please try again!";
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
         catch (Exception ex)
@@ -288,7 +246,7 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            ds = bankbl.GetBankList(Session["SAID"].ToString(),1);
+            ds = bankbl.GetBankList(Session["SAID"].ToString(), 1);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvBankDetails.DataSource = ds.Tables[0];
@@ -315,16 +273,11 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
         {
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
-            ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
-            //ViewState["BankUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();            
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
             if (e.CommandName == "EditBank")
-            {
-                //bankmessage.InnerText = "Update Bank Details";
-                //btnBankSubmit.Visible = false;
-                //btnUpdateBank.Visible = true;
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+            {                
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -359,7 +312,7 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
 
     #endregion
 
-    #region Address Details 
+    #region Address Details
 
     protected void btnSubmitAddress_Click(object sender, EventArgs e)
     {
@@ -389,13 +342,15 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["Addressflag"]) == 1)
             {
                 AddressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
-                result = new AddressBL().InsertUpdateAddress(AddressEntity, 'u');
-                lblMessage.Text = "AddressDetails Updated Successfully";
+                result = new AddressBL().InsertUpdateAddress(AddressEntity, 'u');                
+                message.Text = "Address details updated Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             else
             {
                 result = new AddressBL().InsertUpdateAddress(AddressEntity, 'i');
-                lblMessage.Text = "New Address Created Successfully!";
+                message.Text = "Address details saved Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             if (result == 1)
             {
@@ -404,7 +359,8 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
             }
             else
             {
-                lblMessage.Text = "Please try again!";
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
 
         }
@@ -440,16 +396,11 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
         {
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
-            ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
-            // ViewState["AddressUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();            
             ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
             if (e.CommandName == "EditAddress")
             {
-                // addressmessage.InnerText = "Update Address Details";
-                //btnAddressSubmit.Visible = false;
-                //btnUpdateAddress.Visible = true;
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
                 txtPlotNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -507,7 +458,7 @@ public partial class ClientForms_ClientPersonal : System.Web.UI.Page
         }
 
     }
-    
 
-    
+
+
 }

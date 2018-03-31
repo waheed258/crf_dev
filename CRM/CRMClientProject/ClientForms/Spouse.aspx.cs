@@ -11,7 +11,7 @@ using System.Data;
 
 public partial class ClientForms_Spouse : System.Web.UI.Page
 {
-     CommanClass _objComman = new CommanClass();
+    CommanClass _objComman = new CommanClass();
     SpouseEntity spouseEntity = new SpouseEntity();
     SpouseBL spouseBL = new SpouseBL();
     AddressBL addressBL = new AddressBL();
@@ -20,9 +20,9 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     BankBL bankBL = new BankBL();
     BasicDropdownBL basicDropdownBL = new BasicDropdownBL();
-    
+
     protected void Page_Load(object sender, EventArgs e)
-    {    
+    {
         if (!IsPostBack)
         {
 
@@ -46,13 +46,13 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 }
             }
             catch { }
-            }
+        }
 
     }
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {
         try
-        {          
+        {
             spouseEntity.SAID = txtSAID.Text;
             spouseEntity.Title = ddlTitle.SelectedValue;
             spouseEntity.FirstName = txtFirstName.Text;
@@ -68,7 +68,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
             if (result == 1)
             {
                 message.Text = "Spouse details saved successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);             
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
                 Clear();
             }
@@ -97,7 +97,8 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
             }
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
 
         }
     }
@@ -115,7 +116,8 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
             }
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
 
         }
     }
@@ -159,15 +161,15 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         }
     }
     private void Clear()
-    { 
-        txtSAID.Text = ""; 
-        txtFirstName.Text = ""; 
-        txtLastName.Text = ""; 
-        ddlTitle.SelectedValue = ""; 
-        txtPhoneNum.Text = ""; 
-        txtMobileNum.Text = ""; 
-        txtEmailId.Text = ""; 
-        txtTaxRefNum.Text = ""; 
+    {
+        txtSAID.Text = "";
+        txtFirstName.Text = "";
+        txtLastName.Text = "";
+        ddlTitle.SelectedValue = "";
+        txtPhoneNum.Text = "";
+        txtMobileNum.Text = "";
+        txtEmailId.Text = "";
+        txtTaxRefNum.Text = "";
         txtDateOfBirth.Text = "";
         txtHouseNo.Text = "";
         txtPostalCode.Text = "";
@@ -213,7 +215,15 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         try
         {
             gvAddress.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(),2);
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 2);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchaddress.Visible = true;
+            }
+            else
+            {
+                searchaddress.Visible = false;
+            }
             gvAddress.DataSource = dataset;
             gvAddress.DataBind();
         }
@@ -222,7 +232,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
 
         }
     }
-   
+
     protected void btnUpdateSpouse_Click(object sender, EventArgs e)
     {
         try
@@ -245,6 +255,8 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
                 Clear();
+                btnUpdateSpouse.Visible = false;
+                btnSpouseSubmit.Visible = true;
             }
             else
             {
@@ -281,7 +293,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 txtSAID.ReadOnly = true;
                 txtFirstName.Text = ((Label)row.FindControl("lblFirstName")).Text.ToString();
                 txtLastName.Text = ((Label)row.FindControl("lblLastName")).Text.ToString();
-                txtMobileNum.Text =((Label)row.FindControl("lblMobile")).Text.ToString();
+                txtMobileNum.Text = ((Label)row.FindControl("lblMobile")).Text.ToString();
                 txtSAID.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtPhoneNum.Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
                 txtEmailId.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
@@ -313,14 +325,22 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         catch (Exception ex)
         {
 
-        }      
+        }
     }
     private void BindBankDetails()
     {
         try
         {
             gdvBankList.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(),2);
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchbank.Visible = true;
+            }
+            else
+            {
+                searchbank.Visible = false;
+            }
             gdvBankList.DataSource = dataset;
             gdvBankList.DataBind();
         }
@@ -399,7 +419,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
                 BindAddressDetails();
-               
+
             }
             else
             {
@@ -407,7 +427,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -535,7 +555,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         {
             addressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
             addressEntity.Type = 2;
-            addressEntity.UIC= "0";
+            addressEntity.UIC = "0";
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
             addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.HouseNo = txtHouseNo.Text;
@@ -599,7 +619,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                     BindAddressDetails();
                 }
             }
-        
+
         }
         catch { }
     }

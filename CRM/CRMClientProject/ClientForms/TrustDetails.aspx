@@ -218,9 +218,11 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Trust Registration Number</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" placholder="Trust Registration Number"></asp:TextBox>
+                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" placholder="Trust Registration Number" MaxLength="13"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                 <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                    ControlToValidate="txtUIC" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Trust Name</label>
@@ -246,10 +248,12 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label>
-                                                <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server" placeholder="Telephone"></asp:TextBox>
+                                                <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server" placeholder="Telephone" MaxLength="10"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
                                                     ErrorMessage="Enter Telephone"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                 <asp:RegularExpressionValidator ID="rgvTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtTelephone" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Fax</label>
@@ -265,6 +269,9 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Website</label>
                                                 <asp:TextBox ID="txtWebsite" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="rgvWebsite" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Website Format"
+                                                    ControlToValidate="txtWebsite" ValidationExpression="^((http|https|ftp|www):\/\/)?([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)(\.)([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]+)" ValidationGroup="Company">
+                                                </asp:RegularExpressionValidator>
                                             </div>
 
                                         </div>
@@ -275,7 +282,7 @@
                                         <asp:Button ID="btnCancleTrust" runat="server" Text="Cancel" OnClick="btnCancleTrust_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
-                                    <div class="panel panel-bd">
+                                    <div class="panel panel-bd" id="trustlist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Trusts</h5>

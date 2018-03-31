@@ -34,14 +34,11 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
-                    if (!string.IsNullOrEmpty(Request.QueryString["x"]))
-                    {
-                        EncryptDecrypt ObjEn = new EncryptDecrypt();
-                        txtUIC.Text = ObjEn.Decrypt(Request.QueryString["x"].ToString());
-                        GetTrusteeGrid(txtUIC.Text);
-                        BindBankDetails();
-                        BindAddressDetails();
-                    }
+                    txtUIC.Text = Session["TrustUIC"] .ToString();
+                    GetTrusteeGrid(txtUIC.Text);
+                    BindBankDetails();
+                    BindAddressDetails();
+
                 }
             }
             catch
@@ -67,11 +64,13 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         ds = _objTrusteeBL.GetTrustee(0, ReferenceUIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
+            trusteedetails.Visible = true;
             gvTrustee.DataSource = ds.Tables[0];
             gvTrustee.DataBind();
         }
         else
         {
+            trusteedetails.Visible = false;
             gvTrustee.DataSource = null;
             gvTrustee.DataBind();
         }
@@ -265,12 +264,14 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 6);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchaddress.Visible = true;
                 gvAddress.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gvAddress.DataBind();
             }
             else
             {
+                searchaddress.Visible = false;
                 gvAddress.DataSource = null;
                 gvAddress.DataBind();
             }
@@ -376,7 +377,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 BindAddressDetails();
             }
         }
-        catch 
+        catch
         {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
@@ -554,17 +555,19 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             ds = bankBL.GetBankList(Session["SAID"].ToString(), 6);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                searchbank.Visible = true;
                 gdvBankList.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gdvBankList.DataBind();
             }
             else
             {
+                searchbank.Visible = false;
                 gdvBankList.DataSource = null;
                 gdvBankList.DataBind();
             }
         }
-        catch 
+        catch
         {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
@@ -603,7 +606,8 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -660,5 +664,5 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         }
 
     }
-    
+
 }

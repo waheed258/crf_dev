@@ -93,9 +93,9 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="ClientPersonal.aspx">Client</a></li>
-                                <li><a href="Spouse.aspx">Spouse </a></li>
-                                <li><a href="ChildDetails.aspx">Children  </a></li>
+                                <li><a href="../ClientProfile/ClientPersonal.aspx">Client</a></li>
+                                <li><a href="../ClientProfile/Spouse.aspx">Spouse </a></li>
+                                <li><a href="../ClientProfile/Children.aspx">Children  </a></li>
 
                             </ul>
                         </li>
@@ -107,7 +107,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="CompanyDetails.aspx">Add Company</a></li>
+                                <li><a href="../ClientProfile/Company.aspx">Add Company</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

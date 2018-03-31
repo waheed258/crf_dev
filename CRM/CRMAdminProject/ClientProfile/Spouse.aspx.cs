@@ -79,7 +79,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         {
 
         }
-    }   
+    }
     private void Clear()
     {
         txtSAID.Text = "";
@@ -120,10 +120,13 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 gvSpouse.DataSource = dataset;
                 gvSpouse.DataBind();
                 spouselist.Visible = true;
+                search.Visible = true;
+
             }
             else
             {
                 spouselist.Visible = false;
+                search.Visible = false;
             }
 
         }
@@ -136,6 +139,14 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         {
             gvAddress.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 2);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchaddress.Visible = true;
+            }
+            else
+            {
+                searchaddress.Visible = false;
+            }
             gvAddress.DataSource = dataset;
             gvAddress.DataBind();
         }
@@ -243,6 +254,14 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         {
             gdvBankList.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchbank.Visible = true;
+            }
+            else
+            {
+                searchbank.Visible = false;
+            }
             gdvBankList.DataSource = dataset;
             gdvBankList.DataBind();
         }
