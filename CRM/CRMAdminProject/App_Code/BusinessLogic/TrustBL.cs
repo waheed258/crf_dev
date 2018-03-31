@@ -9,7 +9,7 @@ using DataManager;
 
 namespace BusinessLogic
 {
-    public class TrustBL :DataUtilities 
+    public class TrustBL : DataUtilities
     {
         public int TrustManager(TrustEntity _objTrust, char operation)
         {
@@ -29,6 +29,25 @@ namespace BusinessLogic
                         {"@OperationName",operation}
                     };
             return ExecuteNonQuery("TrustManager", hsparams);
+        }
+
+
+        public DataSet GetTrust(string ReferenceSAId, string UIC)
+        {
+            Hashtable hsparams = new Hashtable();
+            hsparams.Add("@inReferenceSAID", ReferenceSAId);
+            hsparams.Add("@inUIC", UIC);
+
+            return ExecuteDataSet("GetTrust", hsparams);
+        }
+
+
+        public int DeleteTrust(string UIC)
+        {
+            Hashtable hsparams = new Hashtable();
+            hsparams.Add("@inUIC", UIC);
+
+            return ExecuteNonQuery("DeleteTrust", hsparams);
         }
     }
 }

@@ -12,5 +12,7 @@ namespace EntityManager
     {
         public int ServiceID { get; set; }
         public string ServiceName { get; set; }
+
+	public int Status?{ get; set; }
     }
 }

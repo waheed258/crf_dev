@@ -29,6 +29,6 @@ namespace EntityManager
         public int? AdvisorId { get; set; }
         public int? Status { get; set; }
         public int? CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
+        public int? UpdatedBy { get; set; }
     }
 }
