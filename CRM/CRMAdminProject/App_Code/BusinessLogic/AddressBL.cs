@@ -5,12 +5,12 @@ using System.Web;
 using System.Collections;
 using EntityManager;
 using DataManager;
-
+using System.Data;
 namespace BusinessLogic
 {
     public class AddressBL : DataUtilities
     {
-
+        DataUtilities dataUtilities = new DataUtilities();
         public int InsertUpdateAddress(AddressEntity _objAddress, char operation)
         {
             Hashtable hsparams = new Hashtable
@@ -40,5 +40,21 @@ namespace BusinessLogic
             return ExecuteNonQuery("InsUpAddressDetail", hsparams);
         }
 
+        public DataSet GetAddressDetails(string SAID,int Type)
+        {
+            var newAddress = new List<AddressEntity>();
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@ReferenceSAID", SAID);
+            hashtable.Add("@Type", Type);
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_GetAddressDetails", hashtable);
+            return ds;
+        }
+        public int DeleteAddressDetails(string AddressDetailID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@AddressDetailID", @AddressDetailID);
+            int result = dataUtilities.ExecuteNonQuery("usp_DeleteAddressDetails", hashtable);
+            return result;
+        }
     }
 }

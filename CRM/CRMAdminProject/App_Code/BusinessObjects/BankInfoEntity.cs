@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 namespace EntityManager
 {
     /// <summary>
@@ -21,8 +20,10 @@ namespace EntityManager
         public int? AccountType { get; set; }
         public string Currency { get; set; }
         public string SWIFT { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? UpdatedBy { get; set; }
+        public int CreatedBy { get; set; }
+        public int UpdatedBy { get; set; }
+
+        public int AdvisorID { get; set; }
         public string UpdatedOn { get; set; }
         public int? Status { get; set; }
     }
