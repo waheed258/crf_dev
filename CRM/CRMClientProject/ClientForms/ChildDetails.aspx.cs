@@ -710,4 +710,39 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         catch { }
     }
 
+    protected void txtSAID_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            GetClientRegistartion();
+        }
+        catch { }
+    }
+    private void GetClientRegistartion()
+    {
+        try
+        {
+
+            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+            dataset = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {
+                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+            }
+            else
+            {
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                txtEmailId.Text = "";
+                txtMobileNum.Text = "";
+            }
+        }
+        catch { }
+
+    }
 }

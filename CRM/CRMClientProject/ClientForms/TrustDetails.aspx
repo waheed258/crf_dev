@@ -390,14 +390,14 @@
 
                                                         <asp:TemplateField HeaderText="Trustee">
                                                             <ItemTemplate>
-                                                                <asp:ImageButton ID="btnTrustee" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/settler.png"
+                                                                <asp:ImageButton ID="btnTrustee" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
                                                                     CommandName="EditTrustee" ToolTip="Trustee Details" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
                                                         <asp:TemplateField HeaderText="Settlor">
                                                             <ItemTemplate>
-                                                                <asp:ImageButton ID="btnSettlor" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/trustee.png"
+                                                                <asp:ImageButton ID="btnSettlor" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
                                                                     CommandName="EditSettler" ToolTip="Trust Settlor Details" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>

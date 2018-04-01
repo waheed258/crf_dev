@@ -216,7 +216,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group col-sm-3">
                                                 <label>SAID</label>
-                                                <asp:TextBox ID="txtSAID" runat="server" class="form-control" placeholder="Enter SAID" MaxLength="13"></asp:TextBox>
+                                                <asp:TextBox ID="txtSAID" runat="server" class="form-control" placeholder="Enter SAID" MaxLength="13" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvSAID" runat="server" ControlToValidate="txtSAID" ForeColor="#d0582e"
                                                     ErrorMessage="Please Enter SAID" ValidationGroup="Spouse" Display="Dynamic"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="revSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"

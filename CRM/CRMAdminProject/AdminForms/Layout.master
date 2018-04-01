@@ -140,7 +140,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="ClientList.aspx">Registered Clients</a></li>
                                 <li><a href="#">Location Wise</a></li>
-                                <li><a href="">Client Registration Form</a></li>
+                                <li><a href="ClientRegistrationForm.aspx">Client Registration Form</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

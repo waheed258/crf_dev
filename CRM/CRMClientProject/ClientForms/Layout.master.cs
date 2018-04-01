@@ -13,9 +13,13 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
         {
             try
             {
-                if(Session["SAID"]==null || Session["SAID"].ToString()=="")
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
+                }
+                else
+                {
+                    lblUserName.Text = Session["ClientName"].ToString().ToUpper();  
                 }
             }
             catch

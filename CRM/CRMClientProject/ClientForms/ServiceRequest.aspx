@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Details</label>
+                            <label class="control-label">Description</label>
                         </div>
                         <div class="form-group col-sm-6">
                             <asp:TextBox ID="txtDetails" TextMode="MultiLine" Height="80" runat="server" CssClass="form-control"></asp:TextBox>
@@ -91,7 +91,7 @@
                 <div class="panel-footer">
                     <div class="col-sm-4"></div>
 
-                    <asp:Button ID="btnSubmitServiceRequest" runat="server" Text="Send Service Req" ValidationGroup="Service" OnClick="btnSubmitServiceRequest_Click" CssClass="btn btn-primary"></asp:Button>
+                    <asp:Button ID="btnSubmitServiceRequest" runat="server" Text="Submit" ValidationGroup="Service" OnClick="btnSubmitServiceRequest_Click" CssClass="btn btn-primary"></asp:Button>
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger"></asp:Button>
                 </div>
 
@@ -126,12 +126,17 @@
                                         <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="House No">
+                                <asp:TemplateField HeaderText="ServiceID" Visible="false">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblClientService" Text='<%#Eval("ClientService") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Building Name">
+                                <asp:TemplateField HeaderText="Service">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblClientService" Text='<%#Eval("ServiceName") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Description">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblDetailInformation" Text='<%#Eval("DetailInformation") %>'></asp:Label>
                                     </ItemTemplate>
