@@ -93,6 +93,11 @@
                                             <i class="fa fa-user"></i>User Profile
                                         </a>
                                     </li>
+                                     <li>
+                                        <a href="ResetPassword.aspx">
+                                            <i class="fa fa-cog"></i>Reset Password
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="../Login.aspx">
                                             <i class="fa fa-sign-out"></i>Signout
