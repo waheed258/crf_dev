@@ -46,6 +46,7 @@ public partial class AdminForms_Login : System.Web.UI.Page
                         Session["AdvisorType"] = ds.Tables[0].Rows[0]["AdvisorType"].ToString();
                         Session["LoginId"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
                         Session["AdvisorID"] = ds.Tables[0].Rows[0]["AdvisorID"].ToString();
+                        Session["Image"] = ds.Tables[0].Rows[0]["Image"].ToString();
                         Response.Redirect("AdminForms/Dashboard.aspx", false);
                     }
                     else

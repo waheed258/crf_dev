@@ -129,9 +129,10 @@
                                             <label>Upload Photo</label>
                                             <asp:FileUpload ID="fuImageUpload" runat="server"/>
                                             <asp:HiddenField ID="hfImage" runat="server" />
-                                             <asp:Label ID="lblImage" runat="server"></asp:Label>
-                                   
+                                             
+                                                
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="panel-footer">
@@ -156,7 +157,7 @@
                                     <div class="col-md-12">
                                         <fieldset>
                                             <div class="col-md-12 form-group user-form-group">
-                                                <label class="control-label" style="color: green">Advisor Updated Successfully!</label>
+                                                <label class="control-label" style="color: green">Advisor Updated Successfully!Please Login Again</label>
                                             </div>
                                         </fieldset>
                                     </div>

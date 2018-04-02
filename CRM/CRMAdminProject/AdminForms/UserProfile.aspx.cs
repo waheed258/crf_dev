@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using System.Data;
 using EntityManager;
+using System.IO;
 public partial class AdminForms_UserProfile : System.Web.UI.Page
 {
     DataSet dataset = new DataSet();
@@ -47,7 +48,10 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                 ddlStatus.SelectedValue = dataset.Tables[0].Rows[0]["Status"].ToString();
                 ddlRole.SelectedValue = dataset.Tables[0].Rows[0]["AdvisorRole"].ToString();
                 hfImage.Value = dataset.Tables[0].Rows[0]["Image"].ToString();
-                lblImage.Text = hfImage.Value;
+                
+                
+                
+               
             }
         }
         catch(Exception ex)
@@ -143,10 +147,10 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             string fileNamemain = string.Empty;
             if (fuImageUpload.HasFile)
             {
-                string extension = System.IO.Path.GetExtension(fuImageUpload.PostedFile.FileName);
-                fileNamemain = txtLoginId.Text + extension;
-                fuImageUpload.SaveAs(Server.MapPath("/AdvisorImages/") + fileNamemain);
-                hfImage.Value = fileNamemain;
+               
+                fuImageUpload.SaveAs(Server.MapPath("~/AdvisorImages/" +txtSAId.Text+ this.fuImageUpload.FileName));
+                string fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
+                advisorentity.Image = "~/AdvisorImages/" + txtSAId.Text + fileName;
             }
             advisorentity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
             advisorentity.FirstName = txtFirstName.Text;
@@ -162,13 +166,15 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
             advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
-            advisorentity.Image = hfImage.Value;
+            //advisorentity.Image = hfImage.Value;
             //need to initialize with login advisor id
+            
             advisorentity.UpdatedBy = 0;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
             if (result == 1)
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
             }
 
         }

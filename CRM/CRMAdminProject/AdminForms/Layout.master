@@ -86,11 +86,12 @@
                             <li class="dropdown dropdown-user">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="../assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user" />
+                                    <asp:Image ID="imgProfilePic" runat="server" class="img-circle"  width="45" height="45" alt="user"/>
+                                   <%-- <img src="../assets/dist/img/avatar5.png" class="img-circle" width="45" height="45" alt="user" />--%>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">
+                                        <a href="UserProfile.aspx">
                                             <i class="fa fa-user"></i>User Profile
                                         </a>
                                     </li>
