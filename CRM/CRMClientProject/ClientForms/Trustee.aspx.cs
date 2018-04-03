@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using EntityManager;
 using BusinessLogic;
 
-public partial class ClientForms_Trustee : System.Web.UI.Page
+public partial class ClientProfile_Trustee : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     TrusteeBL _objTrusteeBL = new TrusteeBL();
@@ -34,7 +34,10 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
-                    txtUIC.Text = Session["TrustUIC"] .ToString();
+                    _objComman.getRecordsPerPage(DropPage);
+                    _objComman.getRecordsPerPage(dropAddress);
+                    _objComman.getRecordsPerPage(dropBank);
+                    txtUIC.Text = Session["TrustUIC"].ToString();
                     GetTrusteeGrid(txtUIC.Text);
                     BindBankDetails();
                     BindAddressDetails();
@@ -43,6 +46,9 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             }
             catch
             {
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Something went wrong, please contact administrator";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
     }
@@ -64,15 +70,15 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         ds = _objTrusteeBL.GetTrustee(0, ReferenceUIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
-            trusteedetails.Visible = true;
             gvTrustee.DataSource = ds.Tables[0];
             gvTrustee.DataBind();
+            divTrusteelist.Visible = true;
         }
         else
         {
-            trusteedetails.Visible = false;
             gvTrustee.DataSource = null;
             gvTrustee.DataBind();
+            divTrusteelist.Visible = false;
         }
     }
 
@@ -106,7 +112,8 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             LastName = txtLastName.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
-            Status = 1
+            Status = 1,
+            AdvisorID = 0,
         };
         int result;
         if (btnSubmit.Text == "Update")
@@ -264,16 +271,16 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 6);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                searchaddress.Visible = true;
                 gvAddress.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gvAddress.DataBind();
+                searchaddress.Visible = true;
             }
             else
             {
-                searchaddress.Visible = false;
                 gvAddress.DataSource = null;
                 gvAddress.DataBind();
+                searchaddress.Visible = false;
             }
         }
         catch { }
@@ -316,6 +323,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
+            addressEntity.UpdatedBy = "0";
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -360,7 +368,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -551,20 +559,19 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     {
         try
         {
-
             ds = bankBL.GetBankList(Session["SAID"].ToString(), 6);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                searchbank.Visible = true;
                 gdvBankList.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gdvBankList.DataBind();
+                searchbank.Visible = true;
             }
             else
             {
-                searchbank.Visible = false;
                 gdvBankList.DataSource = null;
                 gdvBankList.DataBind();
+                searchbank.Visible = false;
             }
         }
         catch

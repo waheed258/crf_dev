@@ -38,6 +38,9 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
+                    _objComman.getRecordsPerPage(DropPage);
+                    _objComman.getRecordsPerPage(DropPage1);
+                    _objComman.getRecordsPerPage(dropPage2);
                     ViewState["ps"] = 5;
                     BindChildDetails();
                     BindAddressDetails();
@@ -80,7 +83,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -107,7 +110,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ChildList.Visible = false;
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -325,7 +328,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
 
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -439,7 +442,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -508,7 +511,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -529,64 +532,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         catch { }
     }
 
-    private void GetAccountType()
-    {
-        try
-        {
-            dataset = basicdropdownBL.GetAccountType();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlAccountType.DataSource = dataset;
-                ddlAccountType.DataTextField = "AccountType";
-                ddlAccountType.DataValueField = "AccountTypeID";
-                ddlAccountType.DataBind();
-                ddlAccountType.Items.Insert(0, new ListItem("--Select Account Type --", "-1"));
-            }
-
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-
-    protected void GetCountry()
-    {
-        dataset = basicdropdownBL.GetCountry();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlCountry.DataSource = dataset;
-            ddlCountry.DataTextField = "Country";
-            ddlCountry.DataValueField = "CountryID";
-            ddlCountry.DataBind();
-            ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
-        }
-    }
-    protected void GetProvince()
-    {
-        dataset = basicdropdownBL.GetProvince();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlProvince.DataSource = dataset;
-            ddlProvince.DataTextField = "Province";
-            ddlProvince.DataValueField = "ProvinceID";
-            ddlProvince.DataBind();
-            ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
-        }
-    }
-    protected void GetCity()
-    {
-        dataset = basicdropdownBL.GetCity();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlCity.DataSource = dataset;
-            ddlCity.DataTextField = "City";
-            ddlCity.DataValueField = "CityID";
-            ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City --", "-1"));
-        }
-    }
-
+   
     protected void btnSure_Click(object sender, EventArgs e)
     {
         try
@@ -616,7 +562,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }

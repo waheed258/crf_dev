@@ -5,7 +5,7 @@
 
     <script type="text/javascript">
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -19,7 +19,7 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
@@ -161,15 +161,36 @@
                                                 <h5>List of Companies</h5>
                                             </div>
                                         </div>
-                                        <div class="panel-body">
+                                       <div class="row" id="search" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="DropPage" runat="server"
+                                                        OnSelectedIndexChanged="DropPage_SelectedIndexChanged1"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                    <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="panel-body" style="margin-top: 10px">
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvCompany" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="CompanyID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" 
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;"  ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
-                                                   <PagerStyle CssClass="pagination_grid" />
-                                                     <Columns>
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
+                                                    <PagerStyle CssClass="pagination_grid" />
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Company ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCompanyID" Text='<%#Eval("CompanyID") %>'></asp:Label>
@@ -240,7 +261,7 @@
                                                                     CommandName="Address" ToolTip="Address Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Beneficiary">
+                                                        <asp:TemplateField HeaderText="Beneficiary">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnBeneficiary" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
                                                                     CommandName="EditBeneficiary" ToolTip="Beneficiary Details" CommandArgument='<%#Eval("UIC") %>' />
@@ -254,13 +275,24 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="panel panel-bd" id="divBankDetails" runat="server">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                <h5>List of Banks</h5>
-                                            </div>
-                                        </div>
                                         <div class="panel-body">
-                                            <div class="table-responsive">
+                                            <div class="row" id="searchbank" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-4" style="margin-top: 15px">
+                                                        <asp:DropDownList ID="dropBank" runat="server"
+                                                            OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-3" style="margin-top: 10px">
+                                                        <input id="targetBank" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" style="margin-top: 10px;">
                                                 <asp:GridView ID="gvBankDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display. Please add bank details."
@@ -268,6 +300,11 @@
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDeleting="gvBankDetails_RowDeleting" OnRowCommand="gvBankDetails_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
@@ -343,20 +380,36 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab3">
                                     <div class="panel panel-bd" id="divAddressDetails" runat="server">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                <h5>List of Addresses</h5>
-                                            </div>
-                                        </div>
                                         <div class="panel-body">
-                                            <div class="table-responsive">
+                                            <div class="row" id="searchaddress" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-4" style="margin-top: 15px">
+                                                        <asp:DropDownList ID="dropAddress" runat="server"
+                                                            OnSelectedIndexChanged="dropAddress_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-3" style="margin-top: 10px">
+                                                        <input id="targetAddress" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" style="margin-top: 10px;">
                                                 <asp:GridView ID="gvAddressDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" OnRowDeleting="gvAddressDetails_RowDeleting"
                                                     EmptyDataText="There are no data records to display. Please add address details."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddressDetails_RowEditing"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddressDetails_RowCommand">
-                                                   <PagerStyle CssClass="pagination_grid" />
-                                                     <Columns>
+                                                    <PagerStyle CssClass="pagination_grid" />
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>

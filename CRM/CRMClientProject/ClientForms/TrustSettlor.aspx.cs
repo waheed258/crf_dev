@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic;
 using EntityManager;
-public partial class ClientForms_TrustSettlor : System.Web.UI.Page
+public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     DataSet ds = new DataSet();
@@ -33,15 +33,23 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
+                    _objComman.getRecordsPerPage(DropPage);
+                    _objComman.getRecordsPerPage(dropAddress);
+                    _objComman.getRecordsPerPage(dropBank);
+
+                    EncryptDecrypt ObjEn = new EncryptDecrypt();
                     txtTrustUIC.Text = Session["TrustUIC"].ToString();
                     GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
                     BindBankDetails();
                     BindAddressDetails();
+
                 }
             }
             catch
             {
-
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Something went wrong, please contact administrator";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
     }
@@ -57,17 +65,16 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         ds = _ObjTrustSettlerBL.GetTrustSettler(0, RefUIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
-            settlerdetails.Visible = true;
             gvTrustSettler.DataSource = ds.Tables[0];
             gvTrustSettler.DataBind();
+            divTrusteeslist.Visible = true;
         }
         else
         {
-            settlerdetails.Visible = false;
             gvTrustSettler.DataSource = null;
             gvTrustSettler.DataBind();
+            divTrusteeslist.Visible = false;
         }
-
     }
 
     private void BindTrustSettler(int TrId)
@@ -103,7 +110,8 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
             TaxRefNo = txtTaxRefNo.Text.Trim(),
-            Status = 1
+            Status = 1,
+            AdvisorID = 0,
         };
 
         if (btnSubmit.Text == "Update")
@@ -272,16 +280,16 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                searchaddress.Visible = true;
                 gvAddress.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gvAddress.DataBind();
+                searchaddress.Visible = true;
             }
             else
             {
-                searchaddress.Visible = false;
                 gvAddress.DataSource = null;
                 gvAddress.DataBind();
+                searchaddress.Visible = false;
             }
         }
         catch
@@ -373,7 +381,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -568,16 +576,16 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ds = bankBL.GetBankList(Session["SAID"].ToString(), 5);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                searchbank.Visible = true;
                 gdvBankList.DataSource = ds.Tables[0];
                 ViewState["dt"] = ds.Tables[0];
                 gdvBankList.DataBind();
+                searchbank.Visible = true;
             }
             else
             {
-                searchbank.Visible = false;
                 gdvBankList.DataSource = null;
                 gdvBankList.DataBind();
+                searchbank.Visible = false;
             }
         }
         catch

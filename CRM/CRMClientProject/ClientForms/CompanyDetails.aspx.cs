@@ -36,6 +36,9 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     commonClass.GetCity(ddlCity);
                     commonClass.GetCountry(ddlCountry);
                     commonClass.GetProvince(ddlProvince);
+                    commonClass.getRecordsPerPage(DropPage);
+                    commonClass.getRecordsPerPage(dropBank);
+                    commonClass.getRecordsPerPage(dropAddress);
                 }
             }
             else
@@ -286,7 +289,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
@@ -415,7 +418,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -511,4 +514,22 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
 
     }
+
+    protected void DropPage_SelectedIndexChanged1(object sender, EventArgs e)
+    {
+
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    
 }

@@ -93,11 +93,6 @@
                                             <i class="fa fa-user"></i>User Profile
                                         </a>
                                     </li>
-                                     <li>
-                                        <a href="ResetPassword.aspx">
-                                            <i class="fa fa-cog"></i>Reset Password
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href="../Login.aspx">
                                             <i class="fa fa-sign-out"></i>Signout
@@ -170,6 +165,11 @@
                                 <li><a href="ServiceRequest.aspx">Raise a Service Request</a></li>
 
                             </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="Document.aspx">
+                                <i class="fa fa-list"></i><span>Documents</span></a>
+
                         </li>
 
 

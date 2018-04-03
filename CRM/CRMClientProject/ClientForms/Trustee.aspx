@@ -1,134 +1,134 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Trustee.aspx.cs" Inherits="ClientForms_Trustee" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Trustee.aspx.cs" Inherits="ClientProfile_Trustee" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $("#target").keyup(function () {
-                 if ($("[id *=target]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvTrust]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvTrust]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvTrust]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvTrust]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
 
-                     $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#targetBank").keyup(function () {
-                 if ($("[id *=target1]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#targetAddress").keyup(function () {
-                 if ($("[id *=target2]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
+                    $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#targetBank").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#targetAddress").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
 
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
     </script>
 
     <script type="text/javascript">
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -142,7 +142,7 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
@@ -218,27 +218,27 @@
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">UIC</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                                <label class="control-label">Trust Registration Number</label>
+                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" ReadOnly="true" placeholder="Trust Registration Number" MaxLength="13"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">SAID </label>
-                                                <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                <label class="control-label">Identification Number</label>
+                                                <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server" MaxLength="13" placeholder="Enter SAID" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
-                                                <asp:TextBox ID="txtFirstName" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtFirstName" CssClass="form-control" runat="server" placeholder="Enter First Name"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFirstName" runat="server" ControlToValidate="txtFirstName" Display="Dynamic"
                                                     ErrorMessage="Enter First Name"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Last Name</label>
-                                                <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server" placeholder="Enter Last Name"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter LAst Name"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -247,14 +247,14 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
-                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Enter Email Id"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email ID"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -265,10 +265,10 @@
                                         <div class="col-sm-5"></div>
                                         <asp:Button ID="btnSubmit" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmit_Click" CssClass="btn btn-primary"></asp:Button>
                                         <asp:Button ID="btnCancel" runat="server" Text="Clear" Visible="false" OnClick="btnCancel_Click" CssClass="btn btn-danger"></asp:Button>
-                                         <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
+                                        <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
                                     </div>
 
-                                    <div class="panel panel-bd" id="trusteedetails" runat="server">
+                                    <div class="panel panel-bd" id="divTrusteelist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Trustees</h5>
@@ -280,9 +280,6 @@
                                                     <asp:DropDownList ID="DropPage" runat="server"
                                                         OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                                        <asp:ListItem Value="50">50</asp:ListItem>
                                                     </asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
@@ -312,7 +309,7 @@
                                                                 <asp:Label runat="server" ID="lblTrusteeId" Text='<%#Eval("TrusteeID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Client Identification #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -322,7 +319,7 @@
                                                                 <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("ReferenceUIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Trustee SAID">
+                                                        <asp:TemplateField HeaderText="Trustee Identification #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -383,28 +380,25 @@
                                 </div>
                                 <div class="tab-pane fade" id="tabAddress">
 
-                                  
-                                    <div class="panel-body" >
-                                         <div class="row" id="searchaddress" runat="server">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-4" style="margin-top: 15px">
-                                                <asp:DropDownList ID="dropAddress" runat="server"
-                                                    OnSelectedIndexChanged="dropAddress_SelectedIndexChanged"
-                                                    AutoPostBack="true">
-                                                    <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                    <asp:ListItem Value="20">20</asp:ListItem>
-                                                    <asp:ListItem Value="50">50</asp:ListItem>
-                                                </asp:DropDownList>
-                                                <label class="control-label">
-                                                    Records per page</label>
-                                            </div>
-                                            <div class="col-lg-3" style="margin-top: 10px">
-                                                <input id="targetAddress" type="text" class="form-control" placeholder="Text To Search" />
-                                            </div>
 
+                                    <div class="panel-body">
+                                        <div class="row" id="searchaddress" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="dropAddress" runat="server"
+                                                        OnSelectedIndexChanged="dropAddress_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                    <input id="targetAddress" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                        <div class="table-responsive" style="margin-top:10px;">
+                                        <div class="table-responsive" style="margin-top: 10px;">
                                             <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
@@ -422,7 +416,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="SAID">
+                                                    <asp:TemplateField HeaderText="Identification Number">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -433,7 +427,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -516,27 +510,24 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tabBank">
-                                    
-                                    <div class="panel-body" >
-                                        <div class="row" id="searchbank" runat="server">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-4" style="margin-top: 15px">
-                                                <asp:DropDownList ID="dropBank" runat="server"
-                                                    OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
-                                                    AutoPostBack="true">
-                                                    <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                    <asp:ListItem Value="20">20</asp:ListItem>
-                                                    <asp:ListItem Value="50">50</asp:ListItem>
-                                                </asp:DropDownList>
-                                                <label class="control-label">
-                                                    Records per page</label>
-                                            </div>
-                                            <div class="col-lg-3" style="margin-top: 10px">
-                                                <input id="targetBank" type="text" class="form-control" placeholder="Text To Search" />
-                                            </div>
 
+                                    <div class="panel-body">
+                                        <div class="row" id="searchbank" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="dropBank" runat="server"
+                                                        OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                    <input id="targetBank" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="table-responsive" style="margin-top: 10px;">
                                             <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
@@ -554,7 +545,7 @@
                                                             <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="SAID">
+                                                    <asp:TemplateField HeaderText="Identification #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -564,7 +555,7 @@
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                    <asp:TemplateField HeaderText="Clent Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>

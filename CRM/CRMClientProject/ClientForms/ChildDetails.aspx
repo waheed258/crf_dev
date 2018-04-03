@@ -153,7 +153,7 @@
                 }
             });
         });
-   </script>
+    </script>
     <script type="text/javascript">
         function openModal() {
             $('#ContentPlaceHolder1_Success').modal('show');
@@ -302,23 +302,20 @@
                                                 <h5>List of Children</h5>
                                             </div>
                                         </div>
-                                        <div class="row"  id="search" runat="server">
+                                        <div class="row" id="search" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
                                                     <asp:DropDownList ID="DropPage" runat="server"
                                                         OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                                        <asp:ListItem Value="50">50</asp:ListItem>
                                                     </asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
                                                 <div class="col-lg-3" style="margin-top: 10px">
-                                                   <input id="target" type="text" class="form-control" placeholder="Text To Search"/>
+                                                    <input id="target" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
-                                             
+
                                             </div>
                                         </div>
                                         <div class="panel-body" style="margin-top: 10px">
@@ -329,7 +326,12 @@
                                                 CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvChildDetails_RowCommand" OnPageIndexChanging="gvChildDetails_PageIndexChanging">
                                                 <PagerStyle CssClass="pagination_grid" />
                                                 <Columns>
-                                                    <asp:TemplateField HeaderText="Children ID" Visible="false">
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="S No.">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblChildrenID" Text='<%#Eval("ChildrenID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -414,213 +416,223 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
-                                    <div class="row" id="searchbank" runat="server">
-                                       <div class="col-lg-12">
-                                           <div class="col-lg-4" style="margin-top: 15px">
-                                               <asp:DropDownList ID="dropPage2" runat="server"
-                                                   OnSelectedIndexChanged="dropPage2_SelectedIndexChanged"
-                                                   AutoPostBack="true">
-                                                   <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                   <asp:ListItem Value="20">20</asp:ListItem>
-                                                   <asp:ListItem Value="50">50</asp:ListItem>
-                                               </asp:DropDownList>
-                                               <label class="control-label">
-                                                   Records per page</label>
-                                           </div>
-                                           <div class="col-lg-3" style="margin-top: 10px">
-                                                   <input id="target1" type="text" class="form-control" placeholder="Text To Search"/>
+
+                                    <div class="panel-body">
+                                        <div class="row" id="searchbank" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="dropPage2" runat="server"
+                                                        OnSelectedIndexChanged="dropPage2_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
                                                 </div>
-                                       </div>
-                                   </div>
-                                    <div class="panel-body" style="margin-top: 10px">
-                                        <asp:GridView ID="gdvBankList" runat="server" Width="100%"
-                                            AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
-                                            EmptyDataText="There are no data records to display."
-                                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
-                                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand" OnPageIndexChanging="gdvBankList_PageIndexChanging">
-                                           <PagerStyle CssClass="pagination_grid" />
-                                             <Columns>
-                                                <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="ReferenceSAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Bank Name">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBankName" Text='<%#Eval("BankName") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Branch Number">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBranchNumber" Text='<%#Eval("BranchNumber") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Account Number" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblAccountNumber" Text='<%#Eval("AccountNumber") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Account Type" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblAccountType" Text='<%#Eval("AccountType") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Currency" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblCurrency" Text='<%#Eval("Currency") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SWIFT" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSWIFT" Text='<%#Eval("SWIFT") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                    <input id="target1" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top: 10px">
+                                            <asp:GridView ID="gdvBankList" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
+                                                EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gdvBankList_RowEditing" OnRowDeleting="gdvBankList_RowDeleting"
+                                                CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gdvBankList_RowCommand" OnPageIndexChanging="gdvBankList_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="BankDetail ID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="SAID">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Bank Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBankName" Text='<%#Eval("BankName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Branch Number">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBranchNumber" Text='<%#Eval("BranchNumber") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Account Number" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountNumber" Text='<%#Eval("AccountNumber") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Account Type" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountType" Text='<%#Eval("AccountType") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Currency" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblCurrency" Text='<%#Eval("Currency") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="SWIFT" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblSWIFT" Text='<%#Eval("SWIFT") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="Edit">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
-                                                            CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Delete">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                            CommandName="Delete" ToolTip="Delete" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Edit">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
+                                                                CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Delete">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
+                                                                CommandName="Delete" ToolTip="Delete" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                            </Columns>
-                                        </asp:GridView>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab3">
-                                    <div class="row" id="searchaddress" runat="server">
-                                       <div class="col-lg-12">
-                                           <div class="col-lg-4" style="margin-top: 15px">
-                                               <asp:DropDownList ID="DropPage1" runat="server"
-                                                   OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
-                                                   AutoPostBack="true">
-                                                   <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                   <asp:ListItem Value="20">20</asp:ListItem>
-                                                   <asp:ListItem Value="50">50</asp:ListItem>
-                                               </asp:DropDownList>
-                                               <label class="control-label">
-                                                   Records per page</label>
-                                           </div>
-                                           <div class="col-lg-3" style="margin-top: 10px">
-                                                   <input id="target2" type="text" class="form-control" placeholder="Text To Search"/>
-                                                </div>
-                                           
-                                       </div>
-                                   </div>
-                                    <div class="panel-body" style="margin-top: 10px">
-                                        <asp:GridView ID="gvAddress" runat="server" Width="100%"
-                                            AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
-                                            EmptyDataText="There are no data records to display."
-                                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAddress_RowEditing" OnRowDeleting="gvAddress_RowDeleting"
-                                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddress_RowCommand" OnPageIndexChanging="gvAddress_PageIndexChanging">
-                                           <PagerStyle CssClass="pagination_grid" />
-                                             <Columns>
-                                                <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="SAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="ReferenceSAID">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="HouseNo">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblHouseNo" Text='<%#Eval("HouseNo") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Building Name">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblBuildingName" Text='<%#Eval("BuildingName") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Type" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblType" Text='<%#Eval("Type") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="FloorNo" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblFloorNo" Text='<%#Eval("FloorNo") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Flat No" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblFlatNo" Text='<%#Eval("FlatNo") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="RoadName" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblRoadName" Text='<%#Eval("RoadName") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="RoadNo" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblRoadNo" Text='<%#Eval("RoadNo") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SuburbName" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblSuburbName" Text='<%#Eval("SuburbName") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Postal Code" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblPostalCode" Text='<%#Eval("PostalCode") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Country" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Province" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblProvince" Text='<%#Eval("Province") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="City" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblCity" Text='<%#Eval("City") %>'></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Edit">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
-                                                            CommandName="Edit" ToolTip="Edit" CommandArgument='<%#Eval("AddressDetailID") %>' />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Delete">
-                                                    <ItemTemplate>
-                                                        <asp:ImageButton ID="btnAddressDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                            CommandName="Delete" ToolTip="Delete" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
+                                    <div class="panel-body">
+                                        <div class="row" id="searchaddress" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                    <asp:DropDownList ID="DropPage1" runat="server"
+                                                        OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                    <input id="target2" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top: 10px">
+                                            <asp:GridView ID="gvAddress" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
+                                                EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAddress_RowEditing" OnRowDeleting="gvAddress_RowDeleting"
+                                                CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddress_RowCommand" OnPageIndexChanging="gvAddress_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="SAID">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="HouseNo">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblHouseNo" Text='<%#Eval("HouseNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Building Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBuildingName" Text='<%#Eval("BuildingName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Type" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblType" Text='<%#Eval("Type") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FloorNo" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblFloorNo" Text='<%#Eval("FloorNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Flat No" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblFlatNo" Text='<%#Eval("FlatNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="RoadName" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblRoadName" Text='<%#Eval("RoadName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="RoadNo" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblRoadNo" Text='<%#Eval("RoadNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="SuburbName" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblSuburbName" Text='<%#Eval("SuburbName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Postal Code" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblPostalCode" Text='<%#Eval("PostalCode") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Country" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Province" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblProvince" Text='<%#Eval("Province") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="City" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblCity" Text='<%#Eval("City") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Edit">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
+                                                                CommandName="Edit" ToolTip="Edit" CommandArgument='<%#Eval("AddressDetailID") %>' />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Delete">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnAddressDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
+                                                                CommandName="Delete" ToolTip="Delete" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
                                     </div>
                                 </div>
 

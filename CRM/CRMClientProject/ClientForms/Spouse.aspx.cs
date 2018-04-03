@@ -8,8 +8,7 @@ using DataManager;
 using EntityManager;
 using BusinessLogic;
 using System.Data;
-
-public partial class ClientForms_Spouse : System.Web.UI.Page
+public partial class ClientProfile_Spouse : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     SpouseEntity spouseEntity = new SpouseEntity();
@@ -20,12 +19,10 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     BankBL bankBL = new BankBL();
     BasicDropdownBL basicDropdownBL = new BasicDropdownBL();
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-
             try
             {
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
@@ -38,6 +35,9 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
+                    _objComman.getRecordsPerPage(DropPage);
+                    _objComman.getRecordsPerPage(DropPage1);
+                    _objComman.getRecordsPerPage(dropPage2);
                     ViewState["ps"] = 5;
                     BindSpouseDetails();
                     btnUpdateSpouse.Visible = false;
@@ -47,8 +47,8 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
             }
             catch { }
         }
-
     }
+
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -77,83 +77,6 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
 
                 Clear();
             }
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-    protected void GetCountry()
-    {
-        try
-        {
-            dataset = basicDropdownBL.GetCountry();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlCountry.DataSource = dataset;
-                ddlCountry.DataTextField = "Country";
-                ddlCountry.DataValueField = "CountryID";
-                ddlCountry.DataBind();
-                ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-    protected void GetProvince()
-    {
-        try
-        {
-            dataset = basicDropdownBL.GetProvince();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlProvince.DataSource = dataset;
-                ddlProvince.DataTextField = "Province";
-                ddlProvince.DataValueField = "ProvinceID";
-                ddlProvince.DataBind();
-                ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-    protected void GetCity()
-    {
-        try
-        {
-            dataset = basicDropdownBL.GetCity();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlCity.DataSource = dataset;
-                ddlCity.DataTextField = "City";
-                ddlCity.DataValueField = "CityID";
-                ddlCity.DataBind();
-                ddlCity.Items.Insert(0, new ListItem("--Select City --", "-1"));
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-    private void GetAccountType()
-    {
-        try
-        {
-            dataset = basicDropdownBL.GetAccountType();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlAccountType.DataSource = dataset;
-                ddlAccountType.DataTextField = "AccountType";
-                ddlAccountType.DataValueField = "AccountTypeID";
-                ddlAccountType.DataBind();
-                ddlAccountType.Items.Insert(0, new ListItem("--Select Account Type --", "-1"));
-            }
-
         }
         catch (Exception ex)
         {
@@ -200,10 +123,13 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 gvSpouse.DataSource = dataset;
                 gvSpouse.DataBind();
                 spouselist.Visible = true;
+                search.Visible = true;
+
             }
             else
             {
                 spouselist.Visible = false;
+                search.Visible = false;
             }
 
         }
@@ -255,8 +181,6 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
                 Clear();
-                btnUpdateSpouse.Visible = false;
-                btnSpouseSubmit.Visible = true;
             }
             else
             {
@@ -412,6 +336,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
+            addressEntity.UpdatedBy = "0";
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -572,7 +497,7 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = 0;
+            addressEntity.UpdatedBy = "0";
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -680,50 +605,13 @@ public partial class ClientForms_Spouse : System.Web.UI.Page
         }
         catch { }
     }
-    protected void DropPage2_SelectedIndexChanged(object sender, EventArgs e)
+    protected void dropPage2_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
         {
-            ViewState["ps"] = DropPage2.SelectedItem.ToString().Trim();
+            ViewState["ps"] = dropPage2.SelectedItem.ToString().Trim();
             BindBankDetails();
         }
         catch { }
     }
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            GetClientRegistartion();
-        }
-        catch { }
-    }
-
-    private void GetClientRegistartion()
-    {
-        try
-        {
-
-            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
-            dataset = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
-            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
-            {
-                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-            }
-            else
-            {
-                txtFirstName.Text = "";
-                txtLastName.Text = "";
-                txtEmailId.Text = "";
-                txtMobileNum.Text = "";
-            }
-        }
-        catch { }
-
-    }
-
 }

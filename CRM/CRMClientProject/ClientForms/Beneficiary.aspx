@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Beneficiary.aspx.cs" Inherits="ClientForms_Beneficiary" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Beneficiary.aspx.cs" Inherits="ClientProfile_Beneficiary" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
@@ -128,7 +128,7 @@
     <script type="text/javascript">
 
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPhone").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPhone,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -142,7 +142,7 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPhone").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPhone,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
@@ -223,27 +223,27 @@
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">UIC</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
+                                                <label class="control-label">Registration Number</label>
+                                                <asp:TextBox ID="txtUIC" CssClass="form-control" ReadOnly="true" placeholder="Enter Registration Number" MaxLength="13" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
 
-                                                <label class="control-label">SAID</label>
-                                                <asp:TextBox ID="txtSAID" CssClass="form-control" runat="server" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                <label class="control-label">Identification Number</label>
+                                                <asp:TextBox ID="txtSAID" CssClass="form-control" placeholder="Enter SAID" MaxLength="13" runat="server" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
-                                                <asp:TextBox ID="txtFirstName" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtFirstName" CssClass="form-control" placeholder="Enter First Name" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFirstName" runat="server" ControlToValidate="txtFirstName" Display="Dynamic" ErrorMessage="Enter First Name"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Last Name</label>
-                                                <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtLastName" CssClass="form-control" placeholder="Enter Last Name" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter Last Name" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
@@ -252,19 +252,19 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
-                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Enter Email Id" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email Id" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Phone</label>
-                                                <asp:TextBox ID="txtPhone" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtPhone" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Phone Number"></asp:TextBox>
                                             </div>
 
                                         </div>
@@ -273,11 +273,12 @@
                                         <div class="col-sm-5"></div>
                                         <asp:Button ID="btnSubmit" runat="server" Text="Save" ValidationGroup="Beneficiary" OnClick="btnSubmit_Click" CssClass="btn btn-primary"></asp:Button>
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" Visible="false" OnClick="btnCancel_Click" CssClass="btn btn-danger"></asp:Button>
-                                        <asp:Button ID="btnBack" runat="server"  OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
+                                        <asp:Button ID="btnBack" runat="server" Text="Back to Trust" OnClick="btnBack_Click" CssClass="btn btn-danger"></asp:Button>
 
                                     </div>
 
-                                    <div class="panel panel-bd" id="benificiarydetails" runat="server">
+                                  
+                                    <div class="panel panel-bd" id="divBeneficiarylist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>List of Beneficiary</h5>
@@ -289,9 +290,9 @@
                                                     <asp:DropDownList ID="DropPage" runat="server"
                                                         OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                                        <asp:ListItem Value="50">50</asp:ListItem>
+                                                       
+                                                        
+                                                        
                                                     </asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
@@ -321,7 +322,7 @@
                                                                 <asp:Label runat="server" ID="lblBeneficiaryID" Text='<%#Eval("BeneficiaryID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Client Identification #" >
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -331,7 +332,7 @@
                                                                 <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="SAID">
+                                                        <asp:TemplateField HeaderText="Identification #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -396,6 +397,9 @@
                                         </div>
 
                                     </div>
+
+
+
                                 </div>
                                 <div class="tab-pane fade" id="tabAddress">
 
@@ -406,9 +410,9 @@
                                                     <asp:DropDownList ID="dropAddress" runat="server"
                                                         OnSelectedIndexChanged="dropAddress_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                                        <asp:ListItem Value="50">50</asp:ListItem>
+                                                       
+                                                        
+                                                        
                                                     </asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
@@ -437,7 +441,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="SAID">
+                                                    <asp:TemplateField HeaderText="Identification #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -448,7 +452,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -540,9 +544,7 @@
                                                     <asp:DropDownList ID="dropBank" runat="server"
                                                         OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                        <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                                        <asp:ListItem Value="20">20</asp:ListItem>
-                                                        <asp:ListItem Value="50">50</asp:ListItem>
+                                                       
                                                     </asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
@@ -570,7 +572,7 @@
                                                             <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="SAID">
+                                                    <asp:TemplateField HeaderText="Identification #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -580,7 +582,7 @@
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="ReferenceSAID">
+                                                    <asp:TemplateField HeaderText="Client Identification #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -879,7 +881,6 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-
         </div>
     </div>
 </asp:Content>
