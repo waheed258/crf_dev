@@ -44,10 +44,11 @@ public class TrustSettlerBL:DataUtilities
     }
 
 
-    public int DeleteTrustSettler(int TrustSettlerId)
+    public int DeleteTrustSettler(int TrustSettlerId, string SAID)
     {
         Hashtable hsparams = new Hashtable();
         hsparams.Add("@inTrustSettlerID", TrustSettlerId);
+        hsparams.Add("@inSAID", SAID);
 
         return ExecuteNonQuery("DeleteTrustSettler", hsparams);
     }

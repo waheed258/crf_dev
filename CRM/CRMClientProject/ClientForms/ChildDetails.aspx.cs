@@ -127,6 +127,10 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["ChildrenID"] = ((Label)row.FindControl("lblChildrenID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+
+            string ChildName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtChildNameBank.Text = ChildName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnChildUpdate.Visible = true;
@@ -312,6 +316,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtChildNameBank.Text;
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -351,6 +356,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtChildNameBank.Text = ((Label)row.FindControl("lblChildName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -386,7 +393,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-
+            bankEntity.FullName = txtChildNameBank.Text;
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {

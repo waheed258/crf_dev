@@ -8,7 +8,7 @@ using System.Data;
 using EntityManager;
 using BusinessLogic;
 
-public partial class ClientProfile_Beneficiary : System.Web.UI.Page
+public partial class ClientForms_Beneficiary : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     BeneficiaryBL _objBeneficiaryBL = new BeneficiaryBL();
@@ -241,6 +241,11 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             int RowIndex = row.RowIndex;
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["BeneficiaryID"] = ((Label)row.FindControl("lblBeneficiaryID")).Text.ToString();
+
+            string BeneficiaryName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtBeneficiaryNameBank.Text = BeneficiaryName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+
             if (e.CommandName == "EditBeneficiary")
             {
                 int BenfId = Convert.ToInt32(e.CommandArgument);
@@ -511,6 +516,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtBeneficiaryNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -549,7 +555,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-
+            bankEntity.FullName = txtBeneficiaryNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
@@ -578,6 +584,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        txtSAIDBank.Text = "";
+        txtBeneficiaryNameBank.Text = "";
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
@@ -624,12 +632,16 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
+
+
             if (e.CommandName == "EditBank")
             {
                 bankmessage.InnerText = "Update Bank Details";
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtSAIDBank.Text = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
+                txtBeneficiaryNameBank.Text = ((Label)row.FindControl("lblBeneficiaryName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -669,11 +681,16 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]));
+                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString());
                 if (res > 0)
                 {
-                    ClearBeneficiaryControls();
                     GetBeneficiaryGrid(txtUIC.Text.Trim());
+                    BindAddressDetails();
+                    BindBankDetails();
+
+                    ClearBeneficiaryControls();
+                    ClearBankControls();
+                    ClearAddressControls();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)

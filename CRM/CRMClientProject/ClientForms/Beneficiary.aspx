@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Beneficiary.aspx.cs" Inherits="ClientProfile_Beneficiary" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Beneficiary.aspx.cs" Inherits="ClientForms_Beneficiary" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
@@ -577,6 +577,11 @@
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                      <asp:TemplateField HeaderText="Beneficiary Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
@@ -658,6 +663,17 @@
                                                 <div class="col-sm-12">
                                                     <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
                                                 </div>
+                                                 <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Identification #</label>
+                                                    <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Beneficiary Name</label>
+                                                    <asp:TextBox ID="txtBeneficiaryNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
+                                            </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4 form-group">
                                                         <label class="control-label">Bank Name</label>

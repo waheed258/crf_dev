@@ -22,7 +22,7 @@ namespace EntityManager
         public string SWIFT { get; set; }
         public int CreatedBy { get; set; }
         public int UpdatedBy { get; set; }
-
+        public string FullName { get; set; }
         public int AdvisorID { get; set; }
         public string UpdatedOn { get; set; }
         public int? Status { get; set; }

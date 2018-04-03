@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="TrustDetails.aspx.cs" Inherits="ClientProfile_TrustDetails" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="TrustDetails.aspx.cs" Inherits="ClientForms_TrustDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
@@ -313,12 +313,12 @@
                                                                 <%#Container.DataItemIndex+1 %>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Company ID" Visible="false">
+                                                        <asp:TemplateField HeaderText="Registration #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client Identification #">
+                                                        <asp:TemplateField HeaderText="Client Identification #"  Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -584,17 +584,18 @@
                                                             <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Identification #" Visible="false">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    
                                                     <asp:TemplateField HeaderText="Trust Registration #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Client Identification #">
+                                                      <asp:TemplateField HeaderText="Trust Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -673,6 +674,17 @@
                                             <div class="col-sm-12">
                                                 <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
                                             </div>
+                                             <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Trust Reg No.</label>
+                                                    <asp:TextBox ID="txtTrustUIC" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                    
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Trust Name</label>
+                                                    <asp:TextBox ID="txtTrustNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Bank Name</label>
@@ -746,6 +758,7 @@
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
                                             <div class="col-sm-12">
+
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">House No</label>
                                                     <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>

@@ -84,8 +84,8 @@
                         <div class="panel-body">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab1" data-toggle="tab">Company Information</a></li>
-                                <li><a href="#tab2" data-toggle="tab">Bank Details</a></li>
                                 <li><a href="#tab3" data-toggle="tab">Address Details</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Bank Details</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab1">
@@ -161,7 +161,7 @@
                                                 <h5>List of Companies</h5>
                                             </div>
                                         </div>
-                                       <div class="row" id="search" runat="server">
+                                        <div class="row" id="search" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
                                                     <asp:DropDownList ID="DropPage" runat="server"
@@ -315,7 +315,12 @@
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Company Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Client Identification #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -578,6 +583,18 @@
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
                                             <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Company Reg No.</label>
+                                                    <asp:TextBox ID="txtCompanyUICBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Company Name</label>
+                                                    <asp:TextBox ID="txtCompanyNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Bank Name</label>
                                                     <asp:TextBox ID="txtBankName" runat="server" class="form-control" placeholder="Bank Name"></asp:TextBox>

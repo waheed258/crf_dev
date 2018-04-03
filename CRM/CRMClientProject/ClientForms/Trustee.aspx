@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Trustee.aspx.cs" Inherits="ClientProfile_Trustee" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="Trustee.aspx.cs" Inherits="ClientForms_Trustee" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
@@ -309,7 +309,7 @@
                                                                 <asp:Label runat="server" ID="lblTrusteeId" Text='<%#Eval("TrusteeID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client Identification #">
+                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -550,6 +550,11 @@
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                      <asp:TemplateField HeaderText="Trustee Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTrusteeName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
@@ -634,6 +639,17 @@
                                         <div class="panel-body">
                                             <div class="col-sm-12">
                                                 <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
+                                            </div>
+                                             <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Identification #</label>
+                                                    <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Trustee Name</label>
+                                                    <asp:TextBox ID="txtTrusteeNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">

@@ -78,7 +78,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -123,7 +123,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 gvSpouse.DataSource = dataset;
                 gvSpouse.DataBind();
                 spouselist.Visible = true;
-                search.Visible = true;
+               
 
             }
             else
@@ -133,7 +133,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
 
         }
-        catch (Exception ex)
+        catch 
         { }
     }
     protected void BindAddressDetails()
@@ -153,7 +153,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gvAddress.DataSource = dataset;
             gvAddress.DataBind();
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -188,7 +188,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -210,6 +210,10 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ViewState["SpouseID"] = ((Label)row.FindControl("lblSpouseID")).Text.ToString();
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+
+            string SpouseName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtSpouseNameBank.Text = SpouseName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnUpdateSpouse.Visible = true;
@@ -268,7 +272,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gdvBankList.DataSource = dataset;
             gdvBankList.DataBind();
         }
-        catch (Exception ex)
+        catch 
         {
         }
     }
@@ -289,6 +293,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtSpouseNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -422,6 +427,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtSpouseNameBank.Text = ((Label)row.FindControl("lblSpouseName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -456,7 +463,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-
+            bankEntity.FullName = txtSpouseNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {

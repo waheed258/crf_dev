@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic;
 using EntityManager;
-public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
+public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     DataSet ds = new DataSet();
@@ -224,6 +224,11 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             int RowIndex = row.RowIndex;
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["TrusteeSettlerId"] = ((Label)row.FindControl("lblTrustSettlerId")).Text.ToString();
+
+            string SettlorName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtSettlorNameBank.Text = SettlorName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+
             if (e.CommandName == "EditTrustSettler")
             {
                 int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
@@ -493,6 +498,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtSettlorNameBank.Text.Trim();
+
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -531,6 +538,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtSettlorNameBank.Text.Trim();
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
@@ -560,6 +568,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        txtSettlorNameBank.Text = "";
+        txtSAIDBank.Text = "";
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
@@ -606,12 +616,18 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
+
+
             if (e.CommandName == "EditBank")
             {
                 bankmessage.InnerText = "Update Bank Details";
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+
+                txtSAIDBank.Text = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
+                txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
+
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -651,11 +667,15 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]));
+                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]), ViewState["SAID"].ToString());
                 if (res > 0)
                 {
-                    ClearTrustSettlerControls();
                     GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+                    BindBankDetails();
+                    BindAddressDetails();
+                    ClearTrustSettlerControls();
+                    ClearBankControls();
+                    ClearAddressControls();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)

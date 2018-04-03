@@ -8,7 +8,7 @@ using System.Data;
 using BusinessLogic;
 using EntityManager;
 
-public partial class ClientProfile_TrustDetails : System.Web.UI.Page
+public partial class ClientForms_TrustDetails : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     TrustBL _objTrustBL = new TrustBL();
@@ -178,6 +178,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+
+            txtTrustUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            txtTrustNameBank.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
 
             string UIC = e.CommandArgument.ToString();
             EncryptDecrypt ObjEn = new EncryptDecrypt();
@@ -466,6 +469,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtTrustNameBank.Text.Trim();
+
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -504,7 +509,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-
+            bankEntity.FullName = txtTrustNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
@@ -533,6 +538,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        txtTrustUIC.Text = "";
+        txtTrustNameBank.Text = "";
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
@@ -585,6 +592,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtTrustUIC.Text = ((Label)row.FindControl("lblBankUIC")).Text.ToString();
+                txtTrustNameBank.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -626,7 +635,14 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             {
                 int res = _objTrustBL.DeleteTrust(ViewState["UIC"].ToString());
                 if (res > 0)
+                {
                     GetTrustGrid();
+                    BindBankDetails();
+                    BindAddressDetails();
+                    ClearAddressControls();
+                    ClearBankControls();
+                    ClearTrustControls();
+                }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
@@ -634,6 +650,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 if (result == 1)
                 {
                     BindBankDetails();
+                    ClearBankControls();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
@@ -642,6 +659,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 if (result == 1)
                 {
                     BindAddressDetails();
+                    ClearAddressControls();
                 }
             }
         }

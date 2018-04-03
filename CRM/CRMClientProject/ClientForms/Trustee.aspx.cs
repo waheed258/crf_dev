@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using EntityManager;
 using BusinessLogic;
 
-public partial class ClientProfile_Trustee : System.Web.UI.Page
+public partial class ClientForms_Trustee : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
     TrusteeBL _objTrusteeBL = new TrusteeBL();
@@ -214,6 +214,9 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             int RowIndex = row.RowIndex;
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["TrusteeId"] = ((Label)row.FindControl("lblTrusteeId")).Text.ToString();
+            string TrusteeName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtTrusteeNameBank.Text = TrusteeName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
 
             if (e.CommandName == "EditTrustee")
             {
@@ -480,6 +483,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtTrusteeNameBank.Text.Trim();
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -518,6 +522,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtTrusteeNameBank.Text.Trim();
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
@@ -547,6 +552,8 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        txtTrusteeNameBank.Text = "";
+        txtSAIDBank.Text = "";
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
@@ -598,6 +605,10 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+
+                txtSAIDBank.Text = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
+                txtTrusteeNameBank.Text = ((Label)row.FindControl("lblTrusteeName")).Text.ToString();
+
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -637,11 +648,16 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]));
+                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]), ViewState["SAID"].ToString());
                 if (res > 0)
                 {
                     GetTrusteeGrid(txtUIC.Text.Trim());
+                    BindBankDetails();
+                    BindAddressDetails();
+
                     ClearTrusteeControls();
+                    ClearAddressControls();
+                    ClearBankControls();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
@@ -649,7 +665,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
                 if (result == 1)
                 {
-                    ClearAddressControls();
+                    ClearBankControls();
                     BindBankDetails();
                 }
             }

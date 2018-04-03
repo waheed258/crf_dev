@@ -81,6 +81,24 @@ public class CommanClass
 
         }
     }
+    public  void getRecordsPerPage(DropDownList ddlRpP)
+    {
+        try
+        {
+            ddlRpP.Items.Clear();
+            Dictionary<int, string> objRp = new Dictionary<int, string>();
+
+            objRp.Add(5, "5");
+            objRp.Add(10, "10");
+            objRp.Add(20, "20");
+            objRp.Add(50, "50");
+            ddlRpP.DataSource = objRp;
+            ddlRpP.DataTextField = "Value";
+            ddlRpP.DataValueField = "Key";
+            ddlRpP.DataBind();
+        }
+        catch { }
+    }
     public static bool SendEmail(string SmtpHost, int SmtpPort, string MailFrom, string DisplayNameFrom, string FromPassword, string MailTo, string DisplayNameTo, string MailCc, string mailCc2, string mailCc3, string mailCc4, string DisplayNameCc, string MailBcc, string Subject, string MailText, string Attachment)
     {
         MailMessage myMessage = new MailMessage();

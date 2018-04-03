@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="TrustSettlor.aspx.cs" Inherits="ClientProfile_TrustSettlor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="TrustSettlor.aspx.cs" Inherits="ClientForms_TrustSettlor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
@@ -545,13 +545,8 @@
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
-                                                    <asp:DropDownList ID="dropBank" runat="server"
-                                                        OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
-                                                        AutoPostBack="true">
-                                                       
-                                                        
-                                                        
-                                                    </asp:DropDownList>
+                                                    <asp:DropDownList ID="dropBank" runat="server" OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
+                                                        AutoPostBack="true"></asp:DropDownList>
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
@@ -583,6 +578,11 @@
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                      <asp:TemplateField HeaderText="Settlor Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblSettlorName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
@@ -665,6 +665,17 @@
                                         <div class="panel-body">
                                             <div class="col-sm-12">
                                                 <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
+                                            </div>
+                                              <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Identification #</label>
+                                                    <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                   
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Settlor Name</label>
+                                                    <asp:TextBox ID="txtSettlorNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
