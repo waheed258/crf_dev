@@ -157,7 +157,7 @@
                                     <div class="col-md-12">
                                         <fieldset>
                                             <div class="col-md-12 form-group user-form-group">
-                                                <label class="control-label" style="color: green">Advisor Updated Successfully!Please Login Again</label>
+                                                <label class="control-label" style="color: green">Advisor Updated Successfully!</label>
                                             </div>
                                         </fieldset>
                                     </div>

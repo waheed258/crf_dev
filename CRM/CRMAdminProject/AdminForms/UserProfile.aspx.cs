@@ -144,12 +144,13 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
     {
         try
         {
+            string fileName = string.Empty;
             string fileNamemain = string.Empty;
             if (fuImageUpload.HasFile)
             {
                
                 fuImageUpload.SaveAs(Server.MapPath("~/AdvisorImages/" +txtSAId.Text+ this.fuImageUpload.FileName));
-                string fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
+                fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                 advisorentity.Image = "~/AdvisorImages/" + txtSAId.Text + fileName;
             }
             advisorentity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
@@ -173,6 +174,12 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
             if (result == 1)
             {
+                if (Session["Image"] == "" || Session["Image"] != "")
+                {
+                    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                    lblImg.ImageUrl = "~/AdvisorImages/" + txtSAId.Text + fileName;
+                }
+              
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
             }
