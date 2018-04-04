@@ -41,7 +41,7 @@ namespace BusinessLogic
             hashtable.Add("@Phone", childEntity.Phone);
             hashtable.Add("@TaxRefNo", childEntity.TaxRefNo);
             hashtable.Add("@DateOfBirth", childEntity.DateOfBirth);
-            hashtable.Add("@AdvisorID", DBNull.Value);
+            hashtable.Add("@AdvisorID", childEntity.AdvisorID);
             hashtable.Add("@Operation", Operation);
 
             int result = dataUtilities.ExecuteNonQuery("ChildCRUD", hashtable);

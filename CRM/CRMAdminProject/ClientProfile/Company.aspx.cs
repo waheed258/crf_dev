@@ -21,7 +21,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
         try
         {
-            if (Session["SAID"] != null)
+            if (Session["AdvisorID"] != null)
             {
                 if (!IsPostBack)
                 {
@@ -35,6 +35,9 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     commonClass.GetCity(ddlCity);
                     commonClass.GetCountry(ddlCountry);
                     commonClass.GetProvince(ddlProvince);
+                    commonClass.getRecordsPerPage(DropPage);
+                    commonClass.getRecordsPerPage(dropBank);
+                    commonClass.getRecordsPerPage(dropAddress);
                 }
             }
             else
@@ -44,6 +47,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         }
         catch { }
     }
+
     protected void GetGridData()
     {
         try
@@ -69,6 +73,14 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         try
         {
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 8);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchbank.Visible = true;
+            }
+            else
+            {
+                searchbank.Visible = false;
+            }
             gvBankDetails.DataSource = dataset;
             gvBankDetails.DataBind();
 
@@ -81,6 +93,14 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         try
         {
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                searchaddress.Visible = true;
+            }
+            else
+            {
+                searchaddress.Visible = false;
+            }
             gvAddressDetails.DataSource = dataset;
             gvAddressDetails.DataBind();
         }
@@ -98,7 +118,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
@@ -138,12 +158,16 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         {
             string UIC = e.CommandArgument.ToString();
             EncryptDecrypt ObjEn = new EncryptDecrypt();
-            ObjEn.Encrypt(UIC);
+            Session["CompanyUIC"] = UIC;
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
             ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
             ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+
+            txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+
             if (e.CommandName == "EditCompany")
             {
                 btnCompantDetails.Visible = false;
@@ -179,7 +203,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
             else if (e.CommandName == "EditBeneficiary")
             {
-                Response.Redirect("Beneficiary.aspx?x=" + ObjEn.Encrypt(UIC) + "&t=" + ObjEn.Encrypt("2"), false);
+                Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("2"), false);
             }
         }
         catch { }
@@ -197,7 +221,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)
             {
@@ -232,7 +256,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-
+            bankInfoEntity.FullName = txtCompanyNameBank.Text;
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'i');
             if (result == 1)
             {
@@ -337,6 +361,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -371,7 +397,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-
+            bankInfoEntity.FullName = txtCompanyNameBank.Text;
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'u');
             if (result == 1)
             {
@@ -508,4 +534,22 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
 
     }
+
+    protected void DropPage_SelectedIndexChanged1(object sender, EventArgs e)
+    {
+
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
 }

@@ -20,13 +20,15 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
+
     protected void Page_Load(object sender, EventArgs e)
     {
+
         if (!IsPostBack)
         {
             try
             {
-                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
                 }
@@ -36,6 +38,9 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
+                    _objComman.getRecordsPerPage(DropPage);
+                    _objComman.getRecordsPerPage(DropPage1);
+                    _objComman.getRecordsPerPage(dropPage2);
                     ViewState["ps"] = 5;
                     BindChildDetails();
                     BindAddressDetails();
@@ -61,7 +66,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = txtDateOfBirth.Text;
             childEntity.ReferenceSAID = Session["SAID"].ToString();
-
+            childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
 
             int result = childBL.ChildCRUD(childEntity, 'i');
             if (result == 1)
@@ -78,7 +83,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -105,7 +110,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ChildList.Visible = false;
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -122,6 +127,10 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["ChildrenID"] = ((Label)row.FindControl("lblChildrenID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+
+            string ChildName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+            txtChildNameBank.Text = ChildName;
+            txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnChildUpdate.Visible = true;
@@ -161,7 +170,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -183,7 +192,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = txtDateOfBirth.Text;
-
+            childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
 
 
             int result = childBL.ChildCRUD(childEntity, 'u');
@@ -219,7 +228,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                searchaddress.Visible = true;                
+                searchaddress.Visible = true;
             }
             else
             {
@@ -240,6 +249,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
+
             }
             else
             {
@@ -306,6 +316,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
+            bankEntity.FullName = txtChildNameBank.Text;
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -322,7 +333,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
 
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -345,6 +356,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 btnBankSubmit.Visible = false;
                 btnUpdateBank.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtChildNameBank.Text = ((Label)row.FindControl("lblChildName")).Text.ToString();
                 txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                 txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                 txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
@@ -380,7 +393,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-
+            bankEntity.FullName = txtChildNameBank.Text;
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
@@ -436,7 +449,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -526,63 +539,6 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         catch { }
     }
 
-    private void GetAccountType()
-    {
-        try
-        {
-            dataset = basicdropdownBL.GetAccountType();
-            if (dataset.Tables.Count > 0)
-            {
-                ddlAccountType.DataSource = dataset;
-                ddlAccountType.DataTextField = "AccountType";
-                ddlAccountType.DataValueField = "AccountTypeID";
-                ddlAccountType.DataBind();
-                ddlAccountType.Items.Insert(0, new ListItem("--Select Account Type --", "-1"));
-            }
-
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-
-    protected void GetCountry()
-    {
-        dataset = basicdropdownBL.GetCountry();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlCountry.DataSource = dataset;
-            ddlCountry.DataTextField = "Country";
-            ddlCountry.DataValueField = "CountryID";
-            ddlCountry.DataBind();
-            ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
-        }
-    }
-    protected void GetProvince()
-    {
-        dataset = basicdropdownBL.GetProvince();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlProvince.DataSource = dataset;
-            ddlProvince.DataTextField = "Province";
-            ddlProvince.DataValueField = "ProvinceID";
-            ddlProvince.DataBind();
-            ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
-        }
-    }
-    protected void GetCity()
-    {
-        dataset = basicdropdownBL.GetCity();
-        if (dataset.Tables.Count > 0)
-        {
-            ddlCity.DataSource = dataset;
-            ddlCity.DataTextField = "City";
-            ddlCity.DataValueField = "CityID";
-            ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City --", "-1"));
-        }
-    }
 
     protected void btnSure_Click(object sender, EventArgs e)
     {
@@ -591,7 +547,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
                 int result = childBL.DeleteChildDetails(ViewState["SAID"].ToString());
-                if (result == 1)
+                if (result > 0)
                 {
                     BindChildDetails();
                 }
@@ -613,7 +569,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -705,5 +661,41 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             BindBankDetails();
         }
         catch { }
+    }
+
+    protected void txtSAID_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            GetClientRegistartion();
+        }
+        catch { }
+    }
+    private void GetClientRegistartion()
+    {
+        try
+        {
+
+            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+            dataset = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {
+                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+            }
+            else
+            {
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                txtEmailId.Text = "";
+                txtMobileNum.Text = "";
+            }
+        }
+        catch { }
+
     }
 }

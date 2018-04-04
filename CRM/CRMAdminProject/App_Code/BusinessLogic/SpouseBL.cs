@@ -36,7 +36,7 @@ namespace BusinessLogic
             hashtable.Add("@Title", spouseEntity.Title);
             hashtable.Add("@EmailID", spouseEntity.EmailID);
             hashtable.Add("@DateOfBirth", spouseEntity.DateOfBirth);
-            hashtable.Add("@AdvisorID", DBNull.Value);
+            hashtable.Add("@AdvisorID",spouseEntity.AdvisorID);
             hashtable.Add("@Operation", Operation);
 
             int result = dataUtilities.ExecuteNonQuery("SpouseCRUD", hashtable);

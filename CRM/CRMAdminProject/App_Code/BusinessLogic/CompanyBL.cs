@@ -31,7 +31,7 @@ public class CompanyBL
         hashtable.Add("@FaxNo", companyInfoEntity.FaxNo);
         hashtable.Add("@EmailID", companyInfoEntity.EmailID);
         hashtable.Add("@Website", companyInfoEntity.Website);
-        hashtable.Add("@AdvisorID", DBNull.Value);
+        hashtable.Add("@AdvisorID", companyInfoEntity.AdvisorID);
         
         hashtable.Add("@Operation", Operation);
 
