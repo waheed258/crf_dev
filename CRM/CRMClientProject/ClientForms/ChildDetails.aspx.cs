@@ -49,7 +49,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 }
             }
 
-            catch { }
+            catch
+            {
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Something went wrong, please contact administrator";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
     }
     protected void btnChildSubmit_Click(object sender, EventArgs e)
@@ -64,7 +69,14 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             childEntity.Phone = txtPhoneNum.Text;
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
-            childEntity.DateOfBirth = txtDateOfBirth.Text;
+            if (txtDateOfBirth.Text != null)
+            {
+                childEntity.DateOfBirth = txtDateOfBirth.Text;
+            }
+            else
+            {
+                childEntity.DateOfBirth = "";
+            }
             childEntity.ReferenceSAID = Session["SAID"].ToString();
 
 
@@ -79,13 +91,17 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             }
             else
             {
-
+                message.ForeColor = System.Drawing.Color.Blue;
+                message.Text = "Child Information not Saved please check the Details !!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -95,7 +111,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             gvChildDetails.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = childBL.GetAllChilds(Session["SAID"].ToString());
+            dataset = childBL.GetAllChilds(Session["SAID"].ToString(),"");
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
@@ -106,13 +122,17 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             }
             else
             {
+                gvChildDetails.DataSource = null;
+                gvChildDetails.DataBind();
                 search.Visible = false;
                 ChildList.Visible = false;
             }
         }
         catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -130,7 +150,9 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
             string ChildName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
             txtChildNameBank.Text = ChildName;
+            txtChildNameAddress.Text = ChildName;
             txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnChildUpdate.Visible = true;
@@ -170,9 +192,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
     }
@@ -200,19 +224,27 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             {
                 message.Text = "Child details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                Clear();               
                 BindChildDetails();
-                Clear();
+                btnChildUpdate.Visible = false;
+                btnChildSubmit.Visible = true;
+                txtSAID.ReadOnly = false;
+                
+                
             }
             else
             {
-
+                message.ForeColor = System.Drawing.Color.Blue;
+                message.Text = "Child Information not updated please check the Details !!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -237,7 +269,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             gvAddress.DataSource = dataset;
             gvAddress.DataBind();
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void BindBankDetails()
@@ -258,15 +294,25 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             gdvBankList.DataSource = dataset;
             gdvBankList.DataBind();
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
 
     protected void btnChildCancel_Click(object sender, EventArgs e)
     {
         Clear();
+        Response.Redirect("ChildDetails.aspx");
     }
 
+    protected void gvChildDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+
+    }
     private void Clear()
     {
         txtSAID.Text = "";
@@ -277,13 +323,24 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         txtMobileNum.Text = "";
         txtEmailId.Text = "";
         txtTaxRefNum.Text = "";
-        txtDateOfBirth.Text = "";
+        txtDateOfBirth.Text = "";       
+       
+        
+    }
+
+    private void ClearBank()
+    {
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
         ddlAccountType.SelectedValue = "-1";
         txtCurrency.Text = "";
         txtSwift.Text = "";
+        msgAccountNum.Text = "";
+    }
+
+    private void ClearAddress()
+    {
         txtHouseNo.Text = "";
         txtPostalCode.Text = "";
         txtRoadName.Text = "";
@@ -322,24 +379,29 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             {
                 message.Text = "Bank details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearBank();
             }
 
 
         }
         catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
-
+    protected void btnBankCancel_Click(object sender, EventArgs e)
+    {
+        ClearBank();
+    }
     protected void gdvBankList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -372,7 +434,17 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    protected void gdvBankList_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+
     }
 
     protected void btnUpdateBank_Click(object sender, EventArgs e)
@@ -399,19 +471,27 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             {
                 message.Text = "Bank details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
+    protected void gdvBankList_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+
+    }
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -434,25 +514,33 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
+            addressEntity.FullName = txtChildNameAddress.Text;
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
                 message.Text = "Address details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearAddress();
                 BindAddressDetails();
 
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearAddress();
             }
         }
         catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+
+    protected void btnAddressCancel_Click(object sender, EventArgs e)
+    {
+
     }
     protected void gvAddress_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -470,6 +558,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 btnAddressSubmit.Visible = false;
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtChildNameAddress.Text = ((Label)row.FindControl("lblAddChildName")).Text.ToString();
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -481,6 +571,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
                 ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
                 ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
+                
             }
             else if (e.CommandName == "Delete")
             {
@@ -489,7 +580,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
 
@@ -519,6 +614,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
+            addressEntity.FullName = txtChildNameAddress.Text;
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -526,20 +622,28 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             {
                 message.Text = "Address details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearAddress();
                 BindAddressDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearAddress();
                 BindAddressDetails();
             }
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
-   
+    protected void gvAddress_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+
+    }
+  
     protected void btnSure_Click(object sender, EventArgs e)
     {
         try
@@ -550,6 +654,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 if (result > 0)
                 {
                     BindChildDetails();
+                    BindBankDetails();
+                    BindAddressDetails();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
@@ -571,41 +677,18 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         }
         catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
     }
-    protected void btnBankCancel_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void btnAddressCancel_Click(object sender, EventArgs e)
-    {
-
-    }
-    protected void gdvBankList_RowEditing(object sender, GridViewEditEventArgs e)
-    {
-
-    }
-
     protected void gvAddress_RowEditing(object sender, GridViewEditEventArgs e)
     {
 
     }
 
-    protected void gvChildDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
-    protected void gvAddress_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
-    protected void gdvBankList_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
+  
     protected void gvChildDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
@@ -613,7 +696,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             gvChildDetails.PageIndex = e.NewPageIndex;
             BindChildDetails();
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvAddress_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -622,7 +710,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             gvAddress.PageIndex = e.NewPageIndex;
             BindAddressDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -631,7 +724,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             gdvBankList.PageIndex = e.NewPageIndex;
             BindBankDetails();
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -640,7 +738,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindChildDetails();
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void DropPage1_SelectedIndexChanged(object sender, EventArgs e)
@@ -650,8 +753,13 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindAddressDetails();
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
+
 
     protected void dropPage2_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -660,42 +768,60 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindBankDetails();
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void txtSAID_TextChanged(object sender, EventArgs e)
     {
         try
-        {
-            GetClientRegistartion();
-        }
-        catch { }
-    }
-    private void GetClientRegistartion()
-    {
-        try
-        {
+        {          
+            string ExistsSAID = txtSAID.Text;
+            dataset = childBL.GetAllChilds("", ExistsSAID);
 
-            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
-            dataset = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
-            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                msgSAID.Text = "Already Exists";  
+                txtSAID.Text = "";
             }
             else
             {
-                txtFirstName.Text = "";
-                txtLastName.Text = "";
-                txtEmailId.Text = "";
-                txtMobileNum.Text = "";
+                msgSAID.Text = "";  
             }
         }
-        catch { }
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+           
+            string accountNum = txtAccountNumber.Text;
+            dataset = bankBL.CheckAccountNum(accountNum);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                msgAccountNum.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                msgAccountNum.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

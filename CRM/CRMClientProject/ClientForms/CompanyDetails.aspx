@@ -26,9 +26,128 @@
                     $(this).val(val);
                 }
             });
-
-
         })
+    </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#target").keyup(function () {
+                    if ($("[id *=target]").val() != "") {
+                        $("[id *=ContentPlaceHolder1_gvCompany]").children
+                        ('tbody').children('tr').each(function () {
+                            $(this).show();
+                        });
+                        $("[id *=ContentPlaceHolder1_gvCompany]").children
+                        ('tbody').children('tr').each(function () {
+                            var match = false;
+                            $(this).children('td').each(function () {
+                                if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                    match = true;
+                                    return false;
+                                }
+                            });
+                            if (match) {
+                                $(this).show();
+                                $(this).children('th').show();
+                            }
+                            else {
+                                $(this).hide();
+                                $(this).children('th').show();
+                            }
+                        });
+
+
+                        $("[id *=ContentPlaceHolder1_gvCompany]").children('tbody').
+                                children('tr').each(function (index) {
+                                    if (index == 0)
+                                        $(this).show();
+                                });
+                    }
+                    else {
+                        $("[id *=ContentPlaceHolder1_gvCompany]").children('tbody').
+                                children('tr').each(function () {
+                                    $(this).show();
+                                });
+                    }
+                });
+                $("#targetBank").keyup(function () {
+                    if ($("[id *=targetBank]").val() != "") {
+                        $("[id *=ContentPlaceHolder1_gvBankDetails]").children
+                        ('tbody').children('tr').each(function () {
+                            $(this).show();
+                        });
+                        $("[id *=ContentPlaceHolder1_gvBankDetails]").children
+                        ('tbody').children('tr').each(function () {
+                            var match = false;
+                            $(this).children('td').each(function () {
+                                if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
+                                    match = true;
+                                    return false;
+                                }
+                            });
+                            if (match) {
+                                $(this).show();
+                                $(this).children('th').show();
+                            }
+                            else {
+                                $(this).hide();
+                                $(this).children('th').show();
+                            }
+                        });
+
+
+                        $("[id *=ContentPlaceHolder1_gvBankDetails]").children('tbody').
+                                children('tr').each(function (index) {
+                                    if (index == 0)
+                                        $(this).show();
+                                });
+                    }
+                    else {
+                        $("[id *=ContentPlaceHolder1_gvBankDetails]").children('tbody').
+                                children('tr').each(function () {
+                                    $(this).show();
+                                });
+                    }
+                });
+                $("#targetAddress").keyup(function () {
+                    if ($("[id *=targetAddress]").val() != "") {
+                        $("[id *=ContentPlaceHolder1_gvAddressDetails]").children
+                        ('tbody').children('tr').each(function () {
+                            $(this).show();
+                        });
+                        $("[id *=ContentPlaceHolder1_gvAddressDetails]").children
+                        ('tbody').children('tr').each(function () {
+                            var match = false;
+                            $(this).children('td').each(function () {
+                                if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
+                                    match = true;
+                                    return false;
+                                }
+                            });
+                            if (match) {
+                                $(this).show();
+                                $(this).children('th').show();
+                            }
+                            else {
+                                $(this).hide();
+                                $(this).children('th').show();
+                            }
+                        });
+
+
+                        $("[id *=ContentPlaceHolder1_gvAddressDetails]").children('tbody').
+                                children('tr').each(function (index) {
+                                    if (index == 0)
+                                        $(this).show();
+                                });
+                    }
+                    else {
+                        $("[id *=ContentPlaceHolder1_gvAddressDetails]").children('tbody').
+                                children('tr').each(function () {
+                                    $(this).show();
+                                });
+                    }
+                });
+            });
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -63,6 +182,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:ScriptManager ID="scriptmanager" runat="server"></asp:ScriptManager>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -93,7 +213,8 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Registration Number</label>
-                                                <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13"></asp:TextBox>
+                                                <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13" AutoPostBack="true" OnTextChanged="txtCompanyUIC_TextChanged"></asp:TextBox>
+                                                <asp:Label ID="msgUIC" runat="server" class="control-label" Style="color: red" />
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtCompanyUIC" Display="Dynamic" ErrorMessage="Enter Registration Number"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
@@ -165,7 +286,7 @@
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4" style="margin-top: 15px">
                                                     <asp:DropDownList ID="DropPage" runat="server"
-                                                        OnSelectedIndexChanged="DropPage_SelectedIndexChanged1"
+                                                        OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
                                                     <label class="control-label">
@@ -425,6 +546,11 @@
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Company Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Client SAID">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
@@ -580,6 +706,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
+                                      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                        <ContentTemplate>
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
                                             <div class="col-sm-12">
@@ -610,7 +738,8 @@
 
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Account Number</label>
-                                                    <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number"></asp:TextBox>
+                                                    <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number" AutoPostBack="true" OnTextChanged="txtAccountNumber_TextChanged"></asp:TextBox>
+                                                    <asp:Label ID="msgAccountNum" runat="server" class="control-label" Style="color: red" />
                                                     <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                         ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
@@ -639,6 +768,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                            </ContentTemplate>
+                                          </asp:UpdatePanel>
                                 </fieldset>
                             </div>
                         </div>
@@ -666,6 +797,17 @@
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Company Reg No.</label>
+                                                    <asp:TextBox ID="txtAddrUIC" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Company Name</label>
+                                                    <asp:TextBox ID="txtAddrCompanyName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Plot No</label>
