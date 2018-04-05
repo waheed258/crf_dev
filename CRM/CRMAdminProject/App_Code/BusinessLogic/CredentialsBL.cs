@@ -22,7 +22,8 @@ namespace BusinessLogic
                 {"@inCreatedBy",DBNull.Value},
                 {"@inUpdatedBy",DBNull.Value},
                 {"@FirstName",_objCredentials.FirstName},
-                {"@LastName",_objCredentials.LastName}
+                {"@LastName",_objCredentials.LastName},
+                {"@Image",DBNull.Value}
             };
             return ExecuteNonQuery("CredentialsManager", hsparams);
         }
