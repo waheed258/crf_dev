@@ -197,6 +197,14 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         try
         {
             GetClientRegistartion();
+            ds = _objTrusteeBL.GetTrusteeTest(txtUIC.Text.Trim(),txtSAID.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                lblSAIDError.Text = "Identification Number Already Exists";
+                txtSAID.Text = "";
+            }
+            else
+                lblSAIDError.Text = "";
         }
         catch
         { }
@@ -217,6 +225,9 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             string TrusteeName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
             txtTrusteeNameBank.Text = TrusteeName;
             txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+
+            txtTrusteeAddress.Text = TrusteeName;
+            txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
 
             if (e.CommandName == "EditTrustee")
             {
@@ -327,6 +338,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
+            addressEntity.FullName = txtTrusteeAddress.Text.Trim();
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -372,6 +384,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
+            addressEntity.FullName = txtTrusteeAddress.Text.Trim();
 
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
@@ -416,6 +429,10 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 btnAddressSubmit.Visible = false;
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+
+                txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtTrusteeAddress.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
+
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -552,6 +569,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        lblBankError.Text = "";
         txtTrusteeNameBank.Text = "";
         txtSAIDBank.Text = "";
         txtBankName.Text = "";
@@ -688,4 +706,27 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
     }
 
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            ds = bankBL.CheckAccountNum(accountNum);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblBankError.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                lblBankError.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }

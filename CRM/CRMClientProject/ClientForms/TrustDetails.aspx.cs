@@ -42,7 +42,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     BindAddressDetails();
                 }
             }
-            catch 
+            catch
             {
                 message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Something went wrong, please contact administrator";
@@ -113,7 +113,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             Website = txtWebsite.Text.Trim(),
             ReferenceSAID = Session["SAID"].ToString(),
             Status = 1,
-            AdvisorID =0, 
+            AdvisorID = 0,
         };
         int res;
         if (btnSubmitTrust.Text == "Update")
@@ -182,6 +182,9 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             txtTrustUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
             txtTrustNameBank.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
 
+            txtUICAddress.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+            txtTrustNameAddress.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
+
             string UIC = e.CommandArgument.ToString();
             EncryptDecrypt ObjEn = new EncryptDecrypt();
             Session["TrustUIC"] = UIC;
@@ -231,6 +234,22 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         gvTrust.PageIndex = e.NewPageIndex;
         GetTrustGrid();
+    }
+
+    protected void txtUIC_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ds = _objTrustBL.GetTrustTest(txtUIC.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                lblUICError.Text = "Registration Number Already Exists";
+                txtUIC.Text = "";
+            }
+            else
+                lblUICError.Text = "";
+        }
+        catch { }
     }
 
     #endregion
@@ -312,6 +331,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
+            addressEntity.FullName = txtTrustNameAddress.Text.Trim();
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -357,7 +377,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
-
+            addressEntity.FullName = txtTrustNameAddress.Text.Trim();
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
@@ -401,6 +421,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 btnAddressSubmit.Visible = false;
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+
+                txtUICAddress.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtTrustNameAddress.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
+
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -538,6 +562,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        lblBankMsg.Text = "";
         txtTrustUIC.Text = "";
         txtTrustNameBank.Text = "";
         txtBankName.Text = "";
@@ -672,5 +697,30 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
 
     }
 
+
+
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            ds = bankBL.CheckAccountNum(accountNum); 
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblBankMsg.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                lblBankMsg.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 
 }
