@@ -119,9 +119,9 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             if (res > 0)
             {
                 if (btnSubmit.Text == "Update")
-                    message.Text = "Updated Successfully !!";
+                    message.Text = "Beneficiary details updated Successfully!";
                 else
-                    message.Text = "Saved Successfully !!";
+                    message.Text = "Beneficiary details saved Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBeneficiaryControls();
                 GetBeneficiaryGrid(txtUIC.Text.Trim());
@@ -129,7 +129,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             else
             {
                 message.ForeColor = System.Drawing.Color.Blue;
-                message.Text = "Beneficiary Information not Saved please check the Details !!";
+                message.Text = "Please try again!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
 
@@ -137,7 +137,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         catch
         {
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Something went wrong, please contact administrator!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -162,7 +162,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     private void BindBeneficiary(int BeneficiaryId)
     {
-        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, 1, txtUIC.Text.Trim());
+        int type =Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
+        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, type, txtUIC.Text.Trim());
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
@@ -217,17 +218,37 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             txtPhone.Text = "";
         }
     }
+    //protected void txtSAID_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        GetClientRegistartion();
+    //    }
+    //    catch
+    //    {
+
+    //    }
+    //}
+
+
     protected void txtSAID_TextChanged(object sender, EventArgs e)
     {
         try
         {
             GetClientRegistartion();
+            ds = _objBeneficiaryBL.GetBeneficiaryTest(txtUIC.Text.Trim(), txtSAID.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                lblSAIDError.Text = "This Registration Number is Already Exist";
+                txtSAID.Text = "";
+            }
+            else
+                lblSAIDError.Text = "";
         }
         catch
-        {
-
-        }
+        { }
     }
+
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
@@ -245,6 +266,10 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             string BeneficiaryName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
             txtBeneficiaryNameBank.Text = BeneficiaryName;
             txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+
+            txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            txtBeneficiaryAddress.Text = BeneficiaryName;
+
 
             if (e.CommandName == "EditBeneficiary")
             {
@@ -359,6 +384,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
+            addressEntity.FullName = txtBeneficiaryAddress.Text.Trim();
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -404,7 +430,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
-
+            addressEntity.FullName = txtBeneficiaryAddress.Text.Trim();
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
@@ -670,6 +696,33 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         gdvBankList.PageIndex = e.NewPageIndex;
         BindBankDetails();
     }
+
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            ds = bankBL.CheckAccountNum(accountNum);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblaccountError.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                lblaccountError.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+
+
 
     #endregion
 
