@@ -16,33 +16,42 @@ public partial class ChangePassword : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            
+
         }
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        if (txtCreatePassword.Text == txtConfirmPassword.Text)
+        try
         {
-            int result = ManageCredentials();
-            if (result == 1)
+            if (txtCreatePassword.Text == txtConfirmPassword.Text)
             {
-                Session.Remove("email");               
-                Response.Redirect("Login.aspx", false);                
+                int result = ManageCredentials();
+                if (result == 1)
+                {
+                    Session.Remove("email");
+                    Response.Redirect("Login.aspx", false);
+                }
+            }
+            else
+            {
+                lblError.Text = "Both Passwords should match";
             }
         }
-        else
-        {
-            lblError.Text = "Both Passwords should match";
-        }
+        catch { }
     }
 
     protected int ManageCredentials()
     {
+
         CredentialsBO _objCre = new CredentialsBO
         {
             EmailID = Session["email"].ToString(),
-            Password = txtCreatePassword.Text
+            Password = txtCreatePassword.Text,
+            FirstName = "",
+            LastName = "",
+            Image = ""
         };
         return new CredentialsBL().ManageCredentials(_objCre, 'C');
+
     }
 }

@@ -19,8 +19,12 @@ namespace BusinessLogic
                 {"@inEmailID",_objCredentials.EmailID},
                 {"@inGenaratePassword",DBNull.Value},
                 {"@inPassword",_objCredentials.Password},
+                {"@Image",_objCredentials.Image},
+                {"@FirstName",_objCredentials.FirstName},
+                {"@LastName",_objCredentials.LastName},
                 {"@inCreatedBy",DBNull.Value},
                 {"@inUpdatedBy",DBNull.Value}
+               
             };
             return ExecuteNonQuery("CredentialsManager", hsparams);
         }

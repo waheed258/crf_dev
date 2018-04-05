@@ -14,6 +14,9 @@ namespace EntityManager
         public string TimeStamp { get; set; }
         public int? CreatedBy { get; set; }
         public string UpdatedBy{ get; set; }
+        public string Image { get; set; }
+        public string FirstName { get; set; }
+        public string LastName{ get; set; }
         public int? UpdatedOn { get; set; }
         public int? Status { get; set; }
     }
