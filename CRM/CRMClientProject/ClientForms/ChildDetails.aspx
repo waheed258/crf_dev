@@ -455,7 +455,7 @@
                                                     </asp:TemplateField>
                                                      <asp:TemplateField HeaderText="Child Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblChildName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblChildName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Client Identification #" Visible="false">
@@ -557,7 +557,7 @@
                                                     </asp:TemplateField>
                                                      <asp:TemplateField HeaderText="Child Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblAddChildName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblAddChildName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Client Identification #" Visible="false">

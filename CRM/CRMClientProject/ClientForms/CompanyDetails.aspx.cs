@@ -26,12 +26,13 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             {
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 5;
                     GetGridData();
                     GetBankDetails();
                     GetAddressDetails();
                     btnUpdateCompany.Visible = false;
                     btnUpdateBank.Visible = false;
-                    btnUpdateAddress.Visible = false;
+                    btnUpdateAddress.Visible = false;                   
                     commonClass.GetAccountType(ddlAccountType);
                     commonClass.GetCity(ddlCity);
                     commonClass.GetCountry(ddlCountry);
@@ -58,12 +59,11 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
+            gvCompany.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = companyBL.GetCompanyList(Session["SAID"].ToString(),"");
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                gvCompany.DataSource = dataset;
-                //ViewState["dt"] = dataset.Tables[0];
+                gvCompany.DataSource = dataset;               
                 gvCompany.DataBind();
                 companylist.Visible = true;
             }
@@ -83,6 +83,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
+            gvBankDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 8);
             if (dataset.Tables[0].Rows.Count > 0)
             {
@@ -108,6 +109,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
+            gvAddressDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
             if (dataset.Tables[0].Rows.Count > 0)
             {
@@ -182,58 +184,61 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            string UIC = e.CommandArgument.ToString();
-            EncryptDecrypt ObjEn = new EncryptDecrypt();
-            Session["CompanyUIC"] = UIC;
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
-            ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
-            ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+            if (e.CommandName != "Page")
+            {
+                string UIC = e.CommandArgument.ToString();
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
+                Session["CompanyUIC"] = UIC;
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["CompanyID"] = ((Label)row.FindControl("lblCompanyID")).Text.ToString();
+                ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["CompanyReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-            txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
-            txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
 
-            txtAddrUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
-            txtAddrCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                txtAddrUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtAddrCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
 
-            if (e.CommandName == "EditCompany")
-            {
-                btnCompantDetails.Visible = false;
-                btnUpdateCompany.Visible = true;
-                txtCompanyUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
-                txtCompanyUIC.ReadOnly = true;
-                txtCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
-                txtYearofFoundation.Text = Convert.ToDateTime(((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString()).Date.ToString("yyyy-MM-dd");
-                txtTelephone.Text = ((Label)row.FindControl("lblTelephone")).Text.ToString();
-                txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
-                txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
-                txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
-            }
-            else if (e.CommandName == "Bank")
-            {
-                bankmessage.InnerText = "Save Bank Details";
-                btnBankSubmit.Visible = true;
-                btnUpdateBank.Visible = false;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
-            }
-            else if (e.CommandName == "Address")
-            {
-                btnUpdateAddress.Visible = false;
-                btnAddressSubmit.Visible = true;
-                addressmessage.InnerText = "Save Address Details";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
-            }
-            else if (e.CommandName == "DeleteCompany")
-            {
-                ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Company Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-            }
+                if (e.CommandName == "EditCompany")
+                {
+                    btnCompantDetails.Visible = false;
+                    btnUpdateCompany.Visible = true;
+                    txtCompanyUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                    txtCompanyUIC.ReadOnly = true;
+                    txtCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                    txtYearofFoundation.Text = Convert.ToDateTime(((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString()).Date.ToString("yyyy-MM-dd");
+                    txtTelephone.Text = ((Label)row.FindControl("lblTelephone")).Text.ToString();
+                    txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
+                    txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                    txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
+                }
+                else if (e.CommandName == "Bank")
+                {
+                    bankmessage.InnerText = "Save Bank Details";
+                    btnBankSubmit.Visible = true;
+                    btnUpdateBank.Visible = false;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                }
+                else if (e.CommandName == "Address")
+                {
+                    btnUpdateAddress.Visible = false;
+                    btnAddressSubmit.Visible = true;
+                    addressmessage.InnerText = "Save Address Details";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                }
+                else if (e.CommandName == "DeleteCompany")
+                {
+                    ViewState["flag"] = 1;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Company Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
 
-            else if (e.CommandName == "EditBeneficiary")
-            {
-                Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("2"), false);
+                else if (e.CommandName == "EditBeneficiary")
+                {
+                    Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("2"), false);
+                }
             }
         }
         catch {
@@ -266,6 +271,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 btnCompantDetails.Visible = true;
                 txtCompanyUIC.ReadOnly = false;
                 GetGridData();
+                GetBankDetails();
+                GetAddressDetails();
             }
             else
             {
@@ -299,7 +306,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-            bankInfoEntity.FullName = txtCompanyNameBank.Text;
+           
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'i');
             if (result == 1)
             {
@@ -353,7 +360,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.PostalCode = txtPostalCode.Text;
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
-            addressEntity.FullName = txtAddrCompanyName.Text;
+            
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
 
@@ -402,32 +409,35 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
-            ViewState["BankUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
-            ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
+                ViewState["BankUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-            if (e.CommandName == "Edit")
-            {
-                bankmessage.InnerText = "Update Bank Details";
-                btnBankSubmit.Visible = false;
-                btnUpdateBank.Visible = true;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
-                txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
-                txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
-                txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
-                txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
-                txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
-                txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
-                txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
-                ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 2;
-                lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                if (e.CommandName == "Edit")
+                {
+                    bankmessage.InnerText = "Update Bank Details";
+                    btnBankSubmit.Visible = false;
+                    btnUpdateBank.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                    txtCompanyUICBank.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                    txtCompanyNameBank.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                    txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
+                    txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
+                    txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
+                    txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
+                    txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
+                    ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    ViewState["flag"] = 2;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
             }
         }
         catch { }
@@ -450,7 +460,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-            bankInfoEntity.FullName = txtCompanyNameBank.Text;
+            
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'u');
             if (result == 1)
             {
@@ -494,7 +504,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.PostalCode = txtPostalCode.Text;
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
-            addressEntity.FullName = txtAddrCompanyName.Text;
+            
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
 
@@ -527,37 +537,40 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
-            ViewState["AddressUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
-            ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
+                ViewState["AddressUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-            if (e.CommandName == "Edit")
-            {
-                addressmessage.InnerText = "Update Address Details";
-                btnAddressSubmit.Visible = false;
-                btnUpdateAddress.Visible = true;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
-                txtAddrUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
-                txtAddrCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
-                txtPlotNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
-                txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
-                txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
-                txtFlatrNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
-                txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
-                txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
-                txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
-                ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
-                txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
-                ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
-                ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 3;
-                lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                if (e.CommandName == "Edit")
+                {
+                    addressmessage.InnerText = "Update Address Details";
+                    btnAddressSubmit.Visible = false;
+                    btnUpdateAddress.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                    txtAddrUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                    txtAddrCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                    txtPlotNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
+                    txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
+                    txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
+                    txtFlatrNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
+                    txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
+                    txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
+                    txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
+                    ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
+                    txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
+                    ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
+                    ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    ViewState["flag"] = 3;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
             }
         }
         catch {
@@ -577,6 +590,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 if (result == 1)
                 {
                     GetGridData();
+                    GetBankDetails();
+                    GetAddressDetails();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
@@ -634,7 +649,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            ViewState["ps"] = dropAddress.SelectedItem.ToString().Trim();
             GetAddressDetails();
         }
         catch
@@ -648,7 +663,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            ViewState["ps"] = dropBank.SelectedItem.ToString().Trim();
             GetBankDetails();
         }
         catch
@@ -699,6 +714,48 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             {
                 msgAccountNum.Text = "";
             }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvCompany_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvCompany.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvBankDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvBankDetails.PageIndex = e.NewPageIndex;
+            GetBankDetails();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvAddressDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvAddressDetails.PageIndex = e.NewPageIndex;
+            GetAddressDetails();
         }
         catch
         {

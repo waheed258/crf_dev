@@ -26,6 +26,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         {
             try
             {
+                ViewState["ps"] = 5;
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
@@ -36,7 +37,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     _objComman.GetProvince(ddlProvince);
                     _objComman.GetCity(ddlCity);
                     _objComman.GetAccountType(ddlAccountType);
-
+                    _objComman.getRecordsPerPage(DropPageBank);
+                    _objComman.getRecordsPerPage(DropPageAddress);
                     GetClientPersonal();
                     GetBankDetails();
                     GetAddressDetails();
@@ -174,6 +176,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
                     message.Text = "Client details updated successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    GetBankDetails();
+                    GetAddressDetails();
                 }
                 else
                 {
@@ -289,31 +293,34 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
 
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
-            ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-            if (e.CommandName == "EditBank")
-            {
-                bankmessage.InnerText = "Update Bank Details";
-                btnBankSubmit.Visible = false;
-                btnUpdateBank.Visible = true;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
-                txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
-                txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
-                txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
-                txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
-                txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
-                txtClientNameBank.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
-                ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
-                ViewState["Bankflag"] = 1;
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                if (e.CommandName == "EditBank")
+                {
+                    bankmessage.InnerText = "Update Bank Details";
+                    btnBankSubmit.Visible = false;
+                    btnUpdateBank.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                    txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
+                    txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
+                    txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
+                    txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
+                    txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
+                    txtClientNameBank.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
+                    ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
+                    ViewState["Bankflag"] = 1;
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    ViewState["flag"] = 1;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
             }
         }
         catch
@@ -368,39 +375,42 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
-            // ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-            ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
-            if (e.CommandName == "EditAddress")
+            if (e.CommandName != "Page")
             {
-                addressmessage.InnerText = "Update Address Details";
-                btnAddressSubmit.Visible = false;
-                btnUpdateAddress.Visible = true;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
+                // ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-                txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
-                txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
-                txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
-                txtFlatNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
-                txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
-                txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
-                txtAddressClientName.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
-                txtIDNo.Text = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
-                ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
-                txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
-                ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
-                ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
-                ViewState["Addressflag"] = 1;
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 2;
-                lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                if (e.CommandName == "EditAddress")
+                {
+                    addressmessage.InnerText = "Update Address Details";
+                    btnAddressSubmit.Visible = false;
+                    btnUpdateAddress.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+
+                    txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
+                    txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
+                    txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
+                    txtFlatNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
+                    txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
+                    txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
+                    txtAddressClientName.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
+                    txtIDNo.Text = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                    txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
+                    ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
+                    txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
+                    ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
+                    ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
+                    ViewState["Addressflag"] = 1;
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    ViewState["flag"] = 2;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
             }
         }
         catch
@@ -494,7 +504,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.PostalCode = txtPostalCode.Text;
             AddressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             AddressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
-            AddressEntity.FullName = txtFirstName.Text + " " + txtLastName.Text;
+
             AddressEntity.AdvisorId = 0;
 
             AddressEntity.Status = 1;
@@ -543,7 +553,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.UIC = "0";
             AddressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
             AddressEntity.SAID = ViewState["AddressReferenceSAID"].ToString();
-            AddressEntity.FullName = txtAddressClientName.Text;
+
             AddressEntity.HouseNo = txtHouseNo.Text;
             AddressEntity.BuildingName = txtBulding.Text;
             AddressEntity.Floor = txtFloor.Text;
@@ -590,7 +600,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             BankInfoEntity.Type = 1;
             BankInfoEntity.UIC = "0";
             BankInfoEntity.ReferenceID = Session["SAID"].ToString();
-            BankInfoEntity.FullName = txtClientNameBank.Text;
             BankInfoEntity.BankName = txtBankName.Text;
             BankInfoEntity.BranchNumber = txtBranchNumber.Text;
             BankInfoEntity.AccountNumber = txtAccountNumber.Text;
@@ -652,7 +661,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             BankInfoEntity.CreatedBy = 0;
             BankInfoEntity.AdvisorID = 0;
             BankInfoEntity.UpdatedBy = 0;
-            BankInfoEntity.FullName = txtClientNameBank.Text.Trim();
             int result = bankbl.CURDBankInfo(BankInfoEntity, 'u');
             if (result == 1)
             {
@@ -667,6 +675,62 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ClearBank();
                 GetBankDetails();
             }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void DropPageAddress_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPageAddress.SelectedItem.ToString().Trim();
+            GetAddressDetails();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void DropPageBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPageBank.SelectedItem.ToString().Trim();
+            GetBankDetails();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvAddressDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvAddressDetails.PageIndex = e.NewPageIndex;
+            GetAddressDetails();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvBankDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvBankDetails.PageIndex = e.NewPageIndex;
+            GetBankDetails();
         }
         catch
         {
