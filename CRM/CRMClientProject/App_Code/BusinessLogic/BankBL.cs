@@ -37,8 +37,7 @@ namespace BusinessLogic
             hashtable.Add("@inSWIFT", bankinfo.SWIFT);
             hashtable.Add("@inCreatedBy", bankinfo.CreatedBy);            
             hashtable.Add("@inAdvisorID", bankinfo.AdvisorID);
-            hashtable.Add("@inUpdatedBy", bankinfo.UpdatedBy);
-            hashtable.Add("@inFullName", bankinfo.FullName);
+            hashtable.Add("@inUpdatedBy", bankinfo.UpdatedBy);          
             hashtable.Add("@OperationName", Operation);
 
 

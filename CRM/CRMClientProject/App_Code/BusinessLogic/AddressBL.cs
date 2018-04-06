@@ -32,8 +32,7 @@ namespace BusinessLogic
                         {"@inProvince",_objAddress.Province},
                         {"@inCountry",_objAddress.Country}, 
                         {"@inAdvisorID",_objAddress.AdvisorId},
-                        {"@inStatus",_objAddress.Status},
-                        {"@inFullName",_objAddress.FullName},
+                        {"@inStatus",_objAddress.Status},                      
                         {"@inCreatedBy",_objAddress.CreatedBy},
                         {"@inUpdatedBy",_objAddress.CreatedBy},
                         {"@OperationName",operation}

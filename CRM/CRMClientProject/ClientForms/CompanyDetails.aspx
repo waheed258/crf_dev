@@ -303,7 +303,7 @@
                                                 <asp:GridView ID="gvCompany" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="CompanyID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnPageIndexChanging="gvCompany_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
@@ -417,7 +417,7 @@
                                                 <asp:GridView ID="gvBankDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display. Please add bank details."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvBankDetails_RowEditing"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvBankDetails_RowEditing" OnPageIndexChanging="gvBankDetails_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDeleting="gvBankDetails_RowDeleting" OnRowCommand="gvBankDetails_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
@@ -438,10 +438,10 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Company Name">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("COMPANYNAME") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client Identification #">
+                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -527,7 +527,7 @@
                                                 <asp:GridView ID="gvAddressDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" OnRowDeleting="gvAddressDetails_RowDeleting"
                                                     EmptyDataText="There are no data records to display. Please add address details."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddressDetails_RowEditing"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAddressDetails_RowEditing" OnPageIndexChanging="gvAddressDetails_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddressDetails_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
@@ -548,10 +548,10 @@
                                                         </asp:TemplateField>
                                                          <asp:TemplateField HeaderText="Company Name">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Client SAID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
