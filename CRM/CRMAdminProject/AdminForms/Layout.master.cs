@@ -20,7 +20,14 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                 else
                 {
                     lblUserName.Text = Session["Name"].ToString().ToUpper();
-                    imgProfilePic.ImageUrl = Session["Image"].ToString();
+                    if (Session["Image"] == "")
+                    {
+                        imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
+                    }
+                    else
+                    {
+                        imgProfilePic.ImageUrl = Session["Image"].ToString();
+                    }
                 }
             }
             catch
