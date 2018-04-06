@@ -19,6 +19,7 @@ namespace EntityManager
         public string TaxRefNo { get; set; }
         public string DateOfBirth { get; set; }
         public string UpdatedOn { get; set; }
+        public string Image { get; set; }
         public int? AdvisorID { get; set; }
         public int? Status { get; set; }
     }

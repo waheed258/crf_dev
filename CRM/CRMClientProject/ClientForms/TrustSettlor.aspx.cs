@@ -199,13 +199,31 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
 
     }
+    //protected void txtSAID_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        GetClientRegistartion();
+    //    }
+    //    catch { }
+    //}
+
     protected void txtSAID_TextChanged(object sender, EventArgs e)
     {
         try
         {
             GetClientRegistartion();
+            ds = _ObjTrustSettlerBL.GetTrustSettlerTest(txtTrustUIC.Text.Trim(), txtSAID.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                lblSAIDError.Text = "Identification Number Already Exists";
+                txtSAID.Text = "";
+            }
+            else
+                lblSAIDError.Text = "";
         }
-        catch { }
+        catch
+        { }
     }
 
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,6 +246,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             string SettlorName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
             txtSettlorNameBank.Text = SettlorName;
             txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+
+            txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            txtSettlorNameAddress.Text = SettlorName;
+
 
             if (e.CommandName == "EditTrustSettler")
             {
@@ -342,6 +364,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
+            addressEntity.FullName = txtSettlorNameAddress.Text.Trim();
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -387,7 +410,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
-
+            addressEntity.FullName = txtSettlorNameAddress.Text.Trim();
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
@@ -431,6 +454,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 btnAddressSubmit.Visible = false;
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+
+                //txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                //txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
+
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -568,6 +595,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
     private void ClearBankControls()
     {
+        lblaccountError.Text = "";
         txtSettlorNameBank.Text = "";
         txtSAIDBank.Text = "";
         txtBankName.Text = "";
@@ -659,7 +687,29 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
     #endregion
 
-
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            ds = bankBL.CheckAccountNum(accountNum);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblaccountError.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                lblaccountError.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 
     protected void btnSure_Click(object sender, EventArgs e)
     {

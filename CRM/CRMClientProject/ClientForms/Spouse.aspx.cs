@@ -45,7 +45,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     BindBankDetails();
                 }
             }
-            catch { }
+            catch
+            {
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Something went wrong, please contact administrator";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
     }
 
@@ -78,9 +83,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch 
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void Clear()
@@ -117,13 +124,14 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         try
         {
             gvSpouse.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = spouseBL.GetAllSpouse(Session["SAID"].ToString());
+            dataset = spouseBL.GetAllSpouse(Session["SAID"].ToString(), "");
+
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvSpouse.DataSource = dataset;
                 gvSpouse.DataBind();
                 spouselist.Visible = true;
-               
+
 
             }
             else
@@ -133,8 +141,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
 
         }
-        catch 
-        { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void BindAddressDetails()
     {
@@ -153,9 +165,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gvAddress.DataSource = dataset;
             gvAddress.DataBind();
         }
-        catch 
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -181,6 +195,9 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
                 Clear();
+                btnUpdateSpouse.Visible = false;
+                btnSpouseSubmit.Visible = true;
+                txtSAID.ReadOnly = false;
             }
             else
             {
@@ -188,14 +205,16 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch 
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnSpouseCancel_Click(object sender, EventArgs e)
     {
-        Clear();
+        Response.Redirect("Spouse.aspx");
     }
     protected void gvSpouse_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -210,10 +229,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ViewState["SpouseID"] = ((Label)row.FindControl("lblSpouseID")).Text.ToString();
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
             string SpouseName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
             txtSpouseNameBank.Text = SpouseName;
+            txtAddressSpouseName.Text = SpouseName;
             txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            txtIDNo.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
             if (e.CommandName == "Edit")
             {
                 btnUpdateSpouse.Visible = true;
@@ -246,13 +266,15 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             else if (e.CommandName == "Delete")
             {
                 ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Company Details?";
+                lbldeletemessage.Text = "Are you sure, you want to delete Spouse Details?";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void BindBankDetails()
@@ -272,8 +294,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gdvBankList.DataSource = dataset;
             gdvBankList.DataBind();
         }
-        catch 
+        catch
         {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnBankSubmit_Click(object sender, EventArgs e)
@@ -310,9 +335,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
 
 
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnBankCancel_Click(object sender, EventArgs e)
@@ -338,6 +365,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             addressEntity.SuburbName = txtSuburbName.Text;
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.RoadName = txtRoadName.Text;
+            addressEntity.FullName = txtAddressSpouseName.Text;
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
@@ -357,9 +385,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnAddressCancel_Click(object sender, EventArgs e)
@@ -386,6 +416,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 btnAddressSubmit.Visible = false;
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                txtIDNo.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtAddressSpouseName.Text = ((Label)row.FindControl("lblSpouseName")).Text.ToString();
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                 txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -405,7 +437,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gdvBankList_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -443,7 +480,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnUpdateBank_Click(object sender, EventArgs e)
     {
@@ -479,7 +521,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 BindBankDetails();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnUpdateAddress_Click(object sender, EventArgs e)
     {
@@ -497,6 +544,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             addressEntity.RoadName = txtRoadName.Text;
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.SuburbName = txtSuburbName.Text;
+            addressEntity.FullName = txtAddressSpouseName.Text;
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -521,7 +569,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 Clear();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnSure_Click(object sender, EventArgs e)
     {
@@ -530,9 +583,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
                 int result = spouseBL.DeleteSpouse(ViewState["SAID"].ToString());
-                if (result == 1)
+                if (result > 0)
                 {
                     BindSpouseDetails();
+                    BindBankDetails();
+                    BindAddressDetails();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
@@ -553,7 +608,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
 
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvSpouse_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -583,7 +643,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gvAddress.PageIndex = e.NewPageIndex;
             BindAddressDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -592,7 +657,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             gdvBankList.PageIndex = e.NewPageIndex;
             BindBankDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -601,7 +671,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindSpouseDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage1_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -610,7 +685,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ViewState["ps"] = DropPage1.SelectedItem.ToString().Trim();
             BindAddressDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void dropPage2_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -619,6 +699,61 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ViewState["ps"] = dropPage2.SelectedItem.ToString().Trim();
             BindBankDetails();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void txtSAID_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            gvSpouse.PageSize = int.Parse(ViewState["ps"].ToString());
+            dataset = spouseBL.GetAllSpouse("", txtSAID.Text);
+
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                message.Text = "SAID already exists!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                txtSAID.Text = "";
+            }
+            else
+            {
+            }
+
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+      
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            dataset = bankBL.CheckAccountNum(accountNum);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                msgAccountNum.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                msgAccountNum.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    
     }
 }

@@ -33,6 +33,7 @@ namespace BusinessLogic
                         {"@inCountry",_objAddress.Country}, 
                         {"@inAdvisorID",_objAddress.AdvisorId},
                         {"@inStatus",_objAddress.Status},
+                        {"@inFullName",_objAddress.FullName},
                         {"@inCreatedBy",_objAddress.CreatedBy},
                         {"@inUpdatedBy",_objAddress.CreatedBy},
                         {"@OperationName",operation}

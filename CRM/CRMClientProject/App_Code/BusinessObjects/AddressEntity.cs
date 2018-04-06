@@ -30,5 +30,6 @@ namespace EntityManager
         public int? Status { get; set; }
         public int? CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public string FullName { get; set; }
     }
 }

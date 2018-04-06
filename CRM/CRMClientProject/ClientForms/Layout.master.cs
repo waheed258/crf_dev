@@ -19,7 +19,8 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
                 }
                 else
                 {
-                    lblUserName.Text = Session["ClientName"].ToString().ToUpper();  
+                    lblUserName.Text = Session["ClientName"].ToString().ToUpper();
+                    imgProfilePic.ImageUrl = Session["Image"].ToString();
                 }
             }
             catch

@@ -69,19 +69,6 @@ namespace BusinessLogic
         public int CURDClientPersonalInfo(ClientPersonalInfoEntity PersonalInfo, char Operation)  
         {
             Hashtable hashtable = new Hashtable();
-            //if (Operation == 'i')
-            //{
-            //    hashtable.Add("@inClientPersonalID", 0);
-            //}
-            //if(Operation == 'u') 
-            // {
-            //        hashtable.Add("@inClientPersonalID", 1);
-            //  }
-            //else
-            //{
-            //    hashtable.Add("@inClientPersonalID", PersonalInfo.ClientPersonalID);
-            //}
-
             hashtable.Add("@inSAID", PersonalInfo.SAID);
             hashtable.Add("@inFirstName", PersonalInfo.FirstName);
             hashtable.Add("@inLastName", PersonalInfo.LastName);
@@ -90,6 +77,7 @@ namespace BusinessLogic
             hashtable.Add("@inMobile", PersonalInfo.Mobile);
             hashtable.Add("@inTaxRefNo", PersonalInfo.TaxRefNo);
             hashtable.Add("@inDateOfBirth", PersonalInfo.DateOfBirth);
+            hashtable.Add("@Image", PersonalInfo.Image);
             hashtable.Add("@inStatus", 0);
             hashtable.Add("@inAdvisorID", 0);
             hashtable.Add("@inUpdatedBy", 0);
