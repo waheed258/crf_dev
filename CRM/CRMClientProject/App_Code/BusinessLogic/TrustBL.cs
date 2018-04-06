@@ -41,6 +41,14 @@ namespace BusinessLogic
             return ExecuteDataSet("GetTrust", hsparams);
         }
 
+        public DataSet GetTrustTest(string UIC)
+        {
+            Hashtable hsparams = new Hashtable();
+            hsparams.Add("@inUIC", UIC);
+
+            return ExecuteDataSet("GetTrustTest", hsparams);
+        }
+
 
         public int DeleteTrust(string UIC)
         {

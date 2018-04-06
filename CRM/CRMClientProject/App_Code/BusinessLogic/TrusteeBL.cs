@@ -41,6 +41,19 @@ namespace BusinessLogic
             return ExecuteDataSet("GetTrustee", hsparams);
         }
 
+        public DataSet GetTrusteeTest(string ReferenceUCID,string SAID)
+        {
+            Hashtable hsparams = new Hashtable();
+           
+            hsparams.Add("@inReferenceUIC", ReferenceUCID);
+            hsparams.Add("@inSAID", SAID);
+            
+
+            return ExecuteDataSet("GetTrusteeTest", hsparams);
+        }
+
+
+
         public int DeleteTrustee(int TrusteeId,string SAID)
         {
             Hashtable hsparams = new Hashtable();
