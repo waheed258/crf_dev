@@ -117,9 +117,9 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             if (res > 0)
             {
                 if (btnSubmit.Text == "Update")
-                    message.Text = "Updated Successfully !!";
+                    message.Text = "Beneficiary details updated successfully!";
                 else
-                    message.Text = "Saved Successfully !!";
+                    message.Text = "Beneficiary details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBeneficiaryControls();
                 GetBeneficiaryGrid(txtUIC.Text.Trim());

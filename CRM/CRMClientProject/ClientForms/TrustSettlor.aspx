@@ -262,7 +262,7 @@
                                     <div class="panel panel-bd" id="divTrusteeslist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
-                                                <h5>List of Trustees</h5>
+                                                <h5>List of Trust Settlor</h5>
                                             </div>
                                         </div>
 

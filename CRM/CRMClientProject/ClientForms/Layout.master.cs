@@ -9,31 +9,21 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+
+        try
         {
-            try
-            {
-                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
-                {
-                    Response.Redirect("../Login.aspx", false);
-                }
-                else
-                {
-                    lblUserName.Text = Session["ClientName"].ToString().ToUpper();
-                    if (Session["Image"] == null)
-                    {
-                        imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
-                    }
-                    else
-                    {
-                        imgProfilePic.ImageUrl = Session["Image"].ToString();
-                    }
-                }
-            }
-            catch
+            if (Session["SAID"] == null || Session["SAID"].ToString() == "")
             {
                 Response.Redirect("../Login.aspx", false);
             }
+            else
+            {
+                lblUserName.Text = Session["ClientName"].ToString().ToUpper();
+            }
+        }
+        catch
+        {
+            Response.Redirect("../Login.aspx", false);
         }
     }
 }

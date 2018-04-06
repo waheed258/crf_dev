@@ -150,9 +150,9 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             if (res > 0)
             {
                 if (btnSubmit.Text == "Update")
-                    message.Text = "Updated Successfully !!";
+                    message.Text = "Settlor details updated successfully!";
                 else
-                    message.Text = "Saved Successfully !!";
+                    message.Text = "Settlor details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                 ClearTrustSettlerControls();
@@ -707,6 +707,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
     #endregion
 
+
     protected void btnSure_Click(object sender, EventArgs e)
     {
         try
@@ -752,5 +753,4 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
     }
 
-   
 }
