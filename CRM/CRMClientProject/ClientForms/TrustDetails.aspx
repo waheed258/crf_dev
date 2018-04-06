@@ -261,8 +261,10 @@
                                                 <label class="control-label">Email Id</label>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Email Id"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
-                                                    ErrorMessage="Enter Email ID"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Enter Email ID" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="trust">
+                                                </asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Website</label>
@@ -273,12 +275,15 @@
                                             </div>
 
                                         </div>
+
+                                       
+
                                     </div>
-                                    <div class="panel-footer" style="border-top: 0px !important;">
-                                        <div class="col-sm-5"></div>
-                                        <asp:Button ID="btnSubmitTrust" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmitTrust_Click" CssClass="btn btn-primary"></asp:Button>
-                                        <asp:Button ID="btnCancleTrust" runat="server" Text="Cancel" OnClick="btnCancleTrust_Click" CssClass="btn btn-danger"></asp:Button>
-                                    </div>
+                                     <div class="panel-footer" style="border-top: 0px !important;">
+                                            <div class="col-sm-5"></div>
+                                            <asp:Button ID="btnSubmitTrust" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmitTrust_Click" CssClass="btn btn-primary"></asp:Button>
+                                            <asp:Button ID="btnCancleTrust" runat="server" Text="Cancel" OnClick="btnCancleTrust_Click" CssClass="btn btn-danger"></asp:Button>
+                                        </div>
 
                                     <div class="panel panel-bd" id="divTrustlist" runat="server">
                                         <div class="panel-heading">
@@ -467,7 +472,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblFullName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblFullName" Text='<%#Eval("TRUSTNAME") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
@@ -597,7 +602,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("TRUSTNAME") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Client Identification #" Visible="false">
@@ -697,14 +702,14 @@
                                                         </div>
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Branch Number</label>
-                                                            <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control" ></asp:TextBox>
+                                                            <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control"></asp:TextBox>
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged" 
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged"
                                                                 AutoPostBack="true"></asp:TextBox>
                                                             <asp:Label ID="lblBankMsg" runat="server" ForeColor="Red"></asp:Label>
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
@@ -780,7 +785,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">House No</label>
                                                     <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
+                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter House Number"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">

@@ -256,13 +256,13 @@
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Enter Email Id" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email Id" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                 <asp:RegularExpressionValidator ID="revEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Valid Email"
-                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Child">
+                                                 <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Valid Email"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Beneficiary">
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Number"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
@@ -335,17 +335,17 @@
                                                                 <asp:Label runat="server" ID="lblBeneficiaryID" Text='<%#Eval("BeneficiaryID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false" >
+                                                        <asp:TemplateField HeaderText="Client Identification #" >
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Registration #">
+                                                        <asp:TemplateField HeaderText="Regestration #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Benificiary Identification #">
+                                                        <asp:TemplateField HeaderText="Identification #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -408,11 +408,7 @@
                                                 </asp:GridView>
                                             </div>
                                         </div>
-
                                     </div>
-
-
-
                                 </div>
                                 <div class="tab-pane fade" id="tabAddress">
 
@@ -467,7 +463,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Beneficiary Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
@@ -601,7 +597,7 @@
                                                     </asp:TemplateField>
                                                       <asp:TemplateField HeaderText="Beneficiary Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
@@ -789,7 +785,7 @@
                                                     <div class="col-sm-4 form-group">
                                                         <label class="control-label">House No</label>
                                                         <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
+                                                        <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter House Number"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
@@ -801,8 +797,7 @@
                                                     <div class="col-sm-4 form-group">
                                                         <label class="control-label">Floor</label>
                                                         <asp:TextBox ID="txtFloor" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvFloor" runat="server" ControlToValidate="txtFloor" Display="Dynamic" ErrorMessage="Enter Floor No"
-                                                            ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                       
                                                     </div>
 
                                                 </div>
@@ -811,8 +806,7 @@
                                                     <div class="col-sm-4 form-group">
                                                         <label class="control-label">Flat No</label>
                                                         <asp:TextBox ID="txtFlatNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvFlatNo" runat="server" ControlToValidate="txtFlatNo" Display="Dynamic" ErrorMessage="Enter Building name"
-                                                            ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                       
                                                     </div>
                                                     <div class="col-sm-4 form-group">
                                                         <label class="control-label">Road Name</label>

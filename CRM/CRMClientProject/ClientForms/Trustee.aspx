@@ -247,8 +247,10 @@
                                                 <label class="control-label">Email Id</label>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Enter Email Id"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
-                                                    ErrorMessage="Enter Email ID"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ErrorMessage="Enter Email ID" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                 <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Valid Email"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="trust">
+                                                </asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
@@ -430,7 +432,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trustee Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblFullName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblFullName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Client Identification #" Visible="false">
@@ -559,7 +561,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trustee Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblTrusteeName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblTrusteeName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %> '></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
@@ -749,7 +751,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">House No</label>
                                                     <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
+                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter House Number"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">

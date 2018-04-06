@@ -229,8 +229,8 @@
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Enter Email Id"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Enter Email Id"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                <asp:RegularExpressionValidator ID="revEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Valid Email"
-                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Child">
+                                                <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please Enter Valid Email"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Settler">
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -290,8 +290,8 @@
 
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvTrustSettler" runat="server" Width="100%"
-                                                    AutoGenerateColumns="False" DataKeyNames="TrustSettlerID" CssClass="rounded-corners"
-                                                    EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
+                                                    AutoGenerateColumns="False" DataKeyNames="TrustSettlerID" CssClass="rounded-corners" OnPageIndexChanging="gvTrustSettler_PageIndexChanging"
+                                                    EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true"  HeaderStyle-BackColor="#e8f1f3"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvTrustSettler_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
@@ -439,15 +439,15 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <%--  <asp:TemplateField HeaderText="Client Identification #">
+                                                      <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>--%>
+                                                    </asp:TemplateField>
 
                                                     <asp:TemplateField HeaderText="Settlor Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblSettlorName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblSettlorName"  Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="HouseNo">
@@ -575,7 +575,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Settlor Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblSettlorName" Text='<%#Eval("FullName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblSettlorName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %> '></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Trust Registration #" Visible="false">
@@ -768,7 +768,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">House No</label>
                                                     <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
+                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter House Number"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
@@ -780,8 +780,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Floor</label>
                                                     <asp:TextBox ID="txtFloor" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvFloor" runat="server" ControlToValidate="txtFloor" Display="Dynamic" ErrorMessage="Enter Floor name"
-                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    
                                                 </div>
 
                                             </div>
@@ -790,8 +789,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Flat No</label>
                                                     <asp:TextBox ID="txtFlatNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvFlatNo" runat="server" ControlToValidate="txtFlatNo" Display="Dynamic" ErrorMessage="Enter Flat No"
-                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                  
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Road Name</label>
