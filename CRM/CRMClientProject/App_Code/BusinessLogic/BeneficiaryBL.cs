@@ -46,8 +46,7 @@ public class BeneficiaryBL:DataUtilities
         return ExecuteDataSet("GetBeneficiary", hsparams);
     }
 
-
-    public DataSet GetBeneficiaryTest(string ReferenceUCID, string SAID) 
+    public DataSet GetBeneficiaryTest(string ReferenceUCID, string SAID)
     {
         Hashtable hsparams = new Hashtable();
 
