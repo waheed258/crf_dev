@@ -9,7 +9,7 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        if (!IsPostBack)
         {
             try
             {
@@ -20,7 +20,14 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
                 else
                 {
                     lblUserName.Text = Session["ClientName"].ToString().ToUpper();
-                    imgProfilePic.ImageUrl = Session["Image"].ToString();
+                    if (Session["Image"] == null)
+                    {
+                        imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
+                    }
+                    else
+                    {
+                        imgProfilePic.ImageUrl = Session["Image"].ToString();
+                    }
                 }
             }
             catch
