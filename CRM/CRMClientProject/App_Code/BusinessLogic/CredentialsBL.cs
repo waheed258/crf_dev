@@ -10,6 +10,7 @@ namespace BusinessLogic
 {
     public class CredentialsBL : DataUtilities
     {
+        DataUtilities dataUtilities = new DataUtilities();
         public int ManageCredentials(CredentialsBO _objCredentials, char Operation)
         {
             Hashtable hsparams = new Hashtable
@@ -27,6 +28,13 @@ namespace BusinessLogic
                
             };
             return ExecuteNonQuery("CredentialsManager", hsparams);
+        }
+        public int InsImage(string Image,string SAID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@Image", Image);
+            hashtable.Add("@SAID", SAID);
+            return dataUtilities.ExecuteNonQuery("InsImageCredentials", hashtable);
         }
     }
 }
