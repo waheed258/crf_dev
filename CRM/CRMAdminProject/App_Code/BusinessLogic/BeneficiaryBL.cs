@@ -46,6 +46,14 @@ public class BeneficiaryBL:DataUtilities
         return ExecuteDataSet("GetBeneficiary", hsparams);
     }
 
+    public DataSet GetBeneficiaryTest(string ReferenceUCID, string SAID)
+    {
+        Hashtable hsparams = new Hashtable();
+
+        hsparams.Add("@inReferenceUIC", ReferenceUCID);
+        hsparams.Add("@inSAID", SAID);
+        return ExecuteDataSet("GetBeneficiaryTest", hsparams);
+    }
 
     public int DeleteBenefaciary(int BeneficiaryID,string SAID)
     {

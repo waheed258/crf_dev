@@ -121,7 +121,7 @@
             });
         });
     </script>
-   
+
     <style type="text/css">
         tr {
             height: 30px;
@@ -150,7 +150,7 @@
             </div>
         </div>
         <!-- Main content -->
-        <div class="content" >
+        <div class="content">
             <div class="row">
                 <!-- Form controls -->
                 <asp:HiddenField ID="TabName" runat="server" />
@@ -161,92 +161,92 @@
                                 <h5>Trust Details</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Trust Details</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabTrust">
-                               
-                                            <div class="panel-body">
-
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Trust Registration Number</label>
-                                                        <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" MaxLength="13" OnTextChanged="txtUIC_TextChanged"
-                                                            placeholder="Trust Registration Number" AutoPostBack="true"></asp:TextBox>
-                                                        <asp:Label ID="lblUICError" runat="server" ForeColor="Red"></asp:Label>
-                                                        <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
-                                                            ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                        <asp:RegularExpressionValidator ID="revtxtUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                                            ControlToValidate="txtUIC" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Trust Name</label>
-                                                        <asp:TextBox ID="txtTrustName" CssClass="form-control" runat="server" placeholder="Trust Name"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvTrustName" runat="server" ControlToValidate="txtTrustName" Display="Dynamic" ErrorMessage="Enter Trust Name"
-                                                            ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Year of Trust Foundation</label>
-                                                        <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
-                                                            ErrorMessage="Enter year of Foundation"
-                                                            ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Tax Reference No</label>
-                                                        <asp:TextBox ID="txtTaxRef" CssClass="form-control" runat="server" placeholder="Tax Reference No"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRef" Display="Dynamic"
-                                                            ErrorMessage="Enter Tax Reference"
-                                                            ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Telephone</label>
-                                                        <asp:TextBox ID="txtTelephone" CssClass="form-control" MaxLength="10" runat="server" placeholder="Telephone"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
-                                                            ErrorMessage="Enter Telephone" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                        <asp:RegularExpressionValidator ID="revtxtTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
-                                                            ControlToValidate="txtTelephone" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Fax</label>
-                                                        <asp:TextBox ID="txtFax" CssClass="form-control" runat="server" MaxLength="10" placeholder="Fax"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="revtxtFax" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
-                                                            ControlToValidate="txtFax" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Email Id</label>
-                                                        <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Email Id"></asp:TextBox>
-                                                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
-                                                            ErrorMessage="Enter Email ID" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                        <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
-                                                            ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="trust">
-                                                        </asp:RegularExpressionValidator>
-                                                    </div>
-                                                    <div class="col-sm-3 form-group">
-                                                        <label class="control-label">Website</label>
-                                                        <asp:TextBox ID="txtWebsite" CssClass="form-control" placeholder="http://www.example.com" runat="server"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="rgvWebsite" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Website Format"
-                                                            ControlToValidate="txtWebsite" ValidationExpression="^((http|https|ftp|www):\/\/)?([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)(\.)([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]+)" ValidationGroup="Company">
-                                                        </asp:RegularExpressionValidator>
-                                                    </div>
-
-                                                </div>
-
-
+                                    <div class="panel-body">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Trust Registration Number</label>
+                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" MaxLength="13" OnTextChanged="txtUIC_TextChanged"
+                                                    placeholder="Trust Registration Number" AutoPostBack="true"></asp:TextBox>
+                                                <asp:Label ID="lblUICError" runat="server" ForeColor="Red"></asp:Label>
+                                                <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                    ControlToValidate="txtUIC" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
                                             </div>
-                                            <div class="panel-footer" style="border-top: 0px !important;">
-                                                <div class="col-sm-5"></div>
-                                                <asp:Button ID="btnSubmitTrust" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmitTrust_Click" CssClass="btn btn-primary"></asp:Button>
-                                                <asp:Button ID="btnCancleTrust" runat="server" Text="Cancel" OnClick="btnCancleTrust_Click" CssClass="btn btn-danger"></asp:Button>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Trust Name</label>
+                                                <asp:TextBox ID="txtTrustName" CssClass="form-control" runat="server" placeholder="Trust Name"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvTrustName" runat="server" ControlToValidate="txtTrustName" Display="Dynamic" ErrorMessage="Enter Trust Name"
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                        
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Year of Trust Foundation</label>
+                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
+                                                    ErrorMessage="Enter year of Foundation"
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Reference No</label>
+                                                <asp:TextBox ID="txtTaxRef" CssClass="form-control" runat="server" placeholder="Tax Reference No"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRef" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference"
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Telephone</label>
+                                                <asp:TextBox ID="txtTelephone" CssClass="form-control" MaxLength="10" runat="server" placeholder="Telephone"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
+                                                    ErrorMessage="Enter Telephone" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtTelephone" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Fax</label>
+                                                <asp:TextBox ID="txtFax" CssClass="form-control" runat="server" MaxLength="10" placeholder="Fax"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="revtxtFax" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtFax" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Email Id</label>
+                                                <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Email Id"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
+                                                    ErrorMessage="Enter Email ID" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="trust">
+                                                </asp:RegularExpressionValidator>
+                                            </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Website</label>
+                                                <asp:TextBox ID="txtWebsite" CssClass="form-control" placeholder="http://www.example.com" runat="server"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="rgvWebsite" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Website Format"
+                                                    ControlToValidate="txtWebsite" ValidationExpression="^((http|https|ftp|www):\/\/)?([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)(\.)([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]+)" ValidationGroup="Company">
+                                                </asp:RegularExpressionValidator>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Document</label>
+                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer" style="border-top: 0px !important;">
+                                        <div class="col-sm-5"></div>
+                                        <asp:Button ID="btnSubmitTrust" runat="server" Text="Save" ValidationGroup="trust" OnClick="btnSubmitTrust_Click" CssClass="btn btn-primary"></asp:Button>
+                                        <asp:Button ID="btnCancleTrust" runat="server" Text="Cancel" OnClick="btnCancleTrust_Click" CssClass="btn btn-danger"></asp:Button>
+                                    </div>
+
                                     <div class="panel panel-bd" id="divTrustlist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
@@ -898,30 +898,30 @@
 
     </div>
 
-     <script type="text/javascript">
-         $(document).ready(function (event) {
-             $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
-                 if (e.keyCode == '9' || e.keyCode == '16') {
-                     return;
-                 }
-                 var code;
-                 if (e.keyCode) code = e.keyCode;
-                 else if (e.which) code = e.which;
-                 if (e.which == 46)
-                     return false;
-                 if (code == 8 || code == 46)
-                     return true;
-                 if (code < 48 || code > 57)
-                     return false;
-             });
-             $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
-                 var val = $(this).val();
-                 if (val != '0') {
-                     val = val.replace(/[^0-9]+/g, "");
-                     $(this).val(val);
-                 }
-             });
-         })
+    <script type="text/javascript">
+        $(document).ready(function (event) {
+            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
+                if (e.keyCode == '9' || e.keyCode == '16') {
+                    return;
+                }
+                var code;
+                if (e.keyCode) code = e.keyCode;
+                else if (e.which) code = e.which;
+                if (e.which == 46)
+                    return false;
+                if (code == 8 || code == 46)
+                    return true;
+                if (code < 48 || code > 57)
+                    return false;
+            });
+            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
+                var val = $(this).val();
+                if (val != '0') {
+                    val = val.replace(/[^0-9]+/g, "");
+                    $(this).val(val);
+                }
+            });
+        })
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -937,14 +937,14 @@
             $('#delete').modal('show', { backdrop: 'static' });
         }
     </script>
-      <script type="text/javascript">
-          $(function () {
-              var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
-              $('#Tabs a[href="#' + tabName + '"]').tab('show');
-              $("#Tabs a").click(function () {
-                  $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-              });
-          });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
 </asp:Content>
 

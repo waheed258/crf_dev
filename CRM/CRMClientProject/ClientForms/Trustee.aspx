@@ -193,6 +193,7 @@
         <div class="content">
             <div class="row">
                 <!-- Form controls -->
+                <asp:HiddenField ID="TabName" runat="server" />
                 <div class="col-sm-12">
                     <div class="panel panel-bd">
                         <div class="panel-heading">
@@ -200,8 +201,7 @@
                                 <h5>Add Trustee</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
-
+                        <div class="panel-body" id="Tabs">
                             <ul class="nav nav-tabs">
                                 <asp:HiddenField ID="hfTrusteeId" runat="server" Value="0" />
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Trustee Details</a></li>
@@ -904,5 +904,14 @@
         </div>
 
     </div>
+       <script type="text/javascript">
+           $(function () {
+               var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+               $('#Tabs a[href="#' + tabName + '"]').tab('show');
+               $("#Tabs a").click(function () {
+                   $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+               });
+           });
+    </script>
 </asp:Content>
 

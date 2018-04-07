@@ -58,7 +58,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     {
                         TabName.Value = "tabAddress";
                     }
-                    else if (Request.Form[TabName.UniqueID].Contains(""))
+                    else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
                     {
                         TabName.Value = "tabBank";
                     }

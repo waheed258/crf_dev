@@ -197,6 +197,7 @@
             </div>
         </div>
         <!-- Main content -->
+        <asp:HiddenField ID="TabName" runat="server" />
         <div class="content">
             <div class="row">
                 <!-- Form controls -->
@@ -207,7 +208,7 @@
                                 <h5>Add Beneficiary</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
 
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Beneficiary Info</a></li>
@@ -904,5 +905,16 @@
             </div>
         </div>
     </div>
+
+     <script type="text/javascript">
+         $(function () {
+             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+             $('#Tabs a[href="#' + tabName + '"]').tab('show');
+             $("#Tabs a").click(function () {
+                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+             });
+         });
+    </script>
+
 </asp:Content>
 

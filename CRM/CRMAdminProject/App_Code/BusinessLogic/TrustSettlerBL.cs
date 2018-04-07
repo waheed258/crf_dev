@@ -44,7 +44,7 @@ public class TrustSettlerBL:DataUtilities
     }
 
 
-    public DataSet GetTrustSettlerTest(string ReferenceUCID, string SAID) 
+    public DataSet GetTrustSettlerTest(string ReferenceUCID, string SAID)
     {
         Hashtable hsparams = new Hashtable();
 
@@ -52,7 +52,6 @@ public class TrustSettlerBL:DataUtilities
         hsparams.Add("@inSAID", SAID);
         return ExecuteDataSet("GetTrustSettlersTest", hsparams);
     }
-
     public int DeleteTrustSettler(int TrustSettlerId, string SAID)
     {
         Hashtable hsparams = new Hashtable();

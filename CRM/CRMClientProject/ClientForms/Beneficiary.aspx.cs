@@ -22,43 +22,76 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     {
         try
         {
-            if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
-                Response.Redirect("../Login.aspx", false);
-            }
-            else
-            {
-                if (!IsPostBack)
-                {
-                    message.ForeColor = System.Drawing.Color.Green;
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPage);
-                    _objComman.getRecordsPerPage(dropAddress);
-                    _objComman.getRecordsPerPage(dropBank);
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
-                    if (!string.IsNullOrEmpty(Request.QueryString["t"]))
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                {
+                    Response.Redirect("../Login.aspx", false);
+                }
+                else
+                {
+
+                    if (!IsPostBack)
                     {
-                        if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                        message.ForeColor = System.Drawing.Color.Green;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(dropAddress);
+                        _objComman.getRecordsPerPage(dropBank);
+
+                        if (!string.IsNullOrEmpty(Request.QueryString["t"]))
                         {
-                            txtUIC.Text = Session["TrustUIC"].ToString();
-                            btnBack.Text = "Back to Trust";
+                            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                            {
+                                txtUIC.Text = Session["TrustUIC"].ToString();
+                                btnBack.Text = "Back to Trust";
+                            }
+                            else
+                            {
+                                txtUIC.Text = Session["CompanyUIC"].ToString();
+                                btnBack.Text = "Back to Company";
+                            }
+                            GetBeneficiaryGrid(txtUIC.Text.Trim());
+                            BindBankDetails();
+                            BindAddressDetails();
                         }
-                        else
-                        {
-                            txtUIC.Text = Session["CompanyUIC"].ToString();
-                            btnBack.Text = "Back to Company";
-                        }
-                        GetBeneficiaryGrid(txtUIC.Text.Trim());
-                        BindBankDetails();
-                        BindAddressDetails();
+                    }
+                }
+
+                if (this.IsPostBack)
+                {
+                    if (Request.Form[TabName.UniqueID].Contains("gvBeneficiary"))
+                    {
+                        TabName.Value = "tabTrust";
+                    }
+
+                    else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                    {
+                        TabName.Value = "tabAddress";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                    {
+                        TabName.Value = "tabBank";
+                    }
+                    else
+                    {
+                        TabName.Value = Request.Form[TabName.UniqueID];
                     }
                 }
             }
 
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
         }
+
         catch
         {
             message.ForeColor = System.Drawing.Color.Red;
