@@ -73,8 +73,8 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             gvTrustSettler.DataSource = null;
             divTrusteeslist.Visible = false;
         }
-        gvTrustSettler.DataBind();
         gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+        gvTrustSettler.DataBind();
     }
 
     private void BindTrustSettler(int TrId)
@@ -214,7 +214,6 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     {
         try
         {
-            GetClientRegistartion();
             ds = _ObjTrustSettlerBL.GetTrustSettlerTest(txtTrustUIC.Text.Trim(), txtSAID.Text.Trim());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -222,7 +221,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 txtSAID.Text = "";
             }
             else
+            {
+                GetClientRegistartion();
                 lblSAIDError.Text = "";
+            }
         }
         catch
         { }
