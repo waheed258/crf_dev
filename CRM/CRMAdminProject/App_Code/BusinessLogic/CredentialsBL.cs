@@ -27,5 +27,14 @@ namespace BusinessLogic
             };
             return ExecuteNonQuery("CredentialsManager", hsparams);
         }
+
+        public int InsImage(string Image, string SAID)
+        {
+            DataUtilities dataUtilities = new DataUtilities();
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@Image", Image);
+            hashtable.Add("@SAID", SAID);
+            return dataUtilities.ExecuteNonQuery("InsImageCredentials", hashtable);
+        }
     }
 }

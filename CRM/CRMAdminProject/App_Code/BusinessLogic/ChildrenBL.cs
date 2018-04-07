@@ -50,10 +50,11 @@ namespace BusinessLogic
 
         }
 
-        public DataSet GetAllChilds(string RSAID)
+        public DataSet GetAllChilds(string RSAID, string SAID)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@ReferenceSAID", RSAID);
+            hashtable.Add("@SAID", SAID);
             DataSet ds = dataUtilities.ExecuteDataSet("GetChildDetails", hashtable);
             return ds;
         }

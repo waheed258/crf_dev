@@ -5,7 +5,7 @@
 
     <script type="text/javascript">
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -19,16 +19,135 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtCurrency").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
                     $(this).val(val);
                 }
             });
-
-
         })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvCompany]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvCompany]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvCompany]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvCompany]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#targetBank").keyup(function () {
+                if ($("[id *=targetBank]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvBankDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvBankDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvBankDetails]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvBankDetails]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#targetAddress").keyup(function () {
+                if ($("[id *=targetAddress]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAddressDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAddressDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetAddress]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvAddressDetails]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAddressDetails]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -63,6 +182,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:ScriptManager ID="scriptmanager" runat="server"></asp:ScriptManager>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -71,6 +191,7 @@
             </div>
         </div>
         <!-- Main content -->
+        <asp:HiddenField ID="TabName" runat="server" />
         <div class="content">
             <div class="row">
                 <!-- Form controls -->
@@ -81,11 +202,11 @@
                                 <h5>Add Company</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab1" data-toggle="tab">Company Information</a></li>
-                                <li><a href="#tab2" data-toggle="tab">Bank Details</a></li>
                                 <li><a href="#tab3" data-toggle="tab">Address Details</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Bank Details</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tab1">
@@ -93,7 +214,8 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Registration Number</label>
-                                                <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13"></asp:TextBox>
+                                                <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13" AutoPostBack="true" OnTextChanged="txtCompanyUIC_TextChanged"></asp:TextBox>
+                                                <asp:Label ID="msgUIC" runat="server" class="control-label" Style="color: red" />
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtCompanyUIC" Display="Dynamic" ErrorMessage="Enter Registration Number"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
@@ -162,14 +284,37 @@
                                             </div>
                                         </div>
                                         <div class="panel-body">
+                                            <div class="row" id="search" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="DropPage" runat="server"
+                                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvCompany" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="CompanyID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnPageIndexChanging="gvCompany_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Company ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCompanyID" Text='<%#Eval("CompanyID") %>'></asp:Label>
@@ -254,20 +399,38 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="panel panel-bd" id="divBankDetails" runat="server">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                <h5>List of Banks</h5>
-                                            </div>
-                                        </div>
                                         <div class="panel-body">
-                                            <div class="table-responsive">
+                                            <div class="row" id="searchbank" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="dropBank" runat="server"
+                                                            OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="targetBank" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" style="margin-top: 10px;">
                                                 <asp:GridView ID="gvBankDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display. Please add bank details."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvBankDetails_RowEditing"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvBankDetails_RowEditing" OnPageIndexChanging="gvBankDetails_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDeleting="gvBankDetails_RowDeleting" OnRowCommand="gvBankDetails_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblBankDetailID" Text='<%#Eval("BankDetailID") %>'></asp:Label>
@@ -278,7 +441,12 @@
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Company Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("COMPANYNAME") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -343,20 +511,38 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab3">
                                     <div class="panel panel-bd" id="divAddressDetails" runat="server">
-                                        <div class="panel-heading">
-                                            <div class="panel-title">
-                                                <h5>List of Addresses</h5>
-                                            </div>
-                                        </div>
                                         <div class="panel-body">
-                                            <div class="table-responsive">
+                                            <div class="row" id="searchaddress" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="dropAddress" runat="server"
+                                                            OnSelectedIndexChanged="dropAddress_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="targetAddress" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" style="margin-top: 10px;">
                                                 <asp:GridView ID="gvAddressDetails" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" OnRowDeleting="gvAddressDetails_RowDeleting"
                                                     EmptyDataText="There are no data records to display. Please add address details."
-                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAddressDetails_RowEditing"
+                                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAddressDetails_RowEditing" OnPageIndexChanging="gvAddressDetails_PageIndexChanging"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAddressDetails_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblAddressDetailID" Text='<%#Eval("AddressDetailID") %>'></asp:Label>
@@ -367,7 +553,12 @@
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client SAID">
+                                                        <asp:TemplateField HeaderText="Company Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Client SAID" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -522,53 +713,70 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <div class="col-md-12 form-group user-form-group">
-                                        <div class="panel-body">
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Bank Name</label>
-                                                    <asp:TextBox ID="txtBankName" runat="server" class="form-control" placeholder="Bank Name"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvBankName" runat="server" ControlToValidate="txtBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Branch Number</label>
-                                                    <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control" placeholder="Branch Number"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvBranchNumber" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
+                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                        <ContentTemplate>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Company Reg No.</label>
+                                                            <asp:TextBox ID="txtCompanyUICBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
 
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Account Number</label>
-                                                    <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
+                                                        </div>
+                                                        <div class="col-sm-8 form-group">
+                                                            <label class="control-label">Company Name</label>
+                                                            <asp:TextBox ID="txtCompanyNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
 
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Bank Name</label>
+                                                            <asp:TextBox ID="txtBankName" runat="server" class="form-control" placeholder="Bank Name"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvBankName" runat="server" ControlToValidate="txtBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Branch Number</label>
+                                                            <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control" placeholder="Branch Number"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvBranchNumber" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Account Number</label>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number" AutoPostBack="true" OnTextChanged="txtAccountNumber_TextChanged"></asp:TextBox>
+                                                            <asp:Label ID="msgAccountNum" runat="server" class="control-label" Style="color: red" />
+                                                            <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Account Type</label>
+                                                            <asp:DropDownList ID="ddlAccountType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                                            <asp:RequiredFieldValidator ID="rfvAccountType" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic" ErrorMessage="Please select Account Type"
+                                                                ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Currency</label>
+                                                            <asp:TextBox ID="txtCurrency" runat="server" class="form-control" placeholder="Currency"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Swift</label>
+                                                            <asp:TextBox ID="txtSwift" runat="server" class="form-control" placeholder="Swift"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Account Type</label>
-                                                    <asp:DropDownList ID="ddlAccountType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                                                    <asp:RequiredFieldValidator ID="rfvAccountType" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic" ErrorMessage="Please select Account Type"
-                                                        ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Currency</label>
-                                                    <asp:TextBox ID="txtCurrency" runat="server" class="form-control" placeholder="Currency"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Swift</label>
-                                                    <asp:TextBox ID="txtSwift" runat="server" class="form-control" placeholder="Swift"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </fieldset>
                             </div>
                         </div>
@@ -596,6 +804,17 @@
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Company Reg No.</label>
+                                                    <asp:TextBox ID="txtAddrUIC" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+
+                                                </div>
+                                                <div class="col-sm-8 form-group">
+                                                    <label class="control-label">Company Name</label>
+                                                    <asp:TextBox ID="txtAddrCompanyName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Plot No</label>
@@ -690,5 +909,13 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
+    </script>
 </asp:Content>
-

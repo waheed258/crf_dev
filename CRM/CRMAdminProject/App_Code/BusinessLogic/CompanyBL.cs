@@ -39,11 +39,12 @@ public class CompanyBL
         return result;
     }
 
-    public DataSet GetCompanyList(string SAID)
+    public DataSet GetCompanyList(string SAID, string UIC)
     {
         var newLead = new List<CompanyInfoEntity>();
         Hashtable hashtable = new Hashtable();
         hashtable.Add("@ReferenceSAID", SAID);
+        hashtable.Add("@UIC", UIC);
         DataSet ds = dataUtilities.ExecuteDataSet("GetCompanyInfo", hashtable);
         return ds;
     }

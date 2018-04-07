@@ -65,6 +65,14 @@ namespace BusinessLogic
             int result = dataUtilities.ExecuteNonQuery("usp_DeleteBankDetails", hashtable);
             return result;
         }
+
+        public DataSet CheckAccountNum(string AccountNumber)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@AccountNumber", AccountNumber);
+            DataSet ds = dataUtilities.ExecuteDataSet("CheckAccountNum", hashtable);
+            return ds;
+        }
     }
 
 }

@@ -42,10 +42,11 @@ namespace BusinessLogic
             int result = dataUtilities.ExecuteNonQuery("SpouseCRUD", hashtable);
             return result;
         }
-        public DataSet GetAllSpouse(string RefSAID)
+        public DataSet GetAllSpouse(string RefSAID, string SAID)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@ReferenceSAID", RefSAID);
+            hashtable.Add("@spouseSAID", SAID);
             return dataUtilities.ExecuteDataSet("GetSpouse", hashtable);
         }
        
