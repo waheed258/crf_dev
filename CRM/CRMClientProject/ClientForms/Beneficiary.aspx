@@ -235,6 +235,8 @@
                                                 <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                    ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>

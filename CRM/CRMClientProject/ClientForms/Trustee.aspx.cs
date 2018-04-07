@@ -61,6 +61,11 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     /// <param name="UIC"></param>
     #region Trustee Details
 
+    protected void gvTrustee_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvTrustee.PageIndex = e.NewPageIndex;
+        GetTrusteeGrid(txtUIC.Text.Trim());
+    }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetTrusteeGrid(txtUIC.Text.Trim());
@@ -743,4 +748,5 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
     }
 
+   
 }
