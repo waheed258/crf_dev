@@ -129,6 +129,7 @@
             </div>
         </div>
         <!-- Main content -->
+        <asp:HiddenField ID="TabName" runat="server" />
         <div class="content">
             <div style="text-align: center; margin-bottom: 10px;">
                 <asp:Label ID="lblMessage" runat="server" Style="color: #006341; font-weight: bold; text-align: center"></asp:Label>
@@ -143,7 +144,7 @@
                                 <h5>Add Client Personal</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
                             <div style="text-align: right">
                                 <asp:LinkButton ID="LinkButton2" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton2_Click">
                                     <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Address Info
@@ -225,20 +226,24 @@
                                     <div class="panel-body">
                                         <div class="row" id="searchaddress" runat="server">
                                             <div class="col-lg-12">
-                                                <div class="col-lg-4" style="margin-top: 15px">
-                                                    <asp:DropDownList ID="DropPageAddress" runat="server"
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="DropPageAddress" runat="server" CssClass="form-control"
                                                         OnSelectedIndexChanged="DropPageAddress_SelectedIndexChanged"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
-                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                <div class="col-lg-6"></div>
+
+                                                <div class="col-lg-3">
                                                     <input id="target2" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table-responsive" style="margin-top: 10px">
+                                        <div class="table-responsive">
                                             <asp:GridView ID="gvAddressDetails" runat="server" Width="100%" OnPageIndexChanging="gvAddressDetails_PageIndexChanging"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners" OnRowDeleting="gvAddressDetails_RowDeleting"
                                                 EmptyDataText="There are no data records to display. Please add address details."
@@ -344,20 +349,23 @@
                                     <div class="panel-body">
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
-                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                <div class="col-lg-1 form-group">
                                                     <asp:DropDownList ID="DropPageBank" runat="server"
-                                                        OnSelectedIndexChanged="DropPageBank_SelectedIndexChanged"
+                                                        OnSelectedIndexChanged="DropPageBank_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
-                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3">
                                                     <input id="target1" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table-responsive" style="margin-top: 10px">
+                                        <div class="table-responsive">
                                             <asp:GridView ID="gvBankDetails" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
                                                 EmptyDataText="There are no data records to display. Please add bank details." OnPageIndexChanging="gvBankDetails_PageIndexChanging"
@@ -526,7 +534,7 @@
                                                     <asp:TextBox ID="txtIDNo" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                 </div>
                                                 <div class="col-sm-8 form-group">
-                                                    <label class="control-label">Spouse Name</label>
+                                                    <label class="control-label">Client Name</label>
                                                     <asp:TextBox ID="txtAddressClientName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -643,7 +651,7 @@
 
                                                 </div>
                                                 <div class="col-sm-8 form-group">
-                                                    <label class="control-label">Spouse Name</label>
+                                                    <label class="control-label">Client Name</label>
                                                     <asp:TextBox ID="txtClientNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -730,6 +738,15 @@
                 val = val.replace(/[^0-9]+/g, "");
                 $(this).val(val);
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
         });
     </script>
 </asp:Content>

@@ -22,34 +22,63 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     CredentialsBL credentialsBL = new CredentialsBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
-                ViewState["ps"] = 5;
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
                 }
                 else
                 {
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPageBank);
-                    _objComman.getRecordsPerPage(DropPageAddress);
-                    GetClientPersonal();
-                    GetBankDetails();
-                    GetAddressDetails();
+                    if (!IsPostBack)
+                    {
+                        ViewState["ps"] = 5;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPageBank);
+                        _objComman.getRecordsPerPage(DropPageAddress);
+                        GetClientPersonal();
+                        GetBankDetails();
+                        GetAddressDetails();
+                    }
                 }
+
+                if (this.IsPostBack)
+                {
+                    if (Request.Form[TabName.UniqueID].Contains("gvAddressDetails"))
+                    {
+                        TabName.Value = "tabAddress";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvBankDetails"))
+                    {
+                        TabName.Value = "tabBank";
+                    }
+                    else
+                    {
+                        TabName.Value = Request.Form[TabName.UniqueID];
+                    }
+                }
+
             }
-            catch
+            if (strPreviousPage == "")
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Response.Redirect("~/Login.aspx");
             }
+
+
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void GetClientRegistartion()
@@ -306,6 +335,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     btnBankSubmit.Visible = false;
                     btnUpdateBank.Visible = true;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                    txtSAIDBank.Text = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
                     txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
                     txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
                     txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
