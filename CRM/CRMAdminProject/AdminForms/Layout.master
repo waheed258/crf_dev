@@ -141,6 +141,7 @@
                                 <li><a href="ClientList.aspx">Registered Clients</a></li>
                                 <li><a href="#">Location Wise</a></li>
                                 <li><a href="ClientRegistrationForm.aspx">Client Registration Form</a></li>
+                                <li><a href="ActiveClientList.aspx">Active Clients</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
