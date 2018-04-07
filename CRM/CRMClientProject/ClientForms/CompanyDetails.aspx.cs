@@ -22,29 +22,57 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            if (Session["SAID"] != null)
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
-                if (!IsPostBack)
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+                if (Session["SAID"] != null)
                 {
-                    ViewState["ps"] = 5;
-                    GetGridData();
-                    GetBankDetails();
-                    GetAddressDetails();
-                    btnUpdateCompany.Visible = false;
-                    btnUpdateBank.Visible = false;
-                    btnUpdateAddress.Visible = false;                   
-                    commonClass.GetAccountType(ddlAccountType);
-                    commonClass.GetCity(ddlCity);
-                    commonClass.GetCountry(ddlCountry);
-                    commonClass.GetProvince(ddlProvince);
-                    commonClass.getRecordsPerPage(DropPage);
-                    commonClass.getRecordsPerPage(dropBank);
-                    commonClass.getRecordsPerPage(dropAddress);
+                    if (!IsPostBack)
+                    {
+                        ViewState["ps"] = 5;
+                        GetGridData();
+                        GetBankDetails();
+                        GetAddressDetails();
+                        btnUpdateCompany.Visible = false;
+                        btnUpdateBank.Visible = false;
+                        btnUpdateAddress.Visible = false;
+                        commonClass.GetAccountType(ddlAccountType);
+                        commonClass.GetCity(ddlCity);
+                        commonClass.GetCountry(ddlCountry);
+                        commonClass.GetProvince(ddlProvince);
+                        commonClass.getRecordsPerPage(DropPage);
+                        commonClass.getRecordsPerPage(dropBank);
+                        commonClass.getRecordsPerPage(dropAddress);
+                    }
+                    if (this.IsPostBack)
+                    {
+                        if (Request.Form[TabName.UniqueID].Contains("gvCompany"))
+                        {
+                            TabName.Value = "tab1";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvBankDetails"))
+                        {
+                            TabName.Value = "tab2";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvAddressDetails"))
+                        {
+                            TabName.Value = "tab3";
+                        }
+                        else
+                        {
+                            TabName.Value = Request.Form[TabName.UniqueID];
+                        }
+                    }
+                }
+                else
+                {
+                    Response.Redirect("../Login.aspx");
                 }
             }
-            else
+            if (strPreviousPage == "")
             {
-                Response.Redirect("../Login.aspx");
+                Response.Redirect("~/Login.aspx");
             }
         }
         catch
@@ -60,10 +88,10 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         try
         {
             gvCompany.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = companyBL.GetCompanyList(Session["SAID"].ToString(),"");
+            dataset = companyBL.GetCompanyList(Session["SAID"].ToString(), "");
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                gvCompany.DataSource = dataset;               
+                gvCompany.DataSource = dataset;
                 gvCompany.DataBind();
                 companylist.Visible = true;
             }
@@ -72,7 +100,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 companylist.Visible = false;
             }
         }
-        catch 
+        catch
         {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
@@ -97,7 +125,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             gvBankDetails.DataBind();
 
         }
-        catch 
+        catch
         {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
@@ -122,7 +150,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             gvAddressDetails.DataSource = dataset;
             gvAddressDetails.DataBind();
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -157,7 +186,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 Clear();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -179,7 +209,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         Response.Redirect("Dashboard.aspx");
     }
-  
+
     protected void gvCompany_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -241,7 +271,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 }
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -282,7 +313,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 Clear();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -306,7 +338,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-           
+
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'i');
             if (result == 1)
             {
@@ -321,7 +353,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 ClearBank();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -360,7 +393,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.PostalCode = txtPostalCode.Text;
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
-            
+
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
 
@@ -379,11 +412,12 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 ClearAddress();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            ClearAddress(); 
+            ClearAddress();
         }
     }
 
@@ -460,7 +494,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             bankInfoEntity.CreatedBy = 0;
             bankInfoEntity.AdvisorID = 0;
             bankInfoEntity.UpdatedBy = 0;
-            
+
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'u');
             if (result == 1)
             {
@@ -476,7 +510,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 GetBankDetails();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -504,7 +539,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.PostalCode = txtPostalCode.Text;
             addressEntity.AdvisorId = 0;
             addressEntity.Status = 1;
-            
+
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
 
@@ -523,7 +558,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 ClearAddress();
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -573,7 +609,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 }
             }
         }
-        catch {
+        catch
+        {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -619,7 +656,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
- 
+
     protected void gvBankDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
 
@@ -629,14 +666,14 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
 
     }
 
-  
+
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
         {
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             GetGridData();
-           
+
         }
         catch
         {

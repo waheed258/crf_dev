@@ -192,6 +192,7 @@
             </div>
         </div>
         <!-- Main content -->
+        <asp:HiddenField ID="TabName" runat="server" />
         <div class="content">
             <div class="row">
                 <!-- Form controls -->
@@ -202,7 +203,7 @@
                                 <h5>Add Spouse</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tab1" data-toggle="tab">Spouse Information</a></li>
@@ -299,24 +300,25 @@
                                                 <h5>Spouse List</h5>
                                             </div>
                                         </div>
-                                        <div class="row" id="search" runat="server">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-4" style="margin-top: 15px">
-                                                    <asp:DropDownList ID="DropPage" runat="server"
-                                                        OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
-                                                        AutoPostBack="true">
-                                                    </asp:DropDownList>
-                                                    <label class="control-label">
-                                                        Records per page</label>
+                                        <div class="panel-body">
+                                            <div class="row" id="search" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="DropPage" runat="server"
+                                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged" CssClass="form-control"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-3" style="margin-top: 10px">
-                                                    <input id="target" type="text" class="form-control" placeholder="Text To Search" />
-                                                </div>
-
                                             </div>
-                                        </div>
-
-                                        <div class="panel-body" style="margin-top: 10px">
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvSpouse" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="SpouseID" CssClass="rounded-corners" OnPageIndexChanging="gvSpouse_PageIndexChanging"
@@ -427,20 +429,23 @@
                                     <div class="panel-body">
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
-                                                <div class="col-lg-4" style="margin-top: 15px">
+                                                <div class="col-lg-1 form-group">
                                                     <asp:DropDownList ID="dropPage2" runat="server"
-                                                        OnSelectedIndexChanged="dropPage2_SelectedIndexChanged"
+                                                        OnSelectedIndexChanged="dropPage2_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
-                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3">
                                                     <input id="target1" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table-responsive" style="margin-top: 10px">
+                                        <div class="table-responsive">
 
                                             <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners"
@@ -529,22 +534,24 @@
                                     <div class="panel-body">
                                         <div class="row" id="searchaddress" runat="server">
                                             <div class="col-lg-12">
-                                                <div class="col-lg-4" style="margin-top: 15px">
-                                                    <asp:DropDownList ID="DropPage1" runat="server"
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="DropPage1" runat="server" CssClass="form-control"
                                                         OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
                                                     <label class="control-label">
                                                         Records per page</label>
-
                                                 </div>
-
-                                                <div class="col-lg-3" style="margin-top: 10px">
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3">
                                                     <input id="target2" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
+
                                             </div>
                                         </div>
-                                        <div class="table-responsive" style="margin-top: 10px">
+                                        <div class="table-responsive">
                                             <asp:GridView ID="gvAddress" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="AddressDetailID" CssClass="rounded-corners"
                                                 EmptyDataText="There are no data records to display." OnPageIndexChanging="gvAddress_PageIndexChanging"
@@ -931,5 +938,14 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
+    </script>
 </asp:Content>
 

@@ -21,38 +21,67 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     BasicDropdownBL basicDropdownBL = new BasicDropdownBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
                 }
                 else
                 {
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPage);
-                    _objComman.getRecordsPerPage(DropPage1);
-                    _objComman.getRecordsPerPage(dropPage2);
-                    ViewState["ps"] = 5;
-                    BindSpouseDetails();
-                    btnUpdateSpouse.Visible = false;
-                    BindAddressDetails();
-                    BindBankDetails();
-                }
+                    if (!IsPostBack)
+                    {
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(DropPage1);
+                        _objComman.getRecordsPerPage(dropPage2);
+                        ViewState["ps"] = 5;
+                        BindSpouseDetails();
+                        btnUpdateSpouse.Visible = false;
+                        BindAddressDetails();
+                        BindBankDetails();
+                    }
+                    if (this.IsPostBack)
+                    {
+                        if (Request.Form[TabName.UniqueID].Contains("gvSpouse"))
+                        {
+                            TabName.Value = "tab1";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                        {
+                            TabName.Value = "tab2";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                        {
+                            TabName.Value = "tab3";
+                        }
+                        else
+                        {
+                            TabName.Value = Request.Form[TabName.UniqueID];
+                        }
+                    }
+                }                
             }
-            catch
+            if (strPreviousPage == "")
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Response.Redirect("~/Login.aspx");
             }
         }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
+
 
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {
