@@ -16,15 +16,41 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     AdvisorEntity advisorentity = new AdvisorEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetGridData();
-            editSection.Visible = false;
-            GetDesignation();
-            GetBranch();
-            GetAdvisorType();
-            GetStatus();
-            GetRole();
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        GetGridData();
+                        editSection.Visible = false;
+                        GetDesignation();
+                        GetBranch();
+                        GetAdvisorType();
+                        GetStatus();
+                        GetRole();
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetGridData()
@@ -43,7 +69,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     {
         try
         {
-            
+
             int RowIndex = e.NewEditIndex;
             ViewState["AdvisorID"] = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblAdvisorID")).Text.ToString();
             txtFirstName.Text = ((Label)gvAdvisor.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
@@ -173,6 +199,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
             if (result == 1)
             {
+                message.Text = "Advisor Updated Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 sectionAdvisorList.Visible = true;
                 editSection.Visible = false;
@@ -209,5 +236,5 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     {
         sectionAdvisorList.Visible = true;
         editSection.Visible = false;
-    }    
+    }
 }

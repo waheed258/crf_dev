@@ -16,13 +16,39 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
     AdvisorEntity advisorentity = new AdvisorEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetDesignation();
-            GetBranch();
-            GetAdvisorType();
-            GetStatus();
-            GetRole();
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        GetDesignation();
+                        GetBranch();
+                        GetAdvisorType();
+                        GetStatus();
+                        GetRole();
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetDesignation()
@@ -123,16 +149,18 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             advisorentity.AdvisorSAID = txtSAId.Text.Trim();
 
-          
+
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'i');
             if (result == 1)
             {
+                message.Text = "Advisor Added Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
             else
             {
-
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
         }

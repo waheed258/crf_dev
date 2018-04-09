@@ -31,7 +31,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
 
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../ClientLogin.aspx", false);
                 }
                 else
                 {
@@ -69,7 +69,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/ClientLogin.aspx");
             }
 
 

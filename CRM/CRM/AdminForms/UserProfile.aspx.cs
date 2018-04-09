@@ -11,18 +11,44 @@ using System.IO;
 public partial class AdminForms_UserProfile : System.Web.UI.Page
 {
     DataSet dataset = new DataSet();
-    NewAdvisorBL newAdvisorBL = new NewAdvisorBL();   
+    NewAdvisorBL newAdvisorBL = new NewAdvisorBL();
     AdvisorEntity advisorentity = new AdvisorEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        try
         {
-            GetAdvisor();
-            GetDesignation();
-            GetBranch();
-            GetAdvisorType();
-            GetStatus();
-            GetRole();
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        GetAdvisor();
+                        GetDesignation();
+                        GetBranch();
+                        GetAdvisorType();
+                        GetStatus();
+                        GetRole();
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -32,7 +58,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
         {
             int AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
             dataset = newAdvisorBL.GetAdvisor(AdvisorId);
-            if(dataset.Tables.Count >0)
+            if (dataset.Tables.Count > 0)
             {
                 txtSAId.Text = dataset.Tables[0].Rows[0]["AdvisorSAID"].ToString();
                 txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
@@ -48,13 +74,13 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                 ddlStatus.SelectedValue = dataset.Tables[0].Rows[0]["Status"].ToString();
                 ddlRole.SelectedValue = dataset.Tables[0].Rows[0]["AdvisorRole"].ToString();
                 hfImage.Value = dataset.Tables[0].Rows[0]["Image"].ToString();
-                
-                
-                
-               
+
+
+
+
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -148,8 +174,8 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             string fileNamemain = string.Empty;
             if (fuImageUpload.HasFile)
             {
-               
-                fuImageUpload.SaveAs(Server.MapPath("~/AdvisorImages/" +txtSAId.Text+ this.fuImageUpload.FileName));
+
+                fuImageUpload.SaveAs(Server.MapPath("~/AdvisorImages/" + txtSAId.Text + this.fuImageUpload.FileName));
                 fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                 advisorentity.Image = "~/AdvisorImages/" + txtSAId.Text + fileName;
             }
@@ -169,7 +195,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             //advisorentity.Image = hfImage.Value;
             //need to initialize with login advisor id
-            
+
             advisorentity.UpdatedBy = 0;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
             if (result == 1)
@@ -179,15 +205,21 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                     Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
                     lblImg.ImageUrl = "~/AdvisorImages/" + txtSAId.Text + fileName;
                 }
-              
+                message.Text = "Advisor Updated Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
             }
-
+            else
+            {
+                message.Text = "Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
         catch (Exception ex)
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btncancel_Click(object sender, EventArgs e)

@@ -18,14 +18,40 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
     CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        try
         {
-            ViewState["ps"] = 5;
-            _objComman.GetCountry(ddlCountry);
-            _objComman.GetProvince(ddlProvince);
-            _objComman.GetCity(ddlCity);
-            btnUpdate.Visible = false;
-            BindLocation();
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        ViewState["ps"] = 5;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        btnUpdate.Visible = false;
+                        BindLocation();
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -52,7 +78,7 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             locationEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             locationEntity.CreatedBy = 0;
 
-            int result = locationBL.LocationCRUD(locationEntity,'i');
+            int result = locationBL.LocationCRUD(locationEntity, 'i');
             if (result == 1)
             {
                 message.Text = "Location details saved successfully!";
@@ -65,10 +91,10 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             {
                 message.Text = "Please try again!";
                 Clear();
-                
+
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -81,12 +107,12 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             gvLocation.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = locationBL.GetLocation();
             if (dataset.Tables[0].Rows.Count > 0)
-            {               
+            {
                 gvLocation.DataSource = dataset;
                 gvLocation.DataBind();
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
@@ -109,11 +135,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
         txtRoadNum.Text = "";
         txtSuburbName.Text = "";
         txtPostalCode.Text = "";
-        ddlCity.SelectedValue="-1";
-        ddlProvince.SelectedValue="-1";
+        ddlCity.SelectedValue = "-1";
+        ddlProvince.SelectedValue = "-1";
         ddlCountry.SelectedValue = "-1";
 
-       
+
     }
 
     protected void GetCountry()
@@ -256,7 +282,7 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
     {
 
     }
-   
+
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
@@ -280,7 +306,7 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }

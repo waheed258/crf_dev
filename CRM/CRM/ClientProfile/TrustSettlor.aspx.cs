@@ -18,7 +18,6 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-
         try
         {
             string strPreviousPage = "";
@@ -28,7 +27,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 
                 if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../AdminLogin.aspx", false);
                 }
                 else
                 {
@@ -74,7 +73,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/AdminLogin.aspx");
             }
 
         }

@@ -324,8 +324,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <div class="col-md-12 form-group user-form-group">
-                                        <label class="control-label" style="color: green">Advisor Updated Successfully!</label>
+                                    <div class="col-md-12 form-group user-form-group">                                     
+                                        <asp:Label ID="message" runat="server" CssClass="control-label" style="color: green"></asp:Label>
                                     </div>
                                 </fieldset>
                             </div>

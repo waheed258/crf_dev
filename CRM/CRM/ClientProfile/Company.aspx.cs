@@ -66,12 +66,12 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Redirect("../Login.aspx");
+                    Response.Redirect("../AdminLogin.aspx");
                 }
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/AdminLogin.aspx");
             }
         }
         catch

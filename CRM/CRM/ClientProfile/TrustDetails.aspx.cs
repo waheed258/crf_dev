@@ -27,7 +27,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
                 if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../AdminLogin.aspx", false);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/AdminLogin.aspx");
             }
 
         }

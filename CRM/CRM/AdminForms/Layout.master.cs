@@ -15,7 +15,7 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
             {
                 if (Session["Name"] == null || Session["Name"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../AdminLogin.aspx", false);
                 }
                 else
                 {
@@ -32,7 +32,7 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
             }
             catch
             {
-                Response.Redirect("../Login.aspx", false);
+                Response.Redirect("../AdminLogin.aspx", false);
             }
         }
     }

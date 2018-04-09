@@ -67,12 +67,12 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Redirect("../Login.aspx");
+                    Response.Redirect("../ClientLogin.aspx");
                 }
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/ClientLogin.aspx");
             }
         }
         catch

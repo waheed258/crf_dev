@@ -20,11 +20,35 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetServiceRequest();
-            GetServiceRequestdetails();
-
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+                if (Session["SAID"] != null)
+                {
+                    if (!IsPostBack)
+                    {
+                        GetServiceRequest();
+                        GetServiceRequestdetails();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("../ClientLogin.aspx");
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/ClientLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -61,13 +85,13 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["Serviceflag"]) == 1)
             {
 
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');               
+                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
                 message.Text = "ServiceRequest updated Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
             else
             {
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');                
+                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
                 message.Text = "New Service Request created Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }

@@ -15,15 +15,39 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
     FeedbackEntity feedbackEntity = new FeedbackEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetGridData();
-            sectionClientList.Visible = true;
-            editSection.Visible = false;
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        GetGridData();
+                        sectionClientList.Visible = true;
+                        editSection.Visible = false;
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-
     protected void GetGridData()
     {
         try
@@ -126,7 +150,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                 Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 string url = "../ClientProfile/ClientPersonal.aspx";
                 string s = "window.open('" + url + "', '_blank');";
-                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);                
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }

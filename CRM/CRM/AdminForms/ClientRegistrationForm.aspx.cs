@@ -13,7 +13,29 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
+        try
+        {
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            lblMessage.ForeColor = System.Drawing.Color.Red;
+            lblMessage.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnRegistration_Click(object sender, EventArgs e)
     {
@@ -22,7 +44,7 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
             int res = newClientRegistrationBL.CheckClient(txtEmailId.Text, txtSAID.Text);
             if (res == 1)
             {
-                lblMessage.Text = "Client already exists. Please Login with existing credentials!s";
+                lblMessage.Text = "Client already exists!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
@@ -43,7 +65,7 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
                 if (result == 1)
                 {
 
-                    lblMessage.Text = "You Registered Successfully. One of our Avisors will contact you soon!";
+                    lblMessage.Text = "Client Registered Successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }

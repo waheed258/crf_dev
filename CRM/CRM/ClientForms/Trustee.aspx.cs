@@ -27,7 +27,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../ClientLogin.aspx", false);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             }
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/ClientLogin.aspx");
             }
         }
         catch

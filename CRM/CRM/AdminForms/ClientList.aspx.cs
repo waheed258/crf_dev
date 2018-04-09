@@ -15,14 +15,40 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     FeedbackEntity feedbackEntity = new FeedbackEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            GetGridData();
-            sectionClientList.Visible = true;
-            editSection.Visible = false;
-            statusSection.Visible = false;
-            validateSection.Visible = false;
-            ClientFeedbackSection.Visible = false;
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        GetGridData();
+                        sectionClientList.Visible = true;
+                        editSection.Visible = false;
+                        statusSection.Visible = false;
+                        validateSection.Visible = false;
+                        ClientFeedbackSection.Visible = false;
+                    }
+                }
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetGridData()
@@ -144,7 +170,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 else
                 {
                     message.Text = "Something went wron please try again!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);                    
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
             }
             else
@@ -297,7 +323,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         string MailFrom = "active8crm.sa@gmail.com";
         string DisplayNameFrom = "Active8 CRM";
         string FromPassword = "Active@321#";
-        string MailTo = "saikishore.addada@dinoosys.com" ;
+        string MailTo = "saikishore.addada@dinoosys.com";
         string DisplayNameTo = "";
         string MailCc = "";
         string DisplayNameCc = "";
@@ -348,7 +374,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             else
             {
                 message.Text = "Something went wron please try again!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);                
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
         catch { }
@@ -364,8 +390,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     protected void btnSaveFeedback_Click(object sender, EventArgs e)
     {
         try
-        {                       
-            clientRegEntity.SAID = ViewState["SAID"].ToString();  
+        {
+            clientRegEntity.SAID = ViewState["SAID"].ToString();
             feedbackEntity.ClientFeedBack = txtClientFeedback.Text;
             int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'C');
             if (result > 0)

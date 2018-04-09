@@ -22,7 +22,7 @@ public partial class Registration : System.Web.UI.Page
             int res = newClientRegistrationBL.CheckClient(txtEmailId.Text, txtSAID.Text);
             if (res == 1)
             {
-                lblMessage.Text = "Client already exists. Please Login with existing credentials!s";
+                lblMessage.Text = "Client already exists. Please Login with existing credentials!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }

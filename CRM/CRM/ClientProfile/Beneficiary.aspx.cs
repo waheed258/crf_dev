@@ -29,7 +29,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
                 if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
                 {
-                    Response.Redirect("../Login.aspx", false);
+                    Response.Redirect("../AdminLogin.aspx", false);
                 }
                 else
                 {
@@ -88,7 +88,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
             if (strPreviousPage == "")
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/AdminLogin.aspx");
             }
         }
 
