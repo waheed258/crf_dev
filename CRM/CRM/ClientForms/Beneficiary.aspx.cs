@@ -20,10 +20,12 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     EncryptDecrypt ObjEn = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
@@ -31,41 +33,72 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else
                 {
-                    message.ForeColor = System.Drawing.Color.Green;
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPage);
-                    _objComman.getRecordsPerPage(dropAddress);
-                    _objComman.getRecordsPerPage(dropBank);
 
-                    if (!string.IsNullOrEmpty(Request.QueryString["t"]))
+                    if (!IsPostBack)
                     {
-                        if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                        message.ForeColor = System.Drawing.Color.Green;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(dropAddress);
+                        _objComman.getRecordsPerPage(dropBank);
+
+                        if (!string.IsNullOrEmpty(Request.QueryString["t"]))
                         {
-                            txtUIC.Text = Session["TrustUIC"].ToString();
-                            btnBack.Text = "Back to Trust";
+                            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                            {
+                                txtUIC.Text = Session["TrustUIC"].ToString();
+                                btnBack.Text = "Back to Trust";
+                            }
+                            else
+                            {
+                                txtUIC.Text = Session["CompanyUIC"].ToString();
+                                btnBack.Text = "Back to Company";
+                            }
+                            GetBeneficiaryGrid(txtUIC.Text.Trim());
+                            BindBankDetails();
+                            BindAddressDetails();
                         }
-                        else
-                        {
-                            txtUIC.Text = Session["CompanyUIC"].ToString();
-                            btnBack.Text = "Back to Company";
-                        }
-                        GetBeneficiaryGrid(txtUIC.Text.Trim());
-                        BindBankDetails();
-                        BindAddressDetails();
                     }
                 }
 
+                if (this.IsPostBack)
+                {
+                    if (Request.Form[TabName.UniqueID].Contains("gvBeneficiary"))
+                    {
+                        TabName.Value = "tabTrust";
+                    }
+
+                    else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                    {
+                        TabName.Value = "tabAddress";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                    {
+                        TabName.Value = "tabBank";
+                    }
+                    else
+                    {
+                        TabName.Value = Request.Form[TabName.UniqueID];
+                    }
+                }
             }
-            catch
+
+            if (strPreviousPage == "")
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Response.Redirect("~/Login.aspx");
             }
         }
+
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+
     }
 
     /// <summary>
@@ -95,7 +128,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             Phone = txtPhone.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
-            AdvisorID =0,
+            AdvisorID = 0,
         };
         if (btnSubmit.Text == "Update")
         {
@@ -148,8 +181,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     private void GetBeneficiaryGrid(string UIC)
     {
-        int Type=Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
-        ds = _objBeneficiaryBL.GetBeneficiary(0,Type, UIC);
+        int Type = Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
+        ds = _objBeneficiaryBL.GetBeneficiary(0, Type, UIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             gvBeneficiary.DataSource = ds.Tables[0];
@@ -378,7 +411,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = "0";            
+            addressEntity.UpdatedBy = "0";
+            
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -424,6 +458,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
+           
+
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
             {
@@ -560,7 +596,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-            
+
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
@@ -599,7 +635,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-         
+
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
@@ -715,7 +751,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         BindBankDetails();
     }
 
-    
+
     #endregion
 
     protected void btnSure_Click(object sender, EventArgs e)

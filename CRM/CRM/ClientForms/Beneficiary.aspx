@@ -197,6 +197,7 @@
             </div>
         </div>
         <!-- Main content -->
+        <asp:HiddenField ID="TabName" runat="server" />
         <div class="content">
             <div class="row">
                 <!-- Form controls -->
@@ -207,7 +208,7 @@
                                 <h5>Add Beneficiary</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="Tabs">
 
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Beneficiary Info</a></li>
@@ -235,6 +236,8 @@
                                                 <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                    ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
@@ -902,5 +905,16 @@
             </div>
         </div>
     </div>
+
+     <script type="text/javascript">
+         $(function () {
+             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+             $('#Tabs a[href="#' + tabName + '"]').tab('show');
+             $("#Tabs a").click(function () {
+                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+             });
+         });
+    </script>
+
 </asp:Content>
 

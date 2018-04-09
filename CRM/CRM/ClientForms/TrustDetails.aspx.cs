@@ -19,35 +19,66 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
                 }
                 else
                 {
-                    message.ForeColor = System.Drawing.Color.Green;
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPage);
-                    _objComman.getRecordsPerPage(dropAddress);
-                    _objComman.getRecordsPerPage(dropBank);
-                    GetTrustGrid();
-                    BindBankDetails();
-                    BindAddressDetails();
+                    if (!IsPostBack)
+                    {
+                        message.ForeColor = System.Drawing.Color.Green;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(dropAddress);
+                        _objComman.getRecordsPerPage(dropBank);
+                        GetTrustGrid();
+                        BindBankDetails();
+                        BindAddressDetails();
+                    }
+                }
+
+
+               if (this.IsPostBack)
+                {
+                    if (Request.Form[TabName.UniqueID].Contains("gvTrust"))
+                    {
+                        TabName.Value = "tabTrust";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                    {
+                        TabName.Value = "tabAddress";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                    {
+                        TabName.Value = "tabBank";
+                    }
+                    else
+                    {
+                        TabName.Value = Request.Form[TabName.UniqueID];
+                    }
                 }
             }
-            catch
+            if (strPreviousPage == "")
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Response.Redirect("~/Login.aspx");
             }
+
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -521,7 +552,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-           
+
 
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
@@ -561,7 +592,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-            
+
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
@@ -627,7 +658,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         }
     }
 
- 
+
 
     protected void gdvBankList_RowCommand(object sender, GridViewCommandEventArgs e)
     {

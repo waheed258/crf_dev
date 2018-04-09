@@ -18,15 +18,21 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
-                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
-                {
-                    Response.Redirect("../Login.aspx", false);
-                }
-                else
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+            if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+            {
+                Response.Redirect("../Login.aspx", false);
+            }
+            else
+            {
+                if (!IsPostBack)
                 {
                     message.ForeColor = System.Drawing.Color.Green;
                     _objComman.GetCountry(ddlCountry);
@@ -37,7 +43,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     _objComman.getRecordsPerPage(dropAddress);
                     _objComman.getRecordsPerPage(dropBank);
 
-                   
+
                     txtTrustUIC.Text = Session["TrustUIC"].ToString();
                     GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
                     BindBankDetails();
@@ -45,13 +51,41 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
                 }
             }
-            catch
+            if (this.IsPostBack)
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                if (Request.Form[TabName.UniqueID].Contains("gvTrustSettler"))
+                {
+                    TabName.Value = "tabTrust";
+                }
+                else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                {
+                    TabName.Value = "tabAddress";
+                }
+                else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                {
+                    TabName.Value = "tabBank";
+                }
+                else
+                {
+                    TabName.Value = Request.Form[TabName.UniqueID];
+                }
             }
+
+            }
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
         }
+
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+
     }
 
     /// <summary>
@@ -73,8 +107,8 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             gvTrustSettler.DataSource = null;
             divTrusteeslist.Visible = false;
         }
-        gvTrustSettler.DataBind();
         gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+        gvTrustSettler.DataBind();
     }
 
     private void BindTrustSettler(int TrId)
@@ -209,12 +243,11 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         }
 
     }
- 
+
     protected void txtSAID_TextChanged(object sender, EventArgs e)
     {
         try
         {
-            GetClientRegistartion();
             ds = _ObjTrustSettlerBL.GetTrustSettlerTest(txtTrustUIC.Text.Trim(), txtSAID.Text.Trim());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -222,7 +255,10 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 txtSAID.Text = "";
             }
             else
+            {
+                GetClientRegistartion();
                 lblSAIDError.Text = "";
+            }
         }
         catch
         { }
@@ -547,7 +583,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-            
+
 
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
@@ -587,7 +623,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
-           
+
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)

@@ -54,9 +54,9 @@
 <body class="hold-transition sidebar-mini">
     <form id="form1" runat="server">
         <!--preloader-->
-        <%--<div id="preloader">
+        <div id="preloader">
             <div id="status"></div>
-        </div>--%>
+        </div>
         <!-- Site wrapper -->
         <div class="wrapper">
             <header class="main-header">

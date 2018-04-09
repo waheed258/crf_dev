@@ -2,19 +2,19 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
-     <script type="text/javascript">
-         function openModal() {
-             $('#ContentPlaceHolder1_Success').modal('show');
-         }
-         //function openBankModal() {
-         //    $('#ContentPlaceHolder1_bankPopup').modal('show');
-         //}
-         //function openAddressModal() {
-         //    $('#ContentPlaceHolder1_addressPopup').modal('show');
-         //}
-         function openDeleteModal() {
-             $('#delete').modal('show');
-         }
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
+        //function openBankModal() {
+        //    $('#ContentPlaceHolder1_bankPopup').modal('show');
+        //}
+        //function openAddressModal() {
+        //    $('#ContentPlaceHolder1_addressPopup').modal('show');
+        //}
+        function openDeleteModal() {
+            $('#delete').modal('show');
+        }
     </script>
 
 
@@ -65,8 +65,8 @@
                         <div class="form-group col-sm-6">
                             <asp:DropDownList ID="ddlService" runat="server" CssClass="form-control">
                             </asp:DropDownList>
-                             <asp:RequiredFieldValidator ID="rfvService" runat="server" ControlToValidate="ddlService" Display="Dynamic" ErrorMessage="Please select Services"
-                                                    ValidationGroup="Service" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rfvService" runat="server" ControlToValidate="ddlService" Display="Dynamic" ErrorMessage="Please select Services"
+                                ValidationGroup="Service" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -75,8 +75,8 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <asp:TextBox ID="txtDetails" TextMode="MultiLine" Height="80" runat="server" CssClass="form-control"></asp:TextBox>
-                             <asp:RequiredFieldValidator ID="rfvDetails" runat="server" ControlToValidate="txtDetails" Display="Dynamic" ErrorMessage="Enter Details"
-                                                    ValidationGroup="Service" ForeColor="Red"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rfvDetails" runat="server" ControlToValidate="txtDetails" Display="Dynamic" ErrorMessage="Enter Details"
+                                ValidationGroup="Service" ForeColor="Red"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -128,7 +128,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="ServiceID" Visible="false">
                                     <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblClientService" Text='<%#Eval("ClientService") %>'></asp:Label>
+                                        <asp:Label runat="server" ID="lblClientServiceIDFK" Text='<%#Eval("ClientService") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Service">
@@ -159,42 +159,69 @@
                     </div>
                 </div>
 
-             </div>
+            </div>
         </div>
 
 
-         <!-- delete user Modal2 -->
-               <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header modal-header-primary">
-                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-home m-r-5"></i> Delete</h3>
+        <!-- delete user Modal2 -->
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3><i class="fa fa-home m-r-5"></i>Delete</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
+                                        <div class="pull-right">
+                                            <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
                         </div>
-                        <div class="modal-body">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 
-                                    <fieldset>
-                                       <div class="col-md-12 form-group user-form-group">                                          
-                                           <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
-                                          <div class="pull-right">                                                                                          
-                                              <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                              
-                              </div>
-                           </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="message" runat="server" class="control-label" Style="color: green" />
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
-                     </div>
-                     <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-               </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     </div>
 
 </asp:Content>

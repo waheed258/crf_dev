@@ -19,38 +19,68 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
                 if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../Login.aspx", false);
                 }
                 else
                 {
-                    message.ForeColor = System.Drawing.Color.Green;
-                    _objComman.GetCountry(ddlCountry);
-                    _objComman.GetProvince(ddlProvince);
-                    _objComman.GetCity(ddlCity);
-                    _objComman.GetAccountType(ddlAccountType);
-                    _objComman.getRecordsPerPage(DropPage);
-                    _objComman.getRecordsPerPage(dropAddress);
-                    _objComman.getRecordsPerPage(dropBank);
-                    txtUIC.Text = Session["TrustUIC"].ToString();
-                    GetTrusteeGrid(txtUIC.Text);
-                    BindBankDetails();
-                    BindAddressDetails();
+                    if (!IsPostBack)
+                    {
 
+                        message.ForeColor = System.Drawing.Color.Green;
+                        _objComman.GetCountry(ddlCountry);
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
+                        _objComman.GetAccountType(ddlAccountType);
+                        _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(dropAddress);
+                        _objComman.getRecordsPerPage(dropBank);
+                        txtUIC.Text = Session["TrustUIC"].ToString();
+                        GetTrusteeGrid(txtUIC.Text);
+                        BindBankDetails();
+                        BindAddressDetails();
+
+                    }
+                }
+                if (this.IsPostBack)
+                {
+                    if (Request.Form[TabName.UniqueID].Contains("gvTrust"))
+                    {
+                        TabName.Value = "tabTrust";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
+                    {
+                        TabName.Value = "tabAddress";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
+                    {
+                        TabName.Value = "tabBank";
+                    }
+                    else
+                    {
+                        TabName.Value = Request.Form[TabName.UniqueID];
+                    }
                 }
             }
-            catch
+            if (strPreviousPage == "")
             {
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Something went wrong, please contact administrator";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Response.Redirect("~/Login.aspx");
             }
         }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+
     }
 
     /// <summary>
@@ -61,6 +91,11 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     /// <param name="UIC"></param>
     #region Trustee Details
 
+    protected void gvTrustee_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvTrustee.PageIndex = e.NewPageIndex;
+        GetTrusteeGrid(txtUIC.Text.Trim());
+    }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetTrusteeGrid(txtUIC.Text.Trim());
@@ -520,7 +555,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
-       BindBankDetails();
+        BindBankDetails();
     }
     protected void btnBankSubmit_Click(object sender, EventArgs e)
     {
@@ -742,5 +777,6 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         }
 
     }
+
 
 }
