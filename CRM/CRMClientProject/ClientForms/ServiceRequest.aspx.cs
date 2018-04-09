@@ -29,7 +29,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     }
 
 
-    public void GetServiceRequest()  
+    public void GetServiceRequest()
     {
         try
         {
@@ -52,37 +52,24 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
         try
         {
-            clientserviceentitym.ClientServiceID =Convert.ToInt32(ViewState["ClientServiceID"]);
+            clientserviceentitym.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
             clientserviceentitym.SAID = Session["SAID"].ToString();
             clientserviceentitym.ClientService = Convert.ToInt32(ddlService.SelectedValue);
             clientserviceentitym.DetailInformation = txtDetails.Text.Trim();
             clientserviceentitym.Status = 1;
-
-            //int result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i'); 
-            //if (result == 1)
-            //{
-            //    lblMessage.Text = "New ServiceRequest Created Successfully!";
-                
-            //}
-            //else
-            //{
-            //    lblMessage.Text = "Please try again!";
-               
-            //}
-
-
-
             int result;
             if (Convert.ToInt32(ViewState["Serviceflag"]) == 1)
             {
-               
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
-                lblMessage.Text = "ServiceRequest Updated Successfully";
+
+                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');               
+                message.Text = "ServiceRequest updated Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
             else
             {
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
-                lblMessage.Text = "New ServiceRequest Created Successfully!";
+                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');                
+                message.Text = "New Service Request created Successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
             if (result == 1)
             {
@@ -101,19 +88,19 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
     }
 
-    private void ClearService() 
+    private void ClearService()
     {
-        
+
         ddlService.SelectedValue = "-1";
-        txtDetails.Text = "";    
+        txtDetails.Text = "";
     }
 
 
-    protected void GetServiceRequestdetails()  
+    protected void GetServiceRequestdetails()
     {
         try
         {
-            
+
             ds = _objServiceRequestBL.GetServiceRequest(Session["SAID"].ToString());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -129,20 +116,20 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         catch { }
     }
 
-    protected void gvServiceDetails_RowCommand(object sender, GridViewCommandEventArgs e) 
+    protected void gvServiceDetails_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
         {
             GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             int RowIndex = row.RowIndex;
             ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
-           
+
             if (e.CommandName == "EditServices")
             {
-                
-                ddlService.SelectedValue = ((Label)row.FindControl("lblClientService")).Text.ToString();
-                txtDetails.Text = ((Label)row.FindControl("lblDetailInformation")).Text.ToString();                  
-                           
+
+                ddlService.SelectedValue = ((Label)row.FindControl("lblClientServiceIDFK")).Text.ToString();
+                txtDetails.Text = ((Label)row.FindControl("lblDetailInformation")).Text.ToString();
+
                 ViewState["Serviceflag"] = 1;
             }
             else if (e.CommandName == "Delete")
@@ -157,12 +144,12 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
 
 
 
-    protected void gvServiceDetails_RowDeleting(object sender, GridViewDeleteEventArgs e) 
+    protected void gvServiceDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
 
     }
 
-    protected void gvServiceDetails_RowEditing(object sender, GridViewEditEventArgs e) 
+    protected void gvServiceDetails_RowEditing(object sender, GridViewEditEventArgs e)
     {
 
     }
@@ -178,9 +165,5 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 GetServiceRequestdetails();
             }
         }
-       
-
     }
-
-
 }
