@@ -126,13 +126,13 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="btnEdit" ImageUrl="~/assets/dist/img/edit.png" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
+                                                <asp:ImageButton ID="btnEdit" ImageUrl="~/assets/dist/img/edit_new.png" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
                                                     CommandName="Edit" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                                <asp:ImageButton ID="btnValidate" ImageUrl="~/assets/dist/img/validate1.png" data-toggle="modal" data-target="#Validate" runat="server" Width="23px" Height="23px"
+                                                <asp:ImageButton ID="btnValidate" ImageUrl="~/assets/dist/img/validateClient.png" data-toggle="modal" data-target="#Validate" runat="server" Width="23px" Height="23px"
                                                     CommandName="Validate" ToolTip="Validate" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                                <asp:ImageButton ID="btnFeedback" ImageUrl="~/assets/dist/img/feedback.jpg" data-toggle="modal" data-target="#Feedback" runat="server" Width="23px" Height="23px"
+                                                <asp:ImageButton ID="btnFeedback" ImageUrl="~/assets/dist/img/feedback.png" data-toggle="modal" data-target="#Feedback" runat="server" Width="23px" Height="23px"
                                                     CommandName="Feedback" ToolTip="Feedback" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                                <asp:ImageButton ID="btnStatus" ImageUrl="~/assets/dist/img/Status.png" data-toggle="modal" data-target="#Status" runat="server" Width="23px" Height="23px"
+                                                <asp:ImageButton ID="btnStatus" ImageUrl="~/assets/dist/img/status.png" data-toggle="modal" data-target="#Status" runat="server" Width="23px" Height="23px"
                                                     CommandName="Status" ToolTip="Status" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
