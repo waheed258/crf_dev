@@ -14,7 +14,7 @@ namespace EntityManager
         public string SAID { get; set; }
         public int? ClientService { get; set; }
         public string DetailInformation { get; set; }
-
+        public string AdvisorID { get; set; }
         public string UpdatedOn { get; set; }
 
         public int? Status { get; set; }

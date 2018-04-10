@@ -8,6 +8,8 @@ using System.Collections;
 using EntityManager;
 using System.Web;
 using System.Collections.Generic;
+using System;
+
 
 namespace BusinessLogic
 {
@@ -41,18 +43,36 @@ namespace BusinessLogic
             if (Operation == 'i')
             {
                 hashtable.Add("@inClientServiceID", 0);
+                hashtable.Add("@inSAID", clinetservicem.SAID);
+                hashtable.Add("@inClientService", clinetservicem.ClientService);
+                hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
+                hashtable.Add("@inStatus", clinetservicem.Status);
+                hashtable.Add("@OperationName", Operation);
+
+            }
+            else if(Operation == 'a')
+            {
+                hashtable.Add("@inClientServiceID", clinetservicem.ClientServiceID);
+                hashtable.Add("@AdvisorID", clinetservicem.AdvisorID);
+                hashtable.Add("@inSAID", DBNull.Value);
+                hashtable.Add("@inClientService", DBNull.Value);
+                hashtable.Add("@inDetailInformation", DBNull.Value);
+                hashtable.Add("@inStatus", DBNull.Value);
+                hashtable.Add("@OperationName", Operation);
 
             }
             else
             {
-                hashtable.Add("@inClientServiceID", clinetservicem.ClientServiceID); 
+                hashtable.Add("@inClientServiceID", clinetservicem.ClientServiceID);
+                hashtable.Add("@inSAID", clinetservicem.SAID);
+                hashtable.Add("@inClientService", clinetservicem.ClientService);
+                hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
+                hashtable.Add("@inStatus", clinetservicem.Status);
+                hashtable.Add("@OperationName", Operation);
             }
            
-            hashtable.Add("@inSAID", clinetservicem.SAID);
-            hashtable.Add("@inClientService", clinetservicem.ClientService);
-            hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
-            hashtable.Add("@inStatus", clinetservicem.Status);      
-            hashtable.Add("@OperationName", Operation);
+          
+            
 
             DataUtilities dataUtilities = new DataUtilities();
             int result = dataUtilities.ExecuteNonQuery("InsUpAddressClientServiceMaster", hashtable);
@@ -67,6 +87,26 @@ namespace BusinessLogic
             hashtable.Add("@ClientServiceID", @ClientServiceID);
             int result = dataUtilities.ExecuteNonQuery("DeleteClientServicemaster", hashtable);
             return result;
+        }
+
+        public DataSet GetAdvisors()
+        {
+            Hashtable hashtable = new Hashtable();
+            DataSet ds = dataUtilities.ExecuteDataSet("GetAdvisors", hashtable);
+            return ds;
+        }
+
+        public DataSet GetPriority()
+        {
+
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_GetPriority");
+            return ds;
+        }
+
+        public DataSet GetActivityType()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_GetActivityType");
+            return ds;
         }
 
     }
