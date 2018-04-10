@@ -38,7 +38,6 @@ namespace BusinessLogic
             hashtable.Add("@inCreatedBy", bankinfo.CreatedBy);            
             hashtable.Add("@inAdvisorID", bankinfo.AdvisorID);
             hashtable.Add("@inUpdatedBy", bankinfo.UpdatedBy);
-            hashtable.Add("@inFullName", bankinfo.FullName);
             hashtable.Add("@OperationName", Operation);
 
 
