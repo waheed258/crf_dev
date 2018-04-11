@@ -16,10 +16,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     ClientServiceMasterEntity clientserviceMasterEntity = new ClientServiceMasterEntity();
     FollowUpBL followBL = new FollowUpBL();
     FollowUpEntity followupEntity = new FollowUpEntity();
-
+   
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        if (!IsPostBack)
         {
             AdvisorSection.Visible = false;
             FollowUpSection.Visible = false;
@@ -27,19 +27,19 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             BindPriority();
             BindActivityType();
             GetGridData();
-            
         }
     }
 
     protected void GetGridData()
     {
         try
-        {           
+        {
             dataset = serviceRequestBL.GetServiceRequest("0");
-            gvClientSR.DataSource = dataset;      
+            gvClientSR.DataSource = dataset;
             gvClientSR.DataBind();
         }
-        catch {
+        catch
+        {
 
         }
     }
@@ -61,7 +61,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
     }
 
-  
+
     protected void gvClientSR_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -71,10 +71,18 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
             ViewState["ServiceName"] = ((Label)row.FindControl("lblServiceName")).Text.ToString();
             ViewState["AdvisorID"] = ((Label)row.FindControl("lblAdvisorID")).Text.ToString();
+            if (ViewState["AdvisorID"].ToString() == "")
+            {
+                ddlAdvisors.SelectedValue = "-1";
+            }
+            else
+            {
+                ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
+            }
             ViewState["ClientName"] = ((Label)row.FindControl("lblName")).Text.ToString();
             ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["Name"] = ((Label)row.FindControl("lblAdvisorName")).Text.ToString();
-          
+            int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
             if (e.CommandName == "AllocatedTo")
             {
                 BindAdvisors();
@@ -83,36 +91,54 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                 ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
 
             }
-            else if(e.CommandName == "FollowUp")
+            else if (e.CommandName == "FollowUp")
             {
-               
-                FollowUpSection.Visible = true;
-                sectionRequestList.Visible = false;
+
+                if (ddlAdvisors.SelectedValue == "-1")
+                {
+                    message1.Text = "Please Select Advisor";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else
+                {
+                    FollowUpSection.Visible = true;
+                    sectionRequestList.Visible = false;
+                    AdvisorSection.Visible = false;
+                    txtFollowTime.Text = DateTime.Now.ToShortTimeString();
+                    txtServiceRequest.Text = ViewState["ServiceName"].ToString();
+                    txtClientSAID.Text = ViewState["SAID"].ToString();
+                    txtClientName.Text = ViewState["ClientName"].ToString();
+                    txtAssignedTo.Text = ViewState["Name"].ToString();
+                    BindFollowUp(clientServiceID);
+                }
+            }
+            else if (e.CommandName == "Validate")
+            {
+                FollowUpSection.Visible = false;
+                sectionRequestList.Visible = true;
                 AdvisorSection.Visible = false;
-                txtFollowTime.Text = DateTime.Now.ToShortTimeString();
-                txtServiceRequest.Text = ViewState["ServiceName"].ToString();
-                txtClientSAID.Text = ViewState["SAID"].ToString();
-                txtClientName.Text = ViewState["ClientName"].ToString();
-                txtAssignedTo.Text = ViewState["Name"].ToString();
+                ViewState["flag"] = 1;
+                lbldeletemessage.Text = "Are you sure, you want to Activate Client Request?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
             }
         }
         catch { }
     }
-    
+
     protected void btnAdvisorSubmit_Click(object sender, EventArgs e)
     {
         try
         {
-            
+
             clientserviceMasterEntity.AdvisorID = ddlAdvisors.SelectedValue;
             clientserviceMasterEntity.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
-            
-            int result = serviceRequestBL.CUDUServiceRequest(clientserviceMasterEntity,'a');
-             if (result > 0)
-             {
-                 lblmessage.Text = "Updated Successfully";
-                
-             }
+
+            int result = serviceRequestBL.CUDUServiceRequest(clientserviceMasterEntity, 'a');
+            if (result > 0)
+            {
+                message.Text = "Updated Successfully";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
         catch
         { }
@@ -174,11 +200,12 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             followupEntity.DueDate = string.IsNullOrEmpty(txtDueDate.Text) ? null : txtDueDate.Text;
             followupEntity.Priority = Convert.ToInt32(dropPriority.SelectedValue);
             followupEntity.ActivityType = Convert.ToInt32(dropActivityType.SelectedValue);
-            int Result = followBL.FollowUpCRUD(followupEntity,'i');
-            if(Result > 0)
+            int Result = followBL.FollowUpCRUD(followupEntity, 'i');
+            if (Result > 0)
             {
-                lblFollowmsg.Text = "Inserted Successfully";
                 Clear();
+                TabName.Value = "tab2";
+                BindFollowUp(Convert.ToInt32(ViewState["ClientServiceID"]));
             }
 
 
@@ -200,5 +227,43 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         txtDueDate.Text = "";
         dropPriority.SelectedValue = "-1";
         dropActivityType.SelectedValue = "-1";
+    }
+
+    private void BindFollowUp(int clientServiceID)
+    {
+        try
+        {
+            dataset = followBL.GetFollowupUpdates(clientServiceID);
+            gdvUpdatesList.DataSource = dataset;
+            gdvUpdatesList.DataBind();
+        }
+        catch
+        {
+
+        }
+    }
+    protected void btnFollowListCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("AcceptClientSR.aspx");
+    }
+    protected void btnSure_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Convert.ToInt32(ViewState["flag"]) == 1)
+            {
+                int id = Convert.ToInt32(ViewState["ClientServiceID"]);
+                int result = serviceRequestBL.UpdateClientServiceRequest(id);
+                if (result == 1)
+                {
+                    GetGridData();
+                    Response.Redirect("WorkInProcess.aspx");
+                }
+            }
+        }
+        catch
+        {
+
+        }
     }
 }
