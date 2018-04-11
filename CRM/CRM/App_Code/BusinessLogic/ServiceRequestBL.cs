@@ -19,7 +19,7 @@ namespace BusinessLogic
 
         DataUtilities dataUtilities = new DataUtilities();
         DataSet ds = new DataSet();
-
+        Hashtable hashtable = new Hashtable();
 
         public DataSet GetServiceRequestmaster() 
         {
@@ -30,7 +30,7 @@ namespace BusinessLogic
         public DataSet GetServiceRequest(string SAID)
         {
             var newAddress = new List<ClientServiceMasterEntity>();
-            Hashtable hashtable = new Hashtable();
+           
             hashtable.Add("@SAID", SAID);
             DataSet ds = dataUtilities.ExecuteDataSet("usp_GetClientService", hashtable);
             return ds;
@@ -39,13 +39,11 @@ namespace BusinessLogic
         public DataSet GetWorkInProcess()
         {
             var newAddress = new List<ClientServiceMasterEntity>();
-            Hashtable hashtable = new Hashtable();
             DataSet ds = dataUtilities.ExecuteDataSet("usp_WorkInProcess", hashtable);
             return ds;
         }
         public int CUDUServiceRequest(ClientServiceMasterEntity clinetservicem, char Operation) 
         {
-            Hashtable hashtable = new Hashtable();
             if (Operation == 'i')
             {
                 hashtable.Add("@inClientServiceID", 0);
@@ -89,7 +87,6 @@ namespace BusinessLogic
 
         public int DeleteServicesDetails(string ClientServiceID)  
         {
-            Hashtable hashtable = new Hashtable();
             hashtable.Add("@ClientServiceID", @ClientServiceID);
             int result = dataUtilities.ExecuteNonQuery("DeleteClientServicemaster", hashtable);
             return result;
@@ -97,7 +94,6 @@ namespace BusinessLogic
 
         public DataSet GetAdvisors()
         {
-            Hashtable hashtable = new Hashtable();
             DataSet ds = dataUtilities.ExecuteDataSet("GetAdvisors", hashtable);
             return ds;
         }
@@ -113,6 +109,12 @@ namespace BusinessLogic
         {
             DataSet ds = dataUtilities.ExecuteDataSet("usp_GetActivityType");
             return ds;
+        }
+        public int UpdateClientServiceRequest(int ClientServiceID)
+        {
+            hashtable.Add("@ClientServiceID", ClientServiceID);
+            int result = dataUtilities.ExecuteNonQuery("UpdateClientServiceRequest", hashtable);
+            return result;
         }
 
     }
