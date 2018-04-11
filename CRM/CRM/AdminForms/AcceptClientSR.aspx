@@ -1,15 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="AcceptClientSR.aspx.cs" Inherits="AdminForms_AcceptClientSR" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script type="text/javascript">
 
-        function openActiveModal() {
-            $('#ContentPlaceHolder1_Active').modal('show');
-        }
-        function openModal() {
-            $('#ContentPlaceHolder1_Success').modal('show');
-        }
-    </script>
     <style type="text/css">
         tr {
             height: 30px;
@@ -29,10 +21,10 @@
     </style>
     <script type="text/javascript">
         function openActiveModal() {
-            $('#success').modal('show', { backdrop: 'static' });
+            $('#Active').modal('show');
         }
-        function openSuccessModal() {
-            $('#success').modal('show', { backdrop: 'static' });
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
         }
     </script>
 </asp:Content>
@@ -327,9 +319,7 @@
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
                                         <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
-                                        <div class="pull-right">
-                                            <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
-                                        </div>
+                                        
                                     </div>
                                 </fieldset>
 

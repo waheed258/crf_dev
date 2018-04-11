@@ -117,9 +117,16 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                 FollowUpSection.Visible = false;
                 sectionRequestList.Visible = true;
                 AdvisorSection.Visible = false;
-                ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to Activate Client Request?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
+                int id = Convert.ToInt32(ViewState["ClientServiceID"]);
+                int result = serviceRequestBL.UpdateClientServiceRequest(id);
+                if (result == 1)
+                {
+                    lbldeletemessage.Text = "Service Request Activated Successfully";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
+                    GetGridData();
+                   
+                }
+                
             }
         }
         catch { }
@@ -252,13 +259,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int id = Convert.ToInt32(ViewState["ClientServiceID"]);
-                int result = serviceRequestBL.UpdateClientServiceRequest(id);
-                if (result == 1)
-                {
-                    GetGridData();
-                    Response.Redirect("WorkInProcess.aspx");
-                }
+                
             }
         }
         catch
