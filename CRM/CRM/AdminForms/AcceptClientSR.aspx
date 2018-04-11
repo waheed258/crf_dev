@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="AcceptClientSR.aspx.cs" Inherits="AdminForms_AcceptClientSR" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
 
         function openModal() {
@@ -26,7 +26,7 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
@@ -84,26 +84,26 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Client Name" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblName" Text='<%#Eval("FIRSTNAME") +" "+ Eval("LASTNAME") %>' ></asp:Label>
+                                                <asp:Label runat="server" ID="lblName" Text='<%#Eval("FIRSTNAME") +" "+ Eval("LASTNAME") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                       
+
                                         <asp:TemplateField HeaderText="Allocated To" Visible="false">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblAllocatedTo" Text='<%#Eval("FirstName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                         <asp:TemplateField headertext="AdvisorID" visible="false">
+                                        <asp:TemplateField HeaderText="AdvisorID" Visible="false">
                                             <ItemTemplate>
-                                                <asp:label runat="server" id="lblAdvisorID" text='<%#Eval("AdvisorID") %>'></asp:label>
+                                                <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField headertext="AdvisorName" visible="false">
+                                        <asp:TemplateField HeaderText="AdvisorName" Visible="false">
                                             <ItemTemplate>
-                                                <asp:label runat="server" id="lblAdvisorName" text='<%#Eval("Name") %>'></asp:label>
+                                                <asp:Label runat="server" ID="lblAdvisorName" Text='<%#Eval("Name") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                   
+
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnAllocatedTo" ImageUrl="~/assets/dist/img/settler.png" data-toggle="modal" data-target="#AllocatedTo" runat="server" Width="23px" Height="23px"
@@ -129,16 +129,16 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <h5>Advisor List</h5>
-                             
+
                             </div>
                         </div>
                         <div class="panel-body">
-                              <div class="col-sm-12" style="text-align:center">
-                                  <asp:Label ID="lblmessage" runat="server" class="control-label" Style="color: green"></asp:Label>
-                                  </div>
+                            <div class="col-sm-12" style="text-align: center">
+                                <asp:Label ID="lblmessage" runat="server" class="control-label" Style="color: green"></asp:Label>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>Advisors</label>
+                                    <label>Select Advisor</label>
                                     <asp:DropDownList ID="ddlAdvisors" runat="server" class="form-control">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvAdvisors" runat="server" ErrorMessage="Please select Advisor" Display="Dynamic"
@@ -163,68 +163,81 @@
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Details</h5>
+                                <h5>FollowUps</h5>
                             </div>
                         </div>
-                        <div class="panel-body">
-                             <div class="col-sm-12" style="text-align:center">
-                                  <asp:Label ID="lblFollowmsg" runat="server" class="control-label" Style="color: green"></asp:Label>
-                                  </div>
-                            <div class="col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label>Service Request</label>
-                                    <asp:TextBox ID="txtServiceRequest" runat="server" class="form-control" ReadOnly="true" TextMode="MultiLine"></asp:TextBox>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>SAID</label>
-                                    <asp:TextBox ID="txtClientSAID" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Client Name</label>
-                                   <asp:TextBox ID="txtClientName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Assigned To</label>
-                                    <asp:TextBox ID="txtAssignedTo" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>                                  
-                                </div>
-                            </div>
+                        <div class="panel-body" id="Tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab">Details</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Updates</a></li>
 
-                            <div class="col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label>FollowUp Date & Time</label>
-                                    <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox><br />
-                                    <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control" ></asp:TextBox>
-                                   
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab1">
+                                    <div class="panel-body">
+                                        <div class="col-sm-12" style="text-align: center">
+                                            <asp:Label ID="lblFollowmsg" runat="server" class="control-label" Style="color: green"></asp:Label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                                <label>Service Request</label>
+                                                <asp:TextBox ID="txtServiceRequest" runat="server" class="form-control" ReadOnly="true" TextMode="MultiLine"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>SAID</label>
+                                                <asp:TextBox ID="txtClientSAID" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Client Name</label>
+                                                <asp:TextBox ID="txtClientName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Assigned To</label>
+                                                <asp:TextBox ID="txtAssignedTo" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                                <label>FollowUp Date & Time</label>
+                                                <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox><br />
+                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
+
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Due Date</label>
+                                                <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox><br />
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Priority</label>
+                                                <asp:DropDownList ID="dropPriority" runat="server" class="form-control" AppendDataBoundItems="true">
+                                                </asp:DropDownList>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Activity Type</label>
+                                                <asp:DropDownList ID="dropActivityType" runat="server" class="form-control" AppendDataBoundItems="true">
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="col-sm-5"></div>
+                                        <asp:Button ID="FollowUpdate" runat="server" Text="Submit" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="FollowUpdate_Click" />
+                                        <asp:Button ID="FollowClose" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="FollowClose_Click" />
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Due Date</label>
-                                   <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox><br />
+                                <div class="tab-pane fade" id="tab2">
+                                    <div class="panel-body">
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Priority</label>
-                                    <asp:DropDownList ID="dropPriority" runat="server" class="form-control" AppendDataBoundItems="true">
-                                    </asp:DropDownList>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Activity Type</label>
-                                    <asp:DropDownList ID="dropActivityType" runat="server" class="form-control" AppendDataBoundItems="true">
-                                        </asp:DropDownList>
-                                </div>
-                            </div>                           
-                        </div>
-                        <div class="panel-footer">
-                            <div class="col-sm-5"></div>
-                            <asp:Button ID="FollowUpdate" runat="server" Text="Submit" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="FollowUpdate_Click" />
-                            <asp:Button ID="FollowClose" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="FollowClose_Click" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
         <!-- /.content -->
-
-        
-
 
     </div>
 </asp:Content>
