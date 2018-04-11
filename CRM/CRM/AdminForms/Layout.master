@@ -51,9 +51,9 @@
 <body class="hold-transition sidebar-mini">
     <form id="form1" runat="server">
         <!--preloader-->
-       <%-- <div id="preloader">
+        <div id="preloader">
             <div id="status"></div>
-        </div>--%>
+        </div>
         <!-- Site wrapper -->
         <div class="wrapper">
             <header class="main-header">
@@ -95,7 +95,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../Login.aspx">
+                                        <a href="../AdminLogin.aspx">
                                             <i class="fa fa-sign-out"></i>Signout
                                         </a>
                                     </li>
@@ -160,7 +160,7 @@
                                 <li><a href="#">Add Client feedback and
                                 <br />
                                     update next followup</a></li>
-                                <li><a href="WorkInProcess.aspx">Work in process SR</a></li>
+                                <li><a href="#">Work in process SR</a></li>
                                 <li><a href="#">Un-accepted SR</a></li>
                                 <li><a href="#">Client Profile and Wealth
                                 <br />
@@ -179,6 +179,11 @@
                                 <li><a href="ClientService.aspx">Client Service</a></li>
                                 <li><a href="LocationMaster.aspx">Location Master</a></li>
                             </ul>
+                        </li>
+                         <li class="treeview">
+                            <a href="DocumentsList.aspx">
+                                <i class="fa fa-list"></i><span>Documents</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
