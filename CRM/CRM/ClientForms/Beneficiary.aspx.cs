@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
@@ -141,7 +142,44 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         return Result;
     }
 
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
 
+        if (fuDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Beneficiary" + "/" + txtSAID.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName =date + strfile;
+                fuDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = txtSAID.Text.Trim(),
+                    UIC = "0",
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 7,
+                    AdvisorID = 0,
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
+    }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -149,6 +187,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             int res = BeneficiaryInsertUpdate();
             if (res > 0)
             {
+                InsertDocument();
                 if (btnSubmit.Text == "Update")
                     message.Text = "Beneficiary details updated successfully!";
                 else

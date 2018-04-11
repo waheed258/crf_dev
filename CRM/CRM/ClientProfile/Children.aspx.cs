@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 using System.Data;
 using EntityManager;
@@ -46,7 +47,6 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
-                        ViewState["ps"] = 5;
                         BindChildDetails();
                         BindAddressDetails();
                         BindBankDetails();
@@ -85,6 +85,46 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Child" + "/" + txtSAID.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = txtSAID.Text.Trim(),
+                    UIC = "0",
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 3,
+                    AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
+    }
     protected void btnChildSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -98,13 +138,14 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-
+            childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             childEntity.ReferenceSAID = Session["SAID"].ToString();
 
 
             int result = childBL.ChildCRUD(childEntity, 'i');
             if (result == 1)
             {
+                InsertDocument();
                 message.Text = "Child details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -132,23 +173,21 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            gvChildDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = childBL.GetAllChilds(Session["SAID"].ToString(), "");
-
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                search.Visible = true;
                 gvChildDetails.DataSource = dataset;
-                gvChildDetails.DataBind();
+                search.Visible = true;
                 ChildList.Visible = true;
             }
             else
             {
                 gvChildDetails.DataSource = null;
-                gvChildDetails.DataBind();
                 search.Visible = false;
                 ChildList.Visible = false;
             }
+            gvChildDetails.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvChildDetails.DataBind();
         }
         catch
         {
@@ -157,7 +196,6 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-
 
 
     protected void gvChildDetails_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -241,9 +279,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-
-
-
+            childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = childBL.ChildCRUD(childEntity, 'u');
             if (result == 1)
             {
@@ -282,17 +318,18 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            gvAddress.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
             if (dataset.Tables[0].Rows.Count > 0)
             {
+                gvAddress.DataSource = dataset;
                 searchaddress.Visible = true;
             }
             else
             {
+                gvAddress.DataSource = null;
                 searchaddress.Visible = false;
             }
-            gvAddress.DataSource = dataset;
+            gvAddress.PageSize = Convert.ToInt32(DropPage1.SelectedValue);
             gvAddress.DataBind();
         }
         catch
@@ -307,18 +344,18 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            gdvBankList.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3);
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
-
+                gdvBankList.DataSource = dataset;
             }
             else
             {
+                gdvBankList.DataSource = null;
                 searchbank.Visible = false;
             }
-            gdvBankList.DataSource = dataset;
+            gdvBankList.PageSize = Convert.ToInt32(dropPage2.SelectedValue);
             gdvBankList.DataBind();
         }
         catch
@@ -768,48 +805,23 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
-            BindChildDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+
+        BindChildDetails();
+
     }
 
     protected void DropPage1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
-            BindAddressDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        BindAddressDetails();
+
     }
 
 
     protected void dropPage2_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
-            BindBankDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+
+        BindBankDetails();
+
     }
 
     protected void txtSAID_TextChanged(object sender, EventArgs e)

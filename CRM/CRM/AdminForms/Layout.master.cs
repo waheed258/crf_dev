@@ -9,15 +9,15 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            try
+            if (Session["Name"] == null || Session["Name"].ToString() == "")
             {
-                if (Session["Name"] == null || Session["Name"].ToString() == "")
-                {
-                    Response.Redirect("../AdminLogin.aspx", false);
-                }
-                else
+                Response.Redirect("../AdminLogin.aspx", false);
+            }
+            else
+            {
+                if (!IsPostBack)
                 {
                     lblUserName.Text = Session["Name"].ToString().ToUpper();
                     if (Session["Image"] == "")
@@ -30,10 +30,10 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                     }
                 }
             }
-            catch
-            {
-                Response.Redirect("../AdminLogin.aspx", false);
-            }
+        }
+        catch
+        {
+            Response.Redirect("../AdminLogin.aspx", false);
         }
     }
 }

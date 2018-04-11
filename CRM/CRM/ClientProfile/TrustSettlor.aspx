@@ -246,7 +246,7 @@
                                                 <label class="control-label">Tax Reference No.</label>
                                                 <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
-                                                    ErrorMessage="Enter Tax Reference Number."
+                                                    ErrorMessage="Enter Tax Reference Number"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -275,6 +275,17 @@
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Settler"></asp:RegularExpressionValidator>
                                             </div>
 
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Document</label>
+                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
+                                               
+                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
+                                                    Display="Dynamic"  ErrorMessage="Select only Pdf Files." ValidationGroup="Settler"
+                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">

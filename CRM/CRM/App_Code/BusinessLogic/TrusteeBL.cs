@@ -41,11 +41,11 @@ namespace BusinessLogic
             return ExecuteDataSet("GetTrustee", hsparams);
         }
 
-        public DataSet GetTrusteeTest(string ReferenceUCID,string SAID)
+        public DataSet GetTrusteeTest(string ReferenceUIC,string SAID)
         {
             Hashtable hsparams = new Hashtable();
            
-            hsparams.Add("@inReferenceUIC", ReferenceUCID);
+            hsparams.Add("@inReferenceUIC", ReferenceUIC);
             hsparams.Add("@inSAID", SAID);
             
 

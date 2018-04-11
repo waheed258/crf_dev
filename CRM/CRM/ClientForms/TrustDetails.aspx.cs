@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 using System.Data;
 using BusinessLogic;
@@ -48,7 +49,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 }
 
 
-               if (this.IsPostBack)
+                if (this.IsPostBack)
                 {
                     if (Request.Form[TabName.UniqueID].Contains("gvTrust"))
                     {
@@ -100,6 +101,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             int res = ManageTrust();
             if (res > 0)
             {
+                InsertDocument();
                 if (btnSubmitTrust.Text == "Update")
                     message.Text = "Trust details updated successfully !";
                 else
@@ -149,6 +151,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             ReferenceSAID = Session["SAID"].ToString(),
             Status = 1,
             AdvisorID = 0,
+           
         };
         int res;
         if (btnSubmitTrust.Text == "Update")
@@ -157,6 +160,45 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             res = _objTrustBL.TrustManager(_objTrust, 'I');
 
         return res;
+    }
+
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+        
+        if (fuTrustDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuTrustDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuTrustDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trust"+"/"+txtUIC.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuTrustDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = "0",
+                    UIC = txtUIC.Text.Trim(),
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 4,
+                    AdvisorID = 0,
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity,'i');
+            }
+        }
+
     }
 
     private void ClearTrustControls()
@@ -757,5 +799,6 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         }
 
     }
+
 
 }

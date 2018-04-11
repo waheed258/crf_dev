@@ -206,11 +206,20 @@
                                             </div>
 
                                         </div>
+                                       
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Upload Photo</label>
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
                                                 <asp:HiddenField ID="hfImage" runat="server" />
+                                            </div>
+                                            
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Document</label>
+                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
+                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
+                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationGroup="Client"
+                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
                                             </div>
                                         </div>
 
@@ -350,7 +359,7 @@
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-1 form-group">
-                                                    <asp:DropDownList ID="DropPageBank" runat="server"
+                                                    <asp:DropDownList ID="DropPageBank" runat="server" 
                                                         OnSelectedIndexChanged="DropPageBank_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
@@ -742,7 +751,7 @@
     </script>
     <script type="text/javascript">
         $(function () {
-            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabAddress";
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
             $('#Tabs a[href="#' + tabName + '"]').tab('show');
             $("#Tabs a").click(function () {
                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));

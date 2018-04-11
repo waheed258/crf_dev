@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 using BusinessLogic;
 using EntityManager;
@@ -18,6 +19,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
+
         try
         {
             string strPreviousPage = "";
@@ -157,6 +159,44 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         }
         return Result;
     }
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trust Settlor" + "/" + txtSAID.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = txtSAID.Text.Trim(),
+                    UIC = "0",
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 5,
+                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
+    }
 
     private void ClearTrustSettlerControls()
     {
@@ -182,6 +222,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             int res = TrustSettlerManager();
             if (res > 0)
             {
+                InsertDocument();
                 if (btnSubmit.Text == "Update")
                     message.Text = "Settlor details updated successfully!";
                 else

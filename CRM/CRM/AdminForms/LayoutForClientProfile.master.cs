@@ -9,6 +9,23 @@ public partial class AdminForms_LayoutForClientProfile : System.Web.UI.MasterPag
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        try
+        {
+            if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+            {
+                Response.Redirect("../AdminLogin.aspx", false);
+            }
+            else
+            {
+                if (!IsPostBack)
+                {
+                    
+                }
+            }
+        }
+        catch
+        {
+            Response.Redirect("../AdminLogin.aspx", false);
+        }
     }
 }

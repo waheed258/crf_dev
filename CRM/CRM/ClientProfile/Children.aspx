@@ -284,6 +284,14 @@
                                                 <label>Date Of Birth</label>
                                                 <asp:TextBox ID="txtDateOfBirth" class="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                             </div>
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Document</label>
+                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
+                                               
+                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
+                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationExpression="^.*\.(pdf|PDF)$" ValidationGroup="Child" />
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">

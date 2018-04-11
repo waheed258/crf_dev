@@ -234,12 +234,16 @@
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                         </div>
-                                        <%--<div class="col-sm-12">
+                                           <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true">
+                                                <asp:FileUpload ID="fuTrustDocument" runat="server" AllowMultiple="true" />
+                                             
+                                                <asp:RegularExpressionValidator ControlToValidate="fuTrustDocument" runat="server" ID="revfuDoc" ForeColor="Red"
+                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationExpression="^.*\.(pdf|PDF)$" ValidationGroup="trust" />
+
                                             </div>
-                                        </div>--%>
+                                        </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>

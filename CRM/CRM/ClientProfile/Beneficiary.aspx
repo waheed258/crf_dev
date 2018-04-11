@@ -279,6 +279,15 @@
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
+                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Document</label>
+                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
+                                               
+                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
+                                                    Display="Dynamic"  ErrorMessage="Select only Pdf Files." ValidationGroup="trust"
+                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
+
+                                            </div>
                                         </div>
 
                                     </div>

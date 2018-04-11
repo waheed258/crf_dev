@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 using System.Data;
 using BusinessLogic;
@@ -93,6 +94,44 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     {
         GetTrustGrid();
     }
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuTrustDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuTrustDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuTrustDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trust" + "/" + txtUIC.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuTrustDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = "0",
+                    UIC = txtUIC.Text.Trim(),
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 4,
+                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
+    }
     protected void btnSubmitTrust_Click(object sender, EventArgs e)
     {
         try
@@ -100,6 +139,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             int res = ManageTrust();
             if (res > 0)
             {
+                InsertDocument();
                 if (btnSubmitTrust.Text == "Update")
                     message.Text = "Trust details updated successfully !";
                 else

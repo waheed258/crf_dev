@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 using BusinessLogic;
 using EntityManager;
@@ -29,13 +30,6 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
-                        ViewState["ps"] = 5;
-                        GetGridData();
-                        GetBankDetails();
-                        GetAddressDetails();
-                        btnUpdateCompany.Visible = false;
-                        btnUpdateBank.Visible = false;
-                        btnUpdateAddress.Visible = false;
                         commonClass.GetAccountType(ddlAccountType);
                         commonClass.GetCity(ddlCity);
                         commonClass.GetCountry(ddlCountry);
@@ -43,6 +37,12 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         commonClass.getRecordsPerPage(DropPage);
                         commonClass.getRecordsPerPage(dropBank);
                         commonClass.getRecordsPerPage(dropAddress);
+                        GetGridData();
+                        GetBankDetails();
+                        GetAddressDetails();
+                        btnUpdateCompany.Visible = false;
+                        btnUpdateBank.Visible = false;
+                        btnUpdateAddress.Visible = false;
                     }
                     if (this.IsPostBack)
                     {
@@ -86,18 +86,20 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
         try
         {
-            gvCompany.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = companyBL.GetCompanyList(Session["SAID"].ToString(), "");
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvCompany.DataSource = dataset;
-                gvCompany.DataBind();
                 companylist.Visible = true;
             }
             else
             {
+                gvCompany.DataSource = null;
                 companylist.Visible = false;
             }
+            gvCompany.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvCompany.DataBind();
+
         }
         catch
         {
@@ -106,21 +108,23 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
     protected void GetBankDetails()
     {
         try
         {
-            gvBankDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 8);
             if (dataset.Tables[0].Rows.Count > 0)
             {
+                gvBankDetails.DataSource = dataset;
                 searchbank.Visible = true;
             }
             else
             {
+                gvBankDetails.DataSource = null;
                 searchbank.Visible = false;
             }
-            gvBankDetails.DataSource = dataset;
+            gvBankDetails.PageSize = Convert.ToInt32(dropBank.SelectedValue);
             gvBankDetails.DataBind();
 
         }
@@ -136,17 +140,18 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
         try
         {
-            gvAddressDetails.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
             if (dataset.Tables[0].Rows.Count > 0)
             {
+                gvAddressDetails.DataSource = dataset;
                 searchaddress.Visible = true;
             }
             else
             {
+                gvAddressDetails.DataSource = null;
                 searchaddress.Visible = false;
             }
-            gvAddressDetails.DataSource = dataset;
+            gvAddressDetails.PageSize = Convert.ToInt32(dropAddress.SelectedValue);
             gvAddressDetails.DataBind();
         }
         catch
@@ -155,6 +160,43 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                string inFilename = fuDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Company" + "/" + txtCompanyUIC.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = "0",
+                    UIC = txtCompanyUIC.Text.Trim(),
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 1,
+                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
     }
     protected void btnCompantDetails_Click(object sender, EventArgs e)
     {
@@ -168,10 +210,11 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
+                InsertDocument();
                 message.Text = "Company details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -290,7 +333,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)
             {
@@ -668,46 +711,20 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
-            GetGridData();
 
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        GetGridData();
+
     }
     protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = dropAddress.SelectedItem.ToString().Trim();
-            GetAddressDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        GetAddressDetails();
+
     }
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = dropBank.SelectedItem.ToString().Trim();
-            GetBankDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+
+        GetBankDetails();
+
     }
 
     protected void txtCompanyUIC_TextChanged(object sender, EventArgs e)

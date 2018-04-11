@@ -90,10 +90,10 @@ namespace BusinessLogic
             hashtable.Add("@inMobile", PersonalInfo.Mobile);
             hashtable.Add("@inTaxRefNo", PersonalInfo.TaxRefNo);
             hashtable.Add("@inDateOfBirth", PersonalInfo.DateOfBirth);
-            hashtable.Add("@inStatus", 0);
-            hashtable.Add("@inAdvisorID", 0);
-            hashtable.Add("@inUpdatedBy", 0);
-            hashtable.Add("@inUpdatedOn", 0);
+            hashtable.Add("@inStatus", 1);
+            hashtable.Add("@inAdvisorID", PersonalInfo.AdvisorID);
+            hashtable.Add("@inUpdatedBy", PersonalInfo.UpdatedBy);
+            hashtable.Add("@Image", PersonalInfo.Image);
             hashtable.Add("@OperationName", Operation);
 
             DataUtilities dataUtilities = new DataUtilities();

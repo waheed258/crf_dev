@@ -37,7 +37,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
-                        ViewState["ps"] = 5;
                         _objComman.GetCountry(ddlCountry);
                         _objComman.GetProvince(ddlProvince);
                         _objComman.GetCity(ddlCity);
@@ -158,6 +157,45 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         }
     }
 
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Client" + "/" + txtSAId.Text);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = txtSAId.Text.Trim(),
+                    UIC = "0",
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 1,
+                    AdvisorID = 0,
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
+    }
+
     protected void btnSubmitClientPersonal_Click(object sender, EventArgs e)
     {
         string img = "";
@@ -181,11 +219,11 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 string fileNamemain = string.Empty;
                 if (fuImageUpload.HasFile)
                 {
-
                     fuImageUpload.SaveAs(Server.MapPath("~/ClientImages/" + txtSAId.Text + this.fuImageUpload.FileName));
                     fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                     ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
                     img = "~/ClientImages/" + txtSAId.Text + fileName;
+                    ClientPersonalInfoEntity.Image = img;
                 }
                 else
                 {
@@ -199,6 +237,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ClientPersonalInfoEntity.Mobile = txtMobileNo.Text;
                 ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
                 ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
+                ClientPersonalInfoEntity.AdvisorID = 0;
+                ClientPersonalInfoEntity.UpdatedBy = Session["SAID"].ToString();
                 int result;
                 if (Convert.ToInt32(ViewState["flag"]) == 1)
                 {
@@ -217,6 +257,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
                 if (result == 1)
                 {
+                    InsertDocument();
                     if (Session["Image"] == "" || Session["Image"] != "")
                     {
                         Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
@@ -299,13 +340,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvBankDetails.DataSource = ds.Tables[0];
-                gvBankDetails.DataBind();
+                searchbank.Visible = true;
             }
             else
             {
                 gvBankDetails.DataSource = null;
-                gvBankDetails.DataBind();
+                searchbank.Visible = false;
             }
+            gvBankDetails.PageSize = Convert.ToInt32(DropPageBank.SelectedValue);
+            gvBankDetails.DataBind();
+
         }
         catch
         {
@@ -385,13 +429,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddressDetails.DataSource = ds;
-                gvAddressDetails.DataBind();
+                searchaddress.Visible = true;
             }
             else
             {
                 gvAddressDetails.DataSource = null;
-                gvAddressDetails.DataBind();
+                searchaddress.Visible = false;
             }
+            gvAddressDetails.PageSize = Convert.ToInt32(DropPageAddress.SelectedValue);
+            gvAddressDetails.DataBind();
+
         }
         catch
         {
@@ -635,7 +682,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             BankInfoEntity.AccountNumber = txtAccountNumber.Text;
             BankInfoEntity.AccountType = Convert.ToInt32(ddlAccountType.SelectedValue);
             BankInfoEntity.Currency = txtCurrency.Text;
-            BankInfoEntity.FullName = txtFirstName.Text + " " + txtLastName.Text;
             BankInfoEntity.SWIFT = txtSwift.Text;
             BankInfoEntity.CreatedBy = 0;
             BankInfoEntity.AdvisorID = 0;
@@ -715,31 +761,11 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     }
     protected void DropPageAddress_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPageAddress.SelectedItem.ToString().Trim();
-            GetAddressDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        GetAddressDetails();
     }
     protected void DropPageBank_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPageBank.SelectedItem.ToString().Trim();
-            GetBankDetails();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        GetBankDetails();
     }
     protected void gvAddressDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {

@@ -19,7 +19,6 @@ namespace BusinessLogic
             if (Operation == 'i')
             {
                 hashtable.Add("@inBankDetailID", 0);
-                
             }
             else
             {
@@ -39,7 +38,6 @@ namespace BusinessLogic
             hashtable.Add("@inAdvisorID", bankinfo.AdvisorID);
             hashtable.Add("@inUpdatedBy", bankinfo.UpdatedBy);
             hashtable.Add("@OperationName", Operation);
-
 
             DataUtilities dataUtilities = new DataUtilities();
             int result = dataUtilities.ExecuteNonQuery("InsUpdBankDetail", hashtable);

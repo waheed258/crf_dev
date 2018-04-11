@@ -14,7 +14,7 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
         {
             if (Session["SAID"] == null || Session["SAID"].ToString() == "")
             {
-                Response.Redirect("../Login.aspx", false);
+                Response.Redirect("../ClientLogin.aspx", false);
             }
             else
             {
@@ -34,7 +34,7 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
         }
         catch
         {
-            Response.Redirect("../Login.aspx", false);
+            Response.Redirect("../ClientLogin.aspx", false);
         }
 
     }
