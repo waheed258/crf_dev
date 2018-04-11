@@ -152,7 +152,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#">Accept Ownership of SR</a></li>
+                                <li><a href="AcceptClientSR.aspx">Accept Ownership of SR</a></li>
                                 <li><a href="#">Allocate ownership of SR
                                 <br />
                                     to other staff</a></li>
