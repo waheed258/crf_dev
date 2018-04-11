@@ -160,7 +160,7 @@
                                 <li><a href="#">Add Client feedback and
                                 <br />
                                     update next followup</a></li>
-                                <li><a href="#">Work in process SR</a></li>
+                                <li><a href="WorkInProcess.aspx">Work in process SR</a></li>
                                 <li><a href="#">Un-accepted SR</a></li>
                                 <li><a href="#">Client Profile and Wealth
                                 <br />

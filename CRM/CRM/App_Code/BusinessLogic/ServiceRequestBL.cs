@@ -36,7 +36,13 @@ namespace BusinessLogic
             return ds;
         }
 
-
+        public DataSet GetWorkInProcess()
+        {
+            var newAddress = new List<ClientServiceMasterEntity>();
+            Hashtable hashtable = new Hashtable();
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_WorkInProcess", hashtable);
+            return ds;
+        }
         public int CUDUServiceRequest(ClientServiceMasterEntity clinetservicem, char Operation) 
         {
             Hashtable hashtable = new Hashtable();
