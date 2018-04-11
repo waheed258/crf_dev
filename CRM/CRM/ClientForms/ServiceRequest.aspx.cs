@@ -22,10 +22,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
         try
         {
-            string strPreviousPage = "";
-            if (Request.UrlReferrer != null)
-            {
-                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+           
                 if (Session["SAID"] != null)
                 {
                     if (!IsPostBack)
@@ -38,11 +35,10 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 {
                     Response.Redirect("../ClientLogin.aspx");
                 }
-            }
-            if (strPreviousPage == "")
-            {
-                Response.Redirect("~/ClientLogin.aspx");
-            }
+            //if (strPreviousPage == "")
+            //{
+            //    Response.Redirect("~/ClientLogin.aspx");
+            //}
         }
         catch
         {
@@ -87,16 +83,17 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
 
                 result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
                 message.Text = "ServiceRequest updated Successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             else
             {
                 result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
                 message.Text = "New Service Request created Successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             if (result == 1)
             {
+                InsertDocument();
                 ClearService();
                 GetServiceRequestdetails();
             }
@@ -110,6 +107,46 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         {
 
         }
+    }
+
+
+    private void InsertDocument()
+    {
+        DocumentBL _objDocBL = new DocumentBL();
+
+        if (fuServiceDocument.HasFile)
+        {
+            List<HttpPostedFile> lst = fuServiceDocument.PostedFiles.ToList();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                //HttpPostedFile uploadfile = lst[i];
+                string inFilename = fuServiceDocument.PostedFiles[i].FileName;
+                string strfile = Path.GetExtension(inFilename);
+                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "ServiceRequest");
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string fileName = date + strfile;
+                fuServiceDocument.SaveAs(Path.Combine(folder, fileName));
+                DocumentBO DocumentEntity = new DocumentBO
+                {
+                    DocId = 0,
+                    ReferenceSAID = Session["SAID"].ToString(),
+                    SAID = Session["SAID"].ToString(),
+                    UIC = "0",
+                    Document = fileName,
+                    DocumentName = inFilename,
+                    DocType = 0,
+                    AdvisorID = 0,
+                    Status = 1,
+                };
+
+                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+            }
+        }
+
     }
 
     private void ClearService()

@@ -54,7 +54,7 @@
 <body class="hold-transition sidebar-mini">
     <form id="form1" runat="server">
         <!--preloader-->
-        <%--<div id="preloader">
+      <%--  <div id="preloader">
             <div id="status"></div>
         </div>--%>
         <!-- Site wrapper -->
@@ -89,7 +89,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="../Login.aspx">
+                                        <a href="../ClientLogin.aspx">
                                             <i class="fa fa-sign-out"></i>Signout
                                         </a>
                                     </li>
@@ -161,12 +161,6 @@
 
                             </ul>
                         </li>
-                        <li class="treeview">
-                            <a href="Document.aspx">
-                                <i class="fa fa-list"></i><span>Documents</span></a>
-
-                        </li>
-
 
                     </ul>
                 </div>

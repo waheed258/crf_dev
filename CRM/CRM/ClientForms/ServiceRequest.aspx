@@ -84,7 +84,7 @@
                             <label class="control-label">Upload Document</label>
                         </div>
                         <div class="form-group col-sm-4">
-                            <asp:FileUpload ID="fuDocument" runat="server"></asp:FileUpload>
+                            <asp:FileUpload ID="fuServiceDocument" runat="server"></asp:FileUpload>
                         </div>
                     </div>
                 </div>
