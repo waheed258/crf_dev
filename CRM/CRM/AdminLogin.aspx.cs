@@ -28,12 +28,7 @@ public partial class AdminForms_Login : System.Web.UI.Page
     {
         try
         {
-            if (txtUserName.Text == "admin" && txtPassword.Text == "admin")
-            {
-                Response.Redirect("AdminForms/Dashboard.aspx");
-            }
-            else
-            {
+            
                 DataSet ds = loginBL.ValidateUser(txtUserName.Text);
                 string passowrd = string.Empty;
                 if (ds.Tables[0].Rows.Count > 0)
@@ -56,9 +51,9 @@ public partial class AdminForms_Login : System.Web.UI.Page
                 }
                 else
                 {
-                    lblError.Text = "User Name is incorrect!";
+                    lblError.Text = "Please check credentials!";
                 }
-            }
+           
         }
         catch (Exception ex)
         {
