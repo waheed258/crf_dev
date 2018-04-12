@@ -189,7 +189,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            dataset = spouseBL.GetAllSpouse(Session["SAID"].ToString(), "");
+            dataset = spouseBL.GetAllSpouse(Session["SAID"].ToString(), "0");
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvSpouse.DataSource = dataset;
@@ -765,7 +765,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         try
         {
             gvSpouse.PageSize = int.Parse(ViewState["ps"].ToString());
-            dataset = spouseBL.GetAllSpouse("", txtSAID.Text);
+            dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
