@@ -174,10 +174,14 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             string fileNamemain = string.Empty;
             if (fuImageUpload.HasFile)
             {
-
                 fuImageUpload.SaveAs(Server.MapPath("~/AdvisorImages/" + txtSAId.Text + this.fuImageUpload.FileName));
                 fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                 advisorentity.Image = "~/AdvisorImages/" + txtSAId.Text + fileName;
+                Session["Image"] = "~/AdvisorImages/" + txtSAId.Text + fileName;
+            }
+            else
+            {
+                advisorentity.Image = Session["Image"].ToString();
             }
             advisorentity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
             advisorentity.FirstName = txtFirstName.Text;
@@ -200,10 +204,15 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
             if (result == 1)
             {
-                if (Session["Image"] == "" || Session["Image"] != "")
+                if (Session["Image"].ToString() != "")
                 {
                     Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                    lblImg.ImageUrl = "~/AdvisorImages/" + txtSAId.Text + fileName;
+                    lblImg.ImageUrl = Session["Image"].ToString();
+                }
+                else
+                {
+                    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                    lblImg.ImageUrl = "~/AdvisorImages/7346837424333avatar5.png";
                 }
                 message.Text = "Advisor Updated Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);

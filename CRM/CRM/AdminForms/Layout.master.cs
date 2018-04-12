@@ -16,9 +16,7 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                 Response.Redirect("../AdminLogin.aspx", false);
             }
             else
-            {
-                if (!IsPostBack)
-                {
+            {               
                     lblUserName.Text = Session["Name"].ToString().ToUpper();
                     if (Session["Image"].ToString() == "")
                     {
@@ -28,7 +26,7 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                     {
                         imgProfilePic.ImageUrl = Session["Image"].ToString();
                     }
-                }
+                
             }
         }
         catch
