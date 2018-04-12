@@ -86,7 +86,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
         try
         {
-            dataset = companyBL.GetCompanyList(Session["SAID"].ToString(), "");
+            dataset = companyBL.GetCompanyList(Session["SAID"].ToString(), "0");
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvCompany.DataSource = dataset;
@@ -732,7 +732,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         try
         {
             string ExistsUIC = txtCompanyUIC.Text;
-            dataset = companyBL.GetCompanyList("", ExistsUIC);
+            dataset = companyBL.GetCompanyList("0", ExistsUIC);
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
