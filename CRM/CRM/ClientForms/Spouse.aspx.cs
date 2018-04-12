@@ -764,7 +764,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            gvSpouse.PageSize = int.Parse(ViewState["ps"].ToString());
+            
             dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
 
             if (dataset.Tables[0].Rows.Count > 0)
