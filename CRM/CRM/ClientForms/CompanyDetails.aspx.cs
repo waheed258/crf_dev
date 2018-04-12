@@ -88,7 +88,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         try
         {
             dataset = companyBL.GetCompanyList(Session["SAID"].ToString(), "0");
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvCompany.DataSource = dataset;
                 companylist.Visible = true;
@@ -114,7 +114,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         try
         {
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 8);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvBankDetails.DataSource = dataset;
                 searchbank.Visible = true;
@@ -141,7 +141,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         try
         {
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddressDetails.DataSource = dataset;
                 searchaddress.Visible = true;
