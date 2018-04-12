@@ -190,7 +190,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         try
         {
             dataset = spouseBL.GetAllSpouse(Session["SAID"].ToString(), "0");
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvSpouse.DataSource = dataset;
                 search.Visible = true;
@@ -218,7 +218,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         try
         {
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 2);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
                 searchaddress.Visible = true;
@@ -354,7 +354,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         try
         {
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;
                 searchbank.Visible = true;
