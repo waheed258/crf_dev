@@ -20,7 +20,7 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                 if (!IsPostBack)
                 {
                     lblUserName.Text = Session["Name"].ToString().ToUpper();
-                    if (Session["Image"] == "")
+                    if (Session["Image"].ToString() == "")
                     {
                         imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
                     }
