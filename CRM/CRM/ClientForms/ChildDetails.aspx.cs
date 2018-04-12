@@ -169,12 +169,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             dataset = childBL.GetAllChilds(Session["SAID"].ToString(), "0");
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvChildDetails.DataSource = dataset;
                 search.Visible = true;
                 ChildList.Visible = true;
-            }
+            } 
             else
             {
                 gvChildDetails.DataSource = null;
@@ -316,7 +316,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
                 searchaddress.Visible = true;
@@ -342,7 +342,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3);
-            if (dataset.Tables[0].Rows.Count > 0)
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
                 gdvBankList.DataSource = dataset;
