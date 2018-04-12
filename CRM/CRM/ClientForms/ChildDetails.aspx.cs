@@ -168,7 +168,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     {
         try
         {
-            dataset = childBL.GetAllChilds(Session["SAID"].ToString(), "");
+            dataset = childBL.GetAllChilds(Session["SAID"].ToString(), "0");
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 gvChildDetails.DataSource = dataset;
@@ -827,7 +827,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         try
         {
             string ExistsSAID = txtSAID.Text;
-            dataset = childBL.GetAllChilds("", ExistsSAID);
+            dataset = childBL.GetAllChilds("0", ExistsSAID);
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
