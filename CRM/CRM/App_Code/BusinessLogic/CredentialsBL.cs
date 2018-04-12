@@ -18,7 +18,7 @@ namespace BusinessLogic
                 {"@inSAID",_objCredentials.SAID},
                 {"@inEmailID",_objCredentials.EmailID},
                 {"@inGenaratePassword",_objCredentials.GenaratePassword},
-                {"@inPassword",DBNull.Value},
+                {"@inPassword",_objCredentials.Password},
                 {"@inCreatedBy",DBNull.Value},
                 {"@inUpdatedBy",DBNull.Value},
                 {"@FirstName",_objCredentials.FirstName},

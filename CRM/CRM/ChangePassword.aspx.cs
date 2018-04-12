@@ -16,31 +16,21 @@ public partial class ChangePassword : System.Web.UI.Page
     {
         try
         {
-            string strPreviousPage = "";
-            if (Request.UrlReferrer != null)
+            if (Session["SAID"] == null || Session["SAID"].ToString() == "")
             {
-                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
-
-                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
-                {
-                    Response.Redirect("../AdminLogin.aspx", false);
-                }
-                else
-                {
-                    if (!IsPostBack)
-                    {
-
-                    }
-                }
+                Response.Redirect("~/ClientLogin.aspx", false);
             }
-            if (strPreviousPage == "")
+            else
             {
-                Response.Redirect("~/AdminLogin.aspx");
+                if (!IsPostBack)
+                {
+
+                }
             }
         }
         catch
         {
-            
+
         }
     }
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -53,7 +43,7 @@ public partial class ChangePassword : System.Web.UI.Page
                 if (result == 1)
                 {
                     Session.Remove("email");
-                    Response.Redirect("Login.aspx", false);
+                    Response.Redirect("~/ClientLogin.aspx", false);
                 }
             }
             else
@@ -70,7 +60,9 @@ public partial class ChangePassword : System.Web.UI.Page
         CredentialsBO _objCre = new CredentialsBO
         {
             EmailID = Session["email"].ToString(),
+            SAID = Session["SAID"].ToString(),
             Password = txtCreatePassword.Text,
+            GenaratePassword = Session["GenaratePassword"].ToString(),
             FirstName = "",
             LastName = "",
             Image = ""

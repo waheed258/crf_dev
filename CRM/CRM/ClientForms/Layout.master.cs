@@ -18,10 +18,9 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
             }
             else
             {
-                if (!IsPostBack)
-                {
+              
                     lblUserName.Text = Session["ClientName"].ToString().ToUpper();
-                    if (Session["Image"] == null)
+                    if (Session["Image"].ToString() == "" || Session["Image"].ToString() == null)
                     {
                         imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
                     }
@@ -30,7 +29,7 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
                         imgProfilePic.ImageUrl = Session["Image"].ToString();
                     }
                 }
-            }
+            
         }
         catch
         {

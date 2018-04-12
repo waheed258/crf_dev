@@ -35,7 +35,9 @@ public partial class Login : System.Web.UI.Page
                 if (ds.Tables[0].Rows[0]["Status"].ToString() == "1")
                 {
                     passowrd = ds.Tables[0].Rows[0]["GenaratePassword"].ToString();
+                    Session["GenaratePassword"] = passowrd;
                     Session["email"] = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                    Session["SAID"] = ds.Tables[0].Rows[0]["SAID"].ToString();
                     if (passowrd == txtPassword.Text)
                     {
                         Response.Redirect("ChangePassword.aspx", false);
@@ -52,6 +54,7 @@ public partial class Login : System.Web.UI.Page
                     {
                         Session["ClientName"] = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
                         Session["SAID"] = ds.Tables[0].Rows[0]["SAID"].ToString();
+                        Session["Image"] = ds.Tables[0].Rows[0]["Image"].ToString();
                         Response.Redirect("ClientForms/Dashboard.aspx", false);
                     }
                     else

@@ -45,13 +45,13 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="control-label" for="password">Create Password</label>
-                                <asp:TextBox ID="txtCreatePassword" TextMode="Password" placeholder="******" runat="server" class="form-control"></asp:TextBox>
-                                <span class="help-block small">Your strong password</span>
+                                <asp:TextBox ID="txtCreatePassword" TextMode="Password" placeholder="Password" runat="server" class="form-control"></asp:TextBox>
+                               
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Confirm Password</label>
-                                <asp:TextBox ID="txtConfirmPassword" TextMode="Password" placeholder="******" runat="server" class="form-control"></asp:TextBox>
-                                <span class="help-block small">Your strong password</span>
+                                <asp:TextBox ID="txtConfirmPassword" TextMode="Password" placeholder="Confirm Password" runat="server" class="form-control"></asp:TextBox>
+                              
                             </div>
                             <div>
                                 <asp:Button ID="btnLogin" runat="server" Text="Change" class="btn btn-add" OnClick="btnLogin_Click" />

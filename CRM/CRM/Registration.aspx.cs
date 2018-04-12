@@ -43,7 +43,7 @@ public partial class Registration : System.Web.UI.Page
                 if (result == 1)
                 {
                     
-                    lblMessage.Text = "You Registered Successfully. One of our Avisors will contact you soon!";
+                    lblMessage.Text = "You Registered Successfully. One of our Advisors will contact you soon!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }

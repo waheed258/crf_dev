@@ -165,6 +165,8 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Identification Number</label>
                                                 <asp:TextBox ID="txtSAId" runat="server" class="form-control" MaxLength="13" placeholder="Enter SAID"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                    ControlToValidate="txtSAId" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
@@ -177,12 +179,17 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">EmailId</label>
                                                 <asp:TextBox ID="txtEmail" runat="server" class="form-control" placeholder="Enter EmailId"></asp:TextBox>
+                                                 <asp:RegularExpressionValidator ID="revEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                    ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Client">
+                                                </asp:RegularExpressionValidator>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile No</label>
                                                 <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" MaxLength="10" placeholder="Enter Mobile No"></asp:TextBox>
+                                                <asp:RegularExpressionValidator ID="rgvMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtMobileNo" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Phone No</label>
@@ -206,14 +213,14 @@
                                             </div>
 
                                         </div>
-                                       
+
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Upload Photo</label>
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
                                                 <asp:HiddenField ID="hfImage" runat="server" />
                                             </div>
-                                            
+
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Document</label>
                                                 <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
@@ -359,7 +366,7 @@
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-1 form-group">
-                                                    <asp:DropDownList ID="DropPageBank" runat="server" 
+                                                    <asp:DropDownList ID="DropPageBank" runat="server"
                                                         OnSelectedIndexChanged="DropPageBank_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
@@ -551,7 +558,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">House No</label>
                                                     <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server" placeholder="Enter House No"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
+                                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter Plot Number"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
