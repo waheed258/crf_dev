@@ -157,7 +157,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 if (result > 0)
                 {
                     int res = ManageCredentials(ViewState["SAID"].ToString(), ViewState["Email"].ToString(), ViewState["FirstName"].ToString(), ViewState["LastName"].ToString());
-                    SendMail();
+                    SendMail(ViewState["Email"].ToString());
                     message.Text = "Status Updated Successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     sectionClientList.Visible = true;
@@ -258,7 +258,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             ddlClientStatus.DataBind();
             ddlClientStatus.Items.Insert(0, new ListItem("--Select Status --", "-1"));
         }
-        catch (Exception ex)
+        catch 
         {
 
         }
@@ -316,26 +316,26 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         return passwordString;
     }
 
-    public void SendMail()
+    public void SendMail(string ToMail)
     {
         string SmtpServer = "smtp.gmail.com"; ;
         int SmtpPort = 587;
         string MailFrom = "active8crm.sa@gmail.com";
         string DisplayNameFrom = "Active8 CRM";
         string FromPassword = "Active@321#";
-        string MailTo = "saikishore.addada@dinoosys.com";
+        string MailTo = ToMail;
         string DisplayNameTo = "";
         string MailCc = "";
         string DisplayNameCc = "";
         string MailBcc = "";
-        string Subject = "Your booking reference" + " status changed";
+        string Subject = "Your Login Credentials";
         string MailText;
         string Attachment = "";
 
 
         MailCc = "";
 
-        MailText = "Hi, <br/><br/> Thanks for Register of Activ8 :<br/>User Id : <b>" + ViewState["Email"] + "</b> <br/>Password : <b>" + ViewState["RandomPwd"].ToString() + "</b>" +
+        MailText = "Hi, <br/><br/> Thanks for Registering with Activ8 group:<br/>User Id : <b>" + ViewState["Email"] + "</b> <br/>Password : <b>" + ViewState["RandomPwd"].ToString() + "</b>" +
             "</b> <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
 
         CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, "", "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
