@@ -33,9 +33,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
                     {
                         GetDesignation();
                         GetBranch();
-                        GetAdvisorType();
                         GetStatus();
-                        GetRole();
+                      //  GetRole();
+                        ddlAdvisorType.Visible = false;
+                        lblAdvisorType.Visible = false;
                     }
                 }
             }
@@ -83,11 +84,11 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
 
         }
     }
-    protected void GetAdvisorType()
+    protected void GetAdvisorType(int Designation)
     {
         try
         {
-            dataset = newAdvisorBL.GetAdvisorType();
+            dataset = newAdvisorBL.GetAdvisorType(Designation);
             ddlAdvisorType.DataSource = dataset;
             ddlAdvisorType.DataTextField = "AdvisorType";
             ddlAdvisorType.DataValueField = "AdvisorTypeID";
@@ -115,22 +116,22 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
 
         }
     }
-    protected void GetRole()
-    {
-        try
-        {
-            dataset = newAdvisorBL.GetRole();
-            ddlRole.DataSource = dataset;
-            ddlRole.DataTextField = "Role";
-            ddlRole.DataValueField = "RoleID";
-            ddlRole.DataBind();
-            ddlRole.Items.Insert(0, new ListItem("--Select Role --", "-1"));
-        }
-        catch (Exception ex)
-        {
+    //protected void GetRole()
+    //{
+    //    try
+    //    {
+    //        dataset = newAdvisorBL.GetRole();
+    //        ddlRole.DataSource = dataset;
+    //        ddlRole.DataTextField = "Role";
+    //        ddlRole.DataValueField = "RoleID";
+    //        ddlRole.DataBind();
+    //        ddlRole.Items.Insert(0, new ListItem("--Select Role --", "-1"));
+    //    }
+    //    catch (Exception ex)
+    //    {
 
-        }
-    }
+    //    }
+    //}
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -146,7 +147,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             advisorentity.Branch = Convert.ToInt32(ddlBranch.SelectedValue);
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
-            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
+         //   advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             advisorentity.AdvisorSAID = txtSAId.Text.Trim();
 
 
@@ -183,12 +184,41 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         ddlAdvisorType.SelectedValue = "-1";
         ddlBranch.SelectedValue = "-1";
         ddlDesignation.SelectedValue = "-1";
-        ddlRole.SelectedValue = "-1";
+    //    ddlRole.SelectedValue = "-1";
         ddlStatus.SelectedValue = "-1";
         txtLoginId.Text = "";
         txtPassword.Text = "";
         txtConfirmPassword.Text = "";
         txtSAId.Text = "";
 
+    }
+    protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ddlAdvisorType.Items.Clear();
+            lblAdvisorType.Visible = true;
+            ddlAdvisorType.Visible = true;
+            GetAdvisorType(ddlDesignation.SelectedIndex);
+            if (ddlDesignation.SelectedIndex==1)
+            {
+               
+                lblAdvisorType.Text = "Advisor Type";
+            }
+            else if (ddlDesignation.SelectedIndex==2)
+            {
+                lblAdvisorType.Text = "Consultant Type";
+            }
+            else
+            {
+                lblAdvisorType.Visible = false;
+                ddlAdvisorType.Visible = false;
+            }
+        }
+        catch
+        {
+
+        }
+      
     }
 }

@@ -20,6 +20,7 @@ namespace EntityManager
         public string FollowUpDate { get; set; }
         public string FollowUpTime { get; set; }
         public string DueDate { get; set; }
+        public string DueTime { get; set; }
         public int Priority { get; set; }
         public int ActivityType { get; set; }
         public int ClientServiceID { get; set; }

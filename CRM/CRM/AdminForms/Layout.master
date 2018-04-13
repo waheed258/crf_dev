@@ -138,10 +138,10 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
+                                 <li><a href="ClientRegistrationForm.aspx">Client Registration Form</a></li>
                                 <li><a href="ClientList.aspx">Registered Clients</a></li>
-                                <li><a href="#">Location Wise</a></li>
-                                <li><a href="ClientRegistrationForm.aspx">Client Registration Form</a></li>
-                                <li><a href="ActiveClientList.aspx">Active Clients</a></li>
+                                 <li><a href="ActiveClientList.aspx">Active Clients</a></li>
+                                <li><a href="#">Location Wise Clients</a></li>                        
                             </ul>
                         </li>
                         <li class="treeview">
@@ -152,15 +152,15 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="AcceptClientSR.aspx">Accept Ownership of SR</a></li>
-                               <%-- <li><a href="#">Allocate ownership of SR
+                                <li><a href="AcceptClientSR.aspx">Client Service Requests</a></li>
+                              <%--  <li><a href="#">Allocate ownership of SR
                                 <br />
-                                    to other staff</a></li>--%>
+                                    to other staff</a></li>
                                 <li><a href="#">Add followup date and time</a></li>
-                                <%--<li><a href="#">Add Client feedback and
+                                <li><a href="#">Add Client feedback and
                                 <br />
                                     update next followup</a></li>--%>
-                                <li><a href="WorkInProcess.aspx">Work in process SR</a></li>
+                                <li><a href="WorkInProcess.aspx">Under process SR List</a></li>
                               <%--  <li><a href="#">Un-accepted SR</a></li>--%>
                                <%-- <li><a href="#">Client Profile and Wealth
                                 <br />

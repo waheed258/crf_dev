@@ -34,7 +34,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
         try
         {
-            dataset = serviceRequestBL.GetServiceRequest("0");
+            dataset = serviceRequestBL.GetClientSRList();
             gvClientSR.DataSource = dataset;
             gvClientSR.DataBind();
         }
@@ -96,7 +96,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
 
                 if (ddlAdvisors.SelectedValue == "-1")
                 {
-                    message1.Text = "Please Select Advisor";
+                    message.Text = "Please assign Advisor to this SR";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else
@@ -205,6 +205,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             followupEntity.FollowUpDate = string.IsNullOrEmpty(txtFollowDate.Text) ? null : txtFollowDate.Text;
             followupEntity.FollowUpTime = string.IsNullOrEmpty(txtFollowTime.Text) ? null : txtFollowTime.Text;
             followupEntity.DueDate = string.IsNullOrEmpty(txtDueDate.Text) ? null : txtDueDate.Text;
+            followupEntity.DueTime = string.IsNullOrEmpty(txtDueTime.Text) ? null : txtDueTime.Text;
             followupEntity.Priority = Convert.ToInt32(dropPriority.SelectedValue);
             followupEntity.ActivityType = Convert.ToInt32(dropActivityType.SelectedValue);
             int Result = followBL.FollowUpCRUD(followupEntity, 'i');
@@ -232,6 +233,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         txtFollowDate.Text = "";
         txtFollowTime.Text = "";
         txtDueDate.Text = "";
+        txtDueTime.Text = "";
         dropPriority.SelectedValue = "-1";
         dropActivityType.SelectedValue = "-1";
     }

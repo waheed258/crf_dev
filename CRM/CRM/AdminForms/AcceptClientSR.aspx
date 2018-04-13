@@ -107,14 +107,14 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="Action">
+                                        <asp:TemplateField HeaderText="Action/Accept SR">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnAllocatedTo" ImageUrl="~/assets/dist/img/settler.png" data-toggle="modal" data-target="#AllocatedTo" runat="server" Width="23px" Height="23px"
                                                     CommandName="AllocatedTo" ToolTip="AllocatedTo" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                                  <asp:ImageButton ID="imgAccept" ImageUrl="~/assets/dist/img/Accept.jpg" data-toggle="modal" data-target="#Accept" runat="server" Width="23px" Height="23px"
-                                                    CommandName="Validate" ToolTip="Validate" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                <asp:ImageButton ID="imgAccept" ImageUrl="~/assets/dist/img/Accept.jpg" data-toggle="modal" data-target="#Accept" runat="server" Width="23px" Height="23px"
+                                                    CommandName="Validate" ToolTip="ActivateSR" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -134,7 +134,6 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <h5>Advisor List</h5>
-
                             </div>
                         </div>
                         <div class="panel-body">
@@ -204,39 +203,50 @@
 
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>FollowUp Date & Time</label>
-                                                <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
-                                                  <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
-                                                    ErrorMessage="Enter year of Foundation"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator><br />
-                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
-                                                  <asp:RequiredFieldValidator ID="rfvtxtFollowTime" runat="server" ControlToValidate="txtFollowTime" Display="Dynamic"
-                                                    ErrorMessage="Enter year of Foundation"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
-
-                                            </div>
-                                            <div class="form-group col-sm-3">
-                                                <label>Due Date</label>
-                                                <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
-                                                    ErrorMessage="Enter year of Foundation"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <div class="form-group col-sm-3">
                                                 <label>Priority</label>
                                                 <asp:DropDownList ID="dropPriority" runat="server" class="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
-                                                 <asp:RequiredFieldValidator ID="rfvdropPriority" runat="server" ControlToValidate="dropPriority" Display="Dynamic"
-                                                    ErrorMessage="Enter year of Foundation"
+                                                <asp:RequiredFieldValidator ID="rfvdropPriority" runat="server" ControlToValidate="dropPriority" Display="Dynamic"
+                                                    ErrorMessage="Select Priority"
                                                     ValidationGroup="Follow" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Activity Type</label>
                                                 <asp:DropDownList ID="dropActivityType" runat="server" class="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
-                                                 <asp:RequiredFieldValidator ID="rfvdropActivityType" runat="server" ControlToValidate="dropActivityType" Display="Dynamic"
-                                                    ErrorMessage="Enter year of Foundation"
+                                                <asp:RequiredFieldValidator ID="rfvdropActivityType" runat="server" ControlToValidate="dropActivityType" Display="Dynamic"
+                                                    ErrorMessage="Select Activity Type"
                                                     ValidationGroup="Follow" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                            <h5><u>Follow Up Date & Time</u></h5>
+                                                </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                                <label>Start Date & Time</label>
+                                                <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
+                                                    ErrorMessage="Select Start Date"
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtFollowTime" runat="server" ControlToValidate="txtFollowTime" Display="Dynamic"
+                                                    ErrorMessage="Enter Start Time"
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
+
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Due Date & Time</label>
+                                                <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
+                                                    ErrorMessage="Select Due Date"
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                                                <asp:TextBox ID="txtDueTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvDueTime" runat="server" ControlToValidate="txtDueTime" Display="Dynamic"
+                                                    ErrorMessage="Enter Due Time"
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
                                     </div>
@@ -248,52 +258,52 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab2">
                                     <div class="panel-body">
-                                    <div class="table-responsive">
-                                   <asp:GridView ID="gdvUpdatesList" runat="server" Width="100%"
-                                    AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
-                                    EmptyDataText="There are no data records to display."
-                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" 
-                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
-                                    <Columns>
-                                        <asp:TemplateField HeaderText="S No.">
-                                            <ItemTemplate>
-                                                <%#Container.DataItemIndex+1%>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Assigned To">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblAssignedTo" Text='<%#Eval("AssignedTo") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="FollowUpDate">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblFollowUpDate" Text='<%#Eval("FollowUpDates") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="FollowUpTime">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblFollowUpTime" Text='<%#Eval("FollowUpTime") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Priority">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblPriority" Text='<%#Eval("PriorityName") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Client ServiceID" Visible="false">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                       
-                                    </Columns>
-                                </asp:GridView>
-                            </div>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gdvUpdatesList" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
+                                                EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                                CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1%>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Assigned To">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAssignedTo" Text='<%#Eval("AssignedTo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FollowUpDate">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblFollowUpDate" Text='<%#Eval("FollowUpDates") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="FollowUpTime">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblFollowUpTime" Text='<%#Eval("FollowUpTime") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Priority">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblPriority" Text='<%#Eval("PriorityName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Client ServiceID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
                                     </div>
-                                     <div class="panel-footer">
-                            <div class="col-sm-5"></div>                            
-                            <asp:Button ID="btnFollowListCancel" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnFollowListCancel_Click" />
-                        </div>
+                                    <div class="panel-footer">
+                                        <div class="col-sm-5"></div>
+                                        <asp:Button ID="btnFollowListCancel" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnFollowListCancel_Click" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +329,7 @@
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
                                         <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
-                                        
+
                                     </div>
                                 </fieldset>
 
@@ -335,7 +345,7 @@
             <!-- /.modal-dialog -->
         </div>
 
-           <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -364,14 +374,14 @@
         </div>
 
     </div>
-     <script type="text/javascript">
-         $(function () {
-             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
-             $('#Tabs a[href="#' + tabName + '"]').tab('show');
-             $("#Tabs a").click(function () {
-                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-             });
-         });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
 </asp:Content>
 

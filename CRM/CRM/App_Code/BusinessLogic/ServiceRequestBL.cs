@@ -36,6 +36,11 @@ namespace BusinessLogic
             return ds;
         }
 
+        public DataSet GetClientSRList()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("GetClientSRList");
+            return ds;
+        }
 
         public int CUDUServiceRequest(ClientServiceMasterEntity clinetservicem, char Operation) 
         {

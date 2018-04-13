@@ -23,10 +23,11 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetBranch");
             return ds;
         }
-        public DataSet GetAdvisorType()
+        public DataSet GetAdvisorType( int Designation)
         {
-            DataSet ds = dataUtilities.ExecuteDataSet("GetAdvisorType");
-            return ds;
+          Hashtable hashtable = new Hashtable();
+          hashtable.Add("@Designation", Designation);
+          return dataUtilities.ExecuteDataSet("GetAdvisorType", hashtable);
         }
         public DataSet GetStatus()
         {
