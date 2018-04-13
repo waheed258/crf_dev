@@ -11,6 +11,7 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
 {
     NewClientRegistrationBL newClientRegistrationBL = new NewClientRegistrationBL();
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
+    CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -29,6 +30,9 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
             {
                 Response.Redirect("~/AdminLogin.aspx");
             }
+
+            _objComman.GetProvince(ddlProvince);
+            _objComman.GetCity(ddlCity);
         }
         catch
         {
@@ -56,10 +60,9 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
                 clientRegEntity.SAID = txtSAID.Text;
                 clientRegEntity.Title = ddlTitle.SelectedItem.Text;
                 clientRegEntity.EmailID = txtEmailId.Text;
-                clientRegEntity.CompanyName = txtCompanyName.Text;
-                clientRegEntity.CompanyRegNo = txtComRegNum.Text;
-                clientRegEntity.TrustName = txtTrust.Text;
-                clientRegEntity.TrustRegNo = txtTrustNum.Text;
+                clientRegEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
+                clientRegEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+               
 
                 int result = newClientRegistrationBL.CUDclientinfo(clientRegEntity, 'i');
                 if (result == 1)
@@ -90,10 +93,8 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
         txtSAID.Text = "";
         txtEmailId.Text = "";
         ddlTitle.SelectedValue = "-1";
-        txtCompanyName.Text = "";
-        txtComRegNum.Text = "";
-        txtTrust.Text = "";
-        txtTrustNum.Text = "";
+        ddlProvince.SelectedValue = "-1";
+        ddlCity.SelectedValue = "-1";
     }
     protected void btnegistrationCancel_Click(object sender, EventArgs e)
     {

@@ -59,24 +59,21 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-3 form-group">
-                                    <label class="control-label">Company Name</label>
-                                    <asp:TextBox ID="txtCompanyName" CssClass="form-control" placeholder="Company Name" runat="server"></asp:TextBox>
+                               <div class="col-sm-3 form-group">
+                                    <label class="control-label">Province</label>
+                                    <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
+                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Company Registration Number</label>
-                                    <asp:TextBox ID="txtComRegNum" CssClass="form-control" placeholder="Company Registration Number" runat="server"></asp:TextBox>
+                                    <label class="control-label">City</label>
+                                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
+                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                 </div>
-                                <div class="col-sm-3 form-group">
-                                    <label class="control-label">Trust Name</label>
-                                    <asp:TextBox ID="txtTrust" CssClass="form-control" placeholder="Trust Name" runat="server"></asp:TextBox>
-                                </div>
-                                <div class="col-sm-3 form-group">
-                                    <label class="control-label">Trust Registration Number</label>
-                                    <asp:TextBox ID="txtTrustNum" CssClass="form-control" placeholder="Trust Registration Number" runat="server"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
+                               
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Mobile</label>
                                     <asp:TextBox ID="txtMobile" CssClass="form-control" placeholder="Mobile Number" runat="server" MaxLength="10"></asp:TextBox>

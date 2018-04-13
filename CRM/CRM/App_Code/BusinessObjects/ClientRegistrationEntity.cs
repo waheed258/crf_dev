@@ -16,10 +16,8 @@ namespace EntityManager
         public string LastName { get; set; }
         public string EmailID { get; set; }
         public string MobileNumber { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyRegNo { get; set; }
-        public string TrustName { get; set; }
-        public string TrustRegNo { get; set; }
+        public int Province { get; set; }
+        public int City { get; set; }       
         public int? VerifiedBy { get; set; }
         public string VerifiedOn { get; set; }
         public string VerifiedThough { get; set; }

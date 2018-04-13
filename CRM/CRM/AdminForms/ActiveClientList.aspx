@@ -30,7 +30,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
-                <h1>Registered Clients</h1>
+                <h1>Active Clients</h1>
             </div>
         </section>
         <!-- Main content -->
@@ -92,24 +92,14 @@
                                                 <asp:Label runat="server" ID="lblCStatus" Text='<%#Eval("Status") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CompanyName" Visible="false">
+                                        <asp:TemplateField HeaderText="Province" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblProvince" Text='<%#Eval("Province") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CompanyRegNo" Visible="false">
+                                        <asp:TemplateField HeaderText="City" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblCompanyRegNo" Text='<%#Eval("CompanyRegNo") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="TrustName" Visible="false">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("TrustName") %>'></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="TrustRegNo" Visible="false">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblTrustRegNo" Text='<%#Eval("TrustRegNo") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblCity" Text='<%#Eval("City") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Title" Visible="false">
@@ -205,24 +195,19 @@
                                         ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Client">
                                     </asp:RegularExpressionValidator>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Company</label>
-                                    <asp:TextBox ID="txtCompany" runat="server" class="form-control" placeholder="Company"></asp:TextBox>
+                                <div class="col-sm-3 form-group">
+                                    <label class="control-label">Province</label>
+                                    <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
+                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Company Registration</label>
-                                    <asp:TextBox ID="txtCompanyRegNo" runat="server" class="form-control" placeholder="Registration No"></asp:TextBox>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label>Trust</label>
-                                    <asp:TextBox ID="txtTrust" runat="server" class="form-control" placeholder="Trust"></asp:TextBox>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label>Trust Registration</label>
-                                    <asp:TextBox ID="txtTrustRegNo" runat="server" class="form-control" placeholder="Registration No"></asp:TextBox>
+                                <div class="col-sm-3 form-group">
+                                    <label class="control-label">City</label>
+                                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
+                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>

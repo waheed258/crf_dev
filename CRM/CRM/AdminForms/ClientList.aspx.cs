@@ -13,6 +13,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     NewClientRegistrationBL newClientRegistrationBL = new NewClientRegistrationBL();
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
     FeedbackEntity feedbackEntity = new FeedbackEntity();
+    CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -30,6 +31,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
+                        _objComman.GetProvince(ddlProvince);
+                        _objComman.GetCity(ddlCity);
                         GetGridData();
                         sectionClientList.Visible = true;
                         editSection.Visible = false;
@@ -76,10 +79,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         txtLastName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
         txtEmail.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
         txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
-        txtCompany.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCompanyName")).Text.ToString();
-        txtCompanyRegNo.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCompanyRegNo")).Text.ToString();
-        txtTrust.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTrustName")).Text.ToString();
-        txtTrustRegNo.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTrustRegNo")).Text.ToString();
+        ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
+        ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();        
         ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
     }
     protected void Button_Update_Click(object sender, EventArgs e)
@@ -95,10 +96,9 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             clientRegEntity.SAID = txtSAID.Text;
             clientRegEntity.Title = ddlTitle.SelectedItem.Text;
             clientRegEntity.EmailID = txtEmail.Text;
-            clientRegEntity.CompanyName = txtCompany.Text;
-            clientRegEntity.CompanyRegNo = txtCompanyRegNo.Text;
-            clientRegEntity.TrustName = txtTrust.Text;
-            clientRegEntity.TrustRegNo = txtTrustRegNo.Text;
+            clientRegEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
+            clientRegEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+           
 
             int result = newClientRegistrationBL.CUDclientinfo(clientRegEntity, 'u');
             if (result == 1)
@@ -130,10 +130,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         txtSAID.Text = "";
         txtEmail.Text = "";
         ddlTitle.SelectedValue = "-1";
-        txtCompany.Text = "";
-        txtCompanyRegNo.Text = "";
-        txtTrust.Text = "";
-        txtTrustRegNo.Text = "";
+        ddlProvince.SelectedValue = "-1";
+        ddlCity.SelectedValue = "-1";
     }
     protected void Button_Close_Click(object sender, EventArgs e)
     {
@@ -277,7 +275,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             EmailID = Email,
             FirstName = FirstName,
             LastName = LastName,
-            GenaratePassword = GenarateDynamicPassword()
+            GenaratePassword = GenarateDynamicPassword(),
+            Password= ""
         };
         return new CredentialsBL().ManageCredentials(_objCre, 'A');
     }

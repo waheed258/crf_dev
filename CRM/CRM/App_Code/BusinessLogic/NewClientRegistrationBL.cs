@@ -40,11 +40,9 @@ namespace BusinessLogic
             hashtable.Add("@LastName", clientinfo.LastName);
             hashtable.Add("@EmailID", clientinfo.EmailID);
             hashtable.Add("@MobileNumber", clientinfo.MobileNumber);
-            hashtable.Add("@CompanyName", clientinfo.CompanyName);
-            hashtable.Add("@CompanyRegNo", clientinfo.CompanyRegNo);
-            hashtable.Add("@TrustName", clientinfo.TrustName);
-            hashtable.Add("@TrustRegNo", clientinfo.TrustRegNo);
-
+            hashtable.Add("@Province", clientinfo.Province);
+            hashtable.Add("@City", clientinfo.City);
+           
             hashtable.Add("@Operation", Operation);
 
             DataUtilities dataUtilities = new DataUtilities();
