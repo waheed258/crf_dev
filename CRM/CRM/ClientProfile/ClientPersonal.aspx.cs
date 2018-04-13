@@ -133,6 +133,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
 
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
                 btnSubmitClientPersonal.Text = "Edit";
+                DivAddBank.Visible = true;
             }
             else
             {
@@ -147,6 +148,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ViewState["flag"] = 2;
                 btnSubmitClientPersonal.Text = "Submit";
                 GetClientRegistartion();
+                DivAddBank.Visible = true;
             }
         }
         catch

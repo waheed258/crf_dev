@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="panel-body" id="Tabs">
-                            <div style="text-align: right">
+                            <div style="text-align: right" id="DivAddBank" runat="server">
                                 <asp:LinkButton ID="LinkButton2" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton2_Click">
                                     <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Address Info
                                 </asp:LinkButton>
