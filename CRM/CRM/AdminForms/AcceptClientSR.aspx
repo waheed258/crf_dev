@@ -1,7 +1,50 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="AcceptClientSR.aspx.cs" Inherits="AdminForms_AcceptClientSR" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvClientSR]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvClientSR]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
+
+                    $("[id *=ContentPlaceHolder1_gvClientSR]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvClientSR]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+    </script>
     <style type="text/css">
         tr {
             height: 30px;
@@ -46,13 +89,30 @@
                                 <h5>Client Service Requests List</h5>
                             </div>
                         </div>
-
                         <div class="panel-body">
+                            <div class="row" id="search" runat="server">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-1 form-group">
+                                        <asp:DropDownList ID="DropPage" runat="server"
+                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged" CssClass="form-control"
+                                            AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label class="control-label">
+                                            Records per page</label>
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-3">
+                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvClientSR" runat="server" Width="100%"
                                     AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display."
-                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientSR_RowEditing"
+                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientSR_RowEditing" OnPageIndexChanging="gvClientSR_PageIndexChanging"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvClientSR_RowCommand">
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">
@@ -87,13 +147,13 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Client Name" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblName" Text='<%#Eval("FIRSTNAME") +" "+ Eval("LASTNAME") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblName" Text='<%#Eval("ClientName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField HeaderText="Allocated To" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblAllocatedTo" Text='<%#Eval("FirstName") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblAllocatedTo" Text='<%#Eval("AdvisorName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="AdvisorID" Visible="false">
@@ -103,7 +163,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="AdvisorName" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblAdvisorName" Text='<%#Eval("Name") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblAdvisorName" Text='<%#Eval("AdvisorName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
@@ -143,7 +203,8 @@
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Select Advisor</label>
-                                    <asp:DropDownList ID="ddlAdvisors" runat="server" class="form-control">
+                                    <asp:DropDownList ID="ddlAdvisors" runat="server" class="form-control" AppendDataBoundItems="true">
+                                        <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvAdvisors" runat="server" ErrorMessage="Please select Advisor" Display="Dynamic"
                                         ControlToValidate="ddlAdvisors" ValidationGroup="Advisor" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
@@ -221,8 +282,8 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                            <h5><u>Follow Up Date & Time</u></h5>
-                                                </div>
+                                                <h5><u>Follow Up Date & Time</u></h5>
+                                            </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
@@ -329,7 +390,9 @@
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
                                         <asp:Label ID="lbldeletemessage" runat="server" class="control-label" Style="color: green" />
-
+                                        <div class="pull-right">
+                                            <asp:Button ID="btnSure" runat="server" Text="YES" CssClass="btn btn-add btn-sm" OnClick="btnSure_Click"></asp:Button>
+                                        </div>
                                     </div>
                                 </fieldset>
 

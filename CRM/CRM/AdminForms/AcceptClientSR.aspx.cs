@@ -16,14 +16,15 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     ClientServiceMasterEntity clientserviceMasterEntity = new ClientServiceMasterEntity();
     FollowUpBL followBL = new FollowUpBL();
     FollowUpEntity followupEntity = new FollowUpEntity();
-   
+    CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
-    {
+    {   
         if (!IsPostBack)
         {
+            BindAdvisors();
             AdvisorSection.Visible = false;
             FollowUpSection.Visible = false;
-            BindAdvisors();
+            _objComman.getRecordsPerPage(DropPage);
             BindPriority();
             BindActivityType();
             GetGridData();
@@ -37,6 +38,8 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             dataset = serviceRequestBL.GetClientSRList();
             gvClientSR.DataSource = dataset;
             gvClientSR.DataBind();
+            gvClientSR.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvClientSR.DataBind();
         }
         catch
         {
@@ -48,12 +51,13 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
         try
         {
+            
             dataset = serviceRequestBL.GetAdvisors();
             ddlAdvisors.DataSource = dataset;
             ddlAdvisors.DataTextField = "Name";
             ddlAdvisors.DataValueField = "AdvisorID";
             ddlAdvisors.DataBind();
-            ddlAdvisors.Items.Insert(0, new ListItem("--Select Advisor --", "-1"));
+           // ddlAdvisors.Items.Insert(0, new ListItem("--Select Advisor Type --", "0"));
         }
         catch
         {
@@ -71,6 +75,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
             ViewState["ServiceName"] = ((Label)row.FindControl("lblServiceName")).Text.ToString();
             ViewState["AdvisorID"] = ((Label)row.FindControl("lblAdvisorID")).Text.ToString();
+            
             if (ViewState["AdvisorID"].ToString() == "")
             {
                 ddlAdvisors.SelectedValue = "-1";
@@ -85,7 +90,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
             if (e.CommandName == "AllocatedTo")
             {
-                BindAdvisors();
+                //BindAdvisors();
                 sectionRequestList.Visible = false;
                 AdvisorSection.Visible = true;
                 ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
@@ -114,19 +119,20 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             }
             else if (e.CommandName == "Validate")
             {
-                FollowUpSection.Visible = false;
-                sectionRequestList.Visible = true;
-                AdvisorSection.Visible = false;
-                int id = Convert.ToInt32(ViewState["ClientServiceID"]);
-                int result = serviceRequestBL.UpdateClientServiceRequest(id);
-                if (result == 1)
+                if (ddlAdvisors.SelectedValue == "-1")
                 {
-                    lbldeletemessage.Text = "Service Request Activated Successfully";
+                    message.Text = "Please assign Advisor to this SR";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else
+                {
+                    FollowUpSection.Visible = false;
+                    sectionRequestList.Visible = true;
+                    AdvisorSection.Visible = false;
+                    lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
-                    GetGridData();
                    
                 }
-                
             }
         }
         catch { }
@@ -259,14 +265,37 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
         try
         {
-            if (Convert.ToInt32(ViewState["flag"]) == 1)
+            int id = Convert.ToInt32(ViewState["ClientServiceID"]);
+            int result = serviceRequestBL.UpdateClientServiceRequest(id);
+            if (result == 1)
             {
-                
+                message.Text = "Service Request Activated Successfully";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetGridData();
+
             }
         }
         catch
         {
 
+        }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetGridData();
+    }
+    protected void gvClientSR_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvClientSR.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 }
