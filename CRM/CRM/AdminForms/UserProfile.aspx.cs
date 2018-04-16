@@ -30,12 +30,15 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
+                        ddlAdvisorType.Visible = false;
+                        lblAdvisorType.Visible = false;
                         GetAdvisor();
                         GetDesignation();
                         GetBranch();
-                        GetAdvisorType();
+                        //GetAdvisorType();
                         GetStatus();
-                        GetRole();
+                        //GetRole();
+                       
                     }
                 }
             }
@@ -56,24 +59,42 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
     {
         try
         {
+            DataSet ds = new DataSet();
             int AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
-            dataset = newAdvisorBL.GetAdvisor(AdvisorId);
-            if (dataset.Tables.Count > 0)
+            ds = newAdvisorBL.GetAdvisor(AdvisorId);
+            if (ds.Tables.Count > 0)
             {
-                txtSAId.Text = dataset.Tables[0].Rows[0]["AdvisorSAID"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtLoginId.Text = dataset.Tables[0].Rows[0]["LoginId"].ToString();
-                txtPassword.Text = dataset.Tables[0].Rows[0]["Password"].ToString();
-                ddlDesignation.SelectedValue = dataset.Tables[0].Rows[0]["Designation"].ToString();
-                ddlBranch.SelectedValue = dataset.Tables[0].Rows[0]["Branch"].ToString();
-                ddlAdvisorType.SelectedValue = dataset.Tables[0].Rows[0]["AdvisorType"].ToString();
-                ddlStatus.SelectedValue = dataset.Tables[0].Rows[0]["Status"].ToString();
-                ddlRole.SelectedValue = dataset.Tables[0].Rows[0]["AdvisorRole"].ToString();
-                hfImage.Value = dataset.Tables[0].Rows[0]["Image"].ToString();
+                txtSAId.Text = ds.Tables[0].Rows[0]["AdvisorSAID"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtMobileNum.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhoneNum.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtEmailId.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtLoginId.Text = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
+                ddlBranch.SelectedValue = ds.Tables[0].Rows[0]["Branch"].ToString();
+                ddlStatus.SelectedValue = ds.Tables[0].Rows[0]["Status"].ToString();
+                ddlDesignation.SelectedValue = ds.Tables[0].Rows[0]["Designation"].ToString();
+                if (ds.Tables[0].Rows[0]["Designation"].ToString() == "1")
+                {
+                    ddlAdvisorType.Items.Clear();
+                    lblAdvisorType.Visible = true;
+                    ddlAdvisorType.Visible = true;
+                    GetAdvisorType(1);
+                    
+                }
+                else if (ds.Tables[0].Rows[0]["Designation"].ToString() == "2")
+                {
+                    ddlAdvisorType.Items.Clear();
+                    GetAdvisorType(2);
+                    lblAdvisorType.Visible = true;
+                    ddlAdvisorType.Visible = true;
+                    lblAdvisorType.Text = "Consultant Type";
+                }
+                ddlAdvisorType.SelectedValue = ds.Tables[0].Rows[0]["AdvisorType"].ToString();
+
+                // ddlRole.SelectedValue = ds.Tables[0].Rows[0]["AdvisorRole"].ToString();
+                hfImage.Value = ds.Tables[0].Rows[0]["Image"].ToString();
 
 
 
@@ -118,22 +139,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
 
         }
     }
-    protected void GetAdvisorType()
-    {
-        try
-        {
-            dataset = newAdvisorBL.GetAdvisorType();
-            ddlAdvisorType.DataSource = dataset;
-            ddlAdvisorType.DataTextField = "AdvisorType";
-            ddlAdvisorType.DataValueField = "AdvisorTypeID";
-            ddlAdvisorType.DataBind();
-            ddlAdvisorType.Items.Insert(0, new ListItem("--Select Type --", "-1"));
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
+    
     protected void GetStatus()
     {
         try
@@ -150,22 +156,22 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
 
         }
     }
-    protected void GetRole()
-    {
-        try
-        {
-            dataset = newAdvisorBL.GetRole();
-            ddlRole.DataSource = dataset;
-            ddlRole.DataTextField = "Role";
-            ddlRole.DataValueField = "RoleID";
-            ddlRole.DataBind();
-            ddlRole.Items.Insert(0, new ListItem("--Select Role --", "-1"));
-        }
-        catch (Exception ex)
-        {
+    //protected void GetRole()
+    //{
+    //    try
+    //    {
+    //        dataset = newAdvisorBL.GetRole();
+    //        ddlRole.DataSource = dataset;
+    //        ddlRole.DataTextField = "Role";
+    //        ddlRole.DataValueField = "RoleID";
+    //        ddlRole.DataBind();
+    //        ddlRole.Items.Insert(0, new ListItem("--Select Role --", "-1"));
+    //    }
+    //    catch (Exception ex)
+    //    {
 
-        }
-    }
+    //    }
+    //}
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
         try
@@ -196,7 +202,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             advisorentity.Branch = Convert.ToInt32(ddlBranch.SelectedValue);
             advisorentity.AdvisorType = Convert.ToInt32(ddlAdvisorType.SelectedValue);
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
-            advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
+          //  advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             //advisorentity.Image = hfImage.Value;
             //need to initialize with login advisor id
 
@@ -231,8 +237,54 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+    protected void GetAdvisorType(int Designation)
+    {
+        try
+        {
+            dataset = newAdvisorBL.GetAdvisorType(Designation);
+            ddlAdvisorType.DataSource = dataset;
+            ddlAdvisorType.DataTextField = "AdvisorType";
+            ddlAdvisorType.DataValueField = "AdvisorTypeID";
+            ddlAdvisorType.DataBind();
+            ddlAdvisorType.Items.Insert(0, new ListItem("--Select Type --", "-1"));
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
     protected void btncancel_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ddlAdvisorType.Items.Clear();
+            lblAdvisorType.Visible = true;
+            ddlAdvisorType.Visible = true;
+            GetAdvisorType(ddlDesignation.SelectedIndex);
+            if (ddlDesignation.SelectedIndex == 1)
+            {
+
+                lblAdvisorType.Text = "Advisor Type";
+            }
+            else if (ddlDesignation.SelectedIndex == 2)
+            {
+                lblAdvisorType.Text = "Consultant Type";
+            }
+            else
+            {
+                lblAdvisorType.Visible = false;
+                ddlAdvisorType.Visible = false;
+            }
+        }
+        catch
+        {
+
+        }
     }
 }

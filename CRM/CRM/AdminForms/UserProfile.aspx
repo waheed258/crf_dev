@@ -92,23 +92,11 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                         <div class="form-group col-sm-3">
-                                            <label>Designation</label>
-                                            <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                                            <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
-                                                ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        </div>
-                                        <div class="form-group col-sm-3">
+                                          <div class="form-group col-sm-3">
                                             <label>Branch</label>
                                             <asp:DropDownList ID="ddlBranch" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvBranch" runat="server" ControlToValidate="ddlBranch" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Branch" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        </div>
-                                        <div class="form-group col-sm-3">
-                                            <label>Advisor Type</label>
-                                            <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                                            <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
-                                                ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
                                         <div class="form-group col-sm-3">
                                             <label>Status</label>
@@ -116,15 +104,24 @@
                                             <asp:RequiredFieldValidator ID="rfvStatus" runat="server" ControlToValidate="ddlStatus" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Status" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
+                                         <div class="form-group col-sm-3">
+                                            <label>Designation</label>
+                                            <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
+                                            <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
+                                                ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
+                                        </div>
+                                      
+                                        <div class="form-group col-sm-3">
+                                             <asp:Label ID="lblAdvisorType" runat="server">Advisor Type</asp:Label>
+                                            <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                            <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
+                                                ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
+                                        </div>
+                                        
                                         
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="form-group col-sm-3">
-                                            <label>Role</label>
-                                            <asp:DropDownList ID="ddlRole" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                                            <asp:RequiredFieldValidator ID="rfvRole" runat="server" ControlToValidate="ddlRole" ForeColor="#d0582e"
-                                                ErrorMessage="Please Select Role" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        </div>
+                                    
                                          <div class="form-group col-sm-3">
                                             <label>Upload Photo</label>
                                             <asp:FileUpload ID="fuImageUpload" runat="server"/>
