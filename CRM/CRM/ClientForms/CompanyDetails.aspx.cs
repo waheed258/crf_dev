@@ -517,7 +517,12 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 }
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnUpdateBank_Click(object sender, EventArgs e)
     {
@@ -667,7 +672,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
                 int result = companyBL.DeleteCompanyDetails(ViewState["UIC"].ToString());
-                if (result == 1)
+                if (result >0)
                 {
                     GetGridData();
                     GetBankDetails();

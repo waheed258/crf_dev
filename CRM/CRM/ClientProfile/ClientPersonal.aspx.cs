@@ -260,11 +260,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (result == 1)
                 {
                     InsertDocument();
-                    if (Session["Image"] == "" || Session["Image"] != "")
-                    {
-                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                        lblImg.ImageUrl = "~/ClientImages/" + txtSAId.Text + fileName;
-                    }
+                    //if (Session["Image"].ToString() != "")
+                    //{
+                    //    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                    //    lblImg.ImageUrl = img;
+                    //}
+                    //else
+                    //{
+                    //    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                    //  //  lblImg.ImageUrl = "~/AdvisorImages/7346837424333avatar5.png";
+                    //}
                     txtSAId.ReadOnly = true;
                     txtFirstName.ReadOnly = true;
                     txtLastName.ReadOnly = true;

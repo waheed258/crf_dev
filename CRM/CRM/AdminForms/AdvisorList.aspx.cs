@@ -14,6 +14,7 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
     NewAdvisorBL newAdvisorBL = new NewAdvisorBL();
     EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     AdvisorEntity advisorentity = new AdvisorEntity();
+    CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -31,10 +32,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
+                        _objComman.getRecordsPerPage(DropPage);
                         GetGridData();
                         editSection.Visible = false;
                         GetDesignation();
-                        GetBranch();
+                        GetBranch();                     
                        // GetAdvisorType();
                         GetStatus();
                        // GetRole();
@@ -63,9 +65,15 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             dataset = newAdvisorBL.GetAdvisorList();
             gvAdvisor.DataSource = dataset;
             ViewState["dt"] = dataset.Tables[0];
+            gvAdvisor.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvAdvisor.DataBind();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvAdvisor_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -114,7 +122,12 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             //ddlRole.SelectedValue = Role;
 
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void GetDesignation()
     {
@@ -127,9 +140,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlDesignation.DataBind();
             ddlDesignation.Items.Insert(0, new ListItem("--Select Designation --", "-1"));
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetBranch()
@@ -143,9 +158,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlBranch.DataBind();
             ddlBranch.Items.Insert(0, new ListItem("--Select Branch --", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetAdvisorType(int Designation)
@@ -159,9 +176,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlAdvisorType.DataBind();
             ddlAdvisorType.Items.Insert(0, new ListItem("--Select Type --", "-1"));
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetStatus()
@@ -175,9 +194,10 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
             ddlStatus.DataBind();
             ddlStatus.Items.Insert(0, new ListItem("--Select Status --", "-1"));
         }
-        catch (Exception ex)
-        {
-
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     //protected void GetRole()
@@ -231,9 +251,11 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     public void Clear()
@@ -283,7 +305,27 @@ public partial class AdminForms_AdvisorList : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetGridData();
+    }
+    protected void gvAdvisor_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvAdvisor.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 }

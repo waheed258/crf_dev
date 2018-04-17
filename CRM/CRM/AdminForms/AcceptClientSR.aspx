@@ -114,6 +114,7 @@
                                     EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientSR_RowEditing" OnPageIndexChanging="gvClientSR_PageIndexChanging"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvClientSR_RowCommand">
+                                    <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">
                                             <ItemTemplate>
@@ -170,11 +171,11 @@
                                         <asp:TemplateField HeaderText="Action/Accept SR">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnAllocatedTo" ImageUrl="~/assets/dist/img/settler.png" data-toggle="modal" data-target="#AllocatedTo" runat="server" Width="23px" Height="23px"
-                                                    CommandName="AllocatedTo" ToolTip="AllocatedTo" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                    CommandName="AllocatedTo" ToolTip="Allocate" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="imgAccept" ImageUrl="~/assets/dist/img/Accept.jpg" data-toggle="modal" data-target="#Accept" runat="server" Width="23px" Height="23px"
-                                                    CommandName="Validate" ToolTip="ActivateSR" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                    CommandName="Validate" ToolTip="AcceptSR" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -291,25 +292,33 @@
                                                 <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
                                                     ErrorMessage="Select Start Date"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <br />
+                                            <div class="form-group col-sm-3">
                                                 <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowTime" runat="server" ControlToValidate="txtFollowTime" Display="Dynamic"
                                                     ErrorMessage="Enter Start Time"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
-
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Due Date & Time</label>
                                                 <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
                                                     ErrorMessage="Select Due Date"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator><br />
+                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <br />
+                                            <div class="form-group col-sm-3">
                                                 <asp:TextBox ID="txtDueTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvDueTime" runat="server" ControlToValidate="txtDueTime" Display="Dynamic"
                                                     ErrorMessage="Enter Due Time"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="panel-footer">
                                         <div class="col-sm-5"></div>

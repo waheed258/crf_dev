@@ -87,20 +87,33 @@
                                 <h5>Advisor List</h5>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 8px;">
-                            <div class="col-lg-12">
-                                <div class="col-lg-3">
-                                    <input id="target" class="form-control" type="text" placeholder="search" />
+
+                        <div class="panel-body">
+                            <div class="row" id="search" runat="server">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-1 form-group">
+                                        <asp:DropDownList ID="DropPage" runat="server"
+                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged" CssClass="form-control"
+                                            AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label class="control-label">
+                                            Records per page</label>
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-3">
+                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel-body">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvAdvisor" runat="server" Width="100%"
                                     AutoGenerateColumns="False" DataKeyNames="AdvisorID" CssClass="rounded-corners"
-                                    EmptyDataText="There are no data records to display."
-                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvAdvisor_RowEditing"
+                                    EmptyDataText="There are no data records to display." OnPageIndexChanging="gvAdvisor_PageIndexChanging"
+                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvAdvisor_RowEditing"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
+                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="Advisor ID" Visible="false">
                                             <ItemTemplate>
@@ -267,31 +280,32 @@
                             </div>
 
                             <div class="col-sm-12">
-                                <div class="form-group col-sm-3">
-                                    <label>Designation</label>
-                                    <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
-                                        ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
-                                </div>
-                                 <div class="form-group col-sm-3">
-                                   <asp:Label ID="lblAdvisorType" runat="server">Advisor Type</asp:Label>
-                                    <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
-                                        ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
-                                </div>
-                                <div class="form-group col-sm-3">
+                                  <div class="form-group col-sm-3">
                                     <label>Branch</label>
                                     <asp:DropDownList ID="ddlBranch" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvBranch" runat="server" ControlToValidate="ddlBranch" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Branch" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                               
+
                                 <div class="form-group col-sm-3">
                                     <label>Status</label>
                                     <asp:DropDownList ID="ddlStatus" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvStatus" runat="server" ControlToValidate="ddlStatus" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Status" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
+                                <div class="form-group col-sm-3">
+                                    <label>Designation</label>
+                                    <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
+                                        ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <asp:Label ID="lblAdvisorType" runat="server">Advisor Type</asp:Label>
+                                    <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
+                                        ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </div>
+                              
 
                             </div>
                             <%--<div class="col-sm-12">
@@ -302,7 +316,6 @@
                                         ErrorMessage="Please Select Role" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
                             </div>--%>
-
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
@@ -325,8 +338,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
-                                    <div class="col-md-12 form-group user-form-group">                                     
-                                        <asp:Label ID="message" runat="server" CssClass="control-label" style="color: green"></asp:Label>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="message" runat="server" CssClass="control-label" Style="color: green"></asp:Label>
                                     </div>
                                 </fieldset>
                             </div>

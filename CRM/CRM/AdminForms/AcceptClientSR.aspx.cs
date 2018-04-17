@@ -43,7 +43,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -61,7 +63,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -70,72 +74,85 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
-            ViewState["ServiceName"] = ((Label)row.FindControl("lblServiceName")).Text.ToString();
-            ViewState["AdvisorID"] = ((Label)row.FindControl("lblAdvisorID")).Text.ToString();
-            
-            if (ViewState["AdvisorID"].ToString() == "")
+            if (e.CommandName != "Page")
             {
-                ddlAdvisors.SelectedValue = "-1";
-            }
-            else
-            {
-                ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
-            }
-            ViewState["ClientName"] = ((Label)row.FindControl("lblName")).Text.ToString();
-            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-            ViewState["Name"] = ((Label)row.FindControl("lblAdvisorName")).Text.ToString();
-            int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
-            if (e.CommandName == "AllocatedTo")
-            {
-                //BindAdvisors();
-                sectionRequestList.Visible = false;
-                AdvisorSection.Visible = true;
-                ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
+                ViewState["ServiceName"] = ((Label)row.FindControl("lblServiceName")).Text.ToString();
+                ViewState["AdvisorID"] = ((Label)row.FindControl("lblAdvisorID")).Text.ToString();
 
-            }
-            else if (e.CommandName == "FollowUp")
-            {
-
-                if (ddlAdvisors.SelectedValue == "-1")
+                if (ViewState["AdvisorID"].ToString() == "")
                 {
-                    message.Text = "Please assign Advisor to this SR";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    ddlAdvisors.SelectedValue = "-1";
                 }
                 else
                 {
-                    FollowUpSection.Visible = true;
+                    ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
+                }
+                ViewState["ClientName"] = ((Label)row.FindControl("lblName")).Text.ToString();
+                ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                ViewState["Name"] = ((Label)row.FindControl("lblAdvisorName")).Text.ToString();
+                int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
+                if (e.CommandName == "AllocatedTo")
+                {
+                    //BindAdvisors();
                     sectionRequestList.Visible = false;
-                    AdvisorSection.Visible = false;
-                    txtFollowTime.Text = DateTime.Now.ToShortTimeString();
-                    txtServiceRequest.Text = ViewState["ServiceName"].ToString();
-                    txtClientSAID.Text = ViewState["SAID"].ToString();
-                    txtClientName.Text = ViewState["ClientName"].ToString();
-                    txtAssignedTo.Text = ViewState["Name"].ToString();
-                    BindFollowUp(clientServiceID);
+                    AdvisorSection.Visible = true;
+
+                    if (ddlAdvisors.SelectedValue == "-1")
+                        ddlAdvisors.SelectedValue = "-1";
+                    else
+                        ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
+                    
+
                 }
-            }
-            else if (e.CommandName == "Validate")
-            {
-                if (ddlAdvisors.SelectedValue == "-1")
+                else if (e.CommandName == "FollowUp")
                 {
-                    message.Text = "Please assign Advisor to this SR";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                    if (ddlAdvisors.SelectedValue == "-1")
+                    {
+                        message.Text = "Please assign Advisor to this SR";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else
+                    {
+                        FollowUpSection.Visible = true;
+                        sectionRequestList.Visible = false;
+                        AdvisorSection.Visible = false;
+                        txtFollowTime.Text = DateTime.Now.ToShortTimeString();
+                        txtServiceRequest.Text = ViewState["ServiceName"].ToString();
+                        txtClientSAID.Text = ViewState["SAID"].ToString();
+                        txtClientName.Text = ViewState["ClientName"].ToString();
+                        txtAssignedTo.Text = ViewState["Name"].ToString();
+                        BindFollowUp(clientServiceID);
+                    }
                 }
-                else
+                else if (e.CommandName == "Validate")
                 {
-                    FollowUpSection.Visible = false;
-                    sectionRequestList.Visible = true;
-                    AdvisorSection.Visible = false;
-                    lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
-                   
+                    if (ddlAdvisors.SelectedValue == "-1")
+                    {
+                        message.Text = "Please assign Advisor to this SR";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else
+                    {
+                        FollowUpSection.Visible = false;
+                        sectionRequestList.Visible = true;
+                        AdvisorSection.Visible = false;
+                        lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openActiveModal();", true);
+
+                    }
                 }
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void btnAdvisorSubmit_Click(object sender, EventArgs e)
@@ -154,7 +171,11 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             }
         }
         catch
-        { }
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     private void BindPriority()
@@ -170,7 +191,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -187,7 +210,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnAdvisorCancel_Click(object sender, EventArgs e)
@@ -226,7 +251,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void FollowClose_Click(object sender, EventArgs e)
@@ -254,7 +281,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnFollowListCancel_Click(object sender, EventArgs e)
@@ -277,7 +306,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
@@ -294,7 +325,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         catch
         {
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Something went wrong, please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

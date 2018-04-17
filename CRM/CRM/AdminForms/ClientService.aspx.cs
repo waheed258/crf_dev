@@ -67,9 +67,11 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
                 txtServiceName.Text = "";
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -105,9 +107,11 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void BindClientService()
@@ -119,8 +123,11 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
             gvClientService.DataSource = dataset;
             gvClientService.DataBind();
         }
-        catch (Exception ex)
+        catch
         {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void gvClientService_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -130,7 +137,12 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
             gvClientService.PageIndex = e.NewPageIndex;
             BindClientService();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
@@ -157,7 +169,12 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
                 BindClientService();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnSure_Click(object sender, EventArgs e)
     {
@@ -173,7 +190,12 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
                 }
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -182,6 +204,11 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindClientService();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

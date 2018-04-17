@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
-
         function openModal() {
             $('#ContentPlaceHolder1_Success').modal('show');
         }
@@ -26,6 +25,49 @@
             border: 1px solid #e4e5e7;
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -47,12 +89,31 @@
                         </div>
 
                         <div class="panel-body">
+                              <div class="row" id="search" runat="server">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-1 form-group">
+                                        <asp:DropDownList ID="DropPage" runat="server"
+                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged" CssClass="form-control"
+                                            AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label class="control-label">
+                                            Records per page</label>
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-3">
+                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvClientsList" runat="server" Width="100%"
                                     AutoGenerateColumns="False" DataKeyNames="ClientRegistartionID" CssClass="rounded-corners"
-                                    EmptyDataText="There are no data records to display."
+                                    EmptyDataText="There are no data records to display." OnPageIndexChanging="gvClientsList_PageIndexChanging"
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientsList_RowEditing"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvClientsList_RowCommand">
+                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">
                                             <ItemTemplate>

@@ -33,6 +33,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                     {
                         _objComman.GetProvince(ddlProvince);
                         _objComman.GetCity(ddlCity);
+                        _objComman.getRecordsPerPage(DropPage);
                         GetGridData();
                         sectionClientList.Visible = true;
                         editSection.Visible = false;
@@ -50,7 +51,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         catch
         {
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Something went wrong, please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -62,26 +63,39 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             dataset = newClientRegistrationBL.GetClientRegisteredList();
             gvClientsList.DataSource = dataset;
             ViewState["dt"] = dataset.Tables[0];
+            gvClientsList.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvClientsList.DataBind();
         }
-        catch { }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvClientsList_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        int RowIndex = e.NewEditIndex;
-        sectionClientList.Visible = false;
-        editSection.Visible = true;
-        txtSAID.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblSAID")).Text.ToString();
-        ViewState["SAID"] = txtSAID.Text;
-        ViewState["RegID"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblRegID")).Text.ToString();
-        ViewState["Status"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCStatus")).Text.ToString();
-        txtFirstName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
-        txtLastName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
-        txtEmail.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
-        txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
-        ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
-        ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();        
-        ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+        try
+        {
+            int RowIndex = e.NewEditIndex;
+            sectionClientList.Visible = false;
+            editSection.Visible = true;
+            txtSAID.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblSAID")).Text.ToString();
+            ViewState["SAID"] = txtSAID.Text;
+            ViewState["RegID"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblRegID")).Text.ToString();
+            ViewState["Status"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCStatus")).Text.ToString();
+            txtFirstName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
+            txtLastName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
+            txtEmail.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
+            txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
+            ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
+            ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();
+            ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+        }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void Button_Update_Click(object sender, EventArgs e)
     {
@@ -117,9 +131,10 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     public void Clear()
@@ -167,7 +182,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 }
                 else
                 {
-                    message.Text = "Something went wron please try again!";
+                    message.Text = "Something went wrong, please try again!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
             }
@@ -191,14 +206,18 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 }
                 else
                 {
-                    message.Text = "Something went wron please try again!";
+                    message.Text = "Something went wrong, please try again!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }
             }
 
         }
-        catch { }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnStatusCancel_Click(object sender, EventArgs e)
     {
@@ -210,40 +229,48 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["Status"] = ((Label)row.FindControl("lblCStatus")).Text.ToString();
-            ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-            ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
-            ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
-            ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
-            ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
-            if (e.CommandName == "Status")
+            if (e.CommandName != "Page")
             {
-                GetClientStatus();
-                sectionClientList.Visible = false;
-                editSection.Visible = false;
-                statusSection.Visible = true;
-                ddlClientStatus.SelectedValue = ViewState["Status"].ToString();
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["Status"] = ((Label)row.FindControl("lblCStatus")).Text.ToString();
+                ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                ViewState["ClientRegID"] = ((Label)row.FindControl("lblRegID")).Text.ToString();
+                ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
+                ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
+                if (e.CommandName == "Status")
+                {
+                    GetClientStatus();
+                    sectionClientList.Visible = false;
+                    editSection.Visible = false;
+                    statusSection.Visible = true;
+                    ddlClientStatus.SelectedValue = ViewState["Status"].ToString();
 
-            }
-            else if (e.CommandName == "Validate")
-            {
-                sectionClientList.Visible = false;
-                editSection.Visible = false;
-                statusSection.Visible = false;
-                validateSection.Visible = true;
-            }
-            else if (e.CommandName == "Feedback")
-            {
-                ClientFeedbackSection.Visible = true;
-                sectionClientList.Visible = false;
-                editSection.Visible = false;
-                statusSection.Visible = false;
-                validateSection.Visible = false;
+                }
+                else if (e.CommandName == "Validate")
+                {
+                    sectionClientList.Visible = false;
+                    editSection.Visible = false;
+                    statusSection.Visible = false;
+                    validateSection.Visible = true;
+                }
+                else if (e.CommandName == "Feedback")
+                {
+                    ClientFeedbackSection.Visible = true;
+                    sectionClientList.Visible = false;
+                    editSection.Visible = false;
+                    statusSection.Visible = false;
+                    validateSection.Visible = false;
+                }
             }
         }
-        catch { }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    
     }
     protected void GetClientStatus()
     {
@@ -258,7 +285,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         }
         catch 
         {
-
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -372,11 +400,15 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Something went wron please try again!";
+                message.Text = "Something went wrong, please try again!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnClose_Click(object sender, EventArgs e)
     {
@@ -407,11 +439,15 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Something went wron please try again!";
+                message.Text = "Something went wrong, please try again!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnCancelFeedback_Click(object sender, EventArgs e)
     {
@@ -421,5 +457,23 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         statusSection.Visible = false;
         ClientFeedbackSection.Visible = false;
         validateSection.Visible = false;
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetGridData();
+    }
+    protected void gvClientsList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvClientsList.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong,please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

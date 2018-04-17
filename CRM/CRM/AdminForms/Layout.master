@@ -45,6 +45,9 @@
     <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
     <!-- End Theme Layout Style
          =====================================================================-->
+
+    <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

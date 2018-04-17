@@ -57,6 +57,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                             {
                                 txtUIC.Text = Session["CompanyUIC"].ToString();
                                 btnBack.Text = "Back to Company";
+
                             }
                             GetBeneficiaryGrid(txtUIC.Text.Trim());
                             BindBankDetails();
@@ -238,7 +239,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     private void BindBeneficiary(int BeneficiaryId)
     {
-        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, 1, txtUIC.Text.Trim());
+        int Type=Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
+        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId,Type, txtUIC.Text.Trim());
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();

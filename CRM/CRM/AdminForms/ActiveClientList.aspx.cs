@@ -33,6 +33,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                     {
                         _objComman.GetProvince(ddlProvince);
                         _objComman.GetCity(ddlCity);
+                        _objComman.getRecordsPerPage(DropPage);
                         GetGridData();
                         sectionClientList.Visible = true;
                         editSection.Visible = false;
@@ -48,7 +49,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
         catch
         {
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Something went wrong, please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -60,26 +61,41 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
             dataset = newClientRegistrationBL.GetActiveClientList();
             gvClientsList.DataSource = dataset;
             ViewState["dt"] = dataset.Tables[0];
+            gvClientsList.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvClientsList.DataBind();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvClientsList_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        int RowIndex = e.NewEditIndex;
-        sectionClientList.Visible = false;
-        editSection.Visible = true;
-        txtSAID.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblSAID")).Text.ToString();
-        ViewState["SAID"] = txtSAID.Text;
-        ViewState["RegID"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblRegID")).Text.ToString();
-        ViewState["Status"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCStatus")).Text.ToString();
-        txtFirstName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
-        txtLastName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
-        txtEmail.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
-        txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
-        ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
-        ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();
-        ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+        try
+        {
+            int RowIndex = e.NewEditIndex;
+            sectionClientList.Visible = false;
+            editSection.Visible = true;
+            txtSAID.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblSAID")).Text.ToString();
+            ViewState["SAID"] = txtSAID.Text;
+            ViewState["RegID"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblRegID")).Text.ToString();
+            ViewState["Status"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCStatus")).Text.ToString();
+            txtFirstName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblFirstName")).Text.ToString();
+            txtLastName.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblLastName")).Text.ToString();
+            txtEmail.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblEmailID")).Text.ToString();
+            txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
+            ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
+            ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();
+            ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void Button_Update_Click(object sender, EventArgs e)
     {
@@ -115,9 +131,11 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     public void Clear()
@@ -142,16 +160,42 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
     {
         try
         {
-            if (e.CommandName == "SaveClient")
+            if (e.CommandName != "Page")
             {
-                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-                int RowIndex = row.RowIndex;
-                Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
-                string url = "../ClientProfile/ClientPersonal.aspx";
-                string s = "window.open('" + url + "', '_blank');";
-                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+                if (e.CommandName == "SaveClient")
+                {
+                    GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                    int RowIndex = row.RowIndex;
+                    Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    string url = "../ClientProfile/ClientPersonal.aspx";
+                    string s = "window.open('" + url + "', '_blank');";
+                    ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+                }
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetGridData();
+    }
+    protected void gvClientsList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvClientsList.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

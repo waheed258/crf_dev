@@ -30,9 +30,11 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
             {
                 Response.Redirect("~/AdminLogin.aspx");
             }
-
-            _objComman.GetProvince(ddlProvince);
-            _objComman.GetCity(ddlCity);
+            if (!IsPostBack)
+            {
+                _objComman.GetProvince(ddlProvince);
+                _objComman.GetCity(ddlCity);
+            }
         }
         catch
         {
@@ -79,9 +81,11 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            lblMessage.ForeColor = System.Drawing.Color.Red;
+            lblMessage.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 

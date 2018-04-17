@@ -220,6 +220,7 @@
                                 <div class="tab-pane fade in active" id="tabTrust">
                                     <div>
                                         <asp:HiddenField ID="hfBenefaciaryId" runat="server" Value="0" />
+
                                     </div>
                                     <div class="panel-body">
                                         <div class="col-sm-12">

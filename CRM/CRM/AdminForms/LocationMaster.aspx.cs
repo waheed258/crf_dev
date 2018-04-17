@@ -94,9 +94,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
 
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -112,9 +114,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
                 gvLocation.DataBind();
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -144,38 +148,66 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
 
     protected void GetCountry()
     {
-        dataset = basicdropdownBL.GetCountry();
-        if (dataset.Tables.Count > 0)
+        try
         {
-            ddlCountry.DataSource = dataset;
-            ddlCountry.DataTextField = "Country";
-            ddlCountry.DataValueField = "CountryID";
-            ddlCountry.DataBind();
-            ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
+            dataset = basicdropdownBL.GetCountry();
+            if (dataset.Tables.Count > 0)
+            {
+                ddlCountry.DataSource = dataset;
+                ddlCountry.DataTextField = "Country";
+                ddlCountry.DataValueField = "CountryID";
+                ddlCountry.DataBind();
+                ddlCountry.Items.Insert(0, new ListItem("--Select Country --", "-1"));
+            }
         }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+       
     }
     protected void GetProvince()
     {
-        dataset = basicdropdownBL.GetProvince();
-        if (dataset.Tables.Count > 0)
+        try
         {
-            ddlProvince.DataSource = dataset;
-            ddlProvince.DataTextField = "Province";
-            ddlProvince.DataValueField = "ProvinceID";
-            ddlProvince.DataBind();
-            ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
+            dataset = basicdropdownBL.GetProvince();
+            if (dataset.Tables.Count > 0)
+            {
+                ddlProvince.DataSource = dataset;
+                ddlProvince.DataTextField = "Province";
+                ddlProvince.DataValueField = "ProvinceID";
+                ddlProvince.DataBind();
+                ddlProvince.Items.Insert(0, new ListItem("--Select Province --", "-1"));
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetCity()
     {
-        dataset = basicdropdownBL.GetCity();
-        if (dataset.Tables.Count > 0)
+        try
         {
-            ddlCity.DataSource = dataset;
-            ddlCity.DataTextField = "City";
-            ddlCity.DataValueField = "CityID";
-            ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City --", "-1"));
+            dataset = basicdropdownBL.GetCity();
+            if (dataset.Tables.Count > 0)
+            {
+                ddlCity.DataSource = dataset;
+                ddlCity.DataTextField = "City";
+                ddlCity.DataValueField = "CityID";
+                ddlCity.DataBind();
+                ddlCity.Items.Insert(0, new ListItem("--Select City --", "-1"));
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -218,9 +250,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             }
 
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -267,7 +301,12 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
                 BindLocation();
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -290,7 +329,12 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
             BindLocation();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void btnSure_Click(object sender, EventArgs e)
@@ -306,9 +350,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void gvLocation_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -318,6 +364,11 @@ public partial class AdminForms_LocationMaster : System.Web.UI.Page
             gvLocation.PageIndex = e.NewPageIndex;
             BindLocation();
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

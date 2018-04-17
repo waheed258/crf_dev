@@ -29,7 +29,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             {
                 strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
-                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                if (Session["SAID"].ToString() == null || Session["SAID"].ToString() == "")
                 {
                     Response.Redirect("../ClientLogin.aspx", false);
                 }
@@ -118,6 +118,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtMobileNo.ReadOnly = true;
                 txtDateofBirth.ReadOnly = true;
                 txtTaxRefNo.ReadOnly = true;
+                fuImageUpload.Enabled = false;
+                fuDocument.Enabled = false;
                 ViewState["flag"] = 1;
                 txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
@@ -148,7 +150,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ViewState["flag"] = 2;
                 btnSubmitClientPersonal.Text = "Submit";
                 GetClientRegistartion();
-                DivAddBank.Visible = true;
+                DivAddBank.Visible = false;
             }
         }
         catch
@@ -214,6 +216,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtMobileNo.ReadOnly = false;
                 txtDateofBirth.ReadOnly = false;
                 txtTaxRefNo.ReadOnly = false;
+                fuImageUpload.Enabled = true;
+                fuDocument.Enabled = true;
             }
             else
             {
@@ -226,10 +230,12 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
                     img = "~/ClientImages/" + txtSAId.Text + fileName;
                     ClientPersonalInfoEntity.Image = img;
+                    Session["Image"] = img;
                 }
                 else
                 {
                     ClientPersonalInfoEntity.Image = "";
+                    ClientPersonalInfoEntity.Image = Session["Image"].ToString();
                 }
                 ClientPersonalInfoEntity.SAID = txtSAId.Text;
                 ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
@@ -245,6 +251,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (Convert.ToInt32(ViewState["flag"]) == 1)
                 {
                     result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
+                    int res = credentialsBL.InsImage(img, txtSAId.Text);
                     message.Text = "Client details updated successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     GetBankDetails();
@@ -260,10 +267,15 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (result == 1)
                 {
                     InsertDocument();
-                    if (Session["Image"] == "" || Session["Image"] != "")
+                    if (Session["Image"].ToString() != "")
                     {
                         Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                        lblImg.ImageUrl = "~/ClientImages/" + txtSAId.Text + fileName;
+                        lblImg.ImageUrl = Session["Image"].ToString();
+                    }
+                    else
+                    {
+                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                        lblImg.ImageUrl = "~/assets/dist/img/avatar5.png";
                     }
                     txtSAId.ReadOnly = true;
                     txtFirstName.ReadOnly = true;
@@ -274,6 +286,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     txtDateofBirth.ReadOnly = true;
                     txtTaxRefNo.ReadOnly = true;
                     btnSubmitClientPersonal.Text = "Edit";
+                    fuImageUpload.Enabled = false;
+                    fuDocument.Enabled = false;
                 }
                 else
                 {
@@ -546,23 +560,41 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     //Bank Button
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        txtSAIDBank.Text = txtSAId.Text;
-        txtClientNameBank.Text = txtFirstName.Text + " " + txtLastName.Text;
-        bankmessage.InnerText = "Save Bank Details";
-        btnBankSubmit.Visible = true;
-        btnUpdateBank.Visible = false;
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+        try
+        {
+            txtSAIDBank.Text = txtSAId.Text;
+            txtClientNameBank.Text = txtFirstName.Text + " " + txtLastName.Text;
+            bankmessage.InnerText = "Save Bank Details";
+            btnBankSubmit.Visible = true;
+            btnUpdateBank.Visible = false;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     //Address Button
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
-        txtIDNo.Text = txtSAId.Text;
-        txtAddressClientName.Text = txtFirstName.Text + " " + txtLastName.Text;
-        btnUpdateAddress.Visible = false;
-        btnAddressSubmit.Visible = true;
-        addressmessage.InnerText = "Save Address Details";
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+        try
+        {
+            txtIDNo.Text = txtSAId.Text;
+            txtAddressClientName.Text = txtFirstName.Text + " " + txtLastName.Text;
+            btnUpdateAddress.Visible = false;
+            btnAddressSubmit.Visible = true;
+            addressmessage.InnerText = "Save Address Details";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {

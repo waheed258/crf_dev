@@ -101,9 +101,11 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
 
             }
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -118,9 +120,11 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             ddlDesignation.DataBind();
             ddlDesignation.Items.Insert(0, new ListItem("--Select Designation --", "-1"));
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void GetBranch()
@@ -134,9 +138,11 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             ddlBranch.DataBind();
             ddlBranch.Items.Insert(0, new ListItem("--Select Branch --", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     
@@ -151,9 +157,11 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             ddlStatus.DataBind();
             ddlStatus.Items.Insert(0, new ListItem("--Select Status --", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     //protected void GetRole()
@@ -230,7 +238,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
-        catch (Exception ex)
+        catch 
         {
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
@@ -249,9 +257,11 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             ddlAdvisorType.DataBind();
             ddlAdvisorType.Items.Insert(0, new ListItem("--Select Type --", "-1"));
         }
-        catch (Exception ex)
+        catch 
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void btncancel_Click(object sender, EventArgs e)
@@ -284,7 +294,9 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
         }
         catch
         {
-
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 }
