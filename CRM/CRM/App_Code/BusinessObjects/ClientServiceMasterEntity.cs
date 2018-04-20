@@ -16,7 +16,7 @@ namespace EntityManager
         public string DetailInformation { get; set; }
         public string AdvisorID { get; set; }
         public string UpdatedOn { get; set; }
-
+        public int Priority { get; set; }
         public int? Status { get; set; }
     }
 }
