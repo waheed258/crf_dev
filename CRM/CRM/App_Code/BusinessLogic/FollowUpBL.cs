@@ -40,8 +40,7 @@ namespace BusinessLogic
             hashtable.Add("@FollowUpDate", followupEntity.FollowUpDate);
             hashtable.Add("@FollowUpTime", followupEntity.FollowUpTime);
             hashtable.Add("@DueDate", followupEntity.DueDate);
-            hashtable.Add("@DueTime", followupEntity.DueTime);
-            hashtable.Add("@Priority", followupEntity.Priority);
+            hashtable.Add("@DueTime", followupEntity.DueTime);            
             hashtable.Add("@ActivityType", followupEntity.ActivityType);
             hashtable.Add("@ClientServiceID", followupEntity.ClientServiceID);  
             hashtable.Add("@Operation", Operation);

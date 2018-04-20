@@ -23,10 +23,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         {
             BindAdvisors();
             AdvisorSection.Visible = false;
-            FollowUpSection.Visible = false;
-            _objComman.getRecordsPerPage(DropPage);
-            BindPriority();
-            BindActivityType();
+            _objComman.getRecordsPerPage(DropPage);          
             GetGridData();
         }
     }
@@ -107,27 +104,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                     
 
                 }
-                else if (e.CommandName == "FollowUp")
-                {
-
-                    if (ddlAdvisors.SelectedValue == "-1")
-                    {
-                        message.Text = "Please assign Advisor to this SR";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                    }
-                    else
-                    {
-                        FollowUpSection.Visible = true;
-                        sectionRequestList.Visible = false;
-                        AdvisorSection.Visible = false;
-                        txtFollowTime.Text = DateTime.Now.ToShortTimeString();
-                        txtServiceRequest.Text = ViewState["ServiceName"].ToString();
-                        txtClientSAID.Text = ViewState["SAID"].ToString();
-                        txtClientName.Text = ViewState["ClientName"].ToString();
-                        txtAssignedTo.Text = ViewState["Name"].ToString();
-                        BindFollowUp(clientServiceID);
-                    }
-                }
+               
                 else if (e.CommandName == "Validate")
                 {
                     if (ddlAdvisors.SelectedValue == "-1")
@@ -137,7 +114,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                     }
                     else
                     {
-                        FollowUpSection.Visible = false;
+                        
                         sectionRequestList.Visible = true;
                         AdvisorSection.Visible = false;
                         lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
@@ -178,43 +155,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
     }
 
-    private void BindPriority()
-    {
-        try
-        {
-            dataset = serviceRequestBL.GetPriority();
-            dropPriority.DataSource = dataset;
-            dropPriority.DataTextField = "Priority";
-            dropPriority.DataValueField = "PriorityID";
-            dropPriority.DataBind();
-            dropPriority.Items.Insert(0, new ListItem("--Select Priority --", "-1"));
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-
-    private void BindActivityType()
-    {
-        try
-        {
-            dataset = serviceRequestBL.GetActivityType();
-            dropActivityType.DataSource = dataset;
-            dropActivityType.DataTextField = "ActivityType";
-            dropActivityType.DataValueField = "ActivityID";
-            dropActivityType.DataBind();
-            dropActivityType.Items.Insert(0, new ListItem("--Select Activity Type --", "-1"));
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    
     protected void btnAdvisorCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("AcceptClientSR.aspx");
@@ -224,72 +165,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
 
     }
-    protected void FollowUpdate_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            followupEntity.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
-            followupEntity.ServiceRequest = txtServiceRequest.Text;
-            followupEntity.ClientSAID = txtClientSAID.Text;
-            followupEntity.ClientName = txtClientName.Text;
-            followupEntity.AssignedTo = txtAssignedTo.Text;
-            followupEntity.FollowUpDate = string.IsNullOrEmpty(txtFollowDate.Text) ? null : txtFollowDate.Text;
-            followupEntity.FollowUpTime = string.IsNullOrEmpty(txtFollowTime.Text) ? null : txtFollowTime.Text;
-            followupEntity.DueDate = string.IsNullOrEmpty(txtDueDate.Text) ? null : txtDueDate.Text;
-            followupEntity.DueTime = string.IsNullOrEmpty(txtDueTime.Text) ? null : txtDueTime.Text;
-            followupEntity.Priority = Convert.ToInt32(dropPriority.SelectedValue);
-            followupEntity.ActivityType = Convert.ToInt32(dropActivityType.SelectedValue);
-            int Result = followBL.FollowUpCRUD(followupEntity, 'i');
-            if (Result > 0)
-            {
-                Clear();
-                TabName.Value = "tab2";
-                BindFollowUp(Convert.ToInt32(ViewState["ClientServiceID"]));
-            }
 
-
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-    protected void FollowClose_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("AcceptClientSR.aspx");
-    }
-
-    private void Clear()
-    {
-        txtFollowDate.Text = "";
-        txtFollowTime.Text = "";
-        txtDueDate.Text = "";
-        txtDueTime.Text = "";
-        dropPriority.SelectedValue = "-1";
-        dropActivityType.SelectedValue = "-1";
-    }
-
-    private void BindFollowUp(int clientServiceID)
-    {
-        try
-        {
-            dataset = followBL.GetFollowupUpdates(clientServiceID);
-            gdvUpdatesList.DataSource = dataset;
-            gdvUpdatesList.DataBind();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-    protected void btnFollowListCancel_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("AcceptClientSR.aspx");
-    }
     protected void btnSure_Click(object sender, EventArgs e)
     {
         try
