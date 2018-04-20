@@ -195,9 +195,9 @@
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Tax Reference No</label>
-                                                <asp:TextBox ID="txtTaxRef" CssClass="form-control" runat="server" placeholder="Tax Reference No"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRef" Display="Dynamic"
+                                                <label class="control-label">VAT Number</label>
+                                                <asp:TextBox ID="txtVATRef" CssClass="form-control" runat="server" placeholder="VAT Number"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
@@ -234,16 +234,7 @@
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuTrustDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuTrustDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationExpression="^.*\.(pdf|PDF)$" ValidationGroup="trust" />
-
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
@@ -327,9 +318,9 @@
                                                                 <asp:Label runat="server" ID="lblWebsite" Text='<%#Eval("Website") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="TaxRefNo" Visible="false">
+                                                        <asp:TemplateField HeaderText="VAT Number" Visible="false">
                                                             <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblTaxRefNo" Text='<%#Eval("TaxRefNo") %>'></asp:Label>
+                                                                <asp:Label runat="server" ID="lblTaxRefNo" Text='<%#Eval("VATNo") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -339,21 +330,25 @@
                                                                     CommandName="EditTrust" ToolTip="Edit" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                         <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("UIC") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnBank" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/bank.png"
                                                                     CommandName="Bank" ToolTip="Bank Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                       
                                                         <asp:TemplateField HeaderText="Address">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAddress" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/address.png"
                                                                     CommandName="Address" ToolTip="Address Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
                                                         <asp:TemplateField HeaderText="Trustee">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnTrustee" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"

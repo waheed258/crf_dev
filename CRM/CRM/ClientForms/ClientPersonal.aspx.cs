@@ -119,7 +119,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtDateofBirth.ReadOnly = true;
                 txtTaxRefNo.ReadOnly = true;
                 fuImageUpload.Enabled = false;
-                fuDocument.Enabled = false;
                 ViewState["flag"] = 1;
                 txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
@@ -161,44 +160,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         }
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Client" + "/" + txtSAId.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAId.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 1,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+  
 
     protected void btnSubmitClientPersonal_Click(object sender, EventArgs e)
     {
@@ -217,7 +179,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtDateofBirth.ReadOnly = false;
                 txtTaxRefNo.ReadOnly = false;
                 fuImageUpload.Enabled = true;
-                fuDocument.Enabled = true;
             }
             else
             {
@@ -266,7 +227,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
                 if (result == 1)
                 {
-                    InsertDocument();
                     if (Session["Image"].ToString() != "")
                     {
                         Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
@@ -287,7 +247,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     txtTaxRefNo.ReadOnly = true;
                     btnSubmitClientPersonal.Text = "Edit";
                     fuImageUpload.Enabled = false;
-                    fuDocument.Enabled = false;
                 }
                 else
                 {

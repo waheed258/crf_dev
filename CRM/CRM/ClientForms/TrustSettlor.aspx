@@ -276,17 +276,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic"  ErrorMessage="Select only Pdf Files." ValidationGroup="Settler"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
@@ -394,7 +384,12 @@
                                                                     CommandName="EditTrustSettler" ToolTip="Edit" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                         <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnBank" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/bank.png"

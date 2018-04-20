@@ -55,11 +55,12 @@ public class BeneficiaryBL:DataUtilities
         return ExecuteDataSet("GetBeneficiaryTest", hsparams);
     }
 
-    public int DeleteBenefaciary(int BeneficiaryID,string SAID)
+    public int DeleteBenefaciary(int BeneficiaryID,string SAID,string UIC)
     {
         Hashtable hsparams = new Hashtable();
         hsparams.Add("@inBeneficiaryID", BeneficiaryID);
         hsparams.Add("@inSAID", SAID);
+        hsparams.Add("@inUIC", UIC);
 
         return ExecuteNonQuery("DeleteBenefaciary", hsparams);
     }

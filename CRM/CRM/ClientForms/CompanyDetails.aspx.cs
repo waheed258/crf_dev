@@ -162,43 +162,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         }
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Company" + "/" + txtCompanyUIC.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = "0",
-                    UIC = txtCompanyUIC.Text.Trim(),
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 1,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+   
     protected void btnCompantDetails_Click(object sender, EventArgs e)
     {
         try
@@ -211,11 +175,11 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
+            companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = 0;
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Company details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -241,6 +205,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         txtCompanyUIC.Text = "";
         txtCompanyName.Text = "";
+        txtVATRef.Text = "";
         txtYearofFoundation.Text = "";
         txtTelephone.Text = "";
         txtFax.Text = "";
@@ -286,6 +251,11 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
                     txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                     txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
+                    txtVATRef.Text = ((Label)row.FindControl("lblVATNo")).Text.ToString();
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("8"), false);
                 }
                 else if (e.CommandName == "Bank")
                 {
@@ -334,6 +304,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
+            companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = 0;
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)

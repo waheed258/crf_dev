@@ -23,7 +23,7 @@ namespace BusinessLogic
                         {"@inFaxNo",_objTrust.FaxNo},
                         {"@inEmailID",_objTrust.EmailID},
                         {"@inWebsite",_objTrust.Website},
-                        {"@inTaxRefNo",_objTrust.TaxRefNo},
+                        {"@inVATNo",_objTrust.VATNo},
                         {"@inAdvisorID",_objTrust.AdvisorID},
                         {"@inStatus",_objTrust.Status},
                         {"@OperationName",operation}

@@ -234,7 +234,17 @@
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                            <div class="col-sm-3 form-group">
+                                              <div class="col-sm-3 form-group">
+                                                <label class="control-label">VAT Number</label>
+                                                <asp:TextBox ID="txtVATRef" CssClass="form-control" runat="server" placeholder="VAT Number"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference"
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="col-sm-12">
+                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label>
                                                 <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server" placeholder="Telephone" MaxLength="10"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
@@ -243,9 +253,6 @@
                                                 <asp:RegularExpressionValidator ID="rgvTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtTelephone" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12">
-
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Fax</label>
                                                 <asp:TextBox ID="txtFax" CssClass="form-control" runat="server" placeholder="Fax" MaxLength="10"></asp:TextBox>
@@ -269,13 +276,7 @@
                                                     ControlToValidate="txtWebsite" ValidationExpression="^((http|https|ftp|www):\/\/)?([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)(\.)([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]+)" ValidationGroup="Company">
                                                 </asp:RegularExpressionValidator>
                                             </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationExpression="^.*\.(pdf|PDF)$" ValidationGroup="Company" />
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
@@ -367,6 +368,11 @@
                                                                 <asp:Label runat="server" ID="lblWebsite" Text='<%#Eval("Website") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Website" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblVATNo" Text='<%#Eval("VATNo") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
@@ -377,6 +383,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                     CommandName="DeleteCompany" ToolTip="Edit" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Add Bank Details">

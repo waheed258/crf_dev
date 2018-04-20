@@ -160,44 +160,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         return Result;
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trust Settlor" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 5,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+ 
     private void ClearTrustSettlerControls()
     {
         btnSubmit.Text = "Save";
@@ -222,7 +185,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             int res = TrustSettlerManager();
             if (res > 0)
             {
-                InsertDocument();
+                
                 if (btnSubmit.Text == "Update")
                     message.Text = "Settlor details updated successfully!";
                 else
@@ -318,6 +281,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         {
             if (e.CommandName != "Page")
             {
+
                 GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
                 int RowIndex = row.RowIndex;
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
@@ -330,11 +294,16 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtSettlorNameAddress.Text = SettlorName;
 
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
 
                 if (e.CommandName == "EditTrustSettler")
                 {
                     int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
                     BindTrustSettler(TrustSettlerId);
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("5") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "DeleteSettler")
                 {
@@ -425,7 +394,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         try
         {
             addressEntity.Type = 5;
-            addressEntity.UIC = "0";
+            addressEntity.UIC = txtTrustUIC.Text.Trim();
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -471,7 +440,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             addressEntity.Type = 5;
             addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
-            addressEntity.UIC = "0";
+            addressEntity.UIC = txtTrustUIC.Text.Trim();
             addressEntity.HouseNo = txtHouseNo.Text;
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Floor = txtFloor.Text;
@@ -619,7 +588,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.SAID = ViewState["SAID"].ToString();
             bankEntity.ReferenceID = Session["SAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtTrustUIC.Text.Trim();
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
@@ -653,7 +622,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             bankEntity.Type = 5;
             bankEntity.SAID = ViewState["BankSAID"].ToString();
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtTrustUIC.Text.Trim();
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -790,7 +759,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]), ViewState["SAID"].ToString());
+                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]),txtTrustUIC.Text.Trim(), ViewState["SAID"].ToString());
                 if (res > 0)
                 {
                     GetTrustSettlerGrid(txtTrustUIC.Text.Trim());

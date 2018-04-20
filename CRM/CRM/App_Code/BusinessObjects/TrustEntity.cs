@@ -18,7 +18,7 @@ namespace EntityManager
         public string FaxNo { get; set; }
         public string EmailID { get; set; }
         public string Website { get; set; }
-        public string TaxRefNo { get; set; }
+        public string VATNo { get; set; }
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
         public string TimeStamp { get; set; }

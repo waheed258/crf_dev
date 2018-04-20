@@ -213,14 +213,7 @@
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
                                                 <asp:HiddenField ID="hfImage" runat="server" />
                                             </div>
-                                            
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationGroup="Client"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-                                            </div>
+                                          
                                         </div>
 
                                     </div>

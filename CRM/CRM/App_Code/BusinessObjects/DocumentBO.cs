@@ -15,6 +15,8 @@ public class DocumentBO
     public string DocumentName { get; set; }
     public string Document{ get; set; }
     public int DocType { get; set; }
+    public int ClientType { get; set; }
+
     public string CreatedBy { get; set; }
     public string UpdatedBy { get; set; }
     public int? AdvisorID { get; set; }

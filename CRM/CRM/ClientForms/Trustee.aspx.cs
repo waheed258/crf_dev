@@ -159,44 +159,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
         return result;
     }
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trustee" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 6,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+ 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -204,7 +167,6 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             int res = TrusteeInsertUpdate();
             if (res > 0)
             {
-                InsertDocument();
                 if (btnSubmit.Text == "Update")
                     message.Text = "Trustee updated successfully !";
                 else
@@ -280,7 +242,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             ds = _objTrusteeBL.GetTrusteeTest(txtUIC.Text.Trim(), txtSAID.Text.Trim());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-               // lblSAIDError.Text = "Identification number already exists";
+                // lblSAIDError.Text = "Identification number already exists";
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Identification number already exists');", true);
                 txtSAID.Text = "";
             }
@@ -309,37 +271,40 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["TrusteeId"] = ((Label)row.FindControl("lblTrusteeId")).Text.ToString();
                 string TrusteeName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
+
                 txtTrusteeNameBank.Text = TrusteeName;
-                txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtSAIDBank.Text = ViewState["SAID"].ToString();
 
                 txtTrusteeAddress.Text = TrusteeName;
-                txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtSAIDAddress.Text = ViewState["SAID"].ToString();
 
-                if (e.CommandName == "EditTrustee")
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
+                switch (e.CommandName)
                 {
-                    int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
-                    BindTrustee(TrusteeId);
-                }
-
-                else if (e.CommandName == "DeleteTrustee")
-                {
-                    ViewState["flag"] = 1;
-                    lbldeletemessage.Text = "Are you sure, you want to delete Trstee Details?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-                }
-                else if (e.CommandName == "Address")
-                {
-                    btnUpdateAddress.Visible = false;
-                    btnAddressSubmit.Visible = true;
-                    addressmessage.InnerText = "Save Address Details";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
-                }
-                else if (e.CommandName == "Bank")
-                {
-                    bankmessage.InnerText = "Save Bank Details";
-                    btnBankSubmit.Visible = true;
-                    btnUpdateBank.Visible = false;
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                    case "EditTrustee":
+                        int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
+                        BindTrustee(TrusteeId);
+                        break;
+                    case "Document":
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("6") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                        break;
+                    case "DeleteTrustee":
+                        ViewState["flag"] = 1;
+                        lbldeletemessage.Text = "Are you sure, you want to delete Trstee Details?";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                        break;
+                    case "Address":
+                        btnUpdateAddress.Visible = false;
+                        btnAddressSubmit.Visible = true;
+                        addressmessage.InnerText = "Save Address Details";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                        break;
+                    case "Bank":
+                        bankmessage.InnerText = "Save Bank Details";
+                        btnBankSubmit.Visible = true;
+                        btnUpdateBank.Visible = false;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                        break;
                 }
             }
         }
@@ -411,7 +376,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         try
         {
             addressEntity.Type = 6;
-            addressEntity.UIC = "0";
+            addressEntity.UIC = txtUIC.Text.ToString();
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -458,7 +423,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             addressEntity.Type = 6;
             addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
-            addressEntity.UIC = "0";
+            addressEntity.UIC =txtUIC.Text.Trim();
             addressEntity.HouseNo = txtHouseNo.Text;
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Floor = txtFloor.Text;
@@ -512,7 +477,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                
                 if (e.CommandName == "EditAddress")
                 {
                     addressmessage.InnerText = "Update Address Details";
@@ -610,7 +575,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.SAID = ViewState["SAID"].ToString();
             bankEntity.ReferenceID = Session["SAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.CreatedBy = 0;
             bankEntity.AdvisorID = 0;
             bankEntity.UpdatedBy = 0;
@@ -642,7 +607,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             bankEntity.Type = 6;
             bankEntity.SAID = ViewState["BankSAID"].ToString();
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -729,7 +694,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                
                 if (e.CommandName == "EditBank")
                 {
                     bankmessage.InnerText = "Update Bank Details";
@@ -778,7 +743,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]), ViewState["SAID"].ToString());
+                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]), txtUIC.Text.Trim(), ViewState["SAID"].ToString());
                 if (res > 0)
                 {
                     GetTrusteeGrid(txtUIC.Text.Trim());

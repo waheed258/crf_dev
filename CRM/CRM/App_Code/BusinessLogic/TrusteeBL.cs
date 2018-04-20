@@ -54,10 +54,11 @@ namespace BusinessLogic
 
 
 
-        public int DeleteTrustee(int TrusteeId,string SAID)
+        public int DeleteTrustee(int TrusteeId,string UIC,string SAID)
         {
             Hashtable hsparams = new Hashtable();
             hsparams.Add("@inTrusteeID", TrusteeId);
+            hsparams.Add("@inUIC", UIC);
             hsparams.Add("@inSAID",SAID);
 
             return ExecuteNonQuery("DeleteTrustee", hsparams);

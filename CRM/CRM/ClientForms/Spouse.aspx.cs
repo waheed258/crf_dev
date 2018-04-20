@@ -83,44 +83,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     }
 
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Spouse" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 2,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+ 
 
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {
@@ -140,7 +103,6 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             int result = spouseBL.SpouseCRUD(spouseEntity, 'i');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Spouse details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
@@ -306,6 +268,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 txtAddressSpouseName.Text = SpouseName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtIDNo.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
                     btnUpdateSpouse.Visible = true;
@@ -320,6 +283,10 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                     txtDateOfBirth.Text = ((Label)row.FindControl("lblDateOfBirth")).Text.ToString();
                     ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("2") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "Bank")
                 {

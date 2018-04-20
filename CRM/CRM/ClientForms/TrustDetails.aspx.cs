@@ -101,7 +101,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             int res = ManageTrust();
             if (res > 0)
             {
-                InsertDocument();
+                
                 if (btnSubmitTrust.Text == "Update")
                     message.Text = "Trust details updated successfully !";
                 else
@@ -134,6 +134,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void btnCancleTrust_Click(object sender, EventArgs e)
     {
         ClearTrustControls();
+        Response.Redirect("Dashboard.aspx", false);
     }
 
     private int ManageTrust()
@@ -143,7 +144,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             UIC = txtUIC.Text.Trim(),
             TrustName = txtTrustName.Text.Trim(),
             YearOfFoundation = txtYearofFoundation.Text.Trim(),
-            TaxRefNo = txtTaxRef.Text.Trim(),
+            VATNo = txtVATRef.Text.Trim(),
             Telephone = txtTelephone.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             FaxNo = txtFax.Text.Trim(),
@@ -162,44 +163,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         return res;
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-        
-        if (fuTrustDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuTrustDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuTrustDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trust"+"/"+txtUIC.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuTrustDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = "0",
-                    UIC = txtUIC.Text.Trim(),
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 4,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity,'i');
-            }
-        }
-
-    }
+ 
 
     private void ClearTrustControls()
     {
@@ -207,7 +171,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         txtUIC.Text = "";
         txtTrustName.Text = "";
         txtYearofFoundation.Text = "";
-        txtTaxRef.Text = "";
+        txtVATRef.Text = "";
         txtTelephone.Text = "";
         txtEmail.Text = "";
         txtFax.Text = "";
@@ -226,7 +190,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
             txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
-            txtTaxRef.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+            txtVATRef.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
             btnSubmitTrust.Text = "Update";
         }
     }
@@ -269,6 +233,9 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 Session["TrustUIC"] = UIC;
                 switch (e.CommandName)
                 {
+                    case "Document":
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("4"), false);
+                        break;
                     case "EditTrust":
                         BindTrust(UIC);
                         break;
@@ -479,6 +446,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
         ClearAddressControls();
+        
     }
 
     protected void gvAddress_RowCommand(object sender, GridViewCommandEventArgs e)

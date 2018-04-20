@@ -284,14 +284,7 @@
                                                 <label>Date Of Birth</label>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                             </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationExpression="^.*\.(pdf|PDF)$" ValidationGroup="Spouse" />
-
-                                            </div>
+                                            
                                         </div>
 
                                     </div>
@@ -410,6 +403,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                     CommandName="Delete" ToolTip="Delete" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Add Bank Details">

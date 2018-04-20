@@ -83,44 +83,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Child" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 3,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
+   
     protected void btnChildSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -140,7 +103,6 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             int result = childBL.ChildCRUD(childEntity, 'i');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Child details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -211,6 +173,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 txtChildNameAddress.Text = ChildName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
                     btnChildUpdate.Visible = true;
@@ -228,6 +191,10 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
                 }
 
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("3") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                }
                 else if (e.CommandName == "Address")
                 {
                     btnUpdateAddress.Visible = false;

@@ -42,6 +42,7 @@ namespace BusinessLogic
             try
             {
                 string EncryptionKey = "MAKV2SPBNI99212";
+                cipherText = cipherText.Replace(" ", "+");
                 byte[] cipherBytes = Convert.FromBase64String(cipherText);
                 using (Aes encryptor = Aes.Create())
                 {
@@ -64,5 +65,6 @@ namespace BusinessLogic
             catch { }
             return cipherText;
         }
+
     }
 }
