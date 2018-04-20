@@ -22,19 +22,21 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
         try
         {
-           
-                if (Session["SAID"] != null)
+
+            if (Session["SAID"] != null)
+            {
+                if (!IsPostBack)
                 {
-                    if (!IsPostBack)
-                    {
-                        GetServiceRequest();
-                        GetServiceRequestdetails();
-                    }
+                    GetServiceRequest();
+                    GetServiceRequestdetails();
+                    BindPriority();
+                    btnUpdateSR.Visible = false;
                 }
-                else
-                {
-                    Response.Redirect("../ClientLogin.aspx");
-                }
+            }
+            else
+            {
+                Response.Redirect("../ClientLogin.aspx");
+            }
             //if (strPreviousPage == "")
             //{
             //    Response.Redirect("~/ClientLogin.aspx");
@@ -66,7 +68,33 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
     }
 
+    protected void btnUpdateSR_Click(object sender, EventArgs e)
+    {
+        clientserviceentitym.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
+        clientserviceentitym.SAID = Session["SAID"].ToString();
+        clientserviceentitym.ClientService = Convert.ToInt32(ddlService.SelectedValue);
+        clientserviceentitym.DetailInformation = txtDetails.Text.Trim();
+        clientserviceentitym.Priority = Convert.ToInt32(ddlPriority.SelectedValue);
+        clientserviceentitym.Status = 1;
+        int res;
+        res = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
+        if (res == 1)
+        {
+            message.Text = "ServiceRequest updated Successfully!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            InsertDocument();
+            ClearService();
+            GetServiceRequestdetails();
+            btnSubmitServiceRequest.Visible = true;
+            btnUpdateSR.Visible = false;
+        }
+        else
+        {
+            lblMessage.Text = "Please try again!";
+        }
+       
 
+    }
 
     protected void btnSubmitServiceRequest_Click(object sender, EventArgs e)
     {
@@ -76,26 +104,19 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             clientserviceentitym.SAID = Session["SAID"].ToString();
             clientserviceentitym.ClientService = Convert.ToInt32(ddlService.SelectedValue);
             clientserviceentitym.DetailInformation = txtDetails.Text.Trim();
+            clientserviceentitym.Priority = Convert.ToInt32(ddlPriority.SelectedValue);
             clientserviceentitym.Status = 1;
             int result;
-            if (Convert.ToInt32(ViewState["Serviceflag"]) == 1)
-            {
-
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
-                message.Text = "ServiceRequest updated Successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            }
-            else
-            {
-                result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
-                message.Text = "New Service Request created Successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            }
+            result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
+            message.Text = "New Service Request created Successfully!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             if (result == 1)
             {
-                InsertDocument();
                 ClearService();
                 GetServiceRequestdetails();
+               
+                InsertDocument();
+               
             }
             else
             {
@@ -109,7 +130,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
     }
 
-
+   
     private void InsertDocument()
     {
         DocumentBL _objDocBL = new DocumentBL();
@@ -153,6 +174,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
 
         ddlService.SelectedValue = "-1";
+        ddlPriority.SelectedValue = "-1";
         txtDetails.Text = "";
     }
 
@@ -190,8 +212,10 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
 
                 ddlService.SelectedValue = ((Label)row.FindControl("lblClientServiceIDFK")).Text.ToString();
                 txtDetails.Text = ((Label)row.FindControl("lblDetailInformation")).Text.ToString();
-
-                ViewState["Serviceflag"] = 1;
+                ddlPriority.SelectedValue = ((Label)row.FindControl("lblPriorityID")).Text.ToString();
+                //ViewState["Serviceflag"] = 1;
+                btnSubmitServiceRequest.Visible = false;
+                btnUpdateSR.Visible = true;
             }
             else if (e.CommandName == "Delete")
             {
@@ -203,7 +227,25 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         catch { }
     }
 
-
+    private void BindPriority()
+    {
+        try
+        {
+            DataSet dataset = new DataSet();
+            dataset = _objServiceRequestBL.GetPriority();
+            ddlPriority.DataSource = dataset;
+            ddlPriority.DataTextField = "Priority";
+            ddlPriority.DataValueField = "PriorityID";
+            ddlPriority.DataBind();
+            ddlPriority.Items.Insert(0, new ListItem("--Select Priority --", "-1"));
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 
     protected void gvServiceDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -227,4 +269,9 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             }
         }
     }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        ClearService();
+    }
+
 }

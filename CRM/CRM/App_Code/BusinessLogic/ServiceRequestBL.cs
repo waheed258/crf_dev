@@ -52,6 +52,7 @@ namespace BusinessLogic
                 hashtable.Add("@inClientService", clinetservicem.ClientService);
                 hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
                 hashtable.Add("@inStatus", clinetservicem.Status);
+                hashtable.Add("@Priority", clinetservicem.Priority);
                 hashtable.Add("@OperationName", Operation);
 
             }
@@ -63,6 +64,7 @@ namespace BusinessLogic
                 hashtable.Add("@inClientService", DBNull.Value);
                 hashtable.Add("@inDetailInformation", DBNull.Value);
                 hashtable.Add("@inStatus", DBNull.Value);
+                hashtable.Add("@Priority", DBNull.Value);
                 hashtable.Add("@OperationName", Operation);
 
             }
@@ -73,6 +75,7 @@ namespace BusinessLogic
                 hashtable.Add("@inClientService", clinetservicem.ClientService);
                 hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
                 hashtable.Add("@inStatus", clinetservicem.Status);
+                hashtable.Add("@Priority", clinetservicem.Priority);
                 hashtable.Add("@OperationName", Operation);
             }
            
@@ -85,7 +88,10 @@ namespace BusinessLogic
 
         }
 
-
+        public DataSet get_config_mst()
+        { 
+            DataSet ds = dataUtilities.ExecuteDataSet("GetConfig"); return ds; 
+        }
         public int DeleteServicesDetails(string ClientServiceID)  
         {
             Hashtable hashtable = new Hashtable();

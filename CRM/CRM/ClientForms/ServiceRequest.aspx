@@ -81,6 +81,18 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
+                            <label class="control-label">Priority</label>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <asp:DropDownList ID="ddlPriority" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvPriority" runat="server" ControlToValidate="ddlPriority" Display="Dynamic" ErrorMessage="Select Priority"
+                                ValidationGroup="Service" ForeColor="Red"></asp:RequiredFieldValidator>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group col-sm-2">
                             <label class="control-label">Upload Document</label>
                         </div>
                         <div class="form-group col-sm-4">
@@ -92,7 +104,8 @@
                     <div class="col-sm-4"></div>
 
                     <asp:Button ID="btnSubmitServiceRequest" runat="server" Text="Submit" ValidationGroup="Service" OnClick="btnSubmitServiceRequest_Click" CssClass="btn btn-primary"></asp:Button>
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger"></asp:Button>
+                    <asp:Button ID="btnUpdateSR" runat="server" Text="Update" ValidationGroup="Service" OnClick="btnUpdateSR_Click" CssClass="btn btn-primary"></asp:Button>
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnCancel_Click"></asp:Button>
                 </div>
 
                 <div class="panel panel-bd" id="divAddressDetails" runat="server">
@@ -141,7 +154,16 @@
                                         <asp:Label runat="server" ID="lblDetailInformation" Text='<%#Eval("DetailInformation") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
+                                <asp:TemplateField HeaderText="Priority">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblPriority" Text='<%#Eval("PriorityName") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="PriorityID" Visible="false">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblPriorityID" Text='<%#Eval("Priority") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Edit">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
