@@ -255,6 +255,13 @@
                                         </div>
 
                                         <div class="col-sm-12">
+                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Reference No.</label>
+                                                <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference Number"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Enter Email Id" runat="server"></asp:TextBox>
@@ -280,6 +287,7 @@
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
+                                            
                                          
                                         </div>
 

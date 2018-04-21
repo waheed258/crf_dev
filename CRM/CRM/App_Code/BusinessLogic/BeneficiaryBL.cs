@@ -28,6 +28,7 @@ public class BeneficiaryBL:DataUtilities
                         {"@inPhone",_objBeneficiary.Phone},
                         {"@inAdvisorID",_objBeneficiary.AdvisorID},
                         {"@inStatus",_objBeneficiary.Status},
+                        {"@inTaxRefNo",_objBeneficiary.TaxRefNo},
                         {"@inType",_objBeneficiary.Type},
                         {"@inOperationName",operation}
                     };

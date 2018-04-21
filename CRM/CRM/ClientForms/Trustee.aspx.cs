@@ -131,6 +131,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
 
             btnSubmit.Text = "Update";
         }
@@ -148,6 +149,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             LastName = txtLastName.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
+            TaxRefNo = txtTaxRefNo.Text.Trim(),
             Status = 1,
             AdvisorID = 0,
         };
@@ -211,6 +213,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         txtLastName.Text = "";
         txtEmail.Text = "";
         txtMobile.Text = "";
+        txtTaxRefNo.Text = "";
     }
 
     private void GetClientRegistartion()
@@ -225,6 +228,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
         }
         else
         {
@@ -232,6 +236,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             txtLastName.Text = "";
             txtEmail.Text = "";
             txtMobile.Text = "";
+            txtTaxRefNo.Text = "";
         }
 
     }

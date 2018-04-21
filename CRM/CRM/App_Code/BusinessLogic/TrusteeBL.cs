@@ -25,6 +25,7 @@ namespace BusinessLogic
                         {"@inEmailID",_objTrustee.EmailID},
                         {"@inMobile",_objTrustee.Mobile},
                         {"@inAdvisorID",_objTrustee.AdvisorID},
+                        {"@inTaxRefNo",_objTrustee.TaxRefNo},
                         {"@inStatus",_objTrustee.Status},
                         {"@OperationName",operation}
                     };
@@ -46,13 +47,11 @@ namespace BusinessLogic
             Hashtable hsparams = new Hashtable();
            
             hsparams.Add("@inReferenceUIC", ReferenceUIC);
-            hsparams.Add("@inSAID", SAID);
-            
+            hsparams.Add("@inSAID", SAID);           
 
             return ExecuteDataSet("GetTrusteeTest", hsparams);
         }
-
-
+        
 
         public int DeleteTrustee(int TrusteeId,string UIC,string SAID)
         {

@@ -128,6 +128,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
+            TaxRefNo = txtTaxRefNo.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
             AdvisorID = 0,
@@ -213,6 +214,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
 
             btnSubmit.Text = "Update";
         }
@@ -228,6 +230,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtEmail.Text = "";
         txtMobile.Text = "";
         txtPhone.Text = "";
+        txtTaxRefNo.Text = "";
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -247,6 +250,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
         }
         else
         {
@@ -255,6 +259,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             txtEmail.Text = "";
             txtMobile.Text = "";
             txtPhone.Text = "";
+            txtTaxRefNo.Text = "";
         }
     }
 
