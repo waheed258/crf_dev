@@ -105,6 +105,7 @@ public partial class ClientForms_Document : System.Web.UI.Page
 
             case "7":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                ViewState["TypeComTr"] = ObjDec.Decrypt(Request.QueryString["t1"]);
                 lblName.Text = "Identification #";
                 hfUIC.Value = "0";
                 hfSAID.Value = txtSAID.Text;
@@ -119,6 +120,15 @@ public partial class ClientForms_Document : System.Web.UI.Page
                 hfSAID.Value = "0";
                 lblHeading.Text = "Company Documents";
                 ViewState["FoldertName"] = "Company";
+                break;
+
+            case "9":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Identification #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Director Documents";
+                ViewState["FoldertName"] = "Director";
                 break;
         }
     }
@@ -276,10 +286,13 @@ public partial class ClientForms_Document : System.Web.UI.Page
                     Response.Redirect("Trustee.aspx", false);
                     break;
                 case "7":
-                    Response.Redirect("Beneficiary.aspx?t="+ObjDec.Encrypt("1"), false);
+                    Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt(ViewState["TypeComTr"].ToString()), false);
                     break;
                 case "8":
                     Response.Redirect("CompanyDetails.aspx", false);
+                    break;
+                case "9":
+                    Response.Redirect("DirectorDetails.aspx", false);
                     break;
             }
             ClearControls();

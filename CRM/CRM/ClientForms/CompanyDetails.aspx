@@ -239,7 +239,7 @@
                                                 <asp:TextBox ID="txtVATRef" CssClass="form-control" runat="server" placeholder="VAT Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                            
                                         </div>
@@ -408,6 +408,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnBeneficiary" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
                                                                     CommandName="EditBeneficiary" ToolTip="Beneficiary Details" CommandArgument='<%#Eval("UIC") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Director">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDirector" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
+                                                                    CommandName="EditDirector" ToolTip="Director Details" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
