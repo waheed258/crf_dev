@@ -127,7 +127,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 lblHeading.Text = "Company Documents";
                 ViewState["FoldertName"] = "Company";
                 break;
-
+            case "9":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Identification #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Director Documents";
+                ViewState["FoldertName"] = "Director";
+                break;
 
         }
     }
@@ -292,6 +299,9 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     break;
                 case "8":
                     Response.Redirect("CompanyDetails.aspx", false);
+                    break;
+                case "9":
+                    Response.Redirect("Director.aspx", false);
                     break;
             }
             ClearControls();
