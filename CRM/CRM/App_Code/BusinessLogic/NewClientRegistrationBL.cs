@@ -105,7 +105,11 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetActiveClients", hashtable);
             return ds;
         }
-
+        public DataSet get_config_mst()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("GetConfig");
+            return ds;
+        }
         public DataSet GetClientStatus()
         {
             DataSet ds = dataUtilities.ExecuteDataSet("GetClientRegStatus");
