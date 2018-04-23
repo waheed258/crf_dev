@@ -15,6 +15,8 @@ namespace EntityManager
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public string InvoiceDate { get; set; }
+        public int VatInclusive { get; set; }
+        public string ClientSRNO { get; set; }
      
         
     }

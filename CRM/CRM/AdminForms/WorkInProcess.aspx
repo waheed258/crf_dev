@@ -178,8 +178,7 @@
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnGenerateInvoice" ImageUrl="~/assets/dist/img/invoice.jpg" data-toggle="modal" data-target="#GenerateInvoice" runat="server" Width="23px" Height="23px"
-                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                               
+                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />                                              
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -335,6 +334,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
         </section>
 
         <section class="content" id="InvoiceSection" runat="server">
@@ -362,16 +362,20 @@
                                   <div class="form-group col-sm-3">
                                     <label>Amount</label>
                                     <asp:TextBox ID="txtAmount" runat="server" class="form-control"></asp:TextBox>
+                                      <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" />
                                     <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" Display="Dynamic"
                                         ErrorMessage="Enter Amount"
                                         ValidationGroup="Invoice" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
+
                             </div>
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
-                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" class="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click" />
-                            <asp:Button ID="btnInvoiceCancel" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnInvoiceCancel_Click" />
+                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" CssClass="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click" />
+                            <asp:Button ID="btnInvoiceCancel" runat="server" CssClass="btn btn-danger btn-sm" Text="Back to List" OnClick="btnInvoiceCancel_Click" />
+                            <asp:Button ID="btnPDF" runat="server" CssClass="btn btn-primary btn-sm" Text="PDF" OnClick="btnPDF_Click" Enabled="false"/>
+                                                   
                         </div>
                     </div>
                 </div>
