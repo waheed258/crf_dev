@@ -281,6 +281,10 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 {
                     Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("2"), false);
                 }
+                else if (e.CommandName == "EditDirector")
+                {
+                    Response.Redirect("Director.aspx?t=" + ObjEn.Encrypt("3"), false);
+                }
             }
         }
         catch

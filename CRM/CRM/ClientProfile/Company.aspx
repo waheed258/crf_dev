@@ -410,6 +410,12 @@
                                                                     CommandName="EditBeneficiary" ToolTip="Beneficiary Details" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Director">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDirector" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Beneficiary.jpg"
+                                                                    CommandName="EditDirector" ToolTip="Director Details" CommandArgument='<%#Eval("UIC") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
