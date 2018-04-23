@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -555,6 +555,18 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+    protected void LinkButton3_Click(object sender, EventArgs e) 
+    {
+        try{
+
+        
+        EncryptDecrypt ObjEn = new EncryptDecrypt();
+        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
+        }
+        catch{}
+    }
+
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {
         try

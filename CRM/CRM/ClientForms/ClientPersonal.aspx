@@ -152,6 +152,9 @@
                                 <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton1_Click">                              
                                     <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Bank Info
                                 </asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton3" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton3_Click">                              
+                                    <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Documents
+                                </asp:LinkButton>
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Personal Information</a></li>
@@ -340,6 +343,8 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                    
+
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

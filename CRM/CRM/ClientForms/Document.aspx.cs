@@ -58,6 +58,14 @@ public partial class ClientForms_Document : System.Web.UI.Page
 
         switch (ObjDec.Decrypt(Request.QueryString["t"]))
         {
+            case "1":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Identification #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Client Documents";
+                ViewState["FoldertName"] = "Client";
+                break;
             case "2":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                 lblName.Text = "Identification #";
@@ -105,7 +113,6 @@ public partial class ClientForms_Document : System.Web.UI.Page
 
             case "7":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                ViewState["TypeComTr"] = ObjDec.Decrypt(Request.QueryString["t1"]);
                 lblName.Text = "Identification #";
                 hfUIC.Value = "0";
                 hfSAID.Value = txtSAID.Text;
@@ -122,14 +129,7 @@ public partial class ClientForms_Document : System.Web.UI.Page
                 ViewState["FoldertName"] = "Company";
                 break;
 
-            case "9":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Director Documents";
-                ViewState["FoldertName"] = "Director";
-                break;
+
         }
     }
     private void GetDocuType()
@@ -270,6 +270,9 @@ public partial class ClientForms_Document : System.Web.UI.Page
         {
             switch (ObjDec.Decrypt(Request.QueryString["t"].ToString()))
             {
+                case "1":
+                    Response.Redirect("ClientPersonal.aspx", false);
+                    break;
                 case "2":
                     Response.Redirect("Spouse.aspx", false);
                     break;
@@ -286,13 +289,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
                     Response.Redirect("Trustee.aspx", false);
                     break;
                 case "7":
-                    Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt(ViewState["TypeComTr"].ToString()), false);
+                    Response.Redirect("Beneficiary.aspx?t="+ObjDec.Encrypt("1"), false);
                     break;
                 case "8":
                     Response.Redirect("CompanyDetails.aspx", false);
-                    break;
-                case "9":
-                    Response.Redirect("DirectorDetails.aspx", false);
                     break;
             }
             ClearControls();
