@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessLogic;
@@ -46,7 +47,7 @@ public partial class Registration : System.Web.UI.Page
                 int result = newClientRegistrationBL.CUDclientinfo(clientRegEntity, 'i');
                 if (result == 1)
                 {
-                    
+                    SendMail(txtEmailId.Text.Trim());  
                     lblMessage.Text = "You Registered Successfully. One of our Advisors will contact you soon!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
@@ -63,6 +64,36 @@ public partial class Registration : System.Web.UI.Page
 
         }
     }
+
+
+    public void SendMail(string ToMail)
+    {
+        DataSet ds = newClientRegistrationBL.get_config_mst();
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        {
+            string SmtpServer = ds.Tables[0].Rows[0]["con_smtp_host"].ToString();
+            int SmtpPort = Convert.ToInt32(ds.Tables[0].Rows[0]["con_smtp_port"].ToString());
+            string MailFrom = ds.Tables[0].Rows[0]["con_mail_from"].ToString();
+            string DisplayNameFrom = ds.Tables[0].Rows[0]["con_from_name"].ToString();
+            string FromPassword = ds.Tables[0].Rows[0]["con_from_pwd"].ToString();
+            string MailTo = ToMail;
+            string DisplayNameTo = "";
+            string MailCc = "";
+            string DisplayNameCc = "";
+            string MailBcc = "";
+            string Subject = "Activ8 Group";
+            string MailText;
+            string Attachment = "";
+
+            MailCc = "";
+
+            MailText = "Hi, <br/><br/> Thanks for Registering with Activ8 group:<br/></b> <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
+
+            CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, "", "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
+        }
+    }
+
+
     public void Clear()
     {
         txtFirstName.Text = "";

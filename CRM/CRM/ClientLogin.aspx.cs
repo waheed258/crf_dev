@@ -54,6 +54,7 @@ public partial class Login : System.Web.UI.Page
                     {
                         Session["ClientName"] = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
                         Session["SAID"] = ds.Tables[0].Rows[0]["SAID"].ToString();
+                        Session["email"] = ds.Tables[0].Rows[0]["EmailID"].ToString();
                         Session["Image"] = ds.Tables[0].Rows[0]["Image"].ToString();
                         Response.Redirect("ClientForms/Dashboard.aspx", false);
                     }

@@ -121,7 +121,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtTaxRefNo.ReadOnly = true;
                 fuImageUpload.Enabled = false;
                 ViewState["flag"] = 1;
-                txtSAId.Text = Session["AdvisorID"].ToString();
+                txtSAId.Text = Session["SAID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
@@ -265,7 +265,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
 
     protected void btnCancleClientPersonal_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Dashboard.aspx");
+        btnSubmitClientPersonal.Text = "Edit";
+        txtSAId.ReadOnly = true;
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmail.ReadOnly = true;
+        txtPhoneNo.ReadOnly = true;
+        txtMobileNo.ReadOnly = true;
+        txtDateofBirth.ReadOnly = true;
+        txtTaxRefNo.ReadOnly = true;
+        fuImageUpload.Enabled = false;
     }
 
     protected void btnCancelAddress_Click(object sender, EventArgs e)

@@ -82,6 +82,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         {
             message.Text = "ServiceRequest updated Successfully!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            SendMail(Session["email"].ToString());
             InsertDocument();
             ClearService();
             GetServiceRequestdetails();
@@ -114,7 +115,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             {
                 ClearService();
                 GetServiceRequestdetails();
-               
+                SendMail(Session["email"].ToString());
                 InsertDocument();
                
             }
@@ -130,7 +131,37 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
     }
 
-   
+
+    public void SendMail(string ToMail)
+    {
+        DataSet ds = _objServiceRequestBL.get_config_mst();
+        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        {
+            string SmtpServer = ds.Tables[0].Rows[0]["con_smtp_host"].ToString();
+            int SmtpPort = Convert.ToInt32(ds.Tables[0].Rows[0]["con_smtp_port"].ToString());
+            string MailFrom = ds.Tables[0].Rows[0]["con_mail_from"].ToString();
+            string DisplayNameFrom = ds.Tables[0].Rows[0]["con_from_name"].ToString();
+            string FromPassword = ds.Tables[0].Rows[0]["con_from_pwd"].ToString();
+            string MailTo = ToMail;
+            string DisplayNameTo = "";
+            string MailCc = ds.Tables[0].Rows[0]["con_mail_cc"].ToString();
+            string mailCc2 = ds.Tables[0].Rows[0]["con_mail_cc1"].ToString();
+            string DisplayNameCc = "";
+            string MailBcc = "";
+            string Subject = "Activ8 Group";
+            string MailText;
+            string Attachment = "";
+
+
+            MailText = "Hi, <br/><br/> Raising Service Request For Client.<br/></b> <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
+
+            CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, mailCc2, "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
+        }
+
+
+    }
+
+
     private void InsertDocument()
     {
         DocumentBL _objDocBL = new DocumentBL();
@@ -163,7 +194,6 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                     AdvisorID = 0,
                     Status = 1,
                 };
-
                 int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
             }
         }
@@ -183,7 +213,6 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
         try
         {
-
             ds = _objServiceRequestBL.GetServiceRequest(Session["SAID"].ToString());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
@@ -215,7 +244,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 ddlPriority.SelectedValue = ((Label)row.FindControl("lblPriorityID")).Text.ToString();
                 //ViewState["Serviceflag"] = 1;
                 btnSubmitServiceRequest.Visible = false;
-                btnUpdateSR.Visible = true;
+                btnUpdateSR.Visible = true;  
             }
             else if (e.CommandName == "Delete")
             {
