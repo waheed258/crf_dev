@@ -12,6 +12,7 @@ using BusinessLogic;
 
 public partial class ClientProfile_Children : System.Web.UI.Page
 {
+
     CommanClass _objComman = new CommanClass();
     ChildrenEntity childEntity = new ChildrenEntity();
     ChildrenBL childBL = new ChildrenBL();
@@ -22,10 +23,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
 
-
     protected void Page_Load(object sender, EventArgs e)
     {
-
         try
         {
             string strPreviousPage = "";
@@ -86,45 +85,6 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         }
     }
 
-
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
-
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Child" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 3,
-                    AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
     protected void btnChildSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -141,11 +101,9 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             childEntity.ReferenceSAID = Session["SAID"].ToString();
 
-
             int result = childBL.ChildCRUD(childEntity, 'i');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Child details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -198,6 +156,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     }
 
 
+
     protected void gvChildDetails_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -215,6 +174,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 txtChildNameAddress.Text = ChildName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
                     btnChildUpdate.Visible = true;
@@ -232,6 +192,10 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
                 }
 
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("3") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                }
                 else if (e.CommandName == "Address")
                 {
                     btnUpdateAddress.Visible = false;
@@ -278,8 +242,9 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.Phone = txtPhoneNum.Text;
             childEntity.EmailID = txtEmailId.Text;
             childEntity.TaxRefNo = txtTaxRefNum.Text;
-            childEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
             childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
+            childEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
+
             int result = childBL.ChildCRUD(childEntity, 'u');
             if (result == 1)
             {
@@ -435,7 +400,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.ReferenceID = Session["SAID"].ToString();
             bankEntity.UIC = "0";
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); 
             bankEntity.UpdatedBy = 0;
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
@@ -529,7 +494,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.Currency = txtCurrency.Text;
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); 
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
@@ -579,7 +544,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.RoadName = txtRoadName.Text;
             addressEntity.Status = 1;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.CreatedBy = 0;
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
@@ -681,7 +646,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
@@ -812,6 +777,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
     protected void DropPage1_SelectedIndexChanged(object sender, EventArgs e)
     {
+
         BindAddressDetails();
 
     }
@@ -873,4 +839,5 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
 }

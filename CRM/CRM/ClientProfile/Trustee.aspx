@@ -263,14 +263,13 @@
                                                 <asp:RegularExpressionValidator ID="revtxtMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}"
                                                     ControlToValidate="txtMobile" ForeColor="Red" ValidationGroup="trust" Display="Dynamic"></asp:RegularExpressionValidator>
                                             </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                                
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationGroup="trust"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-                                            </div>
+                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Reference No.</label>
+                                                <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference Number"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>                                            
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
@@ -363,6 +362,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                     CommandName="EditTrustee" ToolTip="Edit" CommandArgument='<%#Eval("TrusteeID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
@@ -922,4 +927,3 @@
         });
     </script>
 </asp:Content>
-

@@ -6,11 +6,11 @@
         $(document).ready(function () {
             $("#target").keyup(function () {
                 if ($("[id *=target]").val() != "") {
-                    $("[id *=ContentPlaceHolder1_gvTrust]").children
+                    $("[id *=ContentPlaceHolder1_gvBeneficiary]").children
                     ('tbody').children('tr').each(function () {
                         $(this).show();
                     });
-                    $("[id *=ContentPlaceHolder1_gvTrust]").children
+                    $("[id *=ContentPlaceHolder1_gvBeneficiary]").children
                     ('tbody').children('tr').each(function () {
                         var match = false;
                         $(this).children('td').each(function () {
@@ -30,14 +30,14 @@
                     });
 
 
-                    $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
+                    $("[id *=ContentPlaceHolder1_gvBeneficiary]").children('tbody').
                             children('tr').each(function (index) {
                                 if (index == 0)
                                     $(this).show();
                             });
                 }
                 else {
-                    $("[id *=ContentPlaceHolder1_gvTrust]").children('tbody').
+                    $("[id *=ContentPlaceHolder1_gvBeneficiary]").children('tbody').
                             children('tr').each(function () {
                                 $(this).show();
                             });
@@ -220,6 +220,7 @@
                                 <div class="tab-pane fade in active" id="tabTrust">
                                     <div>
                                         <asp:HiddenField ID="hfBenefaciaryId" runat="server" Value="0" />
+
                                     </div>
                                     <div class="panel-body">
                                         <div class="col-sm-12">
@@ -254,6 +255,13 @@
                                         </div>
 
                                         <div class="col-sm-12">
+                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Reference No.</label>
+                                                <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Reference Number"
+                                                    ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Enter Email Id" runat="server"></asp:TextBox>
@@ -265,7 +273,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15" placeholder="Enter Mobile Number"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
@@ -279,15 +287,8 @@
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
-                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic"  ErrorMessage="Select only Pdf Files." ValidationGroup="trust"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-
-                                            </div>
+                                            
+                                         
                                         </div>
 
                                     </div>
@@ -326,7 +327,7 @@
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvBeneficiary" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="BeneficiaryID" CssClass="rounded-corners"
-                                                    EmptyDataText="There are no data records to display."
+                                                    EmptyDataText="There are no data records to display." OnPageIndexChanging="gvBeneficiary_PageIndexChanging"
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvBeneficiary_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
@@ -385,6 +386,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                     CommandName="EditBeneficiary" ToolTip="Edit" CommandArgument='<%#Eval("BeneficiaryID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank">
@@ -909,20 +916,22 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
                         </div>
-                    </div>                    <!-- /.modal-content -->
-                </div>                <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
             </div>
         </div>
     </div>
 
-     <script type="text/javascript">
-         $(function () {
-             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
-             $('#Tabs a[href="#' + tabName + '"]').tab('show');
-             $("#Tabs a").click(function () {
-                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-             });
-         });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
 
 </asp:Content>

@@ -57,6 +57,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                             {
                                 txtUIC.Text = Session["CompanyUIC"].ToString();
                                 btnBack.Text = "Back to Company";
+
                             }
                             GetBeneficiaryGrid(txtUIC.Text.Trim());
                             BindBankDetails();
@@ -127,9 +128,10 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
+            TaxRefNo = txtTaxRefNo.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
-            AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
+            AdvisorID =Convert.ToInt32(Session["AdvisorID"].ToString()) ,
         };
         if (btnSubmit.Text == "Update")
         {
@@ -142,44 +144,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         return Result;
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
 
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Beneficiary" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 7,
-                    AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
-                    Status = 1,
-                };
-
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -187,7 +152,6 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             int res = BeneficiaryInsertUpdate();
             if (res > 0)
             {
-                InsertDocument();
                 if (btnSubmit.Text == "Update")
                     message.Text = "Beneficiary details updated successfully!";
                 else
@@ -238,7 +202,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
     private void BindBeneficiary(int BeneficiaryId)
     {
-        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, 1, txtUIC.Text.Trim());
+        int Type = Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
+        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, Type, txtUIC.Text.Trim());
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
@@ -249,6 +214,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
 
             btnSubmit.Text = "Update";
         }
@@ -264,6 +230,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         txtEmail.Text = "";
         txtMobile.Text = "";
         txtPhone.Text = "";
+        txtTaxRefNo.Text = "";
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
@@ -283,6 +250,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
         }
         else
         {
@@ -291,6 +259,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             txtEmail.Text = "";
             txtMobile.Text = "";
             txtPhone.Text = "";
+            txtTaxRefNo.Text = "";
         }
     }
 
@@ -313,7 +282,15 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         catch
         { }
     }
-
+    protected void gvBeneficiary_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvBeneficiary.PageIndex = e.NewPageIndex;
+            GetBeneficiaryGrid(txtUIC.Text.Trim());
+        }
+        catch { }
+    }
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
@@ -342,6 +319,10 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 {
                     int BenfId = Convert.ToInt32(e.CommandArgument);
                     BindBeneficiary(BenfId);
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "DeleteBeneficiary")
                 {
@@ -433,7 +414,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         try
         {
             addressEntity.Type = 7;
-            addressEntity.UIC = "0";
+            addressEntity.UIC = txtUIC.Text.Trim();
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -448,7 +429,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.RoadName = txtRoadName.Text;
             addressEntity.Status = 1;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
 
@@ -481,7 +462,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             addressEntity.Type = 7;
             addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
-            addressEntity.UIC = "0";
+            addressEntity.UIC = txtUIC.Text.Trim();
             addressEntity.HouseNo = txtHouseNo.Text;
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Floor = txtFloor.Text;
@@ -493,7 +474,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
@@ -631,9 +612,9 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.SAID = ViewState["SAID"].ToString();
             bankEntity.ReferenceID = Session["SAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
@@ -664,7 +645,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             bankEntity.Type = 7;
             bankEntity.SAID = ViewState["BankSAID"].ToString();
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
-            bankEntity.UIC = "0";
+            bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -672,7 +653,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             bankEntity.Currency = txtCurrency.Text;
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
@@ -799,7 +780,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString());
+                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
                 if (res > 0)
                 {
                     GetBeneficiaryGrid(txtUIC.Text.Trim());
@@ -838,5 +819,4 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         }
 
     }
-
 }

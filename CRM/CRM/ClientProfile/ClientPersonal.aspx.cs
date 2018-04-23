@@ -11,6 +11,7 @@ using System.Text;
 using System.IO;
 public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
 {
+
     ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
     BankInfoEntity BankInfoEntity = new BankInfoEntity();
     AddressEntity AddressEntity = new AddressEntity();
@@ -29,7 +30,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             {
                 strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
 
-                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                if (Session["AdvisorID"].ToString() == null || Session["AdvisorID"].ToString() == "")
                 {
                     Response.Redirect("../AdminLogin.aspx", false);
                 }
@@ -118,8 +119,9 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtMobileNo.ReadOnly = true;
                 txtDateofBirth.ReadOnly = true;
                 txtTaxRefNo.ReadOnly = true;
+                fuImageUpload.Enabled = false;
                 ViewState["flag"] = 1;
-                txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtSAId.Text = Session["AdvisorID"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
@@ -148,7 +150,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ViewState["flag"] = 2;
                 btnSubmitClientPersonal.Text = "Submit";
                 GetClientRegistartion();
-                DivAddBank.Visible = true;
+                DivAddBank.Visible = false;
             }
         }
         catch
@@ -158,44 +160,9 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
 
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Client" + "/" + txtSAId.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAId.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 1,
-                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
-                    Status = 1,
-                };
 
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
 
-    }
     protected void btnSubmitClientPersonal_Click(object sender, EventArgs e)
     {
         string img = "";
@@ -212,6 +179,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtMobileNo.ReadOnly = false;
                 txtDateofBirth.ReadOnly = false;
                 txtTaxRefNo.ReadOnly = false;
+                fuImageUpload.Enabled = true;
             }
             else
             {
@@ -219,16 +187,17 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 string fileNamemain = string.Empty;
                 if (fuImageUpload.HasFile)
                 {
-
                     fuImageUpload.SaveAs(Server.MapPath("~/ClientImages/" + txtSAId.Text + this.fuImageUpload.FileName));
                     fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                     ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
                     img = "~/ClientImages/" + txtSAId.Text + fileName;
                     ClientPersonalInfoEntity.Image = img;
+                    Session["Image"] = img;
                 }
                 else
                 {
                     ClientPersonalInfoEntity.Image = "";
+                    ClientPersonalInfoEntity.Image = Session["Image"].ToString();
                 }
                 ClientPersonalInfoEntity.SAID = txtSAId.Text;
                 ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
@@ -238,13 +207,13 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 ClientPersonalInfoEntity.Mobile = txtMobileNo.Text;
                 ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
                 ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
-                ClientPersonalInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
-                ClientPersonalInfoEntity.UpdatedBy = "0";
+                ClientPersonalInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
+                ClientPersonalInfoEntity.UpdatedBy = Session["AdvisorID"].ToString();
                 int result;
                 if (Convert.ToInt32(ViewState["flag"]) == 1)
                 {
-
                     result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
+                    int res = credentialsBL.InsImage(img, txtSAId.Text);
                     message.Text = "Client details updated successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     GetBankDetails();
@@ -259,17 +228,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
                 if (result == 1)
                 {
-                    InsertDocument();
-                    //if (Session["Image"].ToString() != "")
-                    //{
-                    //    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                    //    lblImg.ImageUrl = img;
-                    //}
-                    //else
-                    //{
-                    //    Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                    //  //  lblImg.ImageUrl = "~/AdvisorImages/7346837424333avatar5.png";
-                    //}
+                    if (Session["Image"].ToString() != "")
+                    {
+                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                        lblImg.ImageUrl = Session["Image"].ToString();
+                    }
+                    else
+                    {
+                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
+                        lblImg.ImageUrl = "~/assets/dist/img/avatar5.png";
+                    }
                     txtSAId.ReadOnly = true;
                     txtFirstName.ReadOnly = true;
                     txtLastName.ReadOnly = true;
@@ -279,6 +247,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     txtDateofBirth.ReadOnly = true;
                     txtTaxRefNo.ReadOnly = true;
                     btnSubmitClientPersonal.Text = "Edit";
+                    fuImageUpload.Enabled = false;
                 }
                 else
                 {
@@ -365,6 +334,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
 
 
     protected void gvBankDetails_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -550,24 +520,55 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     //Bank Button
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        txtSAIDBank.Text = txtSAId.Text;
-        txtClientNameBank.Text = txtFirstName.Text + " " + txtLastName.Text;
-        bankmessage.InnerText = "Save Bank Details";
-        btnBankSubmit.Visible = true;
-        btnUpdateBank.Visible = false;
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+        try
+        {
+            txtSAIDBank.Text = txtSAId.Text;
+            txtClientNameBank.Text = txtFirstName.Text + " " + txtLastName.Text;
+            bankmessage.InnerText = "Save Bank Details";
+            btnBankSubmit.Visible = true;
+            btnUpdateBank.Visible = false;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     //Address Button
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
-        txtIDNo.Text = txtSAId.Text;
-        txtAddressClientName.Text = txtFirstName.Text + " " + txtLastName.Text;
-        btnUpdateAddress.Visible = false;
-        btnAddressSubmit.Visible = true;
-        addressmessage.InnerText = "Save Address Details";
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+        try
+        {
+            txtIDNo.Text = txtSAId.Text;
+            txtAddressClientName.Text = txtFirstName.Text + " " + txtLastName.Text;
+            btnUpdateAddress.Visible = false;
+            btnAddressSubmit.Visible = true;
+            addressmessage.InnerText = "Save Address Details";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
+
+    protected void LinkButton3_Click(object sender, EventArgs e)
+    {
+        try
+        {
+
+
+            EncryptDecrypt ObjEn = new EncryptDecrypt();
+            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
+        }
+        catch { }
+    }
+
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -588,7 +589,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             AddressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
 
-            AddressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            AddressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
 
             AddressEntity.Status = 1;
             AddressEntity.CreatedBy = 0;
@@ -648,7 +649,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             AddressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             AddressEntity.PostalCode = txtPostalCode.Text;
-            AddressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            AddressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             AddressEntity.Status = 1;
             AddressEntity.CreatedBy = 0;
             AddressEntity.UpdatedBy = "0";
@@ -690,7 +691,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             BankInfoEntity.Currency = txtCurrency.Text;
             BankInfoEntity.SWIFT = txtSwift.Text;
             BankInfoEntity.CreatedBy = 0;
-            BankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            BankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             BankInfoEntity.UpdatedBy = 0;
 
             int result;
@@ -741,7 +742,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             BankInfoEntity.Currency = txtCurrency.Text;
             BankInfoEntity.SWIFT = txtSwift.Text;
             BankInfoEntity.CreatedBy = 0;
-            BankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            BankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             BankInfoEntity.UpdatedBy = 0;
             int result = bankbl.CURDBankInfo(BankInfoEntity, 'u');
             if (result == 1)
@@ -801,4 +802,6 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+
 }

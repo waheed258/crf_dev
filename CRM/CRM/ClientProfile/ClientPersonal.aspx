@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/LayoutForClientProfile.master" AutoEventWireup="true" CodeFile="ClientPersonal.aspx.cs" Inherits="ClientProfile_ClientPersonal" %>
 
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
@@ -152,6 +153,9 @@
                                 <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton1_Click">                              
                                     <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Bank Info
                                 </asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton3" runat="server" class="btn btn-labeled btn-danger m-b-5" OnClick="LinkButton3_Click">                              
+                                    <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>Add Documents
+                                </asp:LinkButton>
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Personal Information</a></li>
@@ -206,20 +210,14 @@
                                             </div>
 
                                         </div>
+                                       
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Upload Photo</label>
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
                                                 <asp:HiddenField ID="hfImage" runat="server" />
                                             </div>
-                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic" ErrorMessage="Select only Pdf Files." ValidationGroup="Client"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-                                            </div>
+                                          
                                         </div>
 
                                     </div>
@@ -346,6 +344,8 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                    
+
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
@@ -358,7 +358,7 @@
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-1 form-group">
-                                                    <asp:DropDownList ID="DropPageBank" runat="server"
+                                                    <asp:DropDownList ID="DropPageBank" runat="server" 
                                                         OnSelectedIndexChanged="DropPageBank_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>

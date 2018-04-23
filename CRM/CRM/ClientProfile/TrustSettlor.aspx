@@ -121,28 +121,28 @@
             });
         });
     </script>
-     <script type="text/javascript">
-         $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtPhone").bind('keypress', function (e) {
-             if (e.keyCode == '9' || e.keyCode == '16') {
-                 return;
-             }
-             var code;
-             if (e.keyCode) code = e.keyCode;
-             else if (e.which) code = e.which;
-             if (e.which == 46)
-                 return false;
-             if (code == 8 || code == 46)
-                 return true;
-             if (code < 48 || code > 57)
-                 return false;
-         });
-         $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtPhone").bind('mouseenter', function (e) {
-             var val = $(this).val();
-             if (val != '0') {
-                 val = val.replace(/[^0-9]+/g, "");
-                 $(this).val(val);
-             }
-         });
+    <script type="text/javascript">
+        $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtPhone").bind('keypress', function (e) {
+            if (e.keyCode == '9' || e.keyCode == '16') {
+                return;
+            }
+            var code;
+            if (e.keyCode) code = e.keyCode;
+            else if (e.which) code = e.which;
+            if (e.which == 46)
+                return false;
+            if (code == 8 || code == 46)
+                return true;
+            if (code < 48 || code > 57)
+                return false;
+        });
+        $("#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtTaxRefNo,#ContentPlaceHolder1_txtMobile,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtPhone").bind('mouseenter', function (e) {
+            var val = $(this).val();
+            if (val != '0') {
+                val = val.replace(/[^0-9]+/g, "");
+                $(this).val(val);
+            }
+        });
     </script>
     <script type="text/javascript">
         function openModal() {
@@ -223,7 +223,7 @@
                                                 <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                  <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
                                                     ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Settler"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -260,10 +260,10 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="15" placeholder="Enter Mobile Numbert"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Numbert"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                 <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtMobile" ForeColor="Red" ValidationGroup="Settler"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -276,17 +276,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Document</label>
-                                                <asp:FileUpload ID="fuDocument" runat="server" AllowMultiple="true" />
-                                               
-                                                <asp:RegularExpressionValidator ControlToValidate="fuDocument" runat="server" ID="revfuDoc" ForeColor="Red"
-                                                    Display="Dynamic"  ErrorMessage="Select only Pdf Files." ValidationGroup="Settler"
-                                                    ValidationExpression="^.*\.(pdf|PDF)$" />
-
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
@@ -327,7 +317,7 @@
                                             <div class="table-responsive">
                                                 <asp:GridView ID="gvTrustSettler" runat="server" Width="100%"
                                                     AutoGenerateColumns="False" DataKeyNames="TrustSettlerID" CssClass="rounded-corners" OnPageIndexChanging="gvTrustSettler_PageIndexChanging"
-                                                    EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true"  HeaderStyle-BackColor="#e8f1f3"
+                                                    EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" HeaderStyle-BackColor="#e8f1f3"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvTrustSettler_RowCommand">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
@@ -394,7 +384,12 @@
                                                                     CommandName="EditTrustSettler" ToolTip="Edit" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                         <asp:TemplateField HeaderText="Document">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Bank">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnBank" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/bank.png"
@@ -475,7 +470,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                      <asp:TemplateField HeaderText="Client Identification #" Visible="false">
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -483,7 +478,7 @@
 
                                                     <asp:TemplateField HeaderText="Settlor Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblSettlorName"  Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblSettlorName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="HouseNo">
@@ -569,17 +564,17 @@
                                     <div class="panel-body">
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
-                                                <div class="col-lg-1 form-group" >
+                                                <div class="col-lg-1 form-group">
                                                     <asp:DropDownList ID="dropBank" runat="server" CssClass="form-control" OnSelectedIndexChanged="dropBank_SelectedIndexChanged"
                                                         AutoPostBack="true">
-                                                    </asp:DropDownList>                                                    
+                                                    </asp:DropDownList>
                                                 </div>
-                                                <div class="col-lg-2 form-group" >
+                                                <div class="col-lg-2 form-group">
                                                     <label class="control-label">
                                                         Records per page</label>
                                                 </div>
-                                                 <div class="col-lg-6 form-group"></div>
-                                                <div class="col-lg-3 form-group" >
+                                                <div class="col-lg-6 form-group"></div>
+                                                <div class="col-lg-3 form-group">
                                                     <input id="targetBank" type="text" class="form-control" placeholder="Text To Search" />
                                                 </div>
 
@@ -587,7 +582,7 @@
                                         </div>
 
 
-                                        <div class="table-responsive" >
+                                        <div class="table-responsive">
                                             <asp:GridView ID="gdvBankList" runat="server" Width="100%"
                                                 AutoGenerateColumns="False" DataKeyNames="BankDetailID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
@@ -694,70 +689,71 @@
                                 <fieldset>
                                     <asp:UpdatePanel ID="upBank" runat="server" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                    <div class="col-md-12 form-group user-form-group">
-                                        <div class="panel-body">
-                                            <div class="col-sm-12">
-                                                <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <asp:Label ID="lblBankMessage" runat="server"></asp:Label>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Identification #</label>
+                                                            <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+
+                                                        </div>
+                                                        <div class="col-sm-8 form-group">
+                                                            <label class="control-label">Settlor Name</label>
+                                                            <asp:TextBox ID="txtSettlorNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Bank Name</label>
+                                                            <asp:TextBox ID="txtBankName" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Branch Number</label>
+                                                            <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtBranchNumber" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Account Number</label>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                            <asp:Label ID="lblaccountError" runat="server" ForeColor="red"></asp:Label>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Account Type</label>
+                                                            <asp:DropDownList ID="ddlAccountType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+
+                                                            <asp:RequiredFieldValidator ID="rfvddlAccountType" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic" ErrorMessage="Please select Account Type"
+                                                                ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Currency</label>
+                                                            <asp:TextBox ID="txtCurrency" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Swift</label>
+                                                            <asp:TextBox ID="txtSwift" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Identification #</label>
-                                                    <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-
-                                                </div>
-                                                <div class="col-sm-8 form-group">
-                                                    <label class="control-label">Settlor Name</label>
-                                                    <asp:TextBox ID="txtSettlorNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Bank Name</label>
-                                                    <asp:TextBox ID="txtBankName" runat="server" class="form-control"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Branch Number</label>
-                                                    <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvtxtBranchNumber" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Account Number</label>
-                                                    <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                     <asp:Label ID="lblaccountError" runat="server" ForeColor="red"></asp:Label>
-                                                    <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Account Type</label>
-                                                    <asp:DropDownList ID="ddlAccountType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
-
-                                                    <asp:RequiredFieldValidator ID="rfvddlAccountType" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic" ErrorMessage="Please select Account Type"
-                                                        ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Currency</label>
-                                                    <asp:TextBox ID="txtCurrency" runat="server" class="form-control"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Swift</label>
-                                                    <asp:TextBox ID="txtSwift" runat="server" class="form-control"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvtxtSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
-                                                        ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                            </ContentTemplate></asp:UpdatePanel>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </fieldset>
                             </div>
                         </div>
@@ -816,7 +812,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Floor</label>
                                                     <asp:TextBox ID="txtFloor" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    
+
                                                 </div>
 
                                             </div>
@@ -825,7 +821,7 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Flat No</label>
                                                     <asp:TextBox ID="txtFlatNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                                  
+
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Road Name</label>
@@ -956,15 +952,14 @@
 
     </div>
 
-     <script type="text/javascript">
-         $(function () {
-             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
-             $('#Tabs a[href="#' + tabName + '"]').tab('show');
-             $("#Tabs a").click(function () {
-                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-             });
-         });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tabTrust";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
-   
-</asp:Content>
 
+</asp:Content>

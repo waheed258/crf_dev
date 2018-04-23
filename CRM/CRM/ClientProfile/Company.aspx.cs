@@ -108,7 +108,6 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-
     protected void GetBankDetails()
     {
         try
@@ -161,43 +160,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
 
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Company" + "/" + txtCompanyUIC.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = "0",
-                    UIC = txtCompanyUIC.Text.Trim(),
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 1,
-                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
-                    Status = 1,
-                };
 
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
-
-    }
     protected void btnCompantDetails_Click(object sender, EventArgs e)
     {
         try
@@ -210,11 +174,11 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            companyInfoEntity.VATNo = txtVATRef.Text.Trim();
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Company details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -240,6 +204,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     {
         txtCompanyUIC.Text = "";
         txtCompanyName.Text = "";
+        txtVATRef.Text = "";
         txtYearofFoundation.Text = "";
         txtTelephone.Text = "";
         txtFax.Text = "";
@@ -285,6 +250,11 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
                     txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                     txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
+                    txtVATRef.Text = ((Label)row.FindControl("lblVATNo")).Text.ToString();
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("8"), false);
                 }
                 else if (e.CommandName == "Bank")
                 {
@@ -333,7 +303,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
-            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            companyInfoEntity.VATNo = txtVATRef.Text.Trim();
+            companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)
             {
@@ -378,7 +349,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             bankInfoEntity.Currency = txtCurrency.Text;
             bankInfoEntity.SWIFT = txtSwift.Text;
             bankInfoEntity.CreatedBy = 0;
-            bankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankInfoEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'i');
@@ -433,7 +404,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.Status = 1;
 
             addressEntity.CreatedBy = 0;
@@ -516,7 +487,12 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 }
             }
         }
-        catch { }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnUpdateBank_Click(object sender, EventArgs e)
     {
@@ -534,7 +510,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             bankInfoEntity.Currency = txtCurrency.Text;
             bankInfoEntity.SWIFT = txtSwift.Text;
             bankInfoEntity.CreatedBy = 0;
-            bankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankInfoEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankInfoEntity, 'u');
@@ -579,7 +555,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.Status = 1;
 
             addressEntity.CreatedBy = 0;
@@ -666,7 +642,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
                 int result = companyBL.DeleteCompanyDetails(ViewState["UIC"].ToString());
-                if (result == 1)
+                if (result > 0)
                 {
                     GetGridData();
                     GetBankDetails();
@@ -711,20 +687,15 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
-
         GetGridData();
-
     }
     protected void dropAddress_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetAddressDetails();
-
     }
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
-
         GetBankDetails();
-
     }
 
     protected void txtCompanyUIC_TextChanged(object sender, EventArgs e)

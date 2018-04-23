@@ -82,44 +82,9 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         }
     }
 
-    private void InsertDocument()
-    {
-        DocumentBL _objDocBL = new DocumentBL();
 
-        if (fuDocument.HasFile)
-        {
-            List<HttpPostedFile> lst = fuDocument.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                //HttpPostedFile uploadfile = lst[i];
-                string inFilename = fuDocument.PostedFiles[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Spouse" + "/" + txtSAID.Text);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                string fileName = date + strfile;
-                fuDocument.SaveAs(Path.Combine(folder, fileName));
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = 0,
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = txtSAID.Text.Trim(),
-                    UIC = "0",
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = 2,
-                    AdvisorID = Convert.ToInt32(Session["AdvisorID"]),
-                    Status = 1,
-                };
 
-                int res = _objDocBL.DocumentManager(DocumentEntity, 'i');
-            }
-        }
 
-    }
     protected void btnSpouseSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -133,12 +98,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.ReferenceSAID = Session["SAID"].ToString();
             spouseEntity.TaxRefNo = txtTaxRefNum.Text;
             spouseEntity.EmailID = txtEmailId.Text;
+            spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-            spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
             int result = spouseBL.SpouseCRUD(spouseEntity, 'i');
             if (result == 1)
             {
-                InsertDocument();
                 message.Text = "Spouse details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
@@ -254,7 +218,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.TaxRefNo = txtTaxRefNum.Text;
             spouseEntity.EmailID = txtEmailId.Text;
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-            spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)
             {
@@ -270,7 +234,6 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
             else
             {
-
                 Clear();
             }
         }
@@ -305,6 +268,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 txtAddressSpouseName.Text = SpouseName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtIDNo.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
                     btnUpdateSpouse.Visible = true;
@@ -319,6 +283,10 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                     txtDateOfBirth.Text = ((Label)row.FindControl("lblDateOfBirth")).Text.ToString();
                     ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                }
+                else if (e.CommandName == "Document")
+                {
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("2") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "Bank")
                 {
@@ -389,7 +357,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             bankEntity.ReferenceID = Session["SAID"].ToString();
             bankEntity.UIC = "0";
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
@@ -440,7 +408,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             addressEntity.RoadName = txtRoadName.Text;
 
             addressEntity.Status = 1;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
@@ -582,7 +550,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             bankEntity.Currency = txtCurrency.Text;
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"]);
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
@@ -623,12 +591,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             addressEntity.RoadName = txtRoadName.Text;
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.SuburbName = txtSuburbName.Text;
-
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"]);
+            addressEntity.AdvisorId = Convert.ToInt32(Session["AdvisorID"].ToString());
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
@@ -764,6 +731,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
+
             dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
 
             if (dataset.Tables[0].Rows.Count > 0)
