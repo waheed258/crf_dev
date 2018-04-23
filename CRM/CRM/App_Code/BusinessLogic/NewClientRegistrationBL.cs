@@ -99,6 +99,14 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetAllClients", hashtable);
             return ds;
         }
+        public DataSet GetFlowChart(string SAID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@ReferenceSAID", SAID);
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_GetChartInfo", hashtable);
+            return ds;
+        }
+
         public DataSet GetActiveClientList() {            
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@SAID", 0);

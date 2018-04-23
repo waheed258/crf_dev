@@ -186,6 +186,13 @@
                                                     CommandName="SaveClient" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="Wealth Flow Chart">
+                                            <ItemTemplate>   
+                                                <asp:ImageButton ID="btnFlowChart" ImageUrl="~/assets/dist/img/flowchart.png" runat="server" Width="23px" Height="23px"
+                                                    CommandName="FlowChart" ToolTip="Flow Chart" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />                                         
+                                             
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
                             </div>

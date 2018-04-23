@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using System.Data;
 using EntityManager;
+using System.Web.Services;
 public partial class AdminForms_ActiveClientList : System.Web.UI.Page
 {
     DataSet dataset = new DataSet();
@@ -14,6 +15,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
     FeedbackEntity feedbackEntity = new FeedbackEntity();
     CommanClass _objComman = new CommanClass();
+    static string FLowSAID = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -159,15 +161,22 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
     protected void gvClientsList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
-        {
+        {            
             if (e.CommandName != "Page")
             {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
                 if (e.CommandName == "SaveClient")
-                {
-                    GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-                    int RowIndex = row.RowIndex;
+                {                   
                     Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                     string url = "../ClientProfile/ClientPersonal.aspx";
+                    string s = "window.open('" + url + "', '_blank');";
+                    ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+                }
+                if (e.CommandName == "FlowChart")
+                {
+                    FLowSAID = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    string url = "../AdminForms/WealthFlowChart.html";
                     string s = "window.open('" + url + "', '_blank');";
                     ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
                 }
@@ -198,4 +207,24 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+    [WebMethod]
+    public static string GetData()
+    {               
+        try
+        {           
+            NewClientRegistrationBL newCl = new NewClientRegistrationBL();
+            DataSet ds = new DataSet();
+            ds = newCl.GetFlowChart(FLowSAID);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(ds.Tables[0]);
+        }
+        catch (Exception ex)
+        {
+
+            return "error";
+
+        }
+
+    }
+
 }
