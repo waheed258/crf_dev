@@ -28,8 +28,7 @@ public class DirectorBL : DataUtilities
                         {"@Phone",directorEntity.Phone},
                         {"@AdvisorID",directorEntity.AdvisorID},
                         {"@Status",directorEntity.Status},
-                        {"@TaxRefNo",directorEntity.TaxRefNo},
-                        {"@Type",directorEntity.Type},
+                        {"@TaxRefNo",directorEntity.TaxRefNo},                      
                         {"@ShareHolderPercentage",directorEntity.ShareHolderPercentage},
                         {"@Operation",operation}
                     };
@@ -37,11 +36,10 @@ public class DirectorBL : DataUtilities
         return ExecuteNonQuery("usp_DirectorCRUD", hsparams);
     }
 
-    public DataSet GetDirector(int DirectorID, int type, string UIC)
+    public DataSet GetDirector(int DirectorID, string UIC)
     {
         Hashtable hsparams = new Hashtable();
         hsparams.Add("@DirectorID", DirectorID);
-        hsparams.Add("@Type", type);
         hsparams.Add("@UIC", UIC);
 
 

@@ -46,23 +46,13 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(dropAddress);
                         _objComman.getRecordsPerPage(dropBank);
 
-                        if (!string.IsNullOrEmpty(Request.QueryString["t"]))
-                        {
-                            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
-                            {
-                                txtUIC.Text = Session["TrustUIC"].ToString();
-                                btnBack.Text = "Back to Trust";
-                            }
-                            else
-                            {
-                                txtUIC.Text = Session["CompanyUIC"].ToString();
-                                btnBack.Text = "Back to Company";
+                        txtUIC.Text = Session["CompanyUIC"].ToString();
+                        GetDirectorGrid(txtUIC.Text.Trim());
+                        BindBankDetails();
+                        BindAddressDetails();
 
-                            }
-                            GetDirectorGrid(txtUIC.Text.Trim());
-                            BindBankDetails();
-                            BindAddressDetails();
-                        }
+                      
+                            
                     }
                 }
 
@@ -118,7 +108,6 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             Phone = txtPhone.Text.Trim(),
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             ShareHolderPercentage = txtSharePerc.Text.Trim(),
-            Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
             AdvisorID = 0,
         };
@@ -171,9 +160,9 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
 
     private void GetDirectorGrid(string UIC)
     {
-        int Type = Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
+       
         DataSet ds = new DataSet();
-        ds = directorBL.GetDirector(0, Type, UIC);
+        ds = directorBL.GetDirector(0, UIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             gvDirector.DataSource = ds.Tables[0];
@@ -190,9 +179,9 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
 
     private void BindDirector(int DirectorID)
     {
-        int Type = Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
+        
         DataSet ds = new DataSet();
-        ds = directorBL.GetDirector(DirectorID, Type, txtUIC.Text.Trim());
+        ds = directorBL.GetDirector(DirectorID, txtUIC.Text.Trim());
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             hfDirectorId.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
@@ -303,7 +292,8 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                 int RowIndex = row.RowIndex;
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["DirectorID"] = ((Label)row.FindControl("lblDirectorID")).Text.ToString();
-
+                ViewState["UIC"] = ((Label)row.FindControl("lblReferenceUIC")).Text.ToString();
+                string UIC = ((Label)row.FindControl("lblReferenceUIC")).Text.ToString();
                 string DirectorName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
                 txtDirectorNameBank.Text = DirectorName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();

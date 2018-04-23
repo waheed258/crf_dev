@@ -22,8 +22,7 @@ namespace EntityManager
         public string TaxRefNo { get; set; }
         public string ShareHolderPercentage { get; set; }
         public string UpdatedOn { get; set; }
-        public int? AdvisorID { get; set; }
-        public int? Type { get; set; }
+        public int? AdvisorID { get; set; }    
         public int? Status { get; set; }
     }
 }
