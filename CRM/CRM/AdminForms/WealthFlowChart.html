@@ -66,20 +66,20 @@
                         });
 
                         if (resdata[i].TYPE == 1) {
-                            data.addRows([
-                                [resdata[i].NAME, "", "Client"],
-                                ["Spouse", resdata[i].NAME, "Spouse"],
-                                ["Children", resdata[i].NAME, "Children"]
+                            data.addRows([                               
+                                [{ v: resdata[i].SAID, f: resdata[i].NAME }, '', 'Client'],
+                                [{ v: '2', f: 'Spouse' }, resdata[i].SAID, 'Spouse'],
+                                [{ v: '3', f: 'Children' }, resdata[i].SAID, 'Children']
                             ]);
                         }
                         if (resdata[i].TYPE == 2) {
-                            data.addRows([
-                                [resdata[i].NAME, "Spouse", "Spouse"]
+                            data.addRows([                           
+                                [{ v: resdata[i].SAID, f: resdata[i].NAME }, '2', 'Spouse']
                             ]);
                         }
                         if (resdata[i].TYPE == 3) {
-                            data.addRows([
-                                [resdata[i].NAME, "Children", "Children"]
+                            data.addRows([                                
+                                [{ v: resdata[i].SAID, f: resdata[i].NAME }, '3', 'Children']
                             ]);
                         }
                     }
