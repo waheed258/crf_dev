@@ -228,16 +228,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
                 if (result == 1)
                 {
-                    if (Session["Image"].ToString() != "")
-                    {
-                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                        lblImg.ImageUrl = Session["Image"].ToString();
-                    }
-                    else
-                    {
-                        Image lblImg = (Image)Page.Master.FindControl("imgProfilePic");
-                        lblImg.ImageUrl = "~/assets/dist/img/avatar5.png";
-                    }
+                    
                     txtSAId.ReadOnly = true;
                     txtFirstName.ReadOnly = true;
                     txtLastName.ReadOnly = true;
