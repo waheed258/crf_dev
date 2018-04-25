@@ -73,6 +73,14 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     sectionRequestList.Visible = false;
                     GetPDFClientData(SRNO);
                     GetInvoiceData(SRNO);
+                    if (chkVatInclusive.Checked == true)
+                    {
+                        lblvat.Visible = false;
+                    }
+                    else
+                    {
+                        lblvat.Visible = true;
+                    }
                     
                 }
 
@@ -228,10 +236,12 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 txtAmount.Text = ds.Tables[0].Rows[0]["Amount"].ToString();
                 chkVatInclusive.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["VatInclusive"]);
                 btnPDF.Enabled = true;
+                btnInvoiceSubmit.Visible = false;
             }
             else
             {
                 btnPDF.Enabled=false;
+                btnInvoiceSubmit.Visible = true;
             }
         }
         catch
@@ -260,15 +270,23 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     {
         string SRNO = ViewState["SRNO"].ToString();
         DataSet ds = new DataSet();      
-        ds = invoiceBL.GetInvoice(SRNO);       
+        ds = invoiceBL.GetInvoice(SRNO);
         StreamReader reader = new StreamReader(Server.MapPath("~/AdminForms/PdfInvoice.html"));
+        string url = "~/AdminForms/PdfInvoice.html";
+        string s = "window.open('" + url + "', '_blank');";
+        ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
         string readFile = reader.ReadToEnd();
         reader.Close();
 
         StringBuilder sbMainrow = new StringBuilder();
      
         int CompanyAddress = 0;
-      
+        decimal totalamount = 0;
+        decimal amount = 0;
+        decimal vatper = 0;
+        decimal incamount = 0;
+        decimal subamount = 0;
+        int inVat = 0;
 
         if (ds.Tables.Count > 0)
         {
@@ -291,20 +309,52 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     CompanyAddress = 1;
 
                     sbMainrow.Append("<tr>");
-                    sbMainrow.Append("<td style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Srno</td>");
-                    sbMainrow.Append("<td style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Service Request Num</td>");
-                    sbMainrow.Append("<td style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Invoice Summary</td>");
-                    sbMainrow.Append("<td style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Amount</td>");
+                    sbMainrow.Append("<td colspan='7' style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Srno</td>");
+                    sbMainrow.Append("<td colspan='7' style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Service Request Num</td>");
+                    sbMainrow.Append("<td colspan='7' style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;'>Invoice Summary</td>");
+                    sbMainrow.Append("<td colspan='7' style='font-weight:bold;border: 1px ridge black;padding: 5px;background-color: white;border-bottom: 1px ridge black;border-radius:5px;text-align:right''>Amount</td>");
                     sbMainrow.Append("</tr>");
 
+                    amount = amount + Convert.ToDecimal(dtlRow["Amount"]);
+                    inVat = Convert.ToInt32(dtlRow["VatInclusive"]);
+                    if (inVat == 0)
+                    {
+                        incamount =  Math.Round(amount,2);
+                        vatper =  Math.Round((amount * Convert.ToDecimal(0.15)) + vatper,2);
+                        subamount = Math.Round( amount + vatper,2);
+                    }
+                    else
+                    {
+                        incamount = Math.Round((amount / Convert.ToDecimal(1.15)),2);
+                        vatper = Math.Round((amount - incamount),2);
+                        subamount= Math.Round((incamount+vatper),2);
+                    }
 
                     sbMainrow.Append("<tr>");
-                    sbMainrow.Append("<td style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SlNo"] + "</td>");
-                    sbMainrow.Append("<td style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SRNO"] + "</td>");
-                    sbMainrow.Append("<td style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["Description"] + "</td>");
-                    sbMainrow.Append("<td style='border: 1px ridge black; font-weight:bold;padding:3px;'/>" + dtlRow["Amount"] + "</td>");
+                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SlNo"] + "</td>");
+                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SRNO"] + "</td>");
+                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["Description"] + "</td>");
+                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'/>" + dtlRow["Amount"] + "</td>");
                     sbMainrow.Append("</tr>");
+
                 }
+                sbMainrow.Append("<tr>");
+                sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Amount</td>");
+                sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + incamount + "</td></tr>");
+                sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Vat% </td>");
+                sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + vatper + "</td></tr>");
+                sbMainrow.Append("<tr>");
+
+                totalamount = subamount;
+
+                sbMainrow.Append("<tr>");
+                sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Invoice Total </td>");
+                sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + totalamount + "</td></tr>");
+                sbMainrow.Append("</tr>");
+
+
+
+
             }
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -407,12 +457,23 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     {
         try
         {
-
+           
             GetPdf();
         }
         catch
         {
 
+        }
+    }
+    protected void chkVatInclusive_CheckedChanged(object sender, EventArgs e)
+    {
+        if(chkVatInclusive.Checked == true)
+        {
+            lblvat.Visible = false;
+        }
+        else
+        {
+            lblvat.Visible = true;
         }
     }
 }

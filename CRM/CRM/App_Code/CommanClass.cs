@@ -87,7 +87,7 @@ public class CommanClass
         {
             ddlRpP.Items.Clear();
             Dictionary<int, string> objRp = new Dictionary<int, string>();
-            objRp.Add(1, "1");
+            //objRp.Add(1, "1");
             objRp.Add(5, "5");
             objRp.Add(10, "10");
             objRp.Add(20, "20");

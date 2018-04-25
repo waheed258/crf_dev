@@ -174,10 +174,10 @@
                                                 <asp:Label runat="server" ID="lblRegID" Text='<%#Eval("ClientRegistartionID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Edit">
+                                        <asp:TemplateField HeaderText="Edit" Visible="false">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnEdit" ImageUrl="~/assets/dist/img/edit.png" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
-                                                    CommandName="Edit" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                    CommandName="Edit" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" Visible="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Add Client Info">

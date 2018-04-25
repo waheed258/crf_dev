@@ -362,7 +362,8 @@
                                   <div class="form-group col-sm-3">
                                     <label>Amount</label>
                                     <asp:TextBox ID="txtAmount" runat="server" class="form-control"></asp:TextBox>
-                                      <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" />
+                                      <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" AutoPostBack="true" OnCheckedChanged="chkVatInclusive_CheckedChanged" />
+                                      <asp:Label ID="lblvat" runat="server">+ 15%</asp:Label>
                                     <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" Display="Dynamic"
                                         ErrorMessage="Enter Amount"
                                         ValidationGroup="Invoice" ForeColor="Red"></asp:RequiredFieldValidator>
