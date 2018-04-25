@@ -294,7 +294,10 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
-        Response.Redirect("TrustDetails.aspx", false);
+        if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            Response.Redirect("TrustDetails.aspx", false);
+        else
+            Response.Redirect("Company.aspx", false);
     }
     protected void gvBeneficiary_RowCommand(object sender, GridViewCommandEventArgs e)
     {

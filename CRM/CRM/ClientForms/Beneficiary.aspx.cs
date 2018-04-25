@@ -144,7 +144,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         return Result;
     }
 
- 
+
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -202,8 +202,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     private void BindBeneficiary(int BeneficiaryId)
     {
-        int Type=Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
-        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId,Type, txtUIC.Text.Trim());
+        int Type = Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
+        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, Type, txtUIC.Text.Trim());
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
         {
             hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
@@ -294,7 +294,11 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
-        Response.Redirect("TrustDetails.aspx", false);
+        if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            Response.Redirect("TrustDetails.aspx", false);
+        else
+            Response.Redirect("CompanyDetails.aspx", false);
+
     }
     protected void gvBeneficiary_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -320,9 +324,9 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     int BenfId = Convert.ToInt32(e.CommandArgument);
                     BindBeneficiary(BenfId);
                 }
-                    else if (e.CommandName == "Document")
+                else if (e.CommandName == "Document")
                 {
-                     Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "DeleteBeneficiary")
                 {
@@ -432,7 +436,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.AdvisorId = 0;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
-            
+
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
@@ -478,7 +482,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             addressEntity.Status = 1;
             addressEntity.CreatedBy = 0;
             addressEntity.UpdatedBy = "0";
-           
+
 
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
@@ -780,7 +784,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(),txtUIC.Text.Trim());
+                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
                 if (res > 0)
                 {
                     GetBeneficiaryGrid(txtUIC.Text.Trim());
@@ -820,5 +824,5 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     }
 
-   
+
 }
