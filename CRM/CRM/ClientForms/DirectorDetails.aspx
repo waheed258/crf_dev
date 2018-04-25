@@ -300,6 +300,13 @@
                                                     ErrorMessage="Enter Share Percentage"
                                                     ValidationGroup="Director" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
+                                             <div class="col-sm-3 form-group">
+                                                <label class="control-label">Share Value</label>
+                                                <asp:TextBox ID="txtShareValue" CssClass="form-control" runat="server" placeholder="Enter Share Value"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvtxtShareValue" runat="server" ControlToValidate="txtShareValue" Display="Dynamic"
+                                                    ErrorMessage="Enter Share Value"
+                                                    ValidationGroup="Director" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            </div>
                                             </div>
 
                                     </div>

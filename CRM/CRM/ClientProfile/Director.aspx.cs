@@ -105,6 +105,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             Phone = txtPhone.Text.Trim(),
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             ShareHolderPercentage = txtSharePerc.Text.Trim(),
+            ShareValue = txtShareValue.Text.Trim(),
             AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
             
             Status = 1,
@@ -190,6 +191,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
             txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+            txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
 
             btnDirectorSubmit.Text = "Update";
         }
@@ -206,6 +208,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         txtPhone.Text = "";
         txtTaxRefNo.Text = "";
         txtSharePerc.Text = "";
+        txtShareValue.Text = "";
     }
     protected void btnDirectorCancel_Click(object sender, EventArgs e)
     {
@@ -234,6 +237,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
             txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+            txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
         }
         else
         {

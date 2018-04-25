@@ -272,9 +272,9 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         DataSet ds = new DataSet();      
         ds = invoiceBL.GetInvoice(SRNO);
         StreamReader reader = new StreamReader(Server.MapPath("~/AdminForms/PdfInvoice.html"));
-        string url = "~/AdminForms/PdfInvoice.html";
-        string s = "window.open('" + url + "', '_blank');";
-        ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+        //string url = "~/AdminForms/PdfInvoice.html";
+        //string s = "window.open('" + url + "', '_blank');";
+        //ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
         string readFile = reader.ReadToEnd();
         reader.Close();
 
@@ -286,7 +286,8 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         decimal vatper = 0;
         decimal incamount = 0;
         decimal subamount = 0;
-        int inVat = 0;
+        int inVat = 0; 
+        int count = 1;
 
         if (ds.Tables.Count > 0)
         {
@@ -296,13 +297,12 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 foreach (DataRow dtlRow in ds.Tables[0].Rows)
                 {
                     if (CompanyAddress == 0)
-                    {
-                        readFile = readFile.Replace("{Image}", dtlRow["InvoiceNum"].ToString());
+                    {                       
                         readFile = readFile.Replace("{InvoiceNum}", dtlRow["InvoiceNum"].ToString());
-                        readFile = readFile.Replace("{InvoiceDate}", dtlRow["InvoiceDate"].ToString() + " .");
-                        readFile = readFile.Replace("{ClientName}", dtlRow["ClientName"].ToString() + " .");
-                        readFile = readFile.Replace("{ClientSAID}", dtlRow["SAID"].ToString() + " .");
-                        readFile = readFile.Replace("{ServiceName}", dtlRow["ServiceName"].ToString() + " .");
+                        readFile = readFile.Replace("{InvoiceDate}", dtlRow["InvoiceDate"].ToString());
+                        readFile = readFile.Replace("{ClientName}", dtlRow["ClientName"].ToString());
+                        readFile = readFile.Replace("{ClientSAID}", dtlRow["SAID"].ToString());
+                        readFile = readFile.Replace("{ServiceName}", dtlRow["ServiceName"].ToString());
 
 
                     }
@@ -331,12 +331,12 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     }
 
                     sbMainrow.Append("<tr>");
-                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SlNo"] + "</td>");
+                    sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + count + "</td>");                   
                     sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["SRNO"] + "</td>");
                     sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;'>" + dtlRow["Description"] + "</td>");
                     sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'/>" + dtlRow["Amount"] + "</td>");
                     sbMainrow.Append("</tr>");
-
+                    count++;
                 }
                 sbMainrow.Append("<tr>");
                 sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Amount</td>");

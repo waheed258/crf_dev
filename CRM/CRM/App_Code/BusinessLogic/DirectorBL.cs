@@ -30,6 +30,7 @@ public class DirectorBL : DataUtilities
                         {"@Status",directorEntity.Status},
                         {"@TaxRefNo",directorEntity.TaxRefNo},                      
                         {"@ShareHolderPercentage",directorEntity.ShareHolderPercentage},
+                        {"@ShareValue",directorEntity.ShareValue},
                         {"@Operation",operation}
                     };
 
