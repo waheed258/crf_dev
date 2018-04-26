@@ -32,6 +32,7 @@ public class CompanyBL
         hashtable.Add("@EmailID", companyInfoEntity.EmailID);
         hashtable.Add("@Website", companyInfoEntity.Website);
         hashtable.Add("@VATNo", companyInfoEntity.VATNo);
+        hashtable.Add("@TrustUIC", companyInfoEntity.TrustUIC);
         hashtable.Add("@AdvisorID", companyInfoEntity.AdvisorID);
         
         hashtable.Add("@Operation", Operation);
@@ -56,5 +57,13 @@ public class CompanyBL
         hashtable.Add("@UIC", UIC);
         int result = dataUtilities.ExecuteNonQuery("usp_DeleteCompanyDetails", hashtable);
         return result;
+    }
+
+    public DataSet GetTrustNames()
+    {
+        DataSet dataset = dataUtilities.ExecuteDataSet("GetTrustNames");
+        return dataset;
+
+       
     }
 }

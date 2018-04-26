@@ -95,7 +95,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         DirectorEntity directorEntity = new DirectorEntity
         {
             DirectorID = Convert.ToInt32(hfDirectorId.Value.Trim()),
-            ReferenceSAID = txtSAID.Text.Trim(),
+            ReferenceSAID = Session["SAID"].ToString(),
             UIC = txtUIC.Text.Trim(),
             SAID = txtSAID.Text.Trim(),
             FirstName = txtFirstName.Text.Trim(),

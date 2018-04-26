@@ -212,6 +212,12 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div class="panel-body">
                                         <div class="col-sm-12">
+                                             <div class="col-sm-12">
+                                             <div class="col-sm-3 form-group">
+                                            <label>Trust</label>
+                                            <asp:DropDownList ID="ddlTrustNames" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                        </div>
+                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Registration Number</label>
                                                 <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13" AutoPostBack="true" OnTextChanged="txtCompanyUIC_TextChanged"></asp:TextBox>
@@ -371,6 +377,11 @@
                                                          <asp:TemplateField HeaderText="Website" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblVATNo" Text='<%#Eval("VATNo") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Trusts" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTrusts" Text='<%#Eval("TrustUIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">

@@ -39,6 +39,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                         commonClass.getRecordsPerPage(dropBank);
                         commonClass.getRecordsPerPage(dropAddress);
                         GetGridData();
+                        GetTrustNames();
                         GetBankDetails();
                         GetAddressDetails();
                         btnUpdateCompany.Visible = false;
@@ -177,6 +178,14 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             companyInfoEntity.Website = txtWebsite.Text;
             companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = 0;
+            if (ddlTrustNames.SelectedValue != "0")
+            {
+                companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
+            }
+            else
+            {
+                companyInfoEntity.TrustUIC = "0";
+            }
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
@@ -211,11 +220,32 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         txtFax.Text = "";
         txtEmail.Text = "";
         txtWebsite.Text = "";
+        ddlTrustNames.SelectedValue = "0";
 
+    }
+
+    private void GetTrustNames()
+    {
+        try
+        {
+            DataSet ds = companyBL.GetTrustNames();
+            if(ds.Tables.Count > 0)
+            {
+                ddlTrustNames.DataSource = ds;
+                ddlTrustNames.DataTextField = "TrustName";
+                ddlTrustNames.DataValueField = "UIC";
+                ddlTrustNames.DataBind();
+                ddlTrustNames.Items.Insert(0, new ListItem("--Select Trust --", "0"));
+            }
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
     protected void btnCpmpanyDetailsCancel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Dashboard.aspx");
+        Response.Redirect("CompanyDetails.aspx");
     }
 
     protected void gvCompany_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -252,6 +282,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                     txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
                     txtVATRef.Text = ((Label)row.FindControl("lblVATNo")).Text.ToString();
+                    ddlTrustNames.SelectedValue = ((Label)row.FindControl("lblTrusts")).Text.ToString();
                 }
                 else if (e.CommandName == "Document")
                 {
@@ -310,6 +341,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             companyInfoEntity.Website = txtWebsite.Text;
             companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = 0;
+            companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)
             {

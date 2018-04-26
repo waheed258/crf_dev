@@ -212,6 +212,12 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div class="panel-body">
                                         <div class="col-sm-12">
+                                             <div class="col-sm-3 form-group">
+                                            <label>Trust</label>
+                                            <asp:DropDownList ID="ddlTrustNames" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                        </div>
+                                             </div>
+                                        <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Registration Number</label>
                                                 <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Company Registration Number" MaxLength="13" AutoPostBack="true" OnTextChanged="txtCompanyUIC_TextChanged"></asp:TextBox>
@@ -234,17 +240,17 @@
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                              <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">VAT Number</label>
                                                 <asp:TextBox ID="txtVATRef" CssClass="form-control" runat="server" placeholder="VAT Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                           
+
                                         </div>
                                         <div class="col-sm-12">
-                                             <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label>
                                                 <asp:TextBox ID="txtTelephone" CssClass="form-control" runat="server" placeholder="Telephone" MaxLength="10"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
@@ -276,7 +282,7 @@
                                                     ControlToValidate="txtWebsite" ValidationExpression="^((http|https|ftp|www):\/\/)?([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)(\.)([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]+)" ValidationGroup="Company">
                                                 </asp:RegularExpressionValidator>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
@@ -368,9 +374,14 @@
                                                                 <asp:Label runat="server" ID="lblWebsite" Text='<%#Eval("Website") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="Website" Visible="false">
+                                                        <asp:TemplateField HeaderText="Website" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblVATNo" Text='<%#Eval("VATNo") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                          <asp:TemplateField HeaderText="Trusts" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTrusts" Text='<%#Eval("TrustUIC") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
