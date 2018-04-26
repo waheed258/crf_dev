@@ -215,7 +215,11 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 message.Text = "Invoice Generated Successfully";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);              
                 btnPDF.Enabled = true;
-                btnInvoiceSubmit.Enabled = false;              
+                btnInvoiceSubmit.Enabled = false;
+                txtDescription.ReadOnly = true;
+                txtAmount.ReadOnly = true;
+                chkVatInclusive.Enabled = false;
+                
             }
         }
         catch
@@ -237,6 +241,9 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 chkVatInclusive.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["VatInclusive"]);
                 btnPDF.Enabled = true;
                 btnInvoiceSubmit.Visible = false;
+                txtDescription.ReadOnly = true;
+                txtAmount.ReadOnly = true;
+                chkVatInclusive.Enabled = false;
             }
             else
             {
@@ -341,7 +348,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 sbMainrow.Append("<tr>");
                 sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Amount</td>");
                 sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + incamount + "</td></tr>");
-                sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Vat% </td>");
+                sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Vat % </td>");
                 sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + vatper + "</td></tr>");
                 sbMainrow.Append("<tr>");
 
@@ -349,7 +356,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
 
                 sbMainrow.Append("<tr>");
                 sbMainrow.Append("<td colspan='21' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;'>Invoice Total </td>");
-                sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;text-align:right'>" + totalamount + "</td></tr>");
+                sbMainrow.Append("<td colspan='7' style='border: 1px ridge black; font-weight:bold;padding:3px;color:blue;text-align:right'>" + totalamount + "</td></tr>");
                 sbMainrow.Append("</tr>");
 
 
