@@ -283,7 +283,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     Response.Redirect("Spouse.aspx", false);
                     break;
                 case "3":
-                    Response.Redirect("ChildDetails.aspx", false);
+                    Response.Redirect("Children.aspx", false);
                     break;
                 case "4":
                     Response.Redirect("TrustDetails.aspx", false);

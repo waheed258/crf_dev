@@ -566,7 +566,11 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             EncryptDecrypt ObjEn = new EncryptDecrypt();
             Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
@@ -804,4 +808,28 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     }
 
 
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string accountNum = txtAccountNumber.Text;
+            DataSet dataset = new DataSet();
+            dataset = bankbl.CheckAccountNum(accountNum);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                msgAccountNum.Text = "Already Exists";
+                txtAccountNumber.Text = "";
+            }
+            else
+            {
+                msgAccountNum.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }
