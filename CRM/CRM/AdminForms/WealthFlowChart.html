@@ -74,12 +74,12 @@
                         }
                         if (resdata[i].TYPE == 2) {
                             data.addRows([                           
-                                [{ v: resdata[i].SAID, f: resdata[i].NAME }, '2', 'Spouse']
+                                [{ v: resdata[i].SAID + "_" + i, f: resdata[i].NAME }, '2', 'Spouse']
                             ]);
                         }
                         if (resdata[i].TYPE == 3) {
                             data.addRows([                                
-                                [{ v: resdata[i].SAID, f: resdata[i].NAME }, '3', 'Children']
+                                [{ v: resdata[i].SAID + "_" + i, f: resdata[i].NAME }, '3', 'Children']
                             ]);
                         }
                     }
