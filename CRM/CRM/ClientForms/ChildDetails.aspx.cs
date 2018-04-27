@@ -136,12 +136,14 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 gvChildDetails.DataSource = dataset;
                 search.Visible = true;
                 ChildList.Visible = true;
+                search.Visible = true;
             } 
             else
             {
                 gvChildDetails.DataSource = null;
                 search.Visible = false;
                 ChildList.Visible = false;
+                search.Visible = true;
             }
             gvChildDetails.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvChildDetails.DataBind();
@@ -312,7 +314,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
-                gdvBankList.DataSource = dataset;
+                gdvBankList.DataSource = dataset;               
             }
             else
             {
@@ -352,6 +354,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         txtEmailId.Text = "";
         txtTaxRefNum.Text = "";
         txtDateOfBirth.Text = "";
+        
 
 
     }
@@ -380,6 +383,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         ddlCity.SelectedValue = "-1";
         ddlCountry.SelectedValue = "-1";
         ddlProvince.SelectedValue = "-1";
+        chkClientAddress.Checked = false;
     }
 
 
@@ -571,7 +575,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
-
+        ClearAddress();
     }
     protected void gvAddress_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -589,8 +593,9 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 {
                     addressmessage.InnerText = "Update Address Details";
                     btnAddressSubmit.Visible = false;
-                    btnUpdateAddress.Visible = true;
+                    btnUpdateAddress.Visible = true;                    
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                    chkClientAddress.Visible = false;
                     txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                     txtChildNameAddress.Text = ((Label)row.FindControl("lblAddChildName")).Text.ToString();
                     txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
@@ -836,6 +841,51 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if(chkClientAddress.Checked == true)
+            {
+                string CLientSAID = ViewState["ReferenceSAID"].ToString();
+                DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+                if(ds.Tables.Count > 0)
+                {
+                    txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
+                    txtBulding.Text = ds.Tables[0].Rows[0]["BuildingName"].ToString();
+                    txtFloor.Text = ds.Tables[0].Rows[0]["FloorNo"].ToString();
+                    txtFlatNo.Text = ds.Tables[0].Rows[0]["FlatNo"].ToString();
+                    txtRoadName.Text = ds.Tables[0].Rows[0]["RoadName"].ToString();
+                    txtRoadNo.Text = ds.Tables[0].Rows[0]["RoadNo"].ToString();
+                    txtSuburbName.Text = ds.Tables[0].Rows[0]["SuburbName"].ToString();
+                    ddlCity.SelectedValue = ds.Tables[0].Rows[0]["City"].ToString();
+                    ddlProvince.SelectedValue = ds.Tables[0].Rows[0]["Province"].ToString();
+                    ddlCountry.SelectedValue = ds.Tables[0].Rows[0]["Country"].ToString();
+                    txtPostalCode.Text = ds.Tables[0].Rows[0]["PostalCode"].ToString();
+                }
+            }
+            else
+            {
+                txtHouseNo.Text = "";
+                txtPostalCode.Text = "";
+                txtRoadName.Text = "";
+                txtRoadNo.Text = "";
+                txtSuburbName.Text = "";
+                txtFlatNo.Text = "";
+                txtBulding.Text = "";
+                txtFloor.Text = "";
+                ddlCity.SelectedValue = "-1";
+                ddlCountry.SelectedValue = "-1";
+                ddlProvince.SelectedValue = "-1";
+                
+            }
+           
+        }
+        catch
+        {
+
         }
     }
 }

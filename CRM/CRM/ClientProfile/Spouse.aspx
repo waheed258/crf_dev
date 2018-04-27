@@ -839,8 +839,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
+                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
+                                             <div class="col-sm-12"> 
+                                                <div class="col-sm-12 form-group">                                                                              
+                                                    <asp:CheckBox ID="chkClientAddress" runat="server" Text="Same as Client Address" AutoPostBack="true" OnCheckedChanged="chkClientAddress_CheckedChanged"/>                                                    
+                                                </div>
+                                                </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Identification #</label>
@@ -930,6 +937,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                            </ContentTemplate>
+                                         </asp:UpdatePanel>
                                 </fieldset>
                             </div>
                         </div>

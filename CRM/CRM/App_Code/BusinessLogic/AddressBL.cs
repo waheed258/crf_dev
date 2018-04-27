@@ -56,5 +56,13 @@ namespace BusinessLogic
             int result = dataUtilities.ExecuteNonQuery("usp_DeleteAddressDetails", hashtable);
             return result;
         }
+
+        public DataSet GetPrimaryAddrClient(string SAID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@SAID", SAID);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetPrimaryClientAddr", hashtable);
+            return ds;
+        }
     }
 }

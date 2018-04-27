@@ -430,7 +430,7 @@
                                         <div class="row" id="searchbank" runat="server">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-1 form-group">
-                                                    <asp:DropDownList ID="dropPage2" runat="server"
+                                                    <asp:DropDownList ID="dropPage2" runat="server" CssClass="form-control"
                                                         OnSelectedIndexChanged="dropPage2_SelectedIndexChanged"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
@@ -534,7 +534,7 @@
                                             <div class="col-lg-12">
                                                 <div class="col-lg-1 form-group">
                                                     <asp:DropDownList ID="DropPage1" runat="server"
-                                                        OnSelectedIndexChanged="DropPage1_SelectedIndexChanged"
+                                                        OnSelectedIndexChanged="DropPage1_SelectedIndexChanged" CssClass="form-control"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
                                                 </div>
@@ -772,8 +772,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
+                                      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
                                     <div class="col-md-12 form-group user-form-group">
                                         <div class="panel-body">
+                                            <div class="col-sm-12"> 
+                                                <div class="col-sm-12 form-group">                                                                              
+                                                    <asp:CheckBox ID="chkClientAddress" runat="server" Text="Same as Client Address" AutoPostBack="true" OnCheckedChanged="chkClientAddress_CheckedChanged" />                                                    
+                                                </div>
+                                                </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Identification #</label>
@@ -865,6 +872,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                            </ContentTemplate>
+                                          </asp:UpdatePanel>
                                 </fieldset>
                             </div>
                         </div>
