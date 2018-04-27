@@ -180,6 +180,11 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                     string s = "window.open('" + url + "', '_blank');";
                     ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
                 }
+                if (e.CommandName == "Document")
+                {
+                    EncryptDecrypt ObjEn = new EncryptDecrypt();
+                    Response.Redirect("AdminDocument.aspx?x="+ObjEn.Encrypt(e.CommandArgument.ToString()), false);
+                }
             }
         }
         catch

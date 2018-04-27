@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="ActiveClientList.aspx.cs" Inherits="AdminForms_ActiveClientList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script src="../Scripts/jquery-1.10.2.min.js"></script> 
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -62,10 +62,10 @@
             border: 1px solid #e4e5e7;
         }
     </style>
-      <script type="text/javascript">
-          function openModal() {
-              $('#ContentPlaceHolder1_Success').modal('show');
-          }
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
 
     </script>
 </asp:Content>
@@ -179,18 +179,24 @@
                                                 <asp:ImageButton ID="btnEdit" ImageUrl="~/assets/dist/img/edit.png" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
                                                     CommandName="Edit" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" Visible="false" />
                                             </ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>                                        
                                         <asp:TemplateField HeaderText="Add Client Info">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnSaveClient" ImageUrl="~/assets/dist/img/Beneficiary.jpg" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
                                                     CommandName="SaveClient" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                         <asp:TemplateField HeaderText="Wealth Flow Chart">
-                                            <ItemTemplate>   
+                                        <asp:TemplateField HeaderText="Document">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
+                                                    CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Wealth Flow Chart">
+                                            <ItemTemplate>
                                                 <asp:ImageButton ID="btnFlowChart" ImageUrl="~/assets/dist/img/flowchart.png" runat="server" Width="23px" Height="23px"
-                                                    CommandName="FlowChart" ToolTip="Flow Chart" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />                                         
-                                             
+                                                    CommandName="FlowChart" ToolTip="Flow Chart" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
