@@ -13,6 +13,7 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
     ClientServiceEntity clientServiceEntity = new ClientServiceEntity();
     ClientServiceBL clientServiceBL = new ClientServiceBL();
     DataSet dataset = new DataSet();
+    CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -30,9 +31,9 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
                 {
                     if (!IsPostBack)
                     {
+                        _objComman.getRecordsPerPage(DropPage);
                         btnSubmit.Visible = true;
-                        btnUpdate.Visible = false;
-                        ViewState["ps"] = 5;
+                        btnUpdate.Visible = false;                      
                         BindClientService();
                     }
                 }
@@ -91,20 +92,23 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
     {
         try
         {
-            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-            int RowIndex = row.RowIndex;
-            ViewState["ServiceID"] = ((Label)row.FindControl("lblServiceID")).Text.ToString();
-            if (e.CommandName == "Edit")
+            if (e.CommandName != "Page")
             {
-                btnSubmit.Visible = false;
-                btnUpdate.Visible = true;
-                txtServiceName.Text = ((Label)row.FindControl("lblServiceName")).Text.ToString();
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Service?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["ServiceID"] = ((Label)row.FindControl("lblServiceID")).Text.ToString();
+                if (e.CommandName == "Edit")
+                {
+                    btnSubmit.Visible = false;
+                    btnUpdate.Visible = true;
+                    txtServiceName.Text = ((Label)row.FindControl("lblServiceName")).Text.ToString();
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    ViewState["flag"] = 1;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Service?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
             }
         }
         catch 
@@ -118,10 +122,23 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
     {
         try
         {
-            gvClientService.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = clientServiceBL.GetClientService();
-            gvClientService.DataSource = dataset;
-            gvClientService.DataBind();
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {                 
+                gvClientService.DataSource = dataset;
+                gvClientService.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+                gvClientService.DataBind();
+                ServiceList.Visible = true;
+                search.Visible = true;
+            }
+            else
+            {
+                gvClientService.DataSource = null;
+                search.Visible = false;
+                ServiceList.Visible = false;
+                search.Visible = false;
+            }
+            
         }
         catch
         {
@@ -197,18 +214,10 @@ public partial class AdminForms_ClientService : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+ 
+
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
-        try
-        {
-            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
-            BindClientService();
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        BindClientService();
     }
 }

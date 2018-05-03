@@ -112,32 +112,32 @@
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" class="btn btn-add" ValidationGroup="service" OnClick="btnUpdate_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnCancel_Click" />
                         </div>
-                        <div class="panel panel-bd" id="spouselist" runat="server">
+                        <div class="panel panel-bd" id="ServiceList" runat="server">
                             <div class="panel-heading">
                                            <div class="panel-title">
                                                <h5>List of Services</h5>
                                            </div>
                                        </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="col-lg-4" style="margin-top: 15px">
-                                        <asp:DropDownList ID="DropPage" runat="server"
-                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
-                                            AutoPostBack="true">
-                                            <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
-                                            <asp:ListItem Value="20">20</asp:ListItem>
-                                            <asp:ListItem Value="50">50</asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label class="control-label">
-                                            Records per page</label>
-                                    </div>
-                                    <div class="col-lg-3" style="margin-top: 10px">
-                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="panel-body" style="margin-top: 10px">
+                          
+                            <div class="panel-body">
+                                <div class="row" id="search" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="DropPage" runat="server" CssClass="form-control"
+                                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <asp:GridView ID="gvClientService" runat="server" Width="100%"
                                     AutoGenerateColumns="False" DataKeyNames="ServiceID" CssClass="rounded-corners" OnPageIndexChanging="gvClientService_PageIndexChanging"
                                     EmptyDataText="There are no data records to display."
