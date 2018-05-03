@@ -160,7 +160,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         }
     }
 
-  
+
 
     protected void btnSubmitClientPersonal_Click(object sender, EventArgs e)
     {
@@ -556,15 +556,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         }
     }
 
-    protected void LinkButton3_Click(object sender, EventArgs e) 
+    protected void LinkButton3_Click(object sender, EventArgs e)
     {
-        try{
+        try
+        {
 
-        
-        EncryptDecrypt ObjEn = new EncryptDecrypt();
-        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
+
+            EncryptDecrypt ObjEn = new EncryptDecrypt();
+            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
         }
-        catch{}
+        catch { }
     }
 
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
@@ -762,6 +763,23 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    protected void txtAccountNumber_TextChanged(object sender, EventArgs e) 
+    {
+        try
+        { string accountNum = txtAccountNumber.Text; 
+            ds = bankbl.CheckAccountNum(accountNum); 
+            if (ds.Tables[0].Rows.Count > 0) 
+            { lblBankMsg.Text = "Already Exists"; 
+                txtAccountNumber.Text = "";
+            } else { lblBankMsg.Text = ""; 
+            }
+        } 
+        catch 
+        {
+            message.ForeColor = System.Drawing.Color.Red; message.Text = "Something went wrong, please contact administrator"; ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true); 
         }
     }
     protected void DropPageAddress_SelectedIndexChanged(object sender, EventArgs e)
