@@ -17,6 +17,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     ClientServiceMasterEntity clientserviceentitym = new ClientServiceMasterEntity();
     DataSet ds = new DataSet();
     ServiceRequestBL _objServiceRequestBL = new ServiceRequestBL();
+    CommanClass _objComman = new CommanClass();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,6 +28,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             {
                 if (!IsPostBack)
                 {
+                    _objComman.getRecordsPerPage(DropPage);
                     GetServiceRequest();
                     GetServiceRequestdetails();
                     BindPriority();
@@ -217,6 +219,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvServiceDetails.DataSource = ds;
+                gvServiceDetails.PageSize = Convert.ToInt32(DropPage.SelectedValue);
                 gvServiceDetails.DataBind();
             }
             else
@@ -303,4 +306,22 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         ClearService();
     }
 
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetServiceRequestdetails();
+    }
+    protected void gvServiceDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvServiceDetails.PageIndex = e.NewPageIndex;
+            GetServiceRequestdetails();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }

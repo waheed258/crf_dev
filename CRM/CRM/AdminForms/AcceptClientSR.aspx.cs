@@ -18,13 +18,34 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     FollowUpEntity followupEntity = new FollowUpEntity();
     CommanClass _objComman = new CommanClass();
     protected void Page_Load(object sender, EventArgs e)
-    {   
-        if (!IsPostBack)
+    {
+        try
         {
-            BindAdvisors();
-            AdvisorSection.Visible = false;
-            _objComman.getRecordsPerPage(DropPage);          
-            GetGridData();
+
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+
+                        BindAdvisors();
+                        AdvisorSection.Visible = false;
+                        _objComman.getRecordsPerPage(DropPage);
+                        GetGridData();
+                    }
+                }
+            }
+        }
+        catch
+        {
+
         }
     }
 
@@ -50,13 +71,13 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
     {
         try
         {
-            
+
             dataset = serviceRequestBL.GetAdvisors();
             ddlAdvisors.DataSource = dataset;
             ddlAdvisors.DataTextField = "Name";
             ddlAdvisors.DataValueField = "AdvisorID";
             ddlAdvisors.DataBind();
-           // ddlAdvisors.Items.Insert(0, new ListItem("--Select Advisor Type --", "0"));
+            // ddlAdvisors.Items.Insert(0, new ListItem("--Select Advisor Type --", "0"));
         }
         catch
         {
@@ -101,10 +122,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                         ddlAdvisors.SelectedValue = "-1";
                     else
                         ddlAdvisors.SelectedValue = ViewState["AdvisorID"].ToString();
-                    
+
 
                 }
-               
+
                 else if (e.CommandName == "Validate")
                 {
                     if (ddlAdvisors.SelectedValue == "-1")
@@ -114,7 +135,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                     }
                     else
                     {
-                        
+
                         sectionRequestList.Visible = true;
                         AdvisorSection.Visible = false;
                         lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
@@ -155,7 +176,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
     }
 
-    
+
     protected void btnAdvisorCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("AcceptClientSR.aspx");

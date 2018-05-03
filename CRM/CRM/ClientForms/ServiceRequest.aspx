@@ -35,6 +35,51 @@
             border: 1px solid #e4e5e7;
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvServiceDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvServiceDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvServiceDetails]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvServiceDetails]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+           
+           
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -88,7 +133,7 @@
                                 
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvPriority" runat="server" ControlToValidate="ddlPriority" Display="Dynamic" ErrorMessage="Select Priority"
-                                ValidationGroup="Service" ForeColor="Red"></asp:RequiredFieldValidator>
+                                ValidationGroup="Service" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -115,11 +160,30 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                           <div class="row" id="search" runat="server">
+                                                <div class="col-lg-12">
+                                                    <div class="col-lg-1 form-group">
+                                                        <asp:DropDownList ID="DropPage" runat="server" CssClass="form-control"
+                                                            OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                                                            AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 form-group">
+                                                        <label class="control-label">
+                                                            Records per page</label>
+                                                    </div>
+                                                    <div class="col-lg-6"></div>
+                                                    <div class="col-lg-3">
+                                                        <input id="target" type="text" class="form-control" placeholder="Text To Search" />
+                                                    </div>
+                                                </div>
+                                            </div>
                         <asp:GridView ID="gvServiceDetails" runat="server" Width="100%"
                             AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners" OnRowDeleting="gvServiceDetails_RowDeleting"
                             EmptyDataText="There are no data records to display. Please add Service details."
-                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvServiceDetails_RowEditing"
+                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvServiceDetails_RowEditing" OnPageIndexChanging="gvServiceDetails_PageIndexChanging"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvServiceDetails_RowCommand">
+                            <PagerStyle CssClass="pagination_grid" />
                             <Columns>
 
 

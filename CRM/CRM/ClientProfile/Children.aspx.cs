@@ -335,7 +335,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     protected void btnChildCancel_Click(object sender, EventArgs e)
     {
         Clear();
-        Response.Redirect("Child.aspx");
+        Response.Redirect("Children.aspx");
     }
 
     protected void gvChildDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
