@@ -20,7 +20,6 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     BasicDropdownBL basicdropdownBL = new BasicDropdownBL();
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
-    ValidateSAIDBL validateSAID = new ValidateSAIDBL();
     DataSet dataset = new DataSet();
 
     protected void Page_Load(object sender, EventArgs e)
