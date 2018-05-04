@@ -24,5 +24,6 @@ namespace EntityManager
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
         public int? Status { get; set; }
+        public string Image { get; set; }
     }
 }

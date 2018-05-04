@@ -41,6 +41,7 @@ namespace BusinessLogic
             hashtable.Add("@Phone", childEntity.Phone);
             hashtable.Add("@TaxRefNo", childEntity.TaxRefNo);
             hashtable.Add("@DateOfBirth", childEntity.DateOfBirth);
+            hashtable.Add("@Image", childEntity.Image);
             hashtable.Add("@AdvisorID", childEntity.AdvisorID);
             hashtable.Add("@Operation", Operation);
 
