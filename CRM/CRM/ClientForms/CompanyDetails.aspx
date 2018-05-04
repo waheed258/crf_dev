@@ -229,7 +229,8 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Name</label>
-                                                <asp:TextBox ID="txtCompanyName" CssClass="form-control" runat="server" placeholder="Company Name"></asp:TextBox>
+                                                <asp:TextBox ID="txtCompanyName" CssClass="form-control" runat="server" placeholder="Company Name" OnTextChanged="txtCompanyName_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                <asp:Label ID="lblCompanyNameError" runat="server" ForeColor="red"></asp:Label>
                                                 <asp:RequiredFieldValidator ID="rfvTCompanyName" runat="server" ControlToValidate="txtCompanyName" Display="Dynamic" ErrorMessage="Enter Company Name"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>

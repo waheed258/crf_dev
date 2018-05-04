@@ -50,7 +50,13 @@ public class CompanyBL
         DataSet ds = dataUtilities.ExecuteDataSet("GetCompanyInfo", hashtable);
         return ds;
     }
-
+    public DataSet CheckCompanyName(string CompanyName)
+    {
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("@CompanyName", CompanyName);
+        DataSet ds = dataUtilities.ExecuteDataSet("CheckCompanyName", hashtable);
+        return ds;
+    }
     public int DeleteCompanyDetails(string UIC)
     {
         Hashtable hashtable = new Hashtable();

@@ -163,7 +163,33 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         }
     }
 
-   
+
+
+    protected void txtCompanyName_TextChanged(object sender, EventArgs e) 
+    {
+        try
+        {
+            string CompanyName = txtCompanyName.Text;
+            dataset = companyBL.CheckCompanyName(CompanyName); 
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                lblCompanyNameError.Text = "Already CompanyName Exists";
+                txtCompanyName.Text = "";
+            }
+            else
+            {
+                lblCompanyNameError.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+
     protected void btnCompantDetails_Click(object sender, EventArgs e)
     {
         try
