@@ -35,6 +35,7 @@ namespace BusinessLogic
             hashtable.Add("@TaxRefNo", spouseEntity.TaxRefNo);
             hashtable.Add("@Title", spouseEntity.Title);
             hashtable.Add("@EmailID", spouseEntity.EmailID);
+            hashtable.Add("@Image", spouseEntity.Image);
             hashtable.Add("@DateOfBirth", spouseEntity.DateOfBirth);
             hashtable.Add("@AdvisorID",spouseEntity.AdvisorID);
             hashtable.Add("@Operation", Operation);

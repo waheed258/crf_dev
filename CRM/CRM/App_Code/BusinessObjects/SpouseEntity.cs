@@ -20,6 +20,7 @@ namespace EntityManager
         public string Mobile { get; set; }
         public string Phone { get; set; }
         public string TaxRefNo { get; set; }
+        public string Image { get; set; }
         public string DateOfBirth { get; set; }
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
