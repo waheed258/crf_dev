@@ -47,6 +47,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                         btnUpdateSpouse.Visible = false;
                         BindAddressDetails();
                         BindBankDetails();
+                        Disable();
                     }
                     if (this.IsPostBack)
                     {
@@ -100,6 +101,18 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.EmailID = txtEmailId.Text;
             spouseEntity.AdvisorID = 0;
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (fuPhoto.HasFile)
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;
+            }
+            else
+            {
+                spouseEntity.Image = "";
+            }
             int result = spouseBL.SpouseCRUD(spouseEntity, 'i');
             if (result == 1)
             {
@@ -149,6 +162,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtCurrency.Text = "";
         txtSwift.Text = "";
         chkClientAddress.Checked = false;
+        lblPhotoName.Text = "";
     }
     protected void BindSpouseDetails()
     {
@@ -220,6 +234,19 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.EmailID = txtEmailId.Text;
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
             spouseEntity.AdvisorID = 0;
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (lblPhotoName.Text != "" && fuPhoto.HasFile==false)
+            {
+                spouseEntity.Image = lblPhotoName.Text;
+                          
+            }
+            else
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;      
+            }
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)
             {
@@ -272,6 +299,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
+                    Enable();
                     btnUpdateSpouse.Visible = true;
                     btnSpouseSubmit.Visible = false;
                     txtSAID.ReadOnly = true;
@@ -284,6 +312,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                     txtDateOfBirth.Text = ((Label)row.FindControl("lblDateOfBirth")).Text.ToString();
                     ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                    lblPhotoName.Text = (((Label)row.FindControl("lblImage")).Text);
+                    anchorId.Attributes["href"] = lblPhotoName.Text;
                 }
                 else if (e.CommandName == "Document")
                 {
@@ -729,31 +759,10 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         BindBankDetails();
     }
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            
-            dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
-
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgSAID.Text = "Already Exists";
-                txtSAID.Text = "";
-            }
-            else
-            {
-                msgSAID.Text = "";
-            }
-
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //protected void txtSAID_TextChanged(object sender, EventArgs e)
+    //{
+       
+    //}
     protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
     {
 
@@ -821,6 +830,69 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         catch
         {
 
+        }
+    }
+    protected void Disable()
+    {
+        ddlTitle.Enabled = false;
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmailId.ReadOnly = true;
+        txtMobileNum.ReadOnly = true;
+        txtPhoneNum.ReadOnly = true;
+        txtTaxRefNum.ReadOnly = true;
+        txtDateOfBirth.ReadOnly = true;
+        rfvFirstName.Enabled = false;
+        rfvLastName.Enabled = false;
+        rfvMobileNum.Enabled = false;
+        rfvEmailId.Enabled = false;
+        fuPhoto.Enabled = false;
+    }
+    protected void Enable()
+    {
+        ddlTitle.Enabled = true;
+        txtFirstName.ReadOnly = false;
+        txtLastName.ReadOnly = false;
+        txtEmailId.ReadOnly = false;
+        txtMobileNum.ReadOnly = false;
+        txtPhoneNum.ReadOnly = false;
+        txtTaxRefNum.ReadOnly = false;
+        txtDateOfBirth.ReadOnly = false;
+        fuPhoto.Enabled = true;
+        rfvFirstName.Enabled = true;
+        rfvLastName.Enabled = true;
+        rfvMobileNum.Enabled = true;
+        rfvEmailId.Enabled = true;
+    }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        try
+        {
+
+            dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
+
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString(); 
+                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString(); 
+                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+            }
+            else
+            {
+                msgSAID.Text = "";
+                Enable();
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 }
