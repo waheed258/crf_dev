@@ -233,4 +233,28 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
       
     }
+   
+    protected void txtLoginId_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string LoginId = txtLoginId.Text;
+            dataset = newAdvisorBL.CheckLoginId(LoginId);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                msgLoginId.Text = "Already Exists";
+                txtLoginId.Text = "";
+            }
+            else
+            {
+                msgLoginId.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }

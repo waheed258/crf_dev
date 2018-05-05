@@ -135,7 +135,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     protected void btnCancleTrust_Click(object sender, EventArgs e)
     {
         ClearTrustControls();
-        Response.Redirect("Dashboard.aspx", false);
+        Response.Redirect("TrustDetails.aspx", false);
     }
 
     private int ManageTrust()

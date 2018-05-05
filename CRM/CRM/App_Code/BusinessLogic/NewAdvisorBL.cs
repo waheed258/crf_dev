@@ -34,6 +34,13 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetAdvisorStatus");
             return ds;
         }
+        public DataSet CheckLoginId(string LoginId)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@LoginId", LoginId);
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_CheckLoginId", hashtable);
+            return ds;
+        }
         public DataSet GetRole()
         {
             DataSet ds = dataUtilities.ExecuteDataSet("GetAdvisorRole");

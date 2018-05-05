@@ -127,7 +127,8 @@
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Login ID</label>
-                                    <asp:TextBox ID="txtLoginId" class="form-control" runat="server" placeholder="Enter LoginId" MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox ID="txtLoginId" class="form-control" runat="server" placeholder="Enter LoginId" MaxLength="50" OnTextChanged="txtLoginId_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                    <asp:Label ID="msgLoginId" runat="server" class="control-label" Style="color: red" />
                                     <asp:RequiredFieldValidator ID="rfvLoginId" runat="server" ControlToValidate="txtLoginId" ForeColor="#d0582e"
                                         ErrorMessage="Please Enter Login ID" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
