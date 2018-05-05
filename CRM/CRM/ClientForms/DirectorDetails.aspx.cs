@@ -101,11 +101,13 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             ReferenceSAID = Session["SAID"].ToString(),
             UIC = txtUIC.Text.Trim(),
             SAID = txtSAID.Text.Trim(),
+            Title=ddlTitle.SelectedValue,
             FirstName = txtFirstName.Text.Trim(),
             LastName = txtLastName.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
+            DateOfBirth=txtDateOfBirth.Text,
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             ShareHolderPercentage = txtSharePerc.Text.Trim(),
             ShareValue=txtShareValue.Text.Trim(),
@@ -188,11 +190,14 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             hfDirectorId.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
             txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
             txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
             txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
             txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
+            txtDateOfBirth.Text = DOB.ToShortDateString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
             txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
             txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
@@ -206,6 +211,8 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         btnDirectorSubmit.Text = "Save";
         hfDirectorId.Value = "0";
         txtSAID.Text = "";
+        ddlTitle.SelectedValue = "";
+        txtDateOfBirth.Text = "";
         txtFirstName.Text = "";
         txtLastName.Text = "";
         txtEmail.Text = "";

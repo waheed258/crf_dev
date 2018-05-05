@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="DirectorDetails.aspx.cs" Inherits="ClientForms_DirectorDetails" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-   <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -240,6 +240,19 @@
                                                 <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
                                                     ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Director"></asp:RegularExpressionValidator>
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                                <label>Title</label>
+                                                <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
+                                                    <asp:ListItem Value="">Title</asp:ListItem>
+                                                    <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                    <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                    <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                </asp:DropDownList>
+                                            </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
                                                 <asp:TextBox ID="txtFirstName" CssClass="form-control" placeholder="Enter First Name" runat="server"></asp:TextBox>
@@ -252,10 +265,14 @@
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter Last Name" ValidationGroup="Director" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Date Of Birth</label>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-12">
-                                             <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Tax Reference No.</label>
                                                 <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
@@ -287,27 +304,28 @@
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Director"></asp:RegularExpressionValidator>
                                             </div>
-                                            
-                                         
+
+
                                         </div>
 
-                                        
+
                                         <div class="col-sm-12">
-                                             <div class="col-sm-3 form-group">
+                                            
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Share Percentage</label>
                                                 <asp:TextBox ID="txtSharePerc" CssClass="form-control" runat="server" placeholder="Enter Share Percentage"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtSharePerc" runat="server" ControlToValidate="txtSharePerc" Display="Dynamic"
                                                     ErrorMessage="Enter Share Percentage"
                                                     ValidationGroup="Director" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                             <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Share Value</label>
                                                 <asp:TextBox ID="txtShareValue" CssClass="form-control" runat="server" placeholder="Enter Share Value"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtShareValue" runat="server" ControlToValidate="txtShareValue" Display="Dynamic"
                                                     ErrorMessage="Enter Share Value"
                                                     ValidationGroup="Director" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                            </div>
+                                        </div>
 
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
@@ -395,7 +413,7 @@
                                                                 <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="Phone" Visible="false">
+                                                        <asp:TemplateField HeaderText="Phone" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
                                                             </ItemTemplate>

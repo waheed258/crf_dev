@@ -123,11 +123,13 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             ReferenceSAID = Session["SAID"].ToString(),
             UIC = txtUIC.Text.Trim(),
             SAID = txtSAID.Text.Trim(),
+            Title=ddlTitle.SelectedValue,
             FirstName = txtFirstName.Text.Trim(),
             LastName = txtLastName.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
+            DateOfBirth=txtDateOfBirth.Text,
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
@@ -208,11 +210,14 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         {
             hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
             txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
             txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
             txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
             txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
             txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+            DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
+            txtDateOfBirth.Text = DOB.ToShortDateString();
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
 
@@ -231,6 +236,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtMobile.Text = "";
         txtPhone.Text = "";
         txtTaxRefNo.Text = "";
+        ddlTitle.SelectedValue = "";
+        txtDateOfBirth.Text = "";
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
