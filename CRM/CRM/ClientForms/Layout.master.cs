@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,7 +27,13 @@ public partial class ClientForms_Layout : System.Web.UI.MasterPage
                     }
                     else
                     {
-                        imgProfilePic.ImageUrl = Session["Image"].ToString();
+                        if (File.Exists(Server.MapPath(Session["Image"].ToString())))
+                        {
+                            imgProfilePic.ImageUrl = Session["Image"].ToString();
+                        }
+                        else {
+                            imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
+                        }
                     }
                 }
             
