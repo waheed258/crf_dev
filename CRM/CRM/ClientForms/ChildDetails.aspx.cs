@@ -21,7 +21,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
-
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -45,6 +45,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
+                        chkClientAddress.Visible = false;
+                        GetClientAddress();
                         Disable();
                         BindChildDetails();
                         BindAddressDetails();
@@ -101,7 +103,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         rfvMobileNum.Enabled = false;
         rfvEmailId.Enabled = false;
         fuPhoto.Enabled = false;
-
+        btnChildSubmit.Enabled = false;
     }
     protected void Enable()
     {
@@ -115,6 +117,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         txtDateOfBirth.ReadOnly = false;
         ddlTitle.Enabled = true;
         fuPhoto.Enabled = true;
+        btnChildSubmit.Enabled = true;
     }
    
     protected void btnChildSubmit_Click(object sender, EventArgs e)
@@ -593,6 +596,29 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     {
 
     }
+
+    private void GetClientAddress()
+    {
+        try
+        {
+            string CLientSAID = Session["SAID"].ToString();
+            DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+            ViewState["ClientAddress"] = ds;
+            if (ds.Tables.Count > 0)
+            {
+                chkClientAddress.Visible = true;
+
+            }
+            else
+            {
+                chkClientAddress.Visible = false;
+            }
+        }
+        catch
+        {
+
+        }
+    }
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -889,11 +915,10 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     {
         try
         {
-            if(chkClientAddress.Checked == true)
+            if (chkClientAddress.Checked)
             {
-                string CLientSAID = ViewState["ReferenceSAID"].ToString();
-                DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
-                if(ds.Tables.Count > 0)
+                DataSet ds = (DataSet)ViewState["ClientAddress"];
+                if (ds.Tables.Count > 0)
                 {
                     txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
                     txtBulding.Text = ds.Tables[0].Rows[0]["BuildingName"].ToString();
@@ -921,44 +946,61 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 ddlCity.SelectedValue = "-1";
                 ddlCountry.SelectedValue = "-1";
                 ddlProvince.SelectedValue = "-1";
-                
             }
-           
         }
-        catch
-        {
-
-        }
+        catch { }
     }
 
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
         try
         {
-             dataset = childBL.GetAllChilds("0", txtSAID.Text);
+
+            dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), "0");
+
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString(); 
-                txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString(); 
-                txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
-            }
-            else
-            {
-                msgSAID.Text = "";
-                Enable();
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
+                {
+                    message.Text = "The member already exists as Child";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
+                {
+                    message.Text = "The member already exists as Spouse, you cannot add as Child!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                    && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                {
+                    Enable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                }
+
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    txtFirstName.Text = "";
+                    txtLastName.Text = "";
+                    ddlTitle.SelectedValue = "";
+                    txtPhoneNum.Text = "";
+                    txtMobileNum.Text = "";
+                    txtEmailId.Text = "";
+                    txtTaxRefNum.Text = "";
+                    txtDateOfBirth.Text = "";
+                    Enable();
+                }
             }
         }
-       
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+        catch { }
     }
+        
 }

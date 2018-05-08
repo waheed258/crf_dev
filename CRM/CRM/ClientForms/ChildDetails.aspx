@@ -307,7 +307,7 @@
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
-                                        <asp:Button ID="btnChildSubmit" runat="server" Text="Submit" class="btn btn-primary" ValidationGroup="Child" OnClick="btnChildSubmit_Click" />
+                                        <asp:Button ID="btnChildSubmit" runat="server" Text="Submit" Cssclass="btn btn-primary" ValidationGroup="Child" OnClick="btnChildSubmit_Click" />
                                         <asp:Button ID="btnChildUpdate" runat="server" Text="Update" ValidationGroup="Company" CssClass="btn btn-primary" OnClick="btnChildUpdate_Click"></asp:Button>
                                         <asp:Button ID="btnChildCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnChildCancel_Click" />
                                     </div>
