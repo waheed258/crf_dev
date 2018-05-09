@@ -23,26 +23,34 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
     {
         try
         {
-
-            if (Session["SAID"] != null)
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
             {
-                if (!IsPostBack)
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
                 {
-                    _objComman.getRecordsPerPage(DropPage);
-                    GetServiceRequest();
-                    GetServiceRequestdetails();
-                    BindPriority();
-                    btnUpdateSR.Visible = false;
+                    Response.Redirect("../ClientLogin.aspx", false);
+                }
+                else
+                {
+
+                    if (!IsPostBack)
+                    {
+                        _objComman.getRecordsPerPage(DropPage);
+                        GetServiceRequest();
+                        GetServiceRequestdetails();
+                        BindPriority();
+                        btnUpdateSR.Visible = false;
+                    }
+
                 }
             }
-            else
+
+            if (strPreviousPage == "")
             {
-                Response.Redirect("../ClientLogin.aspx");
+                Response.Redirect("~/ClientLogin.aspx");
             }
-            //if (strPreviousPage == "")
-            //{
-            //    Response.Redirect("~/ClientLogin.aspx");
-            //}
         }
         catch
         {
@@ -95,7 +103,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         {
             lblMessage.Text = "Please try again!";
         }
-       
+
 
     }
 
@@ -119,7 +127,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 GetServiceRequestdetails();
                 SendMail(Session["email"].ToString());
                 InsertDocument();
-               
+
             }
             else
             {
@@ -247,7 +255,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 ddlPriority.SelectedValue = ((Label)row.FindControl("lblPriorityID")).Text.ToString();
                 //ViewState["Serviceflag"] = 1;
                 btnSubmitServiceRequest.Visible = false;
-                btnUpdateSR.Visible = true;  
+                btnUpdateSR.Visible = true;
             }
             else if (e.CommandName == "Delete")
             {
