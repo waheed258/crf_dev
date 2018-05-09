@@ -23,6 +23,8 @@ namespace EntityManager
         public string UpdatedOn { get; set; }
         public int? AdvisorID { get; set; }
         public int? Status { get; set; }
+        public string Title { get; set; }
+        public string DateOfBirth { get; set; }
 
     }
 }

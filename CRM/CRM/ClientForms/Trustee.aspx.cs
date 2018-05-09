@@ -288,26 +288,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         }
 
     }
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            ds = _objTrusteeBL.GetTrusteeTest(txtUIC.Text.Trim(), txtSAID.Text.Trim());
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                // lblSAIDError.Text = "Identification number already exists";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message alert", "alert('Identification number already exists');", true);
-                txtSAID.Text = "";
-            }
-            else
-            {
-                GetClientRegistartion();
-                lblSAIDError.Text = "";
-            }
-        }
-        catch
-        { }
-    }
+  
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
@@ -614,29 +595,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string accountNum = txtAccountNumber.Text;
-            ds = bankBL.CheckAccountNum(accountNum);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                lblBankError.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                lblBankError.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    
 
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {

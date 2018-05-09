@@ -27,6 +27,8 @@ public class TrustSettlerBL:DataUtilities
                         {"@inAdvisorID",_objSettler.AdvisorID},
                         {"@inTaxRefNo",_objSettler.TaxRefNo},
                         {"@inStatus",_objSettler.Status},
+                        {"@inTitle",_objSettler.Title},
+                        {"@inDOB",_objSettler.DateOfBirth},
                         {"@inOperationName",operation}
                     };
 
