@@ -18,6 +18,8 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     BankInfoEntity bankEntity = new BankInfoEntity();
     AddressBL addressBL = new AddressBL();
     AddressEntity addressEntity = new AddressEntity();
+    ValidateSAIDBL validateSAID = new ValidateSAIDBL();
+    AddressAndBankBL addressbankBL = new AddressAndBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -45,6 +47,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         GetTrustGrid();
                         BindBankDetails();
                         BindAddressDetails();
+                        Disable();
                     }
                 }
 
@@ -101,7 +104,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             int res = ManageTrust();
             if (res > 0)
             {
-                
+
                 if (btnSubmitTrust.Text == "Update")
                     message.Text = "Trust details updated successfully !";
                 else
@@ -114,6 +117,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 ClearBankControls();
                 BindBankDetails();
                 BindAddressDetails();
+                Disable();
             }
             else
             {
@@ -152,7 +156,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             ReferenceSAID = Session["SAID"].ToString(),
             Status = 1,
             AdvisorID = 0,
-           
+
         };
         int res;
         if (btnSubmitTrust.Text == "Update")
@@ -163,7 +167,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         return res;
     }
 
- 
+
 
     private void ClearTrustControls()
     {
@@ -237,6 +241,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("4"), false);
                         break;
                     case "EditTrust":
+                        Enable();
                         BindTrust(UIC);
                         break;
                     case "EditTrustee":
@@ -249,12 +254,37 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("1"), false);
                         break;
                     case "Address":
+                        DataSet dsAddress = addressbankBL.GetAddressDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
+                        if (dsAddress.Tables[0].Rows.Count > 0)
+                        {
+                            txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                            txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                            txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                            txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                            txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                            txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                            txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                            ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                            ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                            ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                        }
                         btnUpdateAddress.Visible = false;
                         btnAddressSubmit.Visible = true;
                         addressmessage.InnerText = "Save Address Details";
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
                         break;
                     case "Bank":
+                        DataSet dsBank = addressbankBL.GetBankDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
+                        if (dsBank.Tables[0].Rows.Count > 0)
+                        {
+                            txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                            txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                            txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                            txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                            txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                            ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                        }
                         bankmessage.InnerText = "Save Bank Details";
                         btnBankSubmit.Visible = true;
                         btnUpdateBank.Visible = false;
@@ -282,21 +312,21 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         GetTrustGrid();
     }
 
-    protected void txtUIC_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            ds = _objTrustBL.GetTrustTest(txtUIC.Text.Trim());
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                lblUICError.Text = "Registration Number Already Exists";
-                txtUIC.Text = "";
-            }
-            else
-                lblUICError.Text = "";
-        }
-        catch { }
-    }
+    //protected void txtUIC_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        ds = _objTrustBL.GetTrustTest(txtUIC.Text.Trim());
+    //        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+    //        {
+    //            lblUICError.Text = "Registration Number Already Exists";
+    //            txtUIC.Text = "";
+    //        }
+    //        else
+    //            lblUICError.Text = "";
+    //    }
+    //    catch { }
+    //}
 
     #endregion
 
@@ -446,7 +476,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
         ClearAddressControls();
-        
+
     }
 
     protected void gvAddress_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -518,29 +548,29 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string accountNum = txtAccountNumber.Text;
-            ds = bankBL.CheckAccountNum(accountNum);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                lblBankMsg.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                lblBankMsg.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string accountNum = txtAccountNumber.Text;
+    //        ds = bankBL.CheckAccountNum(accountNum);
+    //        if (ds.Tables[0].Rows.Count > 0)
+    //        {
+    //            lblBankMsg.Text = "Already Exists";
+    //            txtAccountNumber.Text = "";
+    //        }
+    //        else
+    //        {
+    //            lblBankMsg.Text = "";
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindBankDetails();
@@ -767,6 +797,70 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         }
 
     }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        DataSet dataset = validateSAID.ValidateTrustUIC(Session["SAID"].ToString(), txtUIC.Text);
+        if (dataset.Tables[0].Rows.Count > 0)
+        {
+            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+            {
+                message.Text = "The Trust is already registered with you!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
+            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
+            {
+                Enable();
+                txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
+                DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
+                txtYearofFoundation.Text = YOF.ToShortDateString();
+                txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
+                txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
+                txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
+            }
+            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+            {
+                Enable();
+            }
+        }
+    }
+    protected void Disable()
+    {
+        txtTrustName.ReadOnly = true;
+        txtYearofFoundation.ReadOnly = true;
+        txtVATRef.ReadOnly = true;
+        txtTelephone.ReadOnly = true;
+        txtFax.ReadOnly = true;
+        txtEmail.ReadOnly = true;
+        txtWebsite.ReadOnly = true;
+        rfvTrustName.Enabled = false;
+        rfvYearOfFoundation.Enabled = false;
+        rfvtxtVATRef.Enabled = false;
+        rfvTelephone.Enabled = false;
+        revtxtFax.Enabled = false;
+        rfvEmail.Enabled = false;
+        rgvWebsite.Enabled = false;
+        btnSubmitTrust.Enabled = false;
+    }
 
+    protected void Enable()
+    {
+        txtTrustName.ReadOnly = false;
+        txtYearofFoundation.ReadOnly = false;
+        txtVATRef.ReadOnly = false;
+        txtTelephone.ReadOnly = false;
+        txtFax.ReadOnly = false;
+        txtEmail.ReadOnly = false;
+        txtWebsite.ReadOnly = false;
+        rfvTrustName.Enabled = true;
+        rfvYearOfFoundation.Enabled = true;
+        rfvtxtVATRef.Enabled = true;
+        rfvTelephone.Enabled = true;
+        revtxtFax.Enabled = true;
+        rfvEmail.Enabled = true;
+        rgvWebsite.Enabled = true;
+        btnSubmitTrust.Enabled = true;
+    }
 
 }

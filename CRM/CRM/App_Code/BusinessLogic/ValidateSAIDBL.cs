@@ -23,4 +23,22 @@ public class ValidateSAIDBL
         ds = dataUtilities.ExecuteDataSet("usp_ValidateSAID", hashtable);
         return ds;
     }
+
+    public DataSet ValidateTrustUIC(string RSAID, string UIC)
+    {
+        Hashtable hashtable = new Hashtable();       
+        hashtable.Add("@REFSAID", RSAID);
+        hashtable.Add("@UIC", UIC);
+        ds = dataUtilities.ExecuteDataSet("usp_ValidateTrustUIC", hashtable);
+        return ds;
+    }
+
+    public DataSet ValidateCompanyUIC(string RSAID, string UIC)
+    {
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("@REFSAID", RSAID);
+        hashtable.Add("@UIC", UIC);
+        ds = dataUtilities.ExecuteDataSet("usp_ValidateCompanyUIC", hashtable);
+        return ds;
+    }
 }
