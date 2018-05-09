@@ -6,6 +6,7 @@ using System.Web;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using System.Data;
 using BusinessLogic;
 
@@ -55,17 +56,8 @@ public partial class ClientForms_Document : System.Web.UI.Page
     #region Private Methods
     private void GetUICSAId()
     {
-
         switch (ObjDec.Decrypt(Request.QueryString["t"]))
         {
-            case "1":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Client Documents";
-                ViewState["FoldertName"] = "Client";
-                break;
             case "2":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                 lblName.Text = "Identification #";
@@ -128,16 +120,6 @@ public partial class ClientForms_Document : System.Web.UI.Page
                 lblHeading.Text = "Company Documents";
                 ViewState["FoldertName"] = "Company";
                 break;
-            case "9":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Director Documents";
-                ViewState["FoldertName"] = "Director";
-                break;
-
-
         }
     }
     private void GetDocuType()
@@ -278,9 +260,6 @@ public partial class ClientForms_Document : System.Web.UI.Page
         {
             switch (ObjDec.Decrypt(Request.QueryString["t"].ToString()))
             {
-                case "1":
-                    Response.Redirect("ClientPersonal.aspx", false);
-                    break;
                 case "2":
                     Response.Redirect("Spouse.aspx", false);
                     break;
@@ -297,13 +276,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
                     Response.Redirect("Trustee.aspx", false);
                     break;
                 case "7":
-                    Response.Redirect("Beneficiary.aspx?t="+ObjDec.Encrypt("1"), false);
+                    Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("1"), false);
                     break;
                 case "8":
                     Response.Redirect("CompanyDetails.aspx", false);
-                    break;
-                case "9":
-                    Response.Redirect("DirectorDetails.aspx", false);
                     break;
             }
             ClearControls();
@@ -363,10 +339,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
             if (res > 0)
             {
                 var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim());
-                if(File.Exists(Path.Combine(folder,hfDocumentName.Value.ToString())))
+                if (File.Exists(Path.Combine(folder, hfDocumentName.Value.ToString())))
                 {
                     //delete file in folder
-                    File.Delete(Path.Combine(folder,hfDocumentName.Value.ToString()));
+                    File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
                 }
                 GetDouments();
                 ClearControls();
@@ -380,4 +356,20 @@ public partial class ClientForms_Document : System.Web.UI.Page
     }
 
     #endregion
+
+    protected void gvDocument_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDoc");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim() + "/" + LblDoc.Text;
+            }
+        }
+        catch {}
+    }
+
 }
