@@ -76,7 +76,8 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
-                <h1><asp:Label ID="lblHeading" runat="server" ></asp:Label></h1>
+                <h1>
+                    <asp:Label ID="lblHeading" runat="server"></asp:Label></h1>
             </div>
         </div>
         <!-- Main content -->
@@ -174,6 +175,7 @@
                                 <asp:GridView ID="gvDocument" runat="server" Width="100%"
                                     AutoGenerateColumns="False" DataKeyNames="DocId" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
+                                    OnRowDataBound="gvDocument_RowDataBound"
                                     ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvDocument_RowCommand" OnPageIndexChanging="gvDocument_PageIndexChanging">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
@@ -194,9 +196,9 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Document Name">
                                             <ItemTemplate>
-                                                <a id="anchorDocument" runat="server" href="#" target="_blank" >
-                                                    <asp:Label runat="server" ID="lblDocName" Text='<%#Eval("DocumentName") %>'></asp:Label>
-                                                </a>
+                                                <a id="anchorId" runat="server" href="#" target="_blank">
+                                                    <%#Eval("DocumentName") %>  </a>
+                                                <asp:Label ID="lblDoc" runat="server" OnClick="linkDoc_Click" Text='<%#Eval("Document") %>' Visible="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Edit">
@@ -278,6 +280,5 @@
         </div>
     </div>
 </asp:Content>
-
 
 

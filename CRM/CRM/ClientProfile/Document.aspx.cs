@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.IO;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using System.Data;
 using BusinessLogic;
 
@@ -54,17 +55,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     #region Private Methods
     private void GetUICSAId()
     {
-
         switch (ObjDec.Decrypt(Request.QueryString["t"]))
         {
-            case "1":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Client Documents";
-                ViewState["FoldertName"] = "Client";
-                break;
             case "2":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                 lblName.Text = "Identification #";
@@ -127,15 +119,6 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 lblHeading.Text = "Company Documents";
                 ViewState["FoldertName"] = "Company";
                 break;
-            case "9":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Director Documents";
-                ViewState["FoldertName"] = "Director";
-                break;
-
         }
     }
     private void GetDocuType()
@@ -276,14 +259,11 @@ public partial class ClientProfile_Document : System.Web.UI.Page
         {
             switch (ObjDec.Decrypt(Request.QueryString["t"].ToString()))
             {
-                case  "1":
-                    Response.Redirect("ClientPersonal.aspx", false);
-                    break;
                 case "2":
                     Response.Redirect("Spouse.aspx", false);
                     break;
                 case "3":
-                    Response.Redirect("Children.aspx", false);
+                    Response.Redirect("ChildDetails.aspx", false);
                     break;
                 case "4":
                     Response.Redirect("TrustDetails.aspx", false);
@@ -299,9 +279,6 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     break;
                 case "8":
                     Response.Redirect("CompanyDetails.aspx", false);
-                    break;
-                case "9":
-                    Response.Redirect("Director.aspx", false);
                     break;
             }
             ClearControls();
@@ -378,4 +355,21 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     }
 
     #endregion
+
+    protected void gvDocument_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDoc");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim() + "/" + LblDoc.Text;
+            }
+        }
+        catch { }
+    }
+
+
 }
