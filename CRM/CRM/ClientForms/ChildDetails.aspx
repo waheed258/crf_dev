@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
-
+        Ftxt
         $(document).ready(function (event) {
             $("#ContentPlaceHolder1_txtMobileNum,#ContentPlaceHolder1_txtPhoneNum,#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
@@ -736,7 +736,7 @@
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="form-control" placeholder="Enter Account Name" OnTextChanged="txtAccountNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="form-control" placeholder="Enter Account Name"></asp:TextBox>
                                                             <asp:Label ID="msgAccountNum" runat="server" CssClass="control-label" Style="color: red" />
                                                             <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
