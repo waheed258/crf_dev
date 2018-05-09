@@ -19,6 +19,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     AddressBL addressBL = new AddressBL();
     AddressEntity addressEntity = new AddressEntity();
     EncryptDecrypt ObjEn = new EncryptDecrypt();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -63,6 +64,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                             BindBankDetails();
                             BindAddressDetails();
                         }
+                        Disable();
                     }
                 }
 
@@ -161,7 +163,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBeneficiaryControls();
                 GetBeneficiaryGrid(txtUIC.Text.Trim());
-
+                Disable();
                 ClearAddressControls();
                 ClearBankControls();
                 BindBankDetails();
@@ -270,25 +272,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         }
     }
 
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            ds = _objBeneficiaryBL.GetBeneficiaryTest(txtUIC.Text.Trim(), txtSAID.Text.Trim());
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                lblSAIDError.Text = "This Registration Number is Already Exist";
-                txtSAID.Text = "";
-            }
-            else
-            {
-                GetClientRegistartion();
-                lblSAIDError.Text = "";
-            }
-        }
-        catch
-        { }
-    }
+   
     protected void gvBeneficiary_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
@@ -831,5 +815,91 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     }
 
+    protected void Disable()
+    {
+        ddlTitle.Enabled = false;
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmail.ReadOnly = true;
+        txtMobile.ReadOnly = true;
+        txtPhone.ReadOnly = true;
+        txtTaxRefNo.ReadOnly = true;
+        txtDateOfBirth.ReadOnly = true;
+        rfvtxtFirstName.Enabled = false;
+        rfvtxtLastName.Enabled = false;
+        rfvtxtTaxRefNo.Enabled = false;
+        rfvtxtEmail.Enabled = false;
+        rfvtxtMobile.Enabled = false;
+        rfvPhone.Enabled = false;
+        btnSubmit.Enabled = false;
+    }
+    protected void Enable()
+    {
+        ddlTitle.Enabled = true;
+        txtFirstName.ReadOnly = false;
+        txtLastName.ReadOnly = false;
+        txtEmail.ReadOnly = false;
+        txtMobile.ReadOnly = false;
+        txtPhone.ReadOnly = false;
+        txtTaxRefNo.ReadOnly = false;
+        txtDateOfBirth.ReadOnly = false;
+        rfvtxtFirstName.Enabled = true;
+        rfvtxtLastName.Enabled = true;
+        rfvtxtTaxRefNo.Enabled = true;
+        rfvtxtEmail.Enabled = true;
+        rfvtxtMobile.Enabled = true;
+        rfvPhone.Enabled = true;
+        btnSubmit.Enabled = true;
+    }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {      
+        try
+        {
+        
+            DataSet dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "5")
+                {
+                    message.Text = "The member already exists as beneficiary!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT")
+                {
+                    Enable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    txtFirstName.Text = "";
+                    txtLastName.Text = "";
+                    txtEmail.Text = "";
+                    txtMobile.Text = "";
+                    txtPhone.Text = "";
+                    txtTaxRefNo.Text = "";
+                    ddlTitle.SelectedValue = "";
+                    txtDateOfBirth.Text = "";
+                    Enable();
+                }
+            }
 
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }
