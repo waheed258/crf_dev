@@ -21,5 +21,9 @@ namespace EntityManager
         public string TaxRefNo { get; set; }
         public int? AdvisorID { get; set; }
         public int? Status { get; set; }
+        public string Title { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Phone { get; set; }
+        
     }
 }
