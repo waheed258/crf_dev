@@ -50,7 +50,7 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
             int res = newClientRegistrationBL.CheckClient(txtEmailId.Text, txtSAID.Text);
             if (res == 1)
             {
-                lblMessage.Text = "Client already exists!";
+                lblMessage.Text = "Client already exists with the same Email ID or SAID!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
