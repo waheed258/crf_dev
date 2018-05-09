@@ -180,7 +180,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="ClientService.aspx">Service Master</a></li>
-                                <li><a href="LocationMaster.aspx">Location Master</a></li>
+                                <%--<li><a href="LocationMaster.aspx">Location Master</a></li>--%>
                             </ul>
                         </li>
                     </ul>
