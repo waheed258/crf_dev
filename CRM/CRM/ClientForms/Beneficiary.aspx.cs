@@ -20,6 +20,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     EncryptDecrypt ObjEn = new EncryptDecrypt();
     ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
+    AddressAndBankBL addressbankBL = new AddressAndBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -305,11 +306,11 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 string BeneficiaryName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
                 txtBeneficiaryNameBank.Text = BeneficiaryName;
                 txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
-
+                string UIC = ((Label)row.FindControl("lblReferenceUIC")).Text.ToString();
                 txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtBeneficiaryAddress.Text = BeneficiaryName;
 
-
+                
                 if (e.CommandName == "EditBeneficiary")
                 {
                     int BenfId = Convert.ToInt32(e.CommandArgument);
@@ -327,6 +328,21 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Address")
                 {
+                    DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    if (dsAddress.Tables[0].Rows.Count > 0)
+                    {
+                        txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                        txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                    }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
@@ -334,6 +350,16 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Bank")
                 {
+                    DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                    }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
                     btnUpdateBank.Visible = false;
@@ -564,30 +590,6 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     /// </summary>
     /// <returns></returns>
     #region Bank Details
-
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string accountNum = txtAccountNumber.Text;
-            ds = bankBL.CheckAccountNum(accountNum);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                lblaccountError.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                lblaccountError.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
 
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
