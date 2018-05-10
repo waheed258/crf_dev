@@ -214,14 +214,19 @@
                                     <div class="panel-body">
 
                                         <div class="col-md-12">
-                                            <div class="form-group col-sm-3">
-                                                <label>Identification Number</label>
-                                                <asp:TextBox ID="txtSAID" runat="server" CssClass="form-control" placeholder="Enter SAID" MaxLength="13" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                <asp:Label ID="msgSAID" runat="server" CssClass="control-label" Style="color: red" />
-                                                <asp:RequiredFieldValidator ID="rfvSAID" runat="server" ControlToValidate="txtSAID" ForeColor="Red"
-                                                    ErrorMessage="Please Enter SAID" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
-                                                <asp:RegularExpressionValidator ID="revSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                                    ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
+                                           <div class="form-group col-sm-3">
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label>Identification Number</label>
+                                                    <asp:TextBox ID="txtSAID" runat="server" CssClass="form-control" placeholder="Enter SAID" MaxLength="13"></asp:TextBox>
+                                                    <asp:Label ID="msgSAID" runat="server" CssClass="control-label" Style="color: red" />
+                                                    <asp:RequiredFieldValidator ID="rfvSAID" runat="server" ControlToValidate="txtSAID" ForeColor="Red"
+                                                        ErrorMessage="Please Enter SAID" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator ID="revSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                        ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
+                                                </div>
+                                                <div class="col-sm-1" style="padding: 0px; margin-top: 14px;">
+                                                    <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                                </div>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Title</label>
@@ -285,12 +290,22 @@
                                                 <label>Date Of Birth</label>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                             </div>
-                                            
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Photo Upload</label>
+                                                <asp:FileUpload ID="fuPhoto" runat="server" AllowMultiple="true"></asp:FileUpload>
+
+                                                <a id="anchorId" href="#" runat="server" target="_blank">
+                                                <asp:Label ID="lblPhotoName" runat="server" /></a>
+
+                                                <asp:RegularExpressionValidator ControlToValidate="fuPhoto" runat="server" ID="revfuPhoto" ForeColor="Red"
+                                                    Display="Dynamic" CssClass="span6 m-wrap" ErrorMessage="Select only jpg,png Files." ValidationGroup="Child"
+                                                    ValidationExpression="^.*\.(jpg|png|JPG|PNG)$" />
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
-                                        <asp:Button ID="btnChildSubmit" runat="server" Text="Submit" class="btn btn-primary" ValidationGroup="Child" OnClick="btnChildSubmit_Click" />
+                                        <asp:Button ID="btnChildSubmit" runat="server" Text="Submit" Cssclass="btn btn-primary" ValidationGroup="Child" OnClick="btnChildSubmit_Click" />
                                         <asp:Button ID="btnChildUpdate" runat="server" Text="Update" ValidationGroup="Company" CssClass="btn btn-primary" OnClick="btnChildUpdate_Click"></asp:Button>
                                         <asp:Button ID="btnChildCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnChildCancel_Click" />
                                     </div>
@@ -386,6 +401,11 @@
                                                     <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Photo Upload" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblImage" Text='<%#Eval("Image") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Edit">
@@ -714,7 +734,7 @@
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="form-control" placeholder="Enter Account Name" OnTextChanged="txtAccountNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="form-control" placeholder="Enter Account Name"></asp:TextBox>
                                                             <asp:Label ID="msgAccountNum" runat="server" CssClass="control-label" Style="color: red" />
                                                             <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
