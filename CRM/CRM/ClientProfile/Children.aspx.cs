@@ -22,6 +22,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
     DataSet dataset = new DataSet();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
+    AddressAndBankBL addressbankBL = new AddressAndBankBL();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -46,6 +48,9 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
+                        chkClientAddress.Visible = false;
+                        GetClientAddress();
+                        Disable();
                         BindChildDetails();
                         BindAddressDetails();
                         BindBankDetails();
@@ -85,10 +90,55 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         }
     }
 
+    protected void Disable()
+    {
+
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmailId.ReadOnly = true;
+        txtMobileNum.ReadOnly = true;
+        txtPhoneNum.ReadOnly = true;
+        txtTaxRefNum.ReadOnly = true;
+        txtDateOfBirth.ReadOnly = true;
+        ddlTitle.Enabled = false;
+        rfvFirstName.Enabled = false;
+        rfvLastName.Enabled = false;
+        rfvMobileNum.Enabled = false;
+        rfvEmailId.Enabled = false;
+        fuPhoto.Enabled = false;
+        btnChildSubmit.Enabled = false;
+    }
+    protected void Enable()
+    {
+
+        txtFirstName.ReadOnly = false;
+        txtLastName.ReadOnly = false;
+        txtEmailId.ReadOnly = false;
+        txtMobileNum.ReadOnly = false;
+        txtPhoneNum.ReadOnly = false;
+        txtTaxRefNum.ReadOnly = false;
+        txtDateOfBirth.ReadOnly = false;
+        ddlTitle.Enabled = true;
+        fuPhoto.Enabled = true;
+        btnChildSubmit.Enabled = true;
+    }
+
     protected void btnChildSubmit_Click(object sender, EventArgs e)
     {
         try
         {
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (fuPhoto.HasFile)
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/ChildImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                childEntity.Image = "~/ChildImages/" + txtSAID.Text + fileName;
+            }
+            else
+            {
+                childEntity.Image = "";
+            }
             childEntity.SAID = txtSAID.Text;
             childEntity.Title = ddlTitle.SelectedValue;
             childEntity.FirstName = txtFirstName.Text;
@@ -108,6 +158,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
                 BindChildDetails();
+                Disable();
             }
             else
             {
@@ -177,6 +228,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
+                    Enable();
                     btnChildUpdate.Visible = true;
                     btnChildSubmit.Visible = false;
                     txtSAID.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
@@ -189,6 +241,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                     txtPhoneNum.Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
                     txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                     txtDateOfBirth.Text = (((Label)row.FindControl("lblDateOfBirth")).Text);
+                    lblPhotoName.Text = (((Label)row.FindControl("lblImage")).Text);
+                    anchorId.Attributes["href"] = lblPhotoName.Text;
 
                 }
 
@@ -198,6 +252,21 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Address")
                 {
+                    DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
+                    if (dsAddress.Tables[0].Rows.Count > 0)
+                    {
+                        txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                        txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                    }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
@@ -206,6 +275,16 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
                 else if (e.CommandName == "Bank")
                 {
+                    DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                    }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
                     btnUpdateBank.Visible = false;
@@ -244,13 +323,25 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             childEntity.TaxRefNo = txtTaxRefNum.Text;
             childEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             childEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (lblPhotoName.Text != "" && fuPhoto.HasFile == false)
+            {
+                childEntity.Image = lblPhotoName.Text;
+            }
+            else
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/ChildImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                childEntity.Image = "~/ChildImages/" + txtSAID.Text + fileName;
+            }
             int result = childBL.ChildCRUD(childEntity, 'u');
             if (result == 1)
             {
                 message.Text = "Child details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
+                Disable();
                 BindChildDetails();
                 BindBankDetails();
                 BindAddressDetails();
@@ -353,6 +444,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         txtEmailId.Text = "";
         txtTaxRefNum.Text = "";
         txtDateOfBirth.Text = "";
+        lblPhotoName.Text = "";
 
 
     }
@@ -792,64 +884,14 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
     }
 
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string ExistsSAID = txtSAID.Text;
-            dataset = childBL.GetAllChilds("0", ExistsSAID);
-
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgSAID.Text = "Already Exists";
-                txtSAID.Text = "";
-            }
-            else
-            {
-                msgSAID.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-
-            string accountNum = txtAccountNumber.Text;
-            dataset = bankBL.CheckAccountNum(accountNum);
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgAccountNum.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                msgAccountNum.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
 
     protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
     {
         try
         {
-            if (chkClientAddress.Checked == true)
+            if (chkClientAddress.Checked)
             {
-                string CLientSAID = ViewState["ReferenceSAID"].ToString();
-                DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+                DataSet ds = (DataSet)ViewState["ClientAddress"];
                 if (ds.Tables.Count > 0)
                 {
                     txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
@@ -878,13 +920,83 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ddlCity.SelectedValue = "-1";
                 ddlCountry.SelectedValue = "-1";
                 ddlProvince.SelectedValue = "-1";
+            }
+        }
+        catch { }
+    }
+
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        try
+        {
+
+            dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), "0");
+
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
+                {
+                    message.Text = "The member already exists as Child";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
+                {
+                    message.Text = "The member already exists as Spouse, you cannot add as Child!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                    && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                {
+                    Enable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                }
+
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    txtFirstName.Text = "";
+                    txtLastName.Text = "";
+                    ddlTitle.SelectedValue = "";
+                    txtPhoneNum.Text = "";
+                    txtMobileNum.Text = "";
+                    txtEmailId.Text = "";
+                    txtTaxRefNum.Text = "";
+                    txtDateOfBirth.Text = "";
+                    Enable();
+                }
+            }
+        }
+        catch { }
+    }
+    private void GetClientAddress()
+    {
+        try
+        {
+            string CLientSAID = Session["SAID"].ToString();
+            DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+            ViewState["ClientAddress"] = ds;
+            if (ds.Tables.Count > 0)
+            {
+                chkClientAddress.Visible = true;
 
             }
-
+            else
+            {
+                chkClientAddress.Visible = false;
+            }
         }
         catch
         {
 
         }
     }
+
 }

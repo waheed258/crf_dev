@@ -20,6 +20,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     BankBL bankBL = new BankBL();
     BasicDropdownBL basicDropdownBL = new BasicDropdownBL();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
+    AddressAndBankBL addressbankBL = new AddressAndBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -44,9 +46,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
                         BindSpouseDetails();
+                        chkClientAddress.Visible = false;
+                        GetClientAddress();
                         btnUpdateSpouse.Visible = false;
                         BindAddressDetails();
                         BindBankDetails();
+                        Disable();
                     }
                     if (this.IsPostBack)
                     {
@@ -100,6 +105,18 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.EmailID = txtEmailId.Text;
             spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (fuPhoto.HasFile)
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;
+            }
+            else
+            {
+                spouseEntity.Image = "";
+            }
             int result = spouseBL.SpouseCRUD(spouseEntity, 'i');
             if (result == 1)
             {
@@ -107,11 +124,69 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindSpouseDetails();
                 Clear();
+                Disable();
             }
             else
             {
                 Clear();
             }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        try
+        {
+
+            dataset = validateSAIDBL.ValidateSAID(txtSAID.Text,Session["SAID"].ToString(), "0");
+
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
+                {
+                    message.Text = "The member already exists as Spouse";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
+                {
+                    message.Text = "The member already exists as Child, you cannot add as Spouse!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                    && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                {
+                    Enable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                }
+
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    txtFirstName.Text = "";
+                    txtLastName.Text = "";
+                    ddlTitle.SelectedValue = "";
+                    txtPhoneNum.Text = "";
+                    txtMobileNum.Text = "";
+                    txtEmailId.Text = "";
+                    txtTaxRefNum.Text = "";
+                    txtDateOfBirth.Text = "";
+                    Enable();
+                }
+            }
+
         }
         catch
         {
@@ -149,6 +224,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtCurrency.Text = "";
         txtSwift.Text = "";
         chkClientAddress.Checked = false;
+        lblPhotoName.Text = "";
     }
     protected void BindSpouseDetails()
     {
@@ -220,6 +296,19 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             spouseEntity.EmailID = txtEmailId.Text;
             spouseEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
             spouseEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (lblPhotoName.Text != "" && fuPhoto.HasFile == false)
+            {
+                spouseEntity.Image = lblPhotoName.Text;
+
+            }
+            else
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;
+            }
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)
             {
@@ -229,6 +318,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 BindBankDetails();
                 BindAddressDetails();
                 Clear();
+                Disable();
                 btnUpdateSpouse.Visible = false;
                 btnSpouseSubmit.Visible = true;
                 txtSAID.ReadOnly = false;
@@ -272,6 +362,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 if (e.CommandName == "Edit")
                 {
+                    Enable();
                     btnUpdateSpouse.Visible = true;
                     btnSpouseSubmit.Visible = false;
                     txtSAID.ReadOnly = true;
@@ -284,6 +375,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtTaxRefNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
                     txtDateOfBirth.Text = ((Label)row.FindControl("lblDateOfBirth")).Text.ToString();
                     ddlTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                    lblPhotoName.Text = (((Label)row.FindControl("lblImage")).Text);
+                    anchorId.Attributes["href"] = lblPhotoName.Text;
                 }
                 else if (e.CommandName == "Document")
                 {
@@ -291,6 +384,16 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Bank")
                 {
+                    DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                    }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
                     btnUpdateBank.Visible = false;
@@ -298,6 +401,21 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Address")
                 {
+                    DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
+                    if (dsAddress.Tables[0].Rows.Count > 0)
+                    {
+                        txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                        txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                    }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
@@ -729,64 +847,14 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         BindBankDetails();
     }
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-
-            dataset = spouseBL.GetAllSpouse("0", txtSAID.Text);
-
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgSAID.Text = "Already Exists";
-                txtSAID.Text = "";
-            }
-            else
-            {
-                msgSAID.Text = "";
-            }
-
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-
-        try
-        {
-            string accountNum = txtAccountNumber.Text;
-            dataset = bankBL.CheckAccountNum(accountNum);
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgAccountNum.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                msgAccountNum.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-
-    }
+   
     protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
     {
         try
         {
-            if (chkClientAddress.Checked == true)
+            if (chkClientAddress.Checked)
             {
-                string CLientSAID = ViewState["ReferenceSAID"].ToString();
-                DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+                DataSet ds = (DataSet)ViewState["ClientAddress"];
                 if (ds.Tables.Count > 0)
                 {
                     txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
@@ -815,12 +883,65 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ddlCity.SelectedValue = "-1";
                 ddlCountry.SelectedValue = "-1";
                 ddlProvince.SelectedValue = "-1";
+            }
+        }
+        catch { }
+    }
 
+    private void GetClientAddress()
+    {
+        try
+        {
+            string CLientSAID = Session["SAID"].ToString();
+            DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+            ViewState["ClientAddress"] = ds;
+            if (ds.Tables.Count > 0)
+            {
+                chkClientAddress.Visible = true;
+
+            }
+            else
+            {
+                chkClientAddress.Visible = false;
             }
         }
         catch
         {
 
         }
+    }
+    protected void Disable()
+    {
+        ddlTitle.Enabled = false;
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmailId.ReadOnly = true;
+        txtMobileNum.ReadOnly = true;
+        txtPhoneNum.ReadOnly = true;
+        txtTaxRefNum.ReadOnly = true;
+        txtDateOfBirth.ReadOnly = true;
+        rfvFirstName.Enabled = false;
+        rfvLastName.Enabled = false;
+        rfvMobileNum.Enabled = false;
+        rfvEmailId.Enabled = false;
+        fuPhoto.Enabled = false;
+        btnSpouseSubmit.Enabled = false;
+    }
+    protected void Enable()
+    {
+        ddlTitle.Enabled = true;
+        txtFirstName.ReadOnly = false;
+        txtLastName.ReadOnly = false;
+        txtEmailId.ReadOnly = false;
+        txtMobileNum.ReadOnly = false;
+        txtPhoneNum.ReadOnly = false;
+        txtTaxRefNum.ReadOnly = false;
+        txtDateOfBirth.ReadOnly = false;
+        fuPhoto.Enabled = true;
+        rfvFirstName.Enabled = true;
+        rfvLastName.Enabled = true;
+        rfvMobileNum.Enabled = true;
+        rfvEmailId.Enabled = true;
+        btnSpouseSubmit.Enabled = true;
     }
 }
