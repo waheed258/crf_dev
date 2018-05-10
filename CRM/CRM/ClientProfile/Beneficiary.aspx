@@ -231,14 +231,31 @@
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-
-                                                <label class="control-label">Identification Number</label>
-                                                <asp:TextBox ID="txtSAID" CssClass="form-control" placeholder="Enter SAID" MaxLength="13" runat="server" OnTextChanged="txtSAID_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
-                                                <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
-                                                    ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                                    ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label class="control-label">Identification Number</label>
+                                                    <asp:TextBox ID="txtSAID" CssClass="form-control" placeholder="Enter SAID" MaxLength="13" runat="server"></asp:TextBox>
+                                                    <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
+                                                    <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
+                                                        ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator ID="revtxtSAID" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                        ControlToValidate="txtSAID" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
+                                                </div>
+                                                <div class="col-sm-1" style="padding: 0px; margin-top: 14px;">
+                                                    <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group col-sm-3">
+                                                <label>Title</label>
+                                                <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
+                                                    <asp:ListItem Value="">Title</asp:ListItem>
+                                                    <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                    <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                    <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                </asp:DropDownList>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
@@ -252,10 +269,14 @@
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter Last Name" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Date Of Birth</label>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-12">
-                                             <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <label class="control-label">Tax Reference No.</label>
                                                 <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
@@ -287,8 +308,8 @@
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
-                                            
-                                         
+
+
                                         </div>
 
                                     </div>
@@ -709,7 +730,7 @@
                                                             </div>
                                                             <div class="col-sm-4 form-group">
                                                                 <label class="control-label">Account Number</label>
-                                                                <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                                <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>
                                                                 <asp:Label ID="lblaccountError" runat="server" ForeColor="red"></asp:Label>
                                                                 <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
