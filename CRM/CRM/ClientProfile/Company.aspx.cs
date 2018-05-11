@@ -18,6 +18,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     BankBL bankBL = new BankBL();
     AddressEntity addressEntity = new AddressEntity();
     AddressBL addressBL = new AddressBL();
+    ValidateSAIDBL validateSAID = new ValidateSAIDBL();
+    AddressAndBankBL addressbankBL = new AddressAndBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -44,6 +46,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         btnUpdateCompany.Visible = false;
                         btnUpdateBank.Visible = false;
                         btnUpdateAddress.Visible = false;
+                        Disable();
                     }
                     if (this.IsPostBack)
                     {
@@ -270,6 +273,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
                 if (e.CommandName == "EditCompany")
                 {
+                    Enable();
                     btnCompantDetails.Visible = false;
                     btnUpdateCompany.Visible = true;
                     txtCompanyUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
@@ -289,6 +293,16 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Bank")
                 {
+                    DataSet dsBank = addressbankBL.GetBankDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                    }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
                     btnUpdateBank.Visible = false;
@@ -296,6 +310,20 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Address")
                 {
+                    DataSet dsAddress = addressbankBL.GetAddressDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
+                    if (dsAddress.Tables[0].Rows.Count > 0)
+                    {
+                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                        txtFlatrNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                    }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
@@ -734,54 +762,54 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         GetBankDetails();
     }
 
-    protected void txtCompanyUIC_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string ExistsUIC = txtCompanyUIC.Text;
-            dataset = companyBL.GetCompanyList("0", ExistsUIC);
+    //protected void txtCompanyUIC_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string ExistsUIC = txtCompanyUIC.Text;
+    //        dataset = companyBL.GetCompanyList("0", ExistsUIC);
 
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgUIC.Text = "Already Exists";
-                txtCompanyUIC.Text = "";
-            }
-            else
-            {
-                msgUIC.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
+    //        if (dataset.Tables[0].Rows.Count > 0)
+    //        {
+    //            msgUIC.Text = "Already Exists";
+    //            txtCompanyUIC.Text = "";
+    //        }
+    //        else
+    //        {
+    //            msgUIC.Text = "";
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
+    //protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
 
-            string accountNum = txtAccountNumber.Text;
-            dataset = bankBL.CheckAccountNum(accountNum);
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgAccountNum.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                msgAccountNum.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //        string accountNum = txtAccountNumber.Text;
+    //        dataset = bankBL.CheckAccountNum(accountNum);
+    //        if (dataset.Tables[0].Rows.Count > 0)
+    //        {
+    //            msgAccountNum.Text = "Already Exists";
+    //            txtAccountNumber.Text = "";
+    //        }
+    //        else
+    //        {
+    //            msgAccountNum.Text = "";
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void gvCompany_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
@@ -823,5 +851,72 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             message.Text = "Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        DataSet dataset = validateSAID.ValidateCompanyUIC(Session["SAID"].ToString(), txtCompanyUIC.Text);
+        if (dataset.Tables[0].Rows.Count > 0)
+        {
+            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+            {
+                message.Text = "The Company is already registered with you!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
+            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
+            {
+                Disable();
+                btnCompantDetails.Enabled = true;                
+                txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
+                DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
+                txtYearofFoundation.Text = YOF.ToShortDateString();
+                txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
+                txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
+                txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
+            }
+            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+            {
+                Enable();
+            }
+        }
+    }
+
+    protected void Disable()
+    {
+        txtCompanyName.ReadOnly = true;
+        txtYearofFoundation.ReadOnly = true;
+        txtVATRef.ReadOnly = true;
+        txtTelephone.ReadOnly = true;
+        txtFax.ReadOnly = true;
+        txtEmail.ReadOnly = true;
+        txtWebsite.ReadOnly = true;
+        rfvTCompanyName.Enabled = false;
+        rfvYearOfFoundation.Enabled = false;
+        rfvtxtVATRef.Enabled = false;
+        rfvTelephone.Enabled = false;
+        rgvFax.Enabled = false;
+        rfvEmail.Enabled = false;
+        rgvWebsite.Enabled = false;
+        btnCompantDetails.Enabled = false;
+    }
+
+    protected void Enable()
+    {
+        txtCompanyName.ReadOnly = false;
+        txtYearofFoundation.ReadOnly = false;
+        txtVATRef.ReadOnly = false;
+        txtTelephone.ReadOnly = false;
+        txtFax.ReadOnly = false;
+        txtEmail.ReadOnly = false;
+        txtWebsite.ReadOnly = false;
+        rfvTCompanyName.Enabled = true;
+        rfvYearOfFoundation.Enabled = true;
+        rfvtxtVATRef.Enabled = true;
+        rfvTelephone.Enabled = true;
+        rgvFax.Enabled = true;
+        rfvEmail.Enabled = true;
+        rgvWebsite.Enabled = true;
+        btnCompantDetails.Enabled = true;
     }
 }

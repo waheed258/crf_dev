@@ -890,8 +890,9 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
-            {
-                Enable();
+            {                
+                Disable();
+                btnCompantDetails.Enabled = true;
                 txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
                 DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
                 txtYearofFoundation.Text = YOF.ToShortDateString();

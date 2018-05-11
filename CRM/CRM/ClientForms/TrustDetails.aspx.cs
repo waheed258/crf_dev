@@ -809,7 +809,8 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             }
             else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
             {
-                Enable();
+                Disable();
+                btnSubmitTrust.Enabled = true;
                 txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
                 DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
                 txtYearofFoundation.Text = YOF.ToShortDateString();
