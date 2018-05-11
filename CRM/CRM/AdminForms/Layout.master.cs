@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -24,6 +25,10 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                     }
                     else
                     {
+                        if (File.Exists(Server.MapPath(Session["Image"].ToString())))
+                        {
+                            imgProfilePic.ImageUrl = Session["Image"].ToString();
+                        }
                         imgProfilePic.ImageUrl = Session["Image"].ToString();
                     }
                 
