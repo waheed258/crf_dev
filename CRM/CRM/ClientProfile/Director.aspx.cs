@@ -288,6 +288,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
 
                 if (e.CommandName == "EditDirector")
                 {
+                    Enable();
                     int directorId = Convert.ToInt32(e.CommandArgument);
                     BindDirector(directorId);
                 }
@@ -820,12 +821,13 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                     message.Text = "The member already exists as Director!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT")
                 {
-                    Enable();
+                    Disable();
+                    btnDirectorSubmit.Enabled = true;
                     ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
                     txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
                     txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
@@ -835,6 +837,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                     txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
                     DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
                     txtDateOfBirth.Text = DOB.ToShortDateString();
+                    txtSharePerc.ReadOnly = false;
+                    txtShareValue.ReadOnly = false;
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
                 {

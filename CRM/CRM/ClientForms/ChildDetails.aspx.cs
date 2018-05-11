@@ -961,7 +961,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                {
+                    message.Text = "The member already exists as Client";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
                 {
                     message.Text = "The member already exists as Child";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -974,7 +979,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                 else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
                     && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
                 {
-                    Enable();
+                    btnChildSubmit.Enabled = true;
                     ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
                     txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
                     txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
@@ -998,6 +1003,19 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                     txtTaxRefNum.Text = "";
                     txtDateOfBirth.Text = "";
                     Enable();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                {
+                    btnChildSubmit.Enabled = true;
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
                 }
             }
         }

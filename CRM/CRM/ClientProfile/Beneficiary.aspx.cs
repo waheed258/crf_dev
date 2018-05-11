@@ -312,6 +312,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
                 if (e.CommandName == "EditBeneficiary")
                 {
+                    Enable();
                     int BenfId = Convert.ToInt32(e.CommandArgument);
                     BindBeneficiary(BenfId);
                 }
@@ -862,12 +863,13 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                     message.Text = "The member already exists as beneficiary!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT")
                 {
-                    Enable();
+                    Disable();
+                    btnSubmit.Enabled = true;
                     ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
                     txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
                     txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
