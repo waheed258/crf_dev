@@ -187,7 +187,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             Status = 1,
             AdvisorID = 0,
             Title = ddlTitle.SelectedItem.Text,
-            DateOfBirth = txtDateOfBirth.Text,
+            DateOfBirth = txtDateOfBirth.Text
         };
 
         if (btnSubmit.Text == "Update")
@@ -241,7 +241,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 ClearBankControls();
                 BindBankDetails();
                 BindAddressDetails();
-
+                Disable();
             }
             else
             {
@@ -631,8 +631,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 message.Text = "Bank details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBankControls();
-                BindBankDetails();
-                Disable();
+                BindBankDetails();                
             }
             else
             {
