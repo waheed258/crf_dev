@@ -210,7 +210,6 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabTrust">
-
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
