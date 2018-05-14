@@ -49,7 +49,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                         GetTrusteeGrid(txtUIC.Text);
                         BindBankDetails();
                         BindAddressDetails();
-
+                        Disable();
                     }
                 }
                 if (this.IsPostBack)
@@ -188,7 +188,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 ClearBankControls();
                 BindBankDetails();
                 BindAddressDetails();
-
+                Disable();
             }
             else
             {
@@ -290,7 +290,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["TrusteeId"] = ((Label)row.FindControl("lblTrusteeId")).Text.ToString();
                 string TrusteeName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
-
+                string UIC = ((Label)row.FindControl("lblReferenceUIC")).Text.ToString();
                 txtTrusteeNameBank.Text = TrusteeName;
                 txtSAIDBank.Text = ViewState["SAID"].ToString();
 
@@ -302,6 +302,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 {
                     case "EditTrustee":
                         int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
+                        Enable();
                         BindTrustee(TrusteeId);
                         break;
                     case "Document":
