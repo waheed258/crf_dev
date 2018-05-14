@@ -57,6 +57,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     {
         switch (ObjDec.Decrypt(Request.QueryString["t"]))
         {
+            case "1":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Identification #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Client Documents";
+                ViewState["FoldertName"] = "Client";
+                break;
             case "2":
                 txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                 lblName.Text = "Identification #";
@@ -118,6 +126,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 hfSAID.Value = "0";
                 lblHeading.Text = "Company Documents";
                 ViewState["FoldertName"] = "Company";
+                break;
+            case "9":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Identification #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Director Documents";
+                ViewState["FoldertName"] = "Director";
                 break;
         }
     }
@@ -259,11 +275,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
         {
             switch (ObjDec.Decrypt(Request.QueryString["t"].ToString()))
             {
+                case "1":
+                    Response.Redirect("ClientPersonal.aspx", false);
+                    break;
                 case "2":
                     Response.Redirect("Spouse.aspx", false);
                     break;
                 case "3":
-                    Response.Redirect("ChildDetails.aspx", false);
+                    Response.Redirect("Children.aspx", false);
                     break;
                 case "4":
                     Response.Redirect("TrustDetails.aspx", false);
@@ -275,10 +294,16 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     Response.Redirect("Trustee.aspx", false);
                     break;
                 case "7":
-                    Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("1"), false);
+                    if (Request.QueryString["type"] == "t")
+                        Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("1"), false);
+                    else
+                        Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("2"), false);
                     break;
                 case "8":
-                    Response.Redirect("CompanyDetails.aspx", false);
+                    Response.Redirect("Company.aspx", false);
+                    break;
+                case "9":
+                    Response.Redirect("Director.aspx", false);
                     break;
             }
             ClearControls();

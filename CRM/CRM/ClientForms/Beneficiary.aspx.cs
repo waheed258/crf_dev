@@ -126,13 +126,13 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             ReferenceSAID = Session["SAID"].ToString(),
             UIC = txtUIC.Text.Trim(),
             SAID = txtSAID.Text.Trim(),
-            Title=ddlTitle.SelectedValue,
+            Title = ddlTitle.SelectedValue,
             FirstName = txtFirstName.Text.Trim(),
             LastName = txtLastName.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
-            DateOfBirth=txtDateOfBirth.Text,
+            DateOfBirth = txtDateOfBirth.Text,
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
@@ -273,7 +273,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         }
     }
 
-   
+
     protected void gvBeneficiary_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
@@ -310,7 +310,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtBeneficiaryAddress.Text = BeneficiaryName;
 
-                
+
                 if (e.CommandName == "EditBeneficiary")
                 {
                     Enable();
@@ -319,7 +319,10 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Document")
                 {
-                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    else
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "DeleteBeneficiary")
                 {
@@ -855,10 +858,10 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         btnSubmit.Enabled = true;
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
-    {      
+    {
         try
         {
-        
+
             DataSet dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
@@ -867,13 +870,13 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     message.Text = "The member already exists as beneficiary!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT"||
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT")
                 {
                     Disable();
-                    btnSubmit.Enabled = true;                    
+                    btnSubmit.Enabled = true;
                     ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
                     txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
                     txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();

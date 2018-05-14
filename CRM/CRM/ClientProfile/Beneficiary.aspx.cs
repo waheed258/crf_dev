@@ -318,7 +318,10 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Document")
                 {
-                    Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    else
+                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 else if (e.CommandName == "DeleteBeneficiary")
                 {
