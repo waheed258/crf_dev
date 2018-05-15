@@ -61,7 +61,12 @@ public partial class Registration : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-
+            if (ex.Message.Contains("UNIQUE KEY"))
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Text = "Client already registered!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
         }
     }
 
