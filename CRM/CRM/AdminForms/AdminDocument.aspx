@@ -9,6 +9,9 @@
         function openDeleteModal() {
             $('#delete').modal('show', { backdrop: 'static' });
         }
+        function CloseDocumentModal() {
+            $('#ContentPlaceHolder1_documentclose').modal('show', { backdrop: 'static' });
+        }
     </script>
 
     <style type="text/css">
@@ -46,7 +49,7 @@
             </div>
 
 
-            <div class="panel panel-bd">
+            <div class="panel panel-bd" id="documentsection" runat="server">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <h5>Admin Document Form</h5>
@@ -238,6 +241,32 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <div class="modal fade" id="documentclose" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="messagedoc" runat="server" class="control-label" Style="color: green" />
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="buttoncancel" runat="server" Text="Close" class="btn btn-danger pull-left" OnClick="buttoncancel_Click"></asp:Button>
                     </div>
                 </div>
                 <!-- /.modal-content -->

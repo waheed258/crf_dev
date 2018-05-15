@@ -245,8 +245,16 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
             DataSet ds = _ObjClientProfileBL.GetClientPersonal(ObjEn.Decrypt(Request.QueryString["x"].ToString()));
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                documentsection.Visible = true;
                 txtSaId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
+            }
+            else
+            {
+                documentsection.Visible = false;
+                messagedoc.Text = "Please enter Personal Details in order to upload Documents";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "CloseDocumentModal();", true);
+                
             }
            
         }
@@ -276,5 +284,9 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         }
     }
 
-     
+
+    protected void buttoncancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ActiveClientList.aspx");
+    }
 }
