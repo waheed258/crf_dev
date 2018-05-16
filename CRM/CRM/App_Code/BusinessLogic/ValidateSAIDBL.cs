@@ -23,7 +23,13 @@ public class ValidateSAIDBL
         ds = dataUtilities.ExecuteDataSet("usp_ValidateSAID", hashtable);
         return ds;
     }
-
+    public DataSet ValidateAdvisorSAID(string SAID)
+    {
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("@SAID", SAID);
+        ds = dataUtilities.ExecuteDataSet("ValidateAdvisor", hashtable);
+        return ds;
+    }
     public DataSet ValidateTrustUIC(string RSAID, string UIC)
     {
         Hashtable hashtable = new Hashtable();       
