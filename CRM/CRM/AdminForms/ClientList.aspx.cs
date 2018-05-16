@@ -76,6 +76,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
+            txtSAID.ReadOnly = true;
+            txtEmail.ReadOnly = true;
             int RowIndex = e.NewEditIndex;
             sectionClientList.Visible = false;
             editSection.Visible = true;
