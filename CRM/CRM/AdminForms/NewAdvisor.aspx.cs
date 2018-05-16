@@ -14,6 +14,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
     DataSet dataset = new DataSet();
     NewAdvisorBL newAdvisorBL = new NewAdvisorBL();
     AdvisorEntity advisorentity = new AdvisorEntity();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -37,6 +38,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
                       //  GetRole();
                         ddlAdvisorType.Visible = false;
                         lblAdvisorType.Visible = false;
+                        Disable();
                     }
                 }
             }
@@ -157,7 +159,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
          //   advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             advisorentity.AdvisorSAID = txtSAId.Text.Trim();
-
+          
 
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'i');
             if (result == 1)
@@ -165,6 +167,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
                 message.Text = "Advisor Added Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
+                Disable();
             }
             else
             {
@@ -201,6 +204,49 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         txtConfirmPassword.Text = "";
         txtSAId.Text = "";
 
+    }
+    protected void Disable()
+    {
+       
+        txtFirstName.ReadOnly = true;
+        txtLastName.ReadOnly = true;
+        txtEmailId.ReadOnly = true;
+        txtPhoneNum.ReadOnly = true;
+        txtMobileNum.ReadOnly = true;
+        ddlAdvisorType.Visible = false;
+        lblAdvisorType.Visible = false;
+        ddlBranch.Enabled = false;
+        ddlDesignation.Enabled = false;
+        ddlStatus.Enabled = false;
+        txtLoginId.ReadOnly = true;
+        txtPassword.ReadOnly = true;
+        txtConfirmPassword.ReadOnly = true;
+        rfvFirstName.Enabled = false;
+        rfvLastName.Enabled = false;
+        rfvEmailId.Enabled = false;
+        rfvMobileNum.Enabled = false;
+        btnSubmit.Enabled = false;
+    }
+    protected void Enable()
+    {
+      
+        txtFirstName.ReadOnly = false;
+        txtLastName.ReadOnly = false;
+        txtEmailId.ReadOnly = false;
+        txtMobileNum.ReadOnly = false;
+        txtPhoneNum.ReadOnly = false;
+        rfvFirstName.Enabled = true;
+        rfvLastName.Enabled = true;
+        rfvEmailId.Enabled = true;
+        rfvMobileNum.Enabled = true;
+        ddlAdvisorType.Enabled = true;
+        ddlBranch.Enabled = true;
+        ddlDesignation.Enabled = true;
+        ddlStatus.Enabled = true;
+        txtLoginId.ReadOnly = false;
+        txtPassword.ReadOnly = false;
+        txtConfirmPassword.ReadOnly = false;
+        btnSubmit.Enabled = true;
     }
     protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -248,6 +294,31 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             else
             {
                 msgLoginId.Text = "";
+            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
+    {
+        try
+        {
+
+            DataSet dataset = validateSAIDBL.ValidateAdvisorSAID(txtSAId.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
+            {
+                message.Text = "The member already exists as Adviosr!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Disable();
+            }
+            else
+            {
+                Enable();
+                btnSubmit.Enabled = true;
             }
         }
         catch

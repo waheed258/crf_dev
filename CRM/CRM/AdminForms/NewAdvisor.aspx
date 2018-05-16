@@ -60,13 +60,20 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>SAID</label>
-                                    <asp:TextBox ID="txtSAId" class="form-control" runat="server" placeholder="Enter SAID" MaxLength="13"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvSAId" runat="server" ControlToValidate="txtSAId" ForeColor="#d0582e"
-                                        ErrorMessage="Please Enter SAID" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="revtxtSAId" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                        ControlToValidate="txtSAId" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
+                                    <div class="col-sm-11" style="padding: 0px;">
+                                        <label>SAID</label>
+                                        <asp:TextBox ID="txtSAId" class="form-control" runat="server" placeholder="Enter SAID" MaxLength="13"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvSAId" runat="server" ControlToValidate="txtSAId" ForeColor="#d0582e"
+                                            ErrorMessage="Please Enter SAID" ValidationGroup="Advisor" Display="Dynamic"></asp:RequiredFieldValidator>
+                                        <asp:RegularExpressionValidator ID="revtxtSAId" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                            ControlToValidate="txtSAId" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
+                                    </div>
+                                    <div class="col-sm-1" style="padding: 0px; margin-top: 14px;">
+                                        <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>First Name</label>
                                     <asp:TextBox ID="txtFirstName" class="form-control" runat="server" placeholder="Enter First Name" MaxLength="50"></asp:TextBox>
@@ -110,19 +117,19 @@
 
                                 <div class="form-group col-sm-3">
                                     <label>Designation</label>
-                                    <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" AutoPostBack="true" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <asp:Label ID="lblAdvisorType" runat="server">Advisor Type</asp:Label>
-                                    <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlAdvisorType" runat="server" CssClass="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                               
 
-                                
+
+
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
@@ -150,20 +157,20 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                 <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-3">
                                     <label>Branch</label>
-                                    <asp:DropDownList ID="ddlBranch" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlBranch" runat="server" CssClass="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvBranch" runat="server" ControlToValidate="ddlBranch" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Branch" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                                
+
                                 <div class="form-group col-sm-3">
                                     <label>Status</label>
-                                    <asp:DropDownList ID="ddlStatus" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvStatus" runat="server" ControlToValidate="ddlStatus" ForeColor="#d0582e"
                                         ErrorMessage="Please Select Status" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </div>
-                              <%--  <div class="form-group col-sm-3">
+                                <%--  <div class="form-group col-sm-3">
                                     <label>Role</label>
                                     <asp:DropDownList ID="ddlRole" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvRole" runat="server" ControlToValidate="ddlRole" ForeColor="#d0582e"
@@ -172,11 +179,11 @@
                             </div>
 
 
-                            
+
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
-                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" class="btn btn-add" ValidationGroup="Advisor" OnClick="btnSubmit_Click" />
+                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-add" ValidationGroup="Advisor" OnClick="btnSubmit_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnCancel_Click" />
                         </div>
                     </div>
@@ -196,7 +203,7 @@
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                        <asp:Label ID="message" runat="server" class="control-label" style="color: green"></asp:Label>
+                                        <asp:Label ID="message" runat="server" class="control-label" Style="color: green"></asp:Label>
                                     </div>
                                 </fieldset>
                             </div>
