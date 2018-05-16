@@ -21,7 +21,7 @@
                     <div class="panel panel-bd" runat="server">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Registraion</h5>
+                                <h5>Registration</h5>
                             </div>
                         </div>
                         <div class="panel-body">
