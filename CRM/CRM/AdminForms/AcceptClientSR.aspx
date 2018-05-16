@@ -197,7 +197,7 @@
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Advisor List</h5>
+                                <h5>Allocate Advisor</h5>
                             </div>
                         </div>
                         <div class="panel-body">
