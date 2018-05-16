@@ -212,6 +212,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (Convert.ToInt32(ViewState["flag"]) == 1)
                 {
                     result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
+                    Label lblUserName = (Label)this.Master.FindControl("lblUserName");
+                    lblUserName.Text = txtFirstName.Text + " " + txtLastName.Text;
                     int res = credentialsBL.InsImage(img, txtSAId.Text);
                     message.Text = "Client details updated successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
