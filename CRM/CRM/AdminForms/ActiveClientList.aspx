@@ -183,7 +183,7 @@
                                         <asp:TemplateField HeaderText="Add Client Info">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnSaveClient" ImageUrl="~/assets/dist/img/Beneficiary.jpg" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
-                                                    CommandName="SaveClient" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                    CommandName="SaveClient" ToolTip="Add Client Info" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Document">
