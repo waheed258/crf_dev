@@ -769,22 +769,22 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         }
     }
 
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e) 
-    {
-        try
-        { string accountNum = txtAccountNumber.Text; 
-            ds = bankbl.CheckAccountNum(accountNum); 
-            if (ds.Tables[0].Rows.Count > 0) 
-            { lblBankMsg.Text = "Already Exists"; 
-                txtAccountNumber.Text = "";
-            } else { lblBankMsg.Text = ""; 
-            }
-        } 
-        catch 
-        {
-            message.ForeColor = System.Drawing.Color.Red; message.Text = "Something went wrong, please contact administrator"; ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true); 
-        }
-    }
+    //protected void txtAccountNumber_TextChanged(object sender, EventArgs e) 
+    //{
+    //    try
+    //    { string accountNum = txtAccountNumber.Text; 
+    //        ds = bankbl.CheckAccountNum(accountNum); 
+    //        if (ds.Tables[0].Rows.Count > 0) 
+    //        { lblBankMsg.Text = "Already Exists"; 
+    //            txtAccountNumber.Text = "";
+    //        } else { lblBankMsg.Text = ""; 
+    //        }
+    //    } 
+    //    catch 
+    //    {
+    //        message.ForeColor = System.Drawing.Color.Red; message.Text = "Something went wrong, please contact administrator"; ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true); 
+    //    }
+    //}
     protected void DropPageAddress_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetAddressDetails();

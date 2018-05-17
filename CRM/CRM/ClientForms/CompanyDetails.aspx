@@ -218,17 +218,20 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-2 form-group">
-                                                <label class="control-label">Registration #</label>
-                                                <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Registration #" MaxLength="13"></asp:TextBox>
-                                                <asp:Label ID="msgUIC" runat="server" class="control-label" Style="color: red" />
-                                                <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtCompanyUIC" Display="Dynamic" ErrorMessage="Enter Registration Number"
-                                                    ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                                    ControlToValidate="txtCompanyUIC" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
-                                            </div>
-                                            <div class="col-sm-1 form-group" style="padding: 0px; margin-top: 14px;">
-                                                <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                            <div class="col-sm-3 form-group">
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label class="control-label">Registration #</label>
+                                                    <asp:TextBox ID="txtCompanyUIC" CssClass="form-control" runat="server" placeholder="Registration #" MaxLength="13"></asp:TextBox>
+                                                    <asp:Label ID="msgUIC" runat="server" class="control-label" Style="color: red" />
+                                                    <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtCompanyUIC" Display="Dynamic" ErrorMessage="Enter Registration Number"
+                                                        ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator ID="rgvUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                        ControlToValidate="txtCompanyUIC" ForeColor="Red" ValidationGroup="Company"></asp:RegularExpressionValidator>
+                                                </div>
+
+                                                <div class="col-sm-1 form-group" style="padding: 0px; margin-top: 14px;">
+                                                    <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                                </div>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Company Name</label>
@@ -785,7 +788,7 @@
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number" AutoPostBack="true" OnTextChanged="txtAccountNumber_TextChanged"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Account Number"></asp:TextBox>
                                                             <asp:Label ID="msgAccountNum" runat="server" class="control-label" Style="color: red" />
                                                             <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -911,7 +914,7 @@
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label>
-                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" placeholder="Postal Code"></asp:TextBox>
+                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" placeholder="Postal Code" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>

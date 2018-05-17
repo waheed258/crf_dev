@@ -275,7 +275,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label>
-                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Numbert"></asp:TextBox>
+                                                <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
@@ -874,7 +874,7 @@
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label>
-                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvtxtPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>

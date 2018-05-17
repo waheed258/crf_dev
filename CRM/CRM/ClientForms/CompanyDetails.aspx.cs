@@ -323,12 +323,19 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     DataSet dsBank = addressbankBL.GetBankDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
                     if (dsBank.Tables[0].Rows.Count > 0)
                     {
-                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
-                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
-                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
-                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
-                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
-                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                        if (dsBank.Tables[0].Rows[0]["Type"].ToString() == "8")
+                        {
+                            ClearBank();
+                        }
+                        else
+                        {
+                            txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                            txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                            txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                            txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                            txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                            ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                        }
                     }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
@@ -340,16 +347,24 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     DataSet dsAddress = addressbankBL.GetAddressDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
                     if (dsAddress.Tables[0].Rows.Count > 0)
                     {
-                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
-                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
-                        txtFlatrNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
-                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
-                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
-                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
-                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
-                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
-                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
-                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                        if (dsAddress.Tables[0].Rows[0]["Type"].ToString() == "8")
+                        {
+                            ClearAddress();
+                        }
+                        else
+                        {
+                            txtPlotNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                            txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                            txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                            txtFlatrNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                            txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                            txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                            txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                            ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                            ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                            ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                        }
                     }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
@@ -813,30 +828,30 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
     //    }
     //}
-    protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
+    //protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
 
-            string accountNum = txtAccountNumber.Text;
-            dataset = bankBL.CheckAccountNum(accountNum);
-            if (dataset.Tables[0].Rows.Count > 0)
-            {
-                msgAccountNum.Text = "Already Exists";
-                txtAccountNumber.Text = "";
-            }
-            else
-            {
-                msgAccountNum.Text = "";
-            }
-        }
-        catch
-        {
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //        string accountNum = txtAccountNumber.Text;
+    //        dataset = bankBL.CheckAccountNum(accountNum);
+    //        if (dataset.Tables[0].Rows.Count > 0)
+    //        {
+    //            msgAccountNum.Text = "Already Exists";
+    //            txtAccountNumber.Text = "";
+    //        }
+    //        else
+    //        {
+    //            msgAccountNum.Text = "";
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void gvCompany_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
