@@ -682,8 +682,7 @@
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" AutoPostBack="true" placeholder="Enter Account No" OnTextChanged="txtAccountNumber_TextChanged"></asp:TextBox>
-                                                            <asp:Label ID="msgAccountNum" runat="server" CssClass="control-label" Style="color: red" />
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" placeholder="Enter Account No"></asp:TextBox>
                                                             <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>

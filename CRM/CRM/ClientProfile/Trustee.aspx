@@ -716,9 +716,8 @@
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
-                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control" OnTextChanged="txtAccountNumber_TextChanged"
-                                                                AutoPostBack="true"></asp:TextBox>
-                                                            <asp:Label ID="lblBankError" runat="server" ForeColor="Red"></asp:Label>
+                                                            <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>
+                                                            
                                                             <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
@@ -843,7 +842,7 @@
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label>
-                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvtxtPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>

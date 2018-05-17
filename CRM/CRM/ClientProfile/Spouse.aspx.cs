@@ -224,6 +224,22 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtEmailId.Text = "";
         txtTaxRefNum.Text = "";
         txtDateOfBirth.Text = "";
+        chkClientAddress.Checked = false;
+        lblPhotoName.Text = "";
+    }
+
+    private void ClearBank()
+    {
+        txtBankName.Text = "";
+        txtBranchNumber.Text = "";
+        txtAccountNumber.Text = "";
+        ddlAccountType.SelectedValue = "-1";
+        txtCurrency.Text = "";
+        txtSwift.Text = "";
+    }
+
+    private void ClearAddress()
+    {
         txtHouseNo.Text = "";
         txtPostalCode.Text = "";
         txtRoadName.Text = "";
@@ -235,14 +251,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         ddlCity.SelectedValue = "-1";
         ddlCountry.SelectedValue = "-1";
         ddlProvince.SelectedValue = "-1";
-        txtBankName.Text = "";
-        txtBranchNumber.Text = "";
-        txtAccountNumber.Text = "";
-        ddlAccountType.SelectedValue = "-1";
-        txtCurrency.Text = "";
-        txtSwift.Text = "";
         chkClientAddress.Checked = false;
-        lblPhotoName.Text = "";
     }
     protected void BindSpouseDetails()
     {
@@ -405,12 +414,20 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
                     if (dsBank.Tables[0].Rows.Count > 0)
                     {
-                        txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
-                        txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
-                        txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
-                        txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
-                        txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
-                        ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+
+                        if (dsBank.Tables[0].Rows[0]["Type"].ToString() == "2")
+                        {
+                            ClearBank();
+                        }
+                        else
+                        {
+                            txtBankName.Text = dsBank.Tables[0].Rows[0]["BankName"].ToString();
+                            txtBranchNumber.Text = dsBank.Tables[0].Rows[0]["BranchNumber"].ToString();
+                            txtAccountNumber.Text = dsBank.Tables[0].Rows[0]["AccountNumber"].ToString();
+                            txtCurrency.Text = dsBank.Tables[0].Rows[0]["Currency"].ToString();
+                            txtSwift.Text = dsBank.Tables[0].Rows[0]["SWIFT"].ToString();
+                            ddlAccountType.SelectedValue = dsBank.Tables[0].Rows[0]["AccountType"].ToString();
+                        }
                     }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
@@ -422,17 +439,24 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), "0");
                     if (dsAddress.Tables[0].Rows.Count > 0)
                     {
-                        txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
-                        txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
-                        txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
-                        txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
-                        txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
-                        txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
-                        txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
-                        ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
-                        txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
-                        ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
-                        ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                        if (dsAddress.Tables[0].Rows[0]["Type"].ToString() == "2")
+                        {
+                            ClearAddress();
+                        }
+                        else
+                        {
+                            txtHouseNo.Text = dsAddress.Tables[0].Rows[0]["HouseNo"].ToString();
+                            txtBulding.Text = dsAddress.Tables[0].Rows[0]["BuildingName"].ToString();
+                            txtFloor.Text = dsAddress.Tables[0].Rows[0]["FloorNo"].ToString();
+                            txtFlatNo.Text = dsAddress.Tables[0].Rows[0]["FlatNo"].ToString();
+                            txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
+                            txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
+                            txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
+                            ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
+                            ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
+                            ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
+                        }
                     }
                     btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
@@ -502,13 +526,13 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             {
                 message.Text = "Bank details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearBank();
             }
 
 
@@ -522,7 +546,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     }
     protected void btnBankCancel_Click(object sender, EventArgs e)
     {
-        Clear();
+        ClearBank();
     }
     protected void btnAddressSubmit_Click(object sender, EventArgs e)
     {
@@ -553,14 +577,14 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             {
                 message.Text = "Address details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearAddress();
                 BindAddressDetails();
 
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearAddress();
             }
         }
         catch
@@ -572,7 +596,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     }
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
-        Clear();
+        ClearAddress();
     }
     protected void gvAddress_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -696,13 +720,13 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             {
                 message.Text = "Bank details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearBank();
                 BindBankDetails();
             }
         }
@@ -744,13 +768,13 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             {
                 message.Text = "Address details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                Clear();
+                ClearAddress();
                 BindAddressDetails();
             }
             else
             {
                 message.Text = "Please try again!";
-                Clear();
+                ClearAddress();
             }
         }
         catch

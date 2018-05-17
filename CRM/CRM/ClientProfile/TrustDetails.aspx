@@ -171,18 +171,21 @@
                                 <div class="tab-pane fade in active" id="tabTrust">
                                     <div class="panel-body">
                                         <div class="col-sm-12">
-                                            <div class="col-sm-2 form-group">
-                                                <label class="control-label">Registration #</label>
-                                                <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" MaxLength="13" 
-                                                    placeholder="Trust Registration Number"></asp:TextBox>
-                                                <asp:Label ID="lblUICError" runat="server" ForeColor="Red"></asp:Label>
-                                                <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                <asp:RegularExpressionValidator ID="revtxtUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
-                                                    ControlToValidate="txtUIC" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
-                                            </div>
-                                            <div class="col-sm-1 form-group" style="padding: 0px; margin-top: 14px;">
-                                                <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                            <div class="col-sm-3 form-group">
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label class="control-label">Registration #</label>
+                                                    <asp:TextBox ID="txtUIC" CssClass="form-control" runat="server" MaxLength="13"
+                                                        placeholder="Registration #"></asp:TextBox>
+                                                    <asp:Label ID="lblUICError" runat="server" ForeColor="Red"></asp:Label>
+                                                    <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC Number"
+                                                        ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    <asp:RegularExpressionValidator ID="revtxtUIC" runat="server" ErrorMessage="Please enter 13 digits" ValidationExpression="[0-9]{13}" Display="Dynamic"
+                                                        ControlToValidate="txtUIC" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
+                                                </div>
+
+                                                <div class="col-sm-1 form-group" style="padding: 0px; margin-top: 14px;">
+                                                    <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                                </div>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Trust Name</label>
@@ -675,7 +678,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label>
                                                             <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>
-                                                            <asp:Label ID="lblBankMsg" runat="server" ForeColor="Red"></asp:Label>
+                                                            
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
@@ -801,7 +804,7 @@
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label>
-                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
