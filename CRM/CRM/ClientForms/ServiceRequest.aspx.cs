@@ -163,7 +163,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             string Attachment = "";
 
 
-            MailText = "Hi, <br/><br/> Raising Service Request For Client.<br/></b> <br/><br/> Thank you, <br/><br/> Activ8 System Admin.<br/>";
+            MailText = "Hi, <br/><br/> Thanks for making contact, Mr.Tony will reply to your Query.<br/></b> <br/><br/> Thank you, <br/><br/><strong> Activ8 System Admin.</strong><br/>";
 
             CommanClass.UpdateMail(SmtpServer, SmtpPort, MailFrom, DisplayNameFrom, FromPassword, MailTo, DisplayNameTo, MailCc, mailCc2, "", "", DisplayNameCc, MailBcc, Subject, MailText, Attachment);
         }
