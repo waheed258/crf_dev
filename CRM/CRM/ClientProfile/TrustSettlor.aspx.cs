@@ -164,7 +164,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
             txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-            ddlTitle.SelectedItem.Text = ds.Tables[0].Rows[0]["Title"].ToString();
+            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
             btnSubmit.Text = "Update";
         }
     }
@@ -186,7 +186,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             Status = 1,
             AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
-            Title = ddlTitle.SelectedItem.Text,
+            Title = ddlTitle.SelectedValue,
             DateOfBirth = txtDateOfBirth.Text
         };
 
@@ -279,7 +279,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
             txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
             txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-            ddlTitle.SelectedItem.Text = ds.Tables[0].Rows[0]["Title"].ToString();
+            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
         }
         else
         {
