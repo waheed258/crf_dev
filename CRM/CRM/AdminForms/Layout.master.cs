@@ -17,21 +17,24 @@ public partial class AdminForms_Layout : System.Web.UI.MasterPage
                 Response.Redirect("../AdminLogin.aspx", false);
             }
             else
-            {               
-                    lblUserName.Text = Session["Name"].ToString().ToUpper();
-                    if (Session["Image"].ToString() == "")
+            {
+                lblUserName.Text = Session["Name"].ToString().ToUpper();
+                if (Session["Image"].ToString() == "")
+                {
+                    imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
+                }
+                else
+                {
+                    if (File.Exists(Server.MapPath(Session["Image"].ToString())))
                     {
-                        imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
+                        imgProfilePic.ImageUrl = Session["Image"].ToString();
                     }
                     else
                     {
-                        if (File.Exists(Server.MapPath(Session["Image"].ToString())))
-                        {
-                            imgProfilePic.ImageUrl = Session["Image"].ToString();
-                        }
-                        imgProfilePic.ImageUrl = Session["Image"].ToString();
+                        imgProfilePic.ImageUrl = "../assets/dist/img/avatar5.png";
                     }
-                
+                }
+
             }
         }
         catch

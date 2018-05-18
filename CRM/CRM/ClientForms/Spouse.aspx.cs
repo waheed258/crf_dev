@@ -150,12 +150,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             {
                 if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
                 {
-                    message.Text = "The member already exists as Client";
+                    message.Text = "Sorry, Clinet can't be a Spouse!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
                 {
-                    message.Text = "The member already exists as Spouse";
+                    message.Text = "Sorry, Duplicate Spouse ID!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")

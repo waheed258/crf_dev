@@ -977,12 +977,12 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             {
                 if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
                 {
-                    message.Text = "The member already exists as Client";
+                    message.Text = "Sorry, Clinet can't be a Child!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
                 {
-                    message.Text = "The member already exists as Child";
+                    message.Text = "Sorry, Duplicate Child ID!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
