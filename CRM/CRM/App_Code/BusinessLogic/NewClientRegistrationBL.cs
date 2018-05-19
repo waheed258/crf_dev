@@ -99,6 +99,14 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetAllClients", hashtable);
             return ds;
         }
+        public DataSet GetValidateList(string SAID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@SAID",SAID);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetValidateFeedback", hashtable);
+            return ds;
+        }
+
         public DataSet GetFlowChart(string SAID)
         {
             Hashtable hashtable = new Hashtable();
@@ -132,5 +140,13 @@ namespace BusinessLogic
             hashtable.Add("@Exists", DBNull.Value);
             return dataUtilities.ExecuteNonQuery("usp_CheckClientRegistration", hashtable, "@return");
         }
+        public DataSet GetFeedbackList(string SAID)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@ClientSAID", SAID);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetFeedback", hashtable);
+            return ds;
+        }
+
     }
 }

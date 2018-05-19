@@ -34,12 +34,17 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                         _objComman.GetProvince(ddlProvince);
                         _objComman.GetCity(ddlCity);
                         _objComman.getRecordsPerPage(DropPage);
+                        _objComman.getRecordsPerPage(DropPageValidate);
+                        _objComman.getRecordsPerPage(DropPageFeedback);
                         GetGridData();
+                        //ValidateGridData();
+                        //FeedbackGridData();
                         sectionClientList.Visible = true;
                         editSection.Visible = false;
                         statusSection.Visible = false;
                         validateSection.Visible = false;
                         ClientFeedbackSection.Visible = false;
+                        
                     }
                 }
             }
@@ -252,6 +257,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Validate")
                 {
+                    ValidateGridData();
                     sectionClientList.Visible = false;
                     editSection.Visible = false;
                     statusSection.Visible = false;
@@ -259,6 +265,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Feedback")
                 {
+                    FeedbackGridData();
                     ClientFeedbackSection.Visible = true;
                     sectionClientList.Visible = false;
                     editSection.Visible = false;
@@ -398,7 +405,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 txtVerifiedOn.Text = "";
                 txtAdvisorFeedback.Text = "";
                 ddlVerifiedThrough.SelectedValue = "-1";
-                GetGridData();
+                ValidateGridData();
             }
             else
             {
@@ -437,7 +444,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 ClientFeedbackSection.Visible = false;
                 validateSection.Visible = false;
                 txtClientFeedback.Text = "";
-                GetGridData();
+                FeedbackGridData();
             }
             else
             {
@@ -477,5 +484,79 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             message.Text = "Something went wrong,please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+
+    protected void ValidateGridData()
+    {
+        try
+        {
+            //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
+            dataset = newClientRegistrationBL.GetValidateList(ViewState["SAID"].ToString());
+            gvValidate.DataSource = dataset;
+            ViewState["dt"] = dataset.Tables[0];
+            gvValidate.PageSize = Convert.ToInt32(DropPageValidate.SelectedValue);
+            gvValidate.DataBind();
+        }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvValidate_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvValidate.PageIndex = e.NewPageIndex;
+            ValidateGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong,please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void FeedbackGridData()
+    {
+        try
+        {
+            //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
+            dataset = newClientRegistrationBL.GetFeedbackList(ViewState["SAID"].ToString());
+            if (dataset.Tables[0].Rows[0]["ClientFeedBack"] != "")
+            {
+                gvFeedBack.DataSource = dataset;
+                ViewState["dt"] = dataset.Tables[0];
+                gvFeedBack.PageSize = Convert.ToInt32(DropPageFeedback.SelectedValue);
+                gvFeedBack.DataBind();
+            }         
+        }
+        catch
+        {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvFeedBack_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvFeedBack.PageIndex = e.NewPageIndex;
+            FeedbackGridData();
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong,please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void DropPageValidate_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ValidateGridData();
+    }
+    protected void DropPageFeedback_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FeedbackGridData();
     }
 }

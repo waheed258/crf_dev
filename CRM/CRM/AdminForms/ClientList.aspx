@@ -67,6 +67,88 @@
                 }
             });
         });
+        $(document).ready(function () {
+            $("#target1").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#target2").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -89,7 +171,7 @@
                         </div>
 
                         <div class="panel-body">
-                              <div class="row" id="search" runat="server">
+                            <div class="row" id="search" runat="server">
                                 <div class="col-lg-12">
                                     <div class="col-lg-1 form-group">
                                         <asp:DropDownList ID="DropPage" runat="server"
@@ -113,7 +195,7 @@
                                     EmptyDataText="There are no data records to display." OnPageIndexChanging="gvClientsList_PageIndexChanging"
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientsList_RowEditing"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvClientsList_RowCommand">
-                                     <PagerStyle CssClass="pagination_grid" />
+                                    <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">
                                             <ItemTemplate>
@@ -258,7 +340,7 @@
                                         ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Client">
                                     </asp:RegularExpressionValidator>
                                 </div>
-                               <div class="col-sm-3 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label class="control-label">Province</label>
                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
@@ -319,15 +401,70 @@
                                 </div>
 
                             </div>
+
+
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
                             <asp:Button ID="ButtonValidate" runat="server" Text="Validate" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="ButtonValidate_Click" />
                             <asp:Button ID="btnClose" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnClose_Click" />
                         </div>
+
+                        <div class="panel-body">
+                            <div class="row" id="searchValidate" runat="server">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-1 form-group">
+                                        <asp:DropDownList ID="DropPageValidate" runat="server"
+                                            OnSelectedIndexChanged="DropPageValidate_SelectedIndexChanged" CssClass="form-control"
+                                            AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label class="control-label">
+                                            Records per page</label>
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-3">
+                                        <input id="target1" type="text" class="form-control" placeholder="Text To Search" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvValidate" runat="server" Width="100%"
+                                    AutoGenerateColumns="False" CssClass="rounded-corners"
+                                    EmptyDataText="There are no data records to display." OnPageIndexChanging="gvValidate_PageIndexChanging"
+                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
+                                    <PagerStyle CssClass="pagination_grid" />
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="S No.">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Verified On">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblVerifiedOn" Text='<%#Eval("VerifiedDate") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Verified Though">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblVerifiedThough" Text='<%#Eval("VerifiedThough") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Advisor FeedBack">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblAdvisorFeedBack" Text='<%#Eval("AdvisorFeedBack") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </section>
         <section class="content" id="ClientFeedbackSection" runat="server">
             <div class="row">
@@ -354,6 +491,52 @@
                             <div class="col-sm-5"></div>
                             <asp:Button ID="btnSaveFeedback" runat="server" Text="Save" class="btn btn-add btn-sm" ValidationGroup="Client" OnClick="btnSaveFeedback_Click" />
                             <asp:Button ID="btnCancelFeedback" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnCancelFeedback_Click" />
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" id="searchFeedback" runat="server">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-1 form-group">
+                                        <asp:DropDownList ID="DropPageFeedback" runat="server"
+                                            OnSelectedIndexChanged="DropPageFeedback_SelectedIndexChanged" CssClass="form-control"
+                                            AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-lg-2 form-group">
+                                        <label class="control-label">
+                                            Records per page</label>
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-3">
+                                        <input id="target2" type="text" class="form-control" placeholder="Text To Search" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvFeedBack" runat="server" Width="100%"
+                                    AutoGenerateColumns="False" CssClass="rounded-corners" DataKeyNames="FeedBackID"
+                                    EmptyDataText="There are no data records to display." OnPageIndexChanging="gvFeedBack_PageIndexChanging"
+                                    BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
+                                    <PagerStyle CssClass="pagination_grid" />
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="S No.">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Client FeedBack">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblClientFeedBack" Text='<%#Eval("ClientFeedBack") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Updated On">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblUpdatedOn" Text='<%#Eval("UpdatedOn") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
                         </div>
                     </div>
                 </div>
