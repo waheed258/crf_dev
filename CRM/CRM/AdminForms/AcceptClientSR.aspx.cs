@@ -26,7 +26,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             if (Request.UrlReferrer != null)
             {
                 strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
-                if (Session["SAID"] == null || Session["SAID"].ToString() == "")
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
                 {
                     Response.Redirect("../AdminLogin.aspx", false);
                 }

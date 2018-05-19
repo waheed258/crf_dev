@@ -22,14 +22,34 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
-        {           
-            _objComman.getRecordsPerPage(DropPage);
-            GetGridData();
-            FollowUpSection.Visible = false;
-            InvoiceSection.Visible = false;
-            BindActivityType();
-            
+        try
+        {
+            string strPreviousPage = "";
+            if (Request.UrlReferrer != null)
+            {
+                strPreviousPage = Request.UrlReferrer.Segments[Request.UrlReferrer.Segments.Length - 1];
+
+                if (Session["AdvisorID"] == null || Session["AdvisorID"].ToString() == "")
+                {
+                    Response.Redirect("../AdminLogin.aspx", false);
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        _objComman.getRecordsPerPage(DropPage);
+                        GetGridData();
+                        FollowUpSection.Visible = false;
+                        InvoiceSection.Visible = false;
+                        BindActivityType();
+
+                    }
+                }
+            }
+        }
+        catch
+        {
+
         }
     }
     protected void gvWorkInProcess_RowCommand(object sender, GridViewCommandEventArgs e)
