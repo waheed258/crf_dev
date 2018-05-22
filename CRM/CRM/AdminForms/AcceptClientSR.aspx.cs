@@ -42,6 +42,11 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                     }
                 }
             }
+
+            if (strPreviousPage == "")
+            {
+                Response.Redirect("~/AdminLogin.aspx");
+            }
         }
         catch
         {

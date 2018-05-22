@@ -48,5 +48,16 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetClientSRData", hashtable);
             return ds;
         }
+        public DataSet GetInvoiceByClient(string SAID)
+        {
+
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@SAID", SAID);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetInvoiceListBySAID", hashtable);
+            return ds;
+        }
+
+
+        
     }
 }

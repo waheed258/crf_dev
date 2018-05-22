@@ -158,7 +158,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="ServiceRequest.aspx">Raise a Service Request</a></li>
-
+                                <li><a href="InvoicesList.aspx">Invoices List</a></li>
                             </ul>
                         </li>
 

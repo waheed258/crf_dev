@@ -373,10 +373,9 @@
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
-                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" CssClass="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click" />
+                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" CssClass="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click"/>
                             <asp:Button ID="btnInvoiceCancel" runat="server" CssClass="btn btn-danger btn-sm" Text="Back to List" OnClick="btnInvoiceCancel_Click" OnClientClick="window.document.forms[0].target='_self';" />
-                            <asp:Button ID="btnPDF" runat="server" CssClass="btn btn-primary btn-sm" Text="PDF" OnClick="btnPDF_Click" Enabled="false" OnClientClick="window.document.forms[0].target='_blank';"/>
-                                                   
+                           
                         </div>
                     </div>
                 </div>
