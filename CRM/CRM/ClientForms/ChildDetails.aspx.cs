@@ -104,6 +104,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         rfvMobileNum.Enabled = false;
         rfvEmailId.Enabled = false;
         fuPhoto.Enabled = false;
+        rfvTitle.Enabled = false;
         btnChildSubmit.Enabled = false;
     }
     protected void Enable()
@@ -119,6 +120,11 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         ddlTitle.Enabled = true;
         fuPhoto.Enabled = true;
         btnChildSubmit.Enabled = true;
+        rfvFirstName.Enabled = true;
+        rfvLastName.Enabled = true;
+        rfvMobileNum.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvEmailId.Enabled = true;
     }
    
     protected void btnChildSubmit_Click(object sender, EventArgs e)

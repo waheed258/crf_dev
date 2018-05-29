@@ -106,6 +106,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         rfvtxtMobile.Enabled = false;
         revtxtEmail.Enabled = false;
         btnSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
     }
 
     protected void Enable()
@@ -123,6 +124,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         rfvtxtMobile.Enabled = true;
         revtxtEmail.Enabled = true;
         btnSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
     }
 
 
@@ -843,34 +845,41 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
-        DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
-        if (dataset.Tables[0].Rows.Count > 0)
+        try
         {
-            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "3")
+            DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                message.Text = "The member already exists as settlor!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "3")
+                {
+                    message.Text = "The member already exists as settlor!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                {
+                    Disable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    Enable();
+                }
             }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-            {
-                Enable();
-                ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
-                txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
-                txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
-                txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
-                txtDateOfBirth.Text = DOB.ToShortDateString();
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-            {
-                Enable();
-            }
+        }
+        catch
+        {
+
         }
     }
 }

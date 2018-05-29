@@ -940,6 +940,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         rgvFax.Enabled = false;
         rfvEmail.Enabled = false;
         rgvWebsite.Enabled = false;
+      
         btnCompantDetails.Enabled = false;
     }
 
@@ -959,6 +960,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         rgvFax.Enabled = true;
         rfvEmail.Enabled = true;
         rgvWebsite.Enabled = true;
+       
         btnCompantDetails.Enabled = true;
     }
 }

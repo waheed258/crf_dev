@@ -101,6 +101,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         rfvtxtLastName.Enabled = false;
         rfvtxtMobile.Enabled = false;
         rfvEmail.Enabled = false;
+        rfvTitle.Enabled = false;
         btnSubmit.Enabled = false;
     }
 
@@ -119,6 +120,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         rfvtxtMobile.Enabled = true;
         rfvEmail.Enabled = true;
         btnSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
     }
 
     /// <summary>

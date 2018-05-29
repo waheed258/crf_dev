@@ -34,6 +34,9 @@
         table {
             border: 1px solid #e4e5e7;
         }
+            .style1 {
+            color: #FF0000;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -105,7 +108,7 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Services</label>
+                            <label class="control-label">Services</label><span class="style1">*</span>
                         </div>
                         <div class="form-group col-sm-6">
                             <asp:DropDownList ID="ddlService" runat="server" CssClass="form-control">
@@ -116,7 +119,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Description</label>
+                            <label class="control-label">Description</label><span class="style1">*</span>
                         </div>
                         <div class="form-group col-sm-6">
                             <asp:TextBox ID="txtDetails" TextMode="MultiLine" Height="80" runat="server" CssClass="form-control"></asp:TextBox>
@@ -126,7 +129,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Priority</label>
+                            <label class="control-label">Priority</label><span class="style1">*</span>
                         </div>
                         <div class="form-group col-sm-2">
                             <asp:DropDownList ID="ddlPriority" runat="server" CssClass="form-control" AppendDataBoundItems="true">

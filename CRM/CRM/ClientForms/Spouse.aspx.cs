@@ -970,6 +970,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         rfvLastName.Enabled = false;
         rfvMobileNum.Enabled = false;
         rfvEmailId.Enabled = false;
+        rfvTitle.Enabled = false;
         fuPhoto.Enabled = false;
         btnSpouseSubmit.Enabled = false;
     }
@@ -988,6 +989,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         rfvLastName.Enabled = true;
         rfvMobileNum.Enabled = true;
         rfvEmailId.Enabled = true;
+        rfvTitle.Enabled = true;
         btnSpouseSubmit.Enabled = true;
     }
 

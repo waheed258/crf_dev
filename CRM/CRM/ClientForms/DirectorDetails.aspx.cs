@@ -812,6 +812,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         rfvtxtEmail.Enabled = false;
         rfvtxtMobile.Enabled=false;
         rfvPhone.Enabled=false;
+        rfvTitle.Enabled = false;
         btnDirectorSubmit.Enabled=false;
     }
     protected void Enable()
@@ -826,6 +827,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         txtDateOfBirth.ReadOnly = false;
         txtSharePerc.ReadOnly=false;
         txtShareValue.ReadOnly=false;
+        rfvTitle.Enabled = true;
         rfvtxtFirstName.Enabled = true;
         rfvtxtLastName.Enabled = true;
         rfvtxtTaxRefNo.Enabled = true;

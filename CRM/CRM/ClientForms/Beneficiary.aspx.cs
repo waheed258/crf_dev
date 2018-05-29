@@ -850,6 +850,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         rfvtxtEmail.Enabled = false;
         rfvtxtMobile.Enabled = false;
         rfvPhone.Enabled = false;
+        rfvTitle.Enabled = false;
         btnSubmit.Enabled = false;
     }
     protected void Enable()
@@ -868,6 +869,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         rfvtxtEmail.Enabled = true;
         rfvtxtMobile.Enabled = true;
         rfvPhone.Enabled = true;
+        rfvTitle.Enabled = true;
         btnSubmit.Enabled = true;
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
