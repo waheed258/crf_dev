@@ -119,34 +119,39 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     }
     private int BeneficiaryInsertUpdate()
     {
-        int Result;
-        BenificiaryEntity _objBeneficiary = new BenificiaryEntity
+        try
         {
-            BeneficiaryID = Convert.ToInt32(hfBenefaciaryId.Value.Trim()),
-            ReferenceSAID = Session["SAID"].ToString(),
-            UIC = txtUIC.Text.Trim(),
-            SAID = txtSAID.Text.Trim(),
-            Title = ddlTitle.SelectedValue,
-            FirstName = txtFirstName.Text.Trim(),
-            LastName = txtLastName.Text.Trim(),
-            EmailID = txtEmail.Text.Trim(),
-            Mobile = txtMobile.Text.Trim(),
-            Phone = txtPhone.Text.Trim(),
-            DateOfBirth = txtDateOfBirth.Text,
-            TaxRefNo = txtTaxRefNo.Text.Trim(),
-            Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
-            Status = 1,
-            AdvisorID =Convert.ToInt32(Session["AdvisorID"].ToString()) ,
-        };
-        if (btnSubmit.Text == "Update")
-        {
-            Result = _objBeneficiaryBL.BeneficiaryInsertUpdate(_objBeneficiary, 'u');
+
+            int Result;
+            BenificiaryEntity _objBeneficiary = new BenificiaryEntity
+            {
+                BeneficiaryID = Convert.ToInt32(hfBenefaciaryId.Value.Trim()),
+                ReferenceSAID = Session["SAID"].ToString(),
+                UIC = txtUIC.Text.Trim(),
+                SAID = txtSAID.Text.Trim(),
+                Title = ddlTitle.SelectedValue,
+                FirstName = txtFirstName.Text.Trim(),
+                LastName = txtLastName.Text.Trim(),
+                EmailID = txtEmail.Text.Trim(),
+                Mobile = txtMobile.Text.Trim(),
+                Phone = txtPhone.Text.Trim(),
+                DateOfBirth = txtDateOfBirth.Text,
+                TaxRefNo = txtTaxRefNo.Text.Trim(),
+                Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
+                Status = 1,
+                AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
+            };
+            if (btnSubmit.Text == "Update")
+            {
+                Result = _objBeneficiaryBL.BeneficiaryInsertUpdate(_objBeneficiary, 'u');
+            }
+            else
+            {
+                Result = _objBeneficiaryBL.BeneficiaryInsertUpdate(_objBeneficiary, 'i');
+            }
+            return Result;
         }
-        else
-        {
-            Result = _objBeneficiaryBL.BeneficiaryInsertUpdate(_objBeneficiary, 'i');
-        }
-        return Result;
+        catch { }
     }
 
 
@@ -189,43 +194,55 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
     private void GetBeneficiaryGrid(string UIC)
     {
-        int Type = Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
-        ds = _objBeneficiaryBL.GetBeneficiary(0, Type, UIC);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            gvBeneficiary.DataSource = ds.Tables[0];
-            divBeneficiarylist.Visible = true;
+
+            int Type = Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString()));
+            ds = _objBeneficiaryBL.GetBeneficiary(0, Type, UIC);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvBeneficiary.DataSource = ds.Tables[0];
+                divBeneficiarylist.Visible = true;
+            }
+            else
+            {
+                gvBeneficiary.DataSource = null;
+                divBeneficiarylist.Visible = false;
+            }
+            gvBeneficiary.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvBeneficiary.DataBind();
         }
-        else
-        {
-            gvBeneficiary.DataSource = null;
-            divBeneficiarylist.Visible = false;
-        }
-        gvBeneficiary.PageSize = Convert.ToInt32(DropPage.SelectedValue);
-        gvBeneficiary.DataBind();
+        catch
+        { }
     }
 
     private void BindBeneficiary(int BeneficiaryId)
     {
-        int Type = Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
-        ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, Type, txtUIC.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
-            txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-            txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
-            txtDateOfBirth.Text = DOB.ToShortDateString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
 
-            btnSubmit.Text = "Update";
+            int Type = Convert.ToInt32(Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0);
+            ds = _objBeneficiaryBL.GetBeneficiary(BeneficiaryId, Type, txtUIC.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                hfBenefaciaryId.Value = ds.Tables[0].Rows[0]["BeneficiaryID"].ToString();
+                txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                txtDateOfBirth.Text = DOB.ToShortDateString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+
+                btnSubmit.Text = "Update";
+            }
         }
+        catch
+        { }
     }
 
     private void ClearBeneficiaryControls()
@@ -250,27 +267,31 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
 
     private void GetClientRegistartion()
     {
-        ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
-        ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+            ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+            }
+            else
+            {
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                txtEmail.Text = "";
+                txtMobile.Text = "";
+                txtPhone.Text = "";
+                txtTaxRefNo.Text = "";
+            }
         }
-        else
-        {
-            txtFirstName.Text = "";
-            txtLastName.Text = "";
-            txtEmail.Text = "";
-            txtMobile.Text = "";
-            txtPhone.Text = "";
-            txtTaxRefNo.Text = "";
-        }
+        catch { }
     }
 
   
@@ -800,6 +821,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         rfvtxtMobile.Enabled = false;
         rfvPhone.Enabled = false;
         btnSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
+        rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -818,6 +841,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         rfvtxtMobile.Enabled = true;
         rfvPhone.Enabled = true;
         btnSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvDateOfBirth.Enabled = true;
     }
     protected void btnSure_Click(object sender, EventArgs e)
     {

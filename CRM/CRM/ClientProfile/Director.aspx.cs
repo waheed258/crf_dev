@@ -93,36 +93,40 @@ public partial class ClientProfile_Director : System.Web.UI.Page
     }
     private int DirectorInsertUpdate()
     {
-        int Result;
-        DirectorEntity directorEntity = new DirectorEntity
+        try
         {
-            DirectorID = Convert.ToInt32(hfDirectorId.Value.Trim()),
-            ReferenceSAID = Session["SAID"].ToString(),
-            UIC = txtUIC.Text.Trim(),
-            SAID = txtSAID.Text.Trim(),
-            Title = ddlTitle.SelectedValue,
-            FirstName = txtFirstName.Text.Trim(),
-            LastName = txtLastName.Text.Trim(),
-            EmailID = txtEmail.Text.Trim(),
-            Mobile = txtMobile.Text.Trim(),
-            Phone = txtPhone.Text.Trim(),
-            DateOfBirth = txtDateOfBirth.Text,
-            TaxRefNo = txtTaxRefNo.Text.Trim(),
-            ShareHolderPercentage = txtSharePerc.Text.Trim(),
-            ShareValue = txtShareValue.Text.Trim(),
-            AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
-            
-            Status = 1,
-        };
-        if (btnDirectorSubmit.Text == "Update")
-        {
-            Result = directorBL.DirectorCRUD(directorEntity, 'u');
+            int Result;
+            DirectorEntity directorEntity = new DirectorEntity
+            {
+                DirectorID = Convert.ToInt32(hfDirectorId.Value.Trim()),
+                ReferenceSAID = Session["SAID"].ToString(),
+                UIC = txtUIC.Text.Trim(),
+                SAID = txtSAID.Text.Trim(),
+                Title = ddlTitle.SelectedValue,
+                FirstName = txtFirstName.Text.Trim(),
+                LastName = txtLastName.Text.Trim(),
+                EmailID = txtEmail.Text.Trim(),
+                Mobile = txtMobile.Text.Trim(),
+                Phone = txtPhone.Text.Trim(),
+                DateOfBirth = txtDateOfBirth.Text,
+                TaxRefNo = txtTaxRefNo.Text.Trim(),
+                ShareHolderPercentage = txtSharePerc.Text.Trim(),
+                ShareValue = txtShareValue.Text.Trim(),
+                AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
+
+                Status = 1,
+            };
+            if (btnDirectorSubmit.Text == "Update")
+            {
+                Result = directorBL.DirectorCRUD(directorEntity, 'u');
+            }
+            else
+            {
+                Result = directorBL.DirectorCRUD(directorEntity, 'i');
+            }
+            return Result;
         }
-        else
-        {
-            Result = directorBL.DirectorCRUD(directorEntity, 'i');
-        }
-        return Result;
+        catch { }
     }
     protected void btnDirectorSubmit_Click(object sender, EventArgs e)
     {
@@ -180,28 +184,31 @@ public partial class ClientProfile_Director : System.Web.UI.Page
     }
     private void BindDirector(int DirectorID)
     {
-      
-        DataSet ds = new DataSet();
-        ds = directorBL.GetDirector(DirectorID, txtUIC.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            hfDirectorId.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
-            txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-            txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
-            txtDateOfBirth.Text = DOB.ToShortDateString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-            txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
-            txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
+            DataSet ds = new DataSet();
+            ds = directorBL.GetDirector(DirectorID, txtUIC.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                hfDirectorId.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
+                txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                txtDateOfBirth.Text = DOB.ToShortDateString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+                txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
 
-            btnDirectorSubmit.Text = "Update";
+                btnDirectorSubmit.Text = "Update";
+            }
         }
+        catch { }
     }
     private void ClearDirectorControls()
     {
@@ -233,30 +240,34 @@ public partial class ClientProfile_Director : System.Web.UI.Page
     }
     private void GetClientRegistartion()
     {
-        ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
-        DataSet ds = new DataSet();
-        ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-            txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
-            txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
+            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+            DataSet ds = new DataSet();
+            ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+                txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
+            }
+            else
+            {
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                txtEmail.Text = "";
+                txtMobile.Text = "";
+                txtPhone.Text = "";
+                txtTaxRefNo.Text = "";
+            }
         }
-        else
-        {
-            txtFirstName.Text = "";
-            txtLastName.Text = "";
-            txtEmail.Text = "";
-            txtMobile.Text = "";
-            txtPhone.Text = "";
-            txtTaxRefNo.Text = "";
-        }
+        catch { }
     }
     protected void gvDirector_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -801,6 +812,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         rfvtxtMobile.Enabled = false;
         rfvPhone.Enabled = false;
         btnDirectorSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
+        rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -821,6 +834,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         rfvtxtMobile.Enabled = true;
         rfvPhone.Enabled = true;
         btnDirectorSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvDateOfBirth.Enabled = true;
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
@@ -870,6 +885,10 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             }
 
         }
-        catch { }
+        catch {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

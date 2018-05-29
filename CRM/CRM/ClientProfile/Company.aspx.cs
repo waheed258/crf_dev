@@ -869,32 +869,38 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
-        DataSet dataset = validateSAID.ValidateCompanyUIC(Session["SAID"].ToString(), txtCompanyUIC.Text);
-        if (dataset.Tables[0].Rows.Count > 0)
+        try
         {
-            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+
+            DataSet dataset = validateSAID.ValidateCompanyUIC(Session["SAID"].ToString(), txtCompanyUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                message.Text = "The Company is already registered with you!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
-            {
-                Disable();
-                btnCompantDetails.Enabled = true;                
-                txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
-                DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
-                txtYearofFoundation.Text = YOF.ToShortDateString();
-                txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
-                txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
-                txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
-                txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-            {
-                Enable();
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+                {
+                    message.Text = "The Company is already registered with you!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
+                {
+                    Disable();
+                    btnCompantDetails.Enabled = true;
+                    txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
+                    DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
+                    txtYearofFoundation.Text = YOF.ToShortDateString();
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
+                    txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
+                    txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                    txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    Enable();
+                }
             }
         }
+        catch
+        { }
     }
 
     protected void Disable()

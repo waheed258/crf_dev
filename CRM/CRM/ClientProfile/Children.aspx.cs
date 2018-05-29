@@ -107,6 +107,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         rfvEmailId.Enabled = false;
         fuPhoto.Enabled = false;
         btnChildSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
+        rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -121,6 +123,12 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         ddlTitle.Enabled = true;
         fuPhoto.Enabled = true;
         btnChildSubmit.Enabled = true;
+        rfvFirstName.Enabled = true;
+        rfvLastName.Enabled = true;
+        rfvMobileNum.Enabled = true;
+        rfvEmailId.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvDateOfBirth.Enabled = true;
     }
 
     protected void btnChildSubmit_Click(object sender, EventArgs e)

@@ -968,6 +968,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         rfvEmailId.Enabled = false;
         fuPhoto.Enabled = false;
         btnSpouseSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
+        rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -985,5 +987,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         rfvMobileNum.Enabled = true;
         rfvEmailId.Enabled = true;
         btnSpouseSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvDateOfBirth.Enabled = true;
     }
 }

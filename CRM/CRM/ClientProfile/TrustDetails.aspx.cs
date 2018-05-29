@@ -185,36 +185,44 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
 
     private void BindTrust(string UIC)
     {
-        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), UIC);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-            txtTrustName.Text = ds.Tables[0].Rows[0]["TrustName"].ToString();
-            txtYearofFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
-            txtTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
-            txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
-            txtVATRef.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
-            btnSubmitTrust.Text = "Update";
+            ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), UIC);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                txtTrustName.Text = ds.Tables[0].Rows[0]["TrustName"].ToString();
+                txtYearofFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
+                txtTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
+                txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
+                txtVATRef.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
+                btnSubmitTrust.Text = "Update";
+            }
         }
+        catch { }
     }
 
     private void GetTrustGrid()
     {
-        ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), "0");
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            gvTrust.DataSource = ds.Tables[0];
-            divTrustlist.Visible = true;
+            ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), "0");
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvTrust.DataSource = ds.Tables[0];
+                divTrustlist.Visible = true;
+            }
+            else
+            {
+                gvTrust.DataSource = null;
+                divTrustlist.Visible = false;
+            }
+            gvTrust.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvTrust.DataBind();
         }
-        else
-        {
-            gvTrust.DataSource = null;
-            divTrustlist.Visible = false;
-        }
-        gvTrust.PageSize = Convert.ToInt32(DropPage.SelectedValue);
-        gvTrust.DataBind();
+        catch { }
     }
 
     protected void gvTrust_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -813,31 +821,40 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
 
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
-        DataSet dataset = validateSAID.ValidateTrustUIC(Session["SAID"].ToString(), txtUIC.Text);
-        if (dataset.Tables[0].Rows.Count > 0)
+        try
         {
-            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+            DataSet dataset = validateSAID.ValidateTrustUIC(Session["SAID"].ToString(), txtUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                message.Text = "The Trust is already registered with you!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+                {
+                    message.Text = "The Trust is already registered with you!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
+                {
+                    Disable();
+                    btnSubmitTrust.Enabled = true;
+                    txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
+                    DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
+                    txtYearofFoundation.Text = YOF.ToShortDateString();
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
+                    txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
+                    txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                    txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    Enable();
+                }
             }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
-            {
-                Disable();
-                btnSubmitTrust.Enabled = true;
-                txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
-                DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
-                txtYearofFoundation.Text = YOF.ToShortDateString();
-                txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
-                txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
-                txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
-                txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-            {
-                Enable();
-            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void Disable()

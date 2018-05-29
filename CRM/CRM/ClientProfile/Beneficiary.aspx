@@ -185,6 +185,9 @@
         table {
             border: 1px solid #e4e5e7;
         }
+         .style1 {
+            color: #FF0000;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -225,14 +228,14 @@
                                     <div class="panel-body">
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Registration Number</label>
+                                                <label class="control-label">Registration Number</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtUIC" CssClass="form-control" ReadOnly="true" placeholder="Enter Registration Number" MaxLength="13" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtUIC" runat="server" ControlToValidate="txtUIC" Display="Dynamic" ErrorMessage="Enter UIC"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <div class="col-sm-11" style="padding: 0px;">
-                                                    <label class="control-label">Identification Number</label>
+                                                    <label class="control-label">Identification Number</label> <span class="style1">*</span>
                                                     <asp:TextBox ID="txtSAID" CssClass="form-control" placeholder="Enter SAID" MaxLength="13" runat="server"></asp:TextBox>
                                                     <asp:Label ID="lblSAIDError" runat="server" ForeColor="red"></asp:Label>
                                                     <asp:RequiredFieldValidator ID="rfvtxtSAID" runat="server" ControlToValidate="txtSAID" Display="Dynamic" ErrorMessage="Enter SAID"
@@ -247,36 +250,41 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Title</label>
+                                                <label>Title</label> <span class="style1">*</span>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
-                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                   <asp:ListItem Value="Mrs">Mrs</asp:ListItem>                                          
                                                     <asp:ListItem Value="Ms">Ms</asp:ListItem>
-                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                     <asp:ListItem Value="Miss">Miss</asp:ListItem>                                                   
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
+                                                    ErrorMessage="Please Select Title" ValidationGroup="Beneficiary" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">First Name</label>
+                                                <label class="control-label">First Name</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtFirstName" CssClass="form-control" placeholder="Enter First Name" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFirstName" runat="server" ControlToValidate="txtFirstName" Display="Dynamic" ErrorMessage="Enter First Name"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Last Name</label>
+                                                <label class="control-label">Last Name</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtLastName" CssClass="form-control" placeholder="Enter Last Name" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter Last Name" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Date Of Birth</label>
+                                                <label>Date Of Birth</label><span class="style1">*</span>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic"
+                                                    ErrorMessage="Enter Date Of Birth" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3 form-group">
+                                            <div class="col-sm-3 form-group"> <span class="style1">*</span>
                                                 <label class="control-label">Tax Reference No.</label>
                                                 <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
@@ -284,7 +292,7 @@
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Email Id</label>
+                                                <label class="control-label">Email Id</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Enter Email Id" runat="server"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email Id" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -293,7 +301,7 @@
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Mobile</label>
+                                                <label class="control-label">Mobile</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -301,7 +309,7 @@
                                                     ControlToValidate="txtMobile" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Phone</label>
+                                                <label class="control-label">Phone</label> <span class="style1">*</span>
                                                 <asp:TextBox ID="txtPhone" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Phone Number"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvPhone" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Enter Phone Number"
                                                     ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -717,19 +725,19 @@
                                                         </div>
                                                         <div class="col-sm-12">
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Bank Name</label>
+                                                                <label class="control-label">Bank Name</label > <span class="style1">*</span>
                                                                 <asp:TextBox ID="txtBankName" runat="server" class="form-control"></asp:TextBox>
                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                             </div>
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Branch Number</label>
+                                                                <label class="control-label">Branch Number</label> <span class="style1">*</span>
                                                                 <asp:TextBox ID="txtBranchNumber" runat="server" class="form-control"></asp:TextBox>
                                                                 <asp:RequiredFieldValidator ID="rfvtxtBranchNumber" runat="server" ControlToValidate="txtBranchNumber" Display="Dynamic" ErrorMessage="Enter Branch Number"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                             </div>
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Account Number</label>
+                                                                <label class="control-label">Account Number</label> <span class="style1">*</span>
                                                                 <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>                                   
                                                                 <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -737,19 +745,19 @@
                                                         </div>
                                                         <div class="col-sm-12">
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Account Type</label>
+                                                                <label class="control-label">Account Type</label> <span class="style1">*</span>
                                                                 <asp:DropDownList ID="ddlAccountType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
                                                                 <asp:RequiredFieldValidator ID="rfvddlAccountType" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic" ErrorMessage="Please select Account Type"
                                                                     ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                             </div>
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Currency</label>
+                                                                <label class="control-label">Currency</label> <span class="style1">*</span>
                                                                 <asp:TextBox ID="txtCurrency" runat="server" class="form-control"></asp:TextBox>
                                                                 <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                             </div>
                                                             <div class="col-sm-4 form-group">
-                                                                <label class="control-label">Swift</label>
+                                                                <label class="control-label">Swift</label> <span class="style1">*</span>
                                                                 <asp:TextBox ID="txtSwift" runat="server" class="form-control"></asp:TextBox>
                                                                 <asp:RequiredFieldValidator ID="rfvtxtSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
                                                                     ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -798,13 +806,13 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">House No</label>
+                                                        <label class="control-label">House No</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtHouseNo" CssClass="form-control" runat="server"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" Display="Dynamic" ErrorMessage="Enter House Number"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Building Name</label>
+                                                        <label class="control-label">Building Name</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtBulding" CssClass="form-control" runat="server"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvBulding" runat="server" ControlToValidate="txtBulding" Display="Dynamic" ErrorMessage="Enter Building name"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -820,13 +828,13 @@
                                                         <asp:TextBox ID="txtFlatNo" CssClass="form-control" runat="server"></asp:TextBox>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Road Name</label>
+                                                        <label class="control-label">Road Name</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtRoadName" CssClass="form-control" runat="server"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvtxtRoadName" runat="server" ControlToValidate="txtRoadName" Display="Dynamic" ErrorMessage="Enter Road Name"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Road No</label>
+                                                        <label class="control-label">Road No</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtRoadNo" CssClass="form-control" runat="server"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvtxtRoadNo" runat="server" ControlToValidate="txtRoadNo" Display="Dynamic" ErrorMessage="Enter Road No"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -834,20 +842,20 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Suburb Name</label>
+                                                        <label class="control-label">Suburb Name</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvtxtSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">City</label>
+                                                        <label class="control-label">City</label> <span class="style1">*</span>
                                                         <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                         </asp:DropDownList>
                                                         <asp:RequiredFieldValidator ID="rfvddlCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
                                                             ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Postal Code</label>
+                                                        <label class="control-label">Postal Code</label> <span class="style1">*</span>
                                                         <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                         <asp:RequiredFieldValidator ID="rfvtxtPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                             ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -855,14 +863,14 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Province</label>
+                                                        <label class="control-label">Province</label><span class="style1">*</span>
                                                         <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                         </asp:DropDownList>
                                                         <asp:RequiredFieldValidator ID="rfvddlProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
                                                             ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                     </div>
                                                     <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Country</label>
+                                                        <label class="control-label">Country</label> <span class="style1">*</span>
                                                         <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                         </asp:DropDownList>
                                                         <asp:RequiredFieldValidator ID="rfvddlCountry" runat="server" ControlToValidate="ddlCountry" Display="Dynamic" ErrorMessage="Please select Country"

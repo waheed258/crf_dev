@@ -108,6 +108,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         rfvtxtMobile.Enabled = false;
         revtxtEmail.Enabled = false;
         btnSubmit.Enabled = false;
+        rfvTitle.Enabled = false;
+        rfvDateOfBirth.Enabled = false;
     }
 
     protected void Enable()
@@ -125,6 +127,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         rfvtxtMobile.Enabled = true;
         revtxtEmail.Enabled = true;
         btnSubmit.Enabled = true;
+        rfvTitle.Enabled = true;
+        rfvDateOfBirth.Enabled = true;
     }
     /// <summary>
     /// Trust Settler Methods, Events
@@ -134,39 +138,47 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     #region TrustDSettler
     private void GetTrustSettlerGrid(string RefUIC)
     {
-        ds = _ObjTrustSettlerBL.GetTrustSettler(0, RefUIC);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            gvTrustSettler.DataSource = ds.Tables[0];
-            divTrusteeslist.Visible = true;
+            ds = _ObjTrustSettlerBL.GetTrustSettler(0, RefUIC);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvTrustSettler.DataSource = ds.Tables[0];
+                divTrusteeslist.Visible = true;
+            }
+            else
+            {
+                gvTrustSettler.DataSource = null;
+                divTrusteeslist.Visible = false;
+            }
+            gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvTrustSettler.DataBind();
         }
-        else
-        {
-            gvTrustSettler.DataSource = null;
-            divTrusteeslist.Visible = false;
-        }
-        gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
-        gvTrustSettler.DataBind();
+        catch { }
     }
 
     private void BindTrustSettler(int TrId)
     {
-        ds = _ObjTrustSettlerBL.GetTrustSettler(TrId, txtTrustUIC.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            hfTrustSettlerId.Value = ds.Tables[0].Rows[0]["TrustSettlerID"].ToString();
-            txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            txtTrustUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-            txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-            btnSubmit.Text = "Update";
+            ds = _ObjTrustSettlerBL.GetTrustSettler(TrId, txtTrustUIC.Text.Trim());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                hfTrustSettlerId.Value = ds.Tables[0].Rows[0]["TrustSettlerID"].ToString();
+                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtTrustUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+                btnSubmit.Text = "Update";
+            }
         }
+        catch { }
     }
 
     private int TrustSettlerManager()
@@ -266,55 +278,39 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 
     private void GetClientRegistartion()
     {
-
-        ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
-        ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-        {
-            // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-            txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-            txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-            txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-            txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-            txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-            txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-            ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-        }
-        else
-        {
-            txtFirstName.Text = "";
-            txtLastName.Text = "";
-            txtEmail.Text = "";
-            txtMobile.Text = "";
-            txtPhone.Text = "";
-            txtTaxRefNo.Text = "";
-            txtDateOfBirth.Text = "";
-            ddlTitle.SelectedValue = "";
-        }
-
-    }
-
-    protected void txtSAID_TextChanged(object sender, EventArgs e)
-    {
         try
         {
-            ds = _ObjTrustSettlerBL.GetTrustSettlerTest(txtTrustUIC.Text.Trim(), txtSAID.Text.Trim());
+            ClientProfileBL _ObjClientProfileBL = new ClientProfileBL();
+            ds = _ObjClientProfileBL.GetClientPersonal(txtSAID.Text.Trim());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                lblSAIDError.Text = "Identification Number Already Exists";
-                txtSAID.Text = "";
+                // txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
             }
             else
             {
-                GetClientRegistartion();
-                lblSAIDError.Text = "";
+                txtFirstName.Text = "";
+                txtLastName.Text = "";
+                txtEmail.Text = "";
+                txtMobile.Text = "";
+                txtPhone.Text = "";
+                txtTaxRefNo.Text = "";
+                txtDateOfBirth.Text = "";
+                ddlTitle.SelectedValue = "";
             }
         }
-        catch
-        { }
+        catch { }
+
     }
 
+  
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
@@ -863,34 +859,44 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
-        DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
-        if (dataset.Tables[0].Rows.Count > 0)
+        try
         {
-            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "3")
+
+            DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                message.Text = "The member already exists as settlor!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "3")
+                {
+                    message.Text = "The member already exists as settlor!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                {
+                    Enable();
+                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    Enable();
+                }
             }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
-                dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-            {
-                Enable();
-                ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
-                txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
-                txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
-                txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
-                txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
-                txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
-                txtDateOfBirth.Text = DOB.ToShortDateString();
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-            {
-                Enable();
-            }
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
