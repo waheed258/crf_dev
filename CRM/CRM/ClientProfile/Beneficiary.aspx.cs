@@ -119,9 +119,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     }
     private int BeneficiaryInsertUpdate()
     {
-        try
-        {
-
+       
             int Result;
             BenificiaryEntity _objBeneficiary = new BenificiaryEntity
             {
@@ -150,8 +148,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 Result = _objBeneficiaryBL.BeneficiaryInsertUpdate(_objBeneficiary, 'i');
             }
             return Result;
-        }
-        catch { }
+       
     }
 
 

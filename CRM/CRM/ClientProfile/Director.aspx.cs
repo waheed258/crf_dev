@@ -92,9 +92,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         }
     }
     private int DirectorInsertUpdate()
-    {
-        try
-        {
+    {      
             int Result;
             DirectorEntity directorEntity = new DirectorEntity
             {
@@ -125,8 +123,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                 Result = directorBL.DirectorCRUD(directorEntity, 'i');
             }
             return Result;
-        }
-        catch { }
+        
     }
     protected void btnDirectorSubmit_Click(object sender, EventArgs e)
     {
