@@ -21,6 +21,8 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     FollowUpEntity followupEntity = new FollowUpEntity();
     CommanClass _objComman = new CommanClass();
     ServiceRequestBL _objServiceRequestBL = new ServiceRequestBL();
+    string emailid = string.Empty;
+    string invoicenum = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -44,6 +46,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                         FollowUpSection.Visible = false;
                         InvoiceSection.Visible = false;
                         BindActivityType();
+                        BindServiceStatus();
 
                     }
                 }
@@ -98,7 +101,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     FollowUpSection.Visible = false;
                     sectionRequestList.Visible = false;
                     GetPDFClientData(SRNO);
-                    GetInvoiceData(SRNO);
+                   // GetInvoiceData(SRNO);
                     if (chkVatInclusive.Checked == true)
                     {
                         lblvat.Visible = false;
@@ -108,6 +111,10 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                         lblvat.Visible = true;
                     }
 
+                }
+                else if(e.CommandName=="InvoiceList")
+                {
+                    Response.Redirect("SRWiseInvoiceList.aspx?srnum=" + ViewState["SRNO"].ToString());                    
                 }
 
 
@@ -173,7 +180,26 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             dropActivityType.DataTextField = "ActivityType";
             dropActivityType.DataValueField = "ActivityID";
             dropActivityType.DataBind();
-            dropActivityType.Items.Insert(0, new ListItem("--Select Activity Type --", "-1"));
+            dropActivityType.Items.Insert(0, new ListItem("--Select Mode Of Contact --", "-1"));
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    private void BindServiceStatus()
+    {
+        try
+        {
+            dataset = followBL.GetServiceStatus();
+            dropServiceStatus.DataSource = dataset;
+            dropServiceStatus.DataTextField = "Status";
+            dropServiceStatus.DataValueField = "StatusID";
+            dropServiceStatus.DataBind();
+            dropServiceStatus.Items.Insert(0, new ListItem("--Select Status --", "-1"));
         }
         catch
         {
@@ -226,12 +252,18 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         }
     }
 
+    private void ClearControls()
+    {
+        txtDescription.Text = "";
+        txtAmount.Text = "";
+        chkVatInclusive.Checked = false;
+    }
+
     protected void btnInvoiceSubmit_Click(object sender, EventArgs e)
     {
         try
         {
-            string emailid = string.Empty;
-            string invnum = string.Empty;
+            
             invoiceEntity.Description = txtDescription.Text;
             invoiceEntity.Amount = Convert.ToDecimal(txtAmount.Text);
             invoiceEntity.InvoiceDate = System.DateTime.Now.ToShortDateString();
@@ -243,10 +275,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             {
                 message.Text = "Invoice Generated Successfully";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                btnInvoiceSubmit.Enabled = false;
-                txtDescription.ReadOnly = true;
-                txtAmount.ReadOnly = true;
-                chkVatInclusive.Enabled = false;
+                ClearControls();
                 DataSet ds = new DataSet();
                 ds = invoiceBL.GetClientSRDataPdf(ViewState["SRNO"].ToString());
                 if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -255,13 +284,13 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 }
 
                 DataSet ds1 = new DataSet();
-                ds1 = invoiceBL.GetInvoice(ViewState["SRNO"].ToString());
+                ds1 = invoiceBL.GetInvoiceNum();
                 if (ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                 {
-                    invnum = ds1.Tables[0].Rows[0]["InvoiceNum"].ToString();
+                    invoicenum = ds1.Tables[0].Rows[0]["InvoiceNum"].ToString();
                 }
 
-                SendMail(emailid, invnum, serviceno);
+                SendMail(emailid, invoicenum, serviceno);
             
             }
         }
@@ -281,15 +310,11 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             {
                 txtDescription.Text = ds.Tables[0].Rows[0]["Description"].ToString();
                 txtAmount.Text = ds.Tables[0].Rows[0]["Amount"].ToString();
-                chkVatInclusive.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["VatInclusive"]);               
-                btnInvoiceSubmit.Visible = false;
-                txtDescription.ReadOnly = true;
-                txtAmount.ReadOnly = true;
-                chkVatInclusive.Enabled = false;
+                chkVatInclusive.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["VatInclusive"]);                                             
             }
             else
             {
-                btnInvoiceSubmit.Visible = true;
+                
             }
         }
         catch
@@ -320,7 +345,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         {
             string SRNO = ViewState["SRNO"].ToString();
             DataSet ds = new DataSet();
-            ds = invoiceBL.GetInvoice(SRNO);
+            ds = invoiceBL.GetInvoiceNum();
             StreamReader reader = new StreamReader(Server.MapPath("~/AdminForms/PdfInvoice.html"));
             //string url = "~/AdminForms/PdfInvoice.html";
             //string s = "window.open('" + url + "', '_blank');";
@@ -494,7 +519,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         }
     }
 
-    public void SendMail(string ToMail, string invnum, string serviceno)
+    public void SendMail(string ToMail, string invoicenum, string serviceno)
     {
         try
         {
@@ -525,7 +550,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 foreach (FileInfo flInfo in dir.GetFiles())
                 {
                     filename = flInfo.Name;
-                    string css = "Invoice " + invnum + ".pdf";
+                    string css = "Invoice " + invoicenum + ".pdf";
                     if (filename == css)
                     {
                         fStream = File.OpenRead(path + "\\" + filename.ToString());
@@ -584,4 +609,21 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
 
 
 
+    //protected void imgPDF_Click(object sender, ImageClickEventArgs e)
+    //{
+    //    ImageButton btndetails = sender as ImageButton;
+
+    //    GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
+    //    string InvNo = gvWorkInProcess.DataKeys[gvrow.RowIndex].Value.ToString();
+
+
+    //    string path = Server.MapPath("~/InvoiceDocuments/" + "Invoice " + InvNo + ".pdf");
+
+    //    WebClient client = new WebClient();
+    //    Byte[] buffer = client.DownloadData(path);
+    //    Response.ContentType = "application/pdf";
+    //    Response.AddHeader("content-length", buffer.Length.ToString());
+    //    Response.BinaryWrite(buffer);
+    //}
+   
 }

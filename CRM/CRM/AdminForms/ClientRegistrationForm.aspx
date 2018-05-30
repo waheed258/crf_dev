@@ -5,7 +5,12 @@
         function openModal() {
             $('#ContentPlaceHolder1_Success').modal('show');
         }
-    </script>   
+    </script> 
+    <style type="text/css">
+        .style1 {
+            color: #FF0000;
+        }
+    </style>  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content-wrapper">
@@ -27,20 +32,21 @@
                         <div class="panel-body">
                             <div class="col-sm-12">
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Title</label>
+                                    <label class="control-label">Title</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlTitle" CssClass="form-control" runat="server" Style="width: 68%">
-                                        <asp:ListItem Value="-1">--Select Title--</asp:ListItem>
-                                        <asp:ListItem Value="Mr">Mr</asp:ListItem>
-                                        <asp:ListItem Value="Miss">Miss</asp:ListItem>
-                                        <asp:ListItem Value="Ms">Ms</asp:ListItem>
-                                        <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
-                                        <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                    <asp:ListItem Value="-1">--Select Title--</asp:ListItem>
+                                                    <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                    <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                    <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                    <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ErrorMessage="Please select Title" ControlToValidate="ddlTitle"
                                         InitialValue="-1" Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">First Name </label>
+                                    <label class="control-label">First Name </label><span class="style1">*</span>
                                     <asp:TextBox ID="txtFirstName" CssClass="form-control" placeholder="Given Name" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ErrorMessage="Please enter First Name" ControlToValidate="txtFirstName"
                                         Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>
@@ -50,7 +56,7 @@
                                     <asp:TextBox ID="txtLastName" CssClass="form-control" placeholder="Sur Name" runat="server"></asp:TextBox>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">SAID</label>
+                                    <label class="control-label">SAID</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtSAID" CssClass="form-control" placeholder="SAID" runat="server" MaxLength="13"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvSAID" runat="server" ErrorMessage="Please enter SAID" ControlToValidate="txtSAID"
                                         Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>
@@ -60,14 +66,14 @@
                             </div>
                             <div class="col-sm-12">
                                <div class="col-sm-3 form-group">
-                                    <label class="control-label">Province</label>
+                                    <label class="control-label">Province</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
                                         ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">City</label>
+                                    <label class="control-label">City</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
@@ -75,7 +81,7 @@
                                 </div>
                                
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Mobile</label>
+                                    <label class="control-label">Mobile</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtMobile" CssClass="form-control" placeholder="Mobile Number" runat="server" MaxLength="10"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ErrorMessage="Please enter Mobile Number" ControlToValidate="txtMobile"
                                         Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>
@@ -83,7 +89,7 @@
                                         ControlToValidate="txtMobile" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Email Id</label>
+                                    <label class="control-label">Email Id</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtEmailId" CssClass="form-control" runat="server" placeholder="Email ID"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmailId" Display="Dynamic"
                                         ErrorMessage="Enter Email ID"

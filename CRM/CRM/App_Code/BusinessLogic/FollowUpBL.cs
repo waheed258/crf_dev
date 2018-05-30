@@ -18,6 +18,7 @@ namespace BusinessLogic
     {
         DataUtilities dataUtilities = new DataUtilities();
         
+        
 
         public int FollowUpCRUD(FollowUpEntity followupEntity, char Operation)
         {
@@ -56,6 +57,11 @@ namespace BusinessLogic
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@ClientServiceID", ClientServiceID);
             DataSet ds = dataUtilities.ExecuteDataSet("GetFollowUpUpdates", hashtable);
+            return ds;
+        }
+        public DataSet GetServiceStatus()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("GetFollowUpServiceStatus");
             return ds;
         }
     }

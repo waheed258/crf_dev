@@ -18,6 +18,9 @@
         table {
             border: 1px solid #e4e5e7;
         }
+        .style1 {
+            color: #FF0000;
+        }
     </style>
     <script type="text/javascript">
         function openModal() {
@@ -127,7 +130,7 @@
                                                 <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="SRNO">
+                                        <asp:TemplateField HeaderText="SR No">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblSRNO" Text='<%#Eval("SRNO") %>'></asp:Label>
                                             </ItemTemplate>
@@ -173,12 +176,20 @@
                                                 <asp:Label runat="server" ID="lblAdvisorName" Text='<%#Eval("AdvisorName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="Allocated Date" Visible="true">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblAllocatedDate" Text='<%#Eval("AllocatedDate") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnGenerateInvoice" ImageUrl="~/assets/dist/img/invoice.jpg" data-toggle="modal" data-target="#GenerateInvoice" runat="server" Width="23px" Height="23px"
-                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />                                              
+                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />    
+<%--                                                <asp:ImageButton ID="imgPDF" ImageUrl="../assets/dist/img/pdf-icon.jpg" runat="server" Width="23px" Height="23px" OnClick="imgPDF_Click" title="PDF" OnClientClick="window.document.forms[0].target='blank';" />--%>
+                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>"/>
+
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -233,12 +244,17 @@
 
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Activity Type</label>
+                                                <label>Mode Of Contact</label><span class="style1">*</span>
                                                 <asp:DropDownList ID="dropActivityType" runat="server" class="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator ID="rfvdropActivityType" runat="server" ControlToValidate="dropActivityType" Display="Dynamic"
                                                     ErrorMessage="Select Activity Type"
                                                     ValidationGroup="Follow" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                            </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Status</label>
+                                                <asp:DropDownList ID="dropServiceStatus" runat="server" class="form-control" AppendDataBoundItems="true">
+                                                </asp:DropDownList>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -248,7 +264,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Start Date & Time</label>
+                                                <label>Start Date & Time</label><span class="style1">*</span>
                                                 <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
                                                     ErrorMessage="Select Start Date"
@@ -264,7 +280,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Due Date & Time</label>
+                                                <label>Due Date & Time</label><span class="style1">*</span>
                                                 <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
                                                     ErrorMessage="Select Due Date"
@@ -353,14 +369,14 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>Description</label>
+                                    <label>Description</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtDescription" runat="server" class="form-control"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvDescription" runat="server" ControlToValidate="txtDescription" Display="Dynamic"
                                         ErrorMessage="Enter Description"
                                         ValidationGroup="Invoice" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
                                   <div class="form-group col-sm-3">
-                                    <label>Amount</label>
+                                    <label>Amount</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtAmount" runat="server" class="form-control"></asp:TextBox>
                                       <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" AutoPostBack="true" OnCheckedChanged="chkVatInclusive_CheckedChanged" />
                                       <asp:Label ID="lblvat" runat="server">+ 15%</asp:Label>

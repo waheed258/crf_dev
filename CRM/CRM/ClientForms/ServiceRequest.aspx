@@ -195,7 +195,7 @@
                                         <%# Container.DataItemIndex+1 %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Address Detail ID" Visible="false">
+                                <asp:TemplateField HeaderText="Service ID" Visible="false">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
                                     </ItemTemplate>
@@ -229,6 +229,11 @@
                                  <asp:TemplateField HeaderText="PriorityID" Visible="false">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblPriorityID" Text='<%#Eval("Priority") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="Service Status" Visible="true">
+                                    <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblServiceStatus" Text='<%#Eval("ServiceStatus") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Edit">

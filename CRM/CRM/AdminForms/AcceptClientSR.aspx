@@ -61,6 +61,11 @@
         table {
             border: 1px solid #e4e5e7;
         }
+     
+        .style1 {
+            color: #FF0000;
+        }
+ 
     </style>
     <script type="text/javascript">
         function openActiveModal() {
@@ -126,9 +131,14 @@
                                                 <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="SRNO">
+                                        <asp:TemplateField HeaderText="SR No">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblSRNO" Text='<%#Eval("SRNO") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="SR Date">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblSrDate" Text='<%#Eval("SRDATE") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="SAID">
@@ -206,7 +216,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>Select Advisor</label>
+                                    <label>Select Advisor</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlAdvisors" runat="server" class="form-control" AppendDataBoundItems="true">
                                         <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
                                     </asp:DropDownList>

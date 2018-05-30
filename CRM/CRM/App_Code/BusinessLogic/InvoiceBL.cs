@@ -57,6 +57,14 @@ namespace BusinessLogic
             return ds;
         }
 
+        public DataSet GetInvoiceNum()
+        {
+
+            Hashtable hashtable = new Hashtable();        
+            DataSet ds = dataUtilities.ExecuteDataSet("GetInvoiceNum", hashtable);
+            return ds;
+        }
+
 
         
     }
