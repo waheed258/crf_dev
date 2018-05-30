@@ -144,7 +144,7 @@ public partial class Registration : System.Web.UI.Page
         txtMobile.Text = "";
         txtSAID.Text = "";
         txtEmailId.Text = "";
-        ddlTitle.SelectedValue = "-1";
+        ddlTitle.SelectedValue = "";
         ddlProvince.SelectedValue = "-1";
         ddlCity.SelectedValue = "-1";
     }

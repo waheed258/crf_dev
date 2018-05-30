@@ -30,6 +30,9 @@
         table {
             border: 1px solid #e4e5e7;
         }
+         .style1 {
+            color: #FF0000;
+        }
     </style>
 
 </asp:Content>
@@ -82,18 +85,18 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Document Type</label>
+                            <label class="control-label">Document Type</label><span class="style1">*</span>
                         </div>
                         <div class="form-group col-sm-2">
                             <asp:DropDownList ID="ddlDocumentType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvddlDocumentType" runat="server" ControlToValidate="ddlDocumentType" Display="Dynamic" ErrorMessage="Select Document Type"
-                                ValidationGroup="Doc" ForeColor="Red"></asp:RequiredFieldValidator>
+                                ValidationGroup="Doc" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">Upload Document</label>
+                            <label class="control-label">Upload Document</label><span class="style1">*</span>
                         </div>
                         <div class="form-group col-sm-4">
                             <asp:FileUpload ID="fuDocument" runat="server"></asp:FileUpload>

@@ -69,6 +69,10 @@
         table {
             border: 1px solid #e4e5e7;
         }
+        
+        .style1 {
+            color: #FF0000;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -112,7 +116,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4 form-group">
-                                    <label class="control-label">Type of Document</label>
+                                    <label class="control-label">Type of Document</label><span class="style1">*</span>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <asp:DropDownList ID="ddlDocType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
@@ -123,7 +127,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4 form-group">
-                                    <label class="control-label">Document</label>
+                                    <label class="control-label">Document</label><span class="style1">*</span>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <asp:FileUpload ID="fuDoc" runat="server" AllowMultiple="true"></asp:FileUpload>
