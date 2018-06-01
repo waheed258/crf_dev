@@ -44,5 +44,22 @@ namespace BusinessLogic
             return ds;
         }
 
+        public DataSet GetPaymentInvoiceNum(string InvoiceNum)
+        {
+
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@InvoiceNum", InvoiceNum);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetInvoicePayment", hashtable);
+            return ds;
+        }
+        public DataSet GetPaymentRemainingData(string InvoiceNum)
+        {
+
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@InvoiceNum", InvoiceNum);
+            DataSet ds = dataUtilities.ExecuteDataSet("GetRemainingPaymentData", hashtable);
+            return ds;
+        }
+
     }
 }
