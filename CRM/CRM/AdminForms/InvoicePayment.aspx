@@ -191,7 +191,7 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Payment Date">
                                                     <ItemTemplate>
-                                                        <asp:Label runat="server" ID="lblPaymentDate" Text='<%#Eval("PaymentDate") %>'></asp:Label>
+                                                        <asp:Label runat="server" ID="lblPaymentDate" Text='<%#Eval("PaymentDate1") %>'></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Payment Amount">

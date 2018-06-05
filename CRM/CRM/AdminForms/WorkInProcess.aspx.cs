@@ -78,6 +78,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["Name"] = ((Label)row.FindControl("lblAdvisorName")).Text.ToString();
                 ViewState["SRNO"] = ((Label)row.FindControl("lblSRNO")).Text.ToString();
+                ViewState["ServiceStatus"] = ((Label)row.FindControl("lblServiceStatusID")).Text.ToString();
                 string SRNO = ((Label)row.FindControl("lblSRNO")).Text.ToString();
                 int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
 
@@ -93,6 +94,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     txtClientName.Text = ViewState["ClientName"].ToString();
                     txtAssignedTo.Text = ViewState["Name"].ToString();
                     BindFollowUp(clientServiceID);
+                    dropServiceStatus.SelectedValue= ViewState["ServiceStatus"].ToString();
 
                 }
                 else if (e.CommandName == "GenerateInvoice")
@@ -143,6 +145,9 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             int Result = followBL.FollowUpCRUD(followupEntity, 'i');
             if (Result > 0)
             {
+                string srno= ViewState["SRNO"].ToString();
+                int status = Convert.ToInt32(dropServiceStatus.SelectedValue);
+                int res = serviceRequestBL.UpdateServiceStatus(status, srno);
                 Clear();
                 TabName.Value = "tab2";
                 BindFollowUp(Convert.ToInt32(ViewState["ClientServiceID"]));
@@ -291,7 +296,10 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 }
 
                 SendMail(emailid, invoicenum, serviceno);
-            
+                string srno1 = ViewState["SRNO"].ToString();
+                int status1 = 6;
+                int res1 = serviceRequestBL.UpdateServiceStatus(status1, srno1);
+                           
             }
         }
         catch
@@ -609,21 +617,6 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
 
 
 
-    //protected void imgPDF_Click(object sender, ImageClickEventArgs e)
-    //{
-    //    ImageButton btndetails = sender as ImageButton;
-
-    //    GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
-    //    string InvNo = gvWorkInProcess.DataKeys[gvrow.RowIndex].Value.ToString();
-
-
-    //    string path = Server.MapPath("~/InvoiceDocuments/" + "Invoice " + InvNo + ".pdf");
-
-    //    WebClient client = new WebClient();
-    //    Byte[] buffer = client.DownloadData(path);
-    //    Response.ContentType = "application/pdf";
-    //    Response.AddHeader("content-length", buffer.Length.ToString());
-    //    Response.BinaryWrite(buffer);
-    //}
+   
    
 }

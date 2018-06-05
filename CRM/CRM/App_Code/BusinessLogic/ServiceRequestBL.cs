@@ -136,5 +136,13 @@ namespace BusinessLogic
             return ds;
         }
 
+        public int UpdateServiceStatus(int ServiceStatus,string SRNO)
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("@Status", ServiceStatus);
+            hashtable.Add("@SRNO", SRNO);
+            int result = dataUtilities.ExecuteNonQuery("UpdateServiceStatus", hashtable);
+            return result;
+        }
     }
 }

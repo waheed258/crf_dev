@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="SRWiseInvoiceList.aspx.cs" Inherits="AdminForms_SRWiseInvoiceList" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-     <script src="../Scripts/jquery-1.10.2.min.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -63,8 +63,8 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <div class="content-wrapper">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
                 <h1>Invoices List</h1>
@@ -113,13 +113,13 @@
                                                 <%#Container.DataItemIndex+1%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                     
-                                          <asp:TemplateField HeaderText="Invoice Number">
+
+                                        <asp:TemplateField HeaderText="Invoice Number">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblInvoiceNum" Text='<%#Eval("InvoiceNum") %>'></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>                             
-                                   
+                                        </asp:TemplateField>
+
                                         <asp:TemplateField HeaderText="Amount">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblAmount" Text='<%#Eval("Amount") %>'></asp:Label>
@@ -127,7 +127,12 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Make Payments">
                                             <ItemTemplate>
-                                                 <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/payment-icon.jpg" runat="server" Width="23px" Height="23px" CommandName="Payment" ToolTip="Payment" CommandArgument="<%#((GridViewRow) Container).RowIndex %>"/>                 
+                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/payment-icon.jpg" runat="server" Width="23px" Height="23px" CommandName="Payment" ToolTip="Payment" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Make Payments">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="imgPDF" ImageUrl="../assets/dist/img/pdf-icon.jpg" runat="server" Width="23px" Height="23px" OnClick="imgPDF_Click" title="PDF" OnClientClick="window.document.forms[0].target='blank';" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

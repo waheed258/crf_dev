@@ -181,13 +181,22 @@
                                                 <asp:Label runat="server" ID="lblAllocatedDate" Text='<%#Eval("AllocatedDate") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                          <asp:TemplateField HeaderText="Status" Visible="true">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblServiceStatus" Text='<%#Eval("ServiceStatus") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="StatusID" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblServiceStatusID" Text='<%#Eval("ServiceStatusID") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnGenerateInvoice" ImageUrl="~/assets/dist/img/invoice.jpg" data-toggle="modal" data-target="#GenerateInvoice" runat="server" Width="23px" Height="23px"
                                                     CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />    
-<%--                                                <asp:ImageButton ID="imgPDF" ImageUrl="../assets/dist/img/pdf-icon.jpg" runat="server" Width="23px" Height="23px" OnClick="imgPDF_Click" title="PDF" OnClientClick="window.document.forms[0].target='blank';" />--%>
                                                 <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>"/>
 
                                             </ItemTemplate>

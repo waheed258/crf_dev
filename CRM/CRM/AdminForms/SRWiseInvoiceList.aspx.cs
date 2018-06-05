@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using System.Data;
 using EntityManager;
+using System.Net;
 
 
 public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
@@ -113,5 +114,21 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
         }
         catch { }
 
+    }
+    protected void imgPDF_Click(object sender, ImageClickEventArgs e)
+    {
+        ImageButton btndetails = sender as ImageButton;
+
+        GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
+        string InvNo = gvSRInvoiceList.DataKeys[gvrow.RowIndex].Value.ToString();
+
+
+        string path = Server.MapPath("~/InvoiceDocuments/" + "Invoice " + InvNo + ".pdf");
+
+        WebClient client = new WebClient();
+        Byte[] buffer = client.DownloadData(path);
+        Response.ContentType = "application/pdf";
+        Response.AddHeader("content-length", buffer.Length.ToString());
+        Response.BinaryWrite(buffer);
     }
 }
