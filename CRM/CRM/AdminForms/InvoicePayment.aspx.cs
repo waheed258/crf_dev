@@ -16,6 +16,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
     InvoicePaymentBL invoicePaymentBL = new InvoicePaymentBL();
     InvoicePaymentEntity invoicePaymentEntity = new InvoicePaymentEntity();
     InvoiceBL invoiceBL = new InvoiceBL();
+    EncryptDecrypt ObjDec = new EncryptDecrypt();
     string amount = string.Empty;
     string srno = string.Empty;
     string invoicenum = string.Empty;
@@ -39,7 +40,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
     {
         try
         {
-            invoicenum = Request.QueryString["payment"].ToString();
+            invoicenum = ObjDec.Decrypt(Request.QueryString["payment"].ToString());
             DataSet dataset = new DataSet();
             dataset = invoicePaymentBL.GetPaymentInvoiceNum(invoicenum);
             if(dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
@@ -73,7 +74,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
     {
         try
         {
-            invoicenum = Request.QueryString["payment"].ToString();
+            invoicenum = ObjDec.Decrypt(Request.QueryString["payment"].ToString());
             dataset = invoicePaymentBL.GetAllInvoices(invoicenum);
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {              
@@ -110,7 +111,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
             invoicePaymentEntity.PaymentReceived = Convert.ToDecimal(txtPaymentReceived.Text);
             invoicePaymentEntity.PaymentMode = ddlPaymentMode.SelectedValue;
             invoicePaymentEntity.Notes = txtNotes.Text;
-            invoicePaymentEntity.InvoiceNum = Request.QueryString["payment"].ToString();
+            invoicePaymentEntity.InvoiceNum = ObjDec.Decrypt(Request.QueryString["payment"].ToString());
 
             int result = invoicePaymentBL.InvPayment(invoicePaymentEntity);
             if (result == 1)
@@ -154,7 +155,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
     }
     protected void btnBack_Click(object sender, EventArgs e)
     {
-        Response.Redirect("SRWiseInvoiceList.aspx?srnum=" + ViewState["srno"].ToString());
+        Response.Redirect("SRWiseInvoiceList.aspx?srnum=" + ObjDec.Encrypt(ViewState["srno"].ToString()));
     }
     protected void gvInvoice_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {

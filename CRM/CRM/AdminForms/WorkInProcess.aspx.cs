@@ -17,6 +17,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     DataSet dataset = new DataSet();
     InvoiceBL invoiceBL = new InvoiceBL();
     InvoiceEntity invoiceEntity = new InvoiceEntity();
+    EncryptDecrypt ObjDec = new EncryptDecrypt();
     FollowUpBL followBL = new FollowUpBL();
     FollowUpEntity followupEntity = new FollowUpEntity();
     CommanClass _objComman = new CommanClass();
@@ -116,7 +117,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 }
                 else if(e.CommandName=="InvoiceList")
                 {
-                    Response.Redirect("SRWiseInvoiceList.aspx?srnum=" + ViewState["SRNO"].ToString());                    
+                    Response.Redirect("SRWiseInvoiceList.aspx?srnum=" + ObjDec.Encrypt(ViewState["SRNO"].ToString()));                    
                 }
 
 

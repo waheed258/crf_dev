@@ -110,8 +110,10 @@
                                         <asp:TextBox ID="txtDueAmount" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label>Next FollowUp Date</label>
+                                        <label>Next FollowUp Date</label><span class="style1">*</span>
                                         <asp:TextBox ID="txtNextFollowUpDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
+                                         <asp:RequiredFieldValidator ID="rfvNextFollowUpDate" runat="server" ControlToValidate="txtNextFollowUpDate" ForeColor="red"
+                                            ErrorMessage="Please Enter Next FollowUp Date" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

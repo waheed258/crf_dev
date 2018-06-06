@@ -17,6 +17,7 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
     CommanClass _objComman = new CommanClass();
     string invoicenum = string.Empty;
     string invamount = string.Empty;
+    EncryptDecrypt ObjDec = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -54,7 +55,7 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
     {
         try
         {
-            string srno = Request.QueryString["srnum"].ToString();    
+            string srno = ObjDec.Decrypt(Request.QueryString["srnum"].ToString());    
             DataSet dataset = new DataSet();
             dataset = invoiceBL.GetInvoice(srno);
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
@@ -108,7 +109,7 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
                 ViewState["Amount"] = ((Label)row.FindControl("lblAmount")).Text.ToString();
                 if (e.CommandName == "Payment")
                 {
-                    Response.Redirect("InvoicePayment.aspx?payment=" + ViewState["InvoiceNum"].ToString());
+                    Response.Redirect("InvoicePayment.aspx?payment=" + ObjDec.Encrypt(ViewState["InvoiceNum"].ToString()));
                 }
             }
         }
