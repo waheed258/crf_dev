@@ -183,6 +183,19 @@
                                 <%--<li><a href="LocationMaster.aspx">Location Master</a></li>--%>
                             </ul>
                         </li>
+                         <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list"></i><span>Reports</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">            
+                                <li><a href="ServiceWiseReport.aspx">Service Wise Report</a></li>
+                                <li><a href="OpenItemsReport.aspx">Open Items Report</a></li>                   
+                                 <li><a href="InvoiceReport.aspx">Invoices Report</a></li>                                                    
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar -->

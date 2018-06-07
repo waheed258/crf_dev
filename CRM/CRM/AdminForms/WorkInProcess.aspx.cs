@@ -22,8 +22,11 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     FollowUpEntity followupEntity = new FollowUpEntity();
     CommanClass _objComman = new CommanClass();
     ServiceRequestBL _objServiceRequestBL = new ServiceRequestBL();
+    InvoicePaymentBL invoicePaymentBL = new InvoicePaymentBL();
+
     string emailid = string.Empty;
     string invoicenum = string.Empty;
+    decimal totalamount = 0;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -96,6 +99,10 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     txtAssignedTo.Text = ViewState["Name"].ToString();
                     BindFollowUp(clientServiceID);
                     dropServiceStatus.SelectedValue= ViewState["ServiceStatus"].ToString();
+                    if(dropServiceStatus.SelectedValue == "6")
+                    {
+                        dropServiceStatus.Enabled = false;
+                    }
 
                 }
                 else if (e.CommandName == "GenerateInvoice")
@@ -103,8 +110,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     InvoiceSection.Visible = true;
                     FollowUpSection.Visible = false;
                     sectionRequestList.Visible = false;
-                    GetPDFClientData(SRNO);
-                   // GetInvoiceData(SRNO);
+                    GetPDFClientData(SRNO);                
                     if (chkVatInclusive.Checked == true)
                     {
                         lblvat.Visible = false;
@@ -269,13 +275,36 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     {
         try
         {
-            
+           
+            decimal amount = 0;
+            decimal vatper = 0;
+            decimal incamount = 0;
+            decimal subamount = 0;
+            int inVat = 0;
+
             invoiceEntity.Description = txtDescription.Text;
             invoiceEntity.Amount = Convert.ToDecimal(txtAmount.Text);
             invoiceEntity.InvoiceDate = System.DateTime.Now.ToShortDateString();
             invoiceEntity.VatInclusive = Convert.ToInt32(chkVatInclusive.Checked);
             invoiceEntity.ClientSRNO = ViewState["SRNO"].ToString();
             string serviceno = ViewState["SRNO"].ToString();
+
+            amount = Convert.ToDecimal(txtAmount.Text);
+            inVat = Convert.ToInt32(chkVatInclusive.Checked);
+            if (inVat == 0)
+            {
+                incamount = Math.Round(amount, 2);
+                vatper = Math.Round((amount * Convert.ToDecimal(0.15)) + vatper, 2);
+                subamount = Math.Round(amount + vatper, 2);
+            }
+            else
+            {
+                incamount = Math.Round((amount / Convert.ToDecimal(1.15)), 2);
+                vatper = Math.Round((amount - incamount), 2);
+                subamount = Math.Round((incamount + vatper), 2);
+            }
+            totalamount = subamount;
+            invoiceEntity.TotalAmount=totalamount;
             int Result = invoiceBL.InsertInvoice(invoiceEntity);
             if (Result > 0)
             {
@@ -295,11 +324,13 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 {
                     invoicenum = ds1.Tables[0].Rows[0]["InvoiceNum"].ToString();
                 }
-
+                
                 SendMail(emailid, invoicenum, serviceno);
                 string srno1 = ViewState["SRNO"].ToString();
                 int status1 = 6;
                 int res1 = serviceRequestBL.UpdateServiceStatus(status1, srno1);
+                string invAmountStatus = "Not Yet Recieved";
+                int result1 = invoicePaymentBL.UpdateAmountStatus(invAmountStatus,invoicenum);
                            
             }
         }
@@ -309,28 +340,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         }
     }
 
-    private void GetInvoiceData(string SRNO)
-    {
-        try
-        {
-            DataSet ds = new DataSet();
-            ds = invoiceBL.GetInvoice(SRNO);
-            if (ds.Tables.Count > 0)
-            {
-                txtDescription.Text = ds.Tables[0].Rows[0]["Description"].ToString();
-                txtAmount.Text = ds.Tables[0].Rows[0]["Amount"].ToString();
-                chkVatInclusive.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["VatInclusive"]);                                             
-            }
-            else
-            {
-                
-            }
-        }
-        catch
-        {
-
-        }
-    }
+    
     protected void btnInvoiceCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("WorkInProcess.aspx");

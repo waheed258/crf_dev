@@ -61,5 +61,17 @@ namespace BusinessLogic
             return ds;
         }
 
+        public int UpdateAmountStatus(string AmountStatus, string InvoiceNum)
+        {
+            Hashtable hashtable = new Hashtable();
+
+            hashtable.Add("@AmountStatus", AmountStatus);
+            hashtable.Add("@InvoiceNum", InvoiceNum);
+            int result = dataUtilities.ExecuteNonQuery("UpdateInvAmountStatus", hashtable);
+            return result;
+
+
+        }
+
     }
 }

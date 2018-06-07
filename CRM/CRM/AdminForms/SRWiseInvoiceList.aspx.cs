@@ -63,7 +63,7 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
                 gvSRInvoiceList.DataSource = dataset;
                 gvSRInvoiceList.DataBind();
                 invoicenum = dataset.Tables[0].Rows[0]["InvoiceNum"].ToString();
-                invamount = dataset.Tables[0].Rows[0]["Amount"].ToString();
+                invamount = dataset.Tables[0].Rows[0]["TotalAmount"].ToString();
                 search.Visible = true;
                 InvoiceList.Visible = true;
             }

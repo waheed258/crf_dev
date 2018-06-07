@@ -23,7 +23,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
     Decimal amount1 = 0;
     Decimal dueamount = 0;
     Decimal recievedamount = 0;
-
+    string invAmountStatus = string.Empty;
 
     
     protected void Page_Load(object sender, EventArgs e)
@@ -45,7 +45,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
             dataset = invoicePaymentBL.GetPaymentInvoiceNum(invoicenum);
             if(dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
-                amount = dataset.Tables[0].Rows[0]["Amount"].ToString();
+                amount = dataset.Tables[0].Rows[0]["TotalAmount"].ToString();
                 srno = dataset.Tables[0].Rows[0]["ClientSRNO"].ToString();
                 ViewState["srno"] = srno;
             }
@@ -112,7 +112,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
             invoicePaymentEntity.PaymentMode = ddlPaymentMode.SelectedValue;
             invoicePaymentEntity.Notes = txtNotes.Text;
             invoicePaymentEntity.InvoiceNum = ObjDec.Decrypt(Request.QueryString["payment"].ToString());
-
+            int paymentId = 0;
             int result = invoicePaymentBL.InvPayment(invoicePaymentEntity);
             if (result == 1)
             {
@@ -123,6 +123,7 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
                 ds1 = invoicePaymentBL.GetPaymentRemainingData(invoicenum);
                 if (ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                 {
+                    paymentId=Convert.ToInt32(ds1.Tables[0].Rows[0]["PaymentID"].ToString());
                     amount1 = Convert.ToDecimal(ds1.Tables[0].Rows[0]["TotalAmount"].ToString());
                     recievedamount = Convert.ToDecimal(ds1.Tables[1].Rows[0]["PaymentReceived"].ToString());
                     dueamount = amount1 - recievedamount;
@@ -130,6 +131,16 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
                     txtReceivedAmount.Text = recievedamount.ToString();
                     txtDueAmount.Text = dueamount.ToString();
                 }
+                
+                if(recievedamount < amount1)
+                {
+                    invAmountStatus="Not Yet Recieved";
+                }
+                else if(recievedamount >= amount1)
+                {
+                    invAmountStatus="Amount Recieved";
+                }
+                int result1 = invoicePaymentBL.UpdateAmountStatus(invAmountStatus, ObjDec.Decrypt(Request.QueryString["payment"].ToString()));
 
                 Clear();
             }

@@ -230,31 +230,31 @@
                                 <div class="tab-pane fade in active" id="tab1">
                                     <div class="panel-body">
                                         <div class="col-sm-12" style="text-align: center">
-                                            <asp:Label ID="lblFollowmsg" runat="server" class="control-label" Style="color: green"></asp:Label>
+                                            <asp:Label ID="lblFollowmsg" runat="server" CssClass="control-label" Style="color: green"></asp:Label>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Service Request</label>
-                                                <asp:TextBox ID="txtServiceRequest" runat="server" class="form-control" ReadOnly="true" TextMode="MultiLine"></asp:TextBox>
+                                                <asp:TextBox ID="txtServiceRequest" runat="server" CssClass="form-control" ReadOnly="true" TextMode="MultiLine"></asp:TextBox>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>SAID</label>
-                                                <asp:TextBox ID="txtClientSAID" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientSAID" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Client Name</label>
-                                                <asp:TextBox ID="txtClientName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                <asp:TextBox ID="txtClientName" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Assigned To</label>
-                                                <asp:TextBox ID="txtAssignedTo" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                <asp:TextBox ID="txtAssignedTo" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Mode Of Contact</label><span class="style1">*</span>
-                                                <asp:DropDownList ID="dropActivityType" runat="server" class="form-control" AppendDataBoundItems="true">
+                                                <asp:DropDownList ID="dropActivityType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
                                                 <asp:RequiredFieldValidator ID="rfvdropActivityType" runat="server" ControlToValidate="dropActivityType" Display="Dynamic"
                                                     ErrorMessage="Select Activity Type"
@@ -262,7 +262,7 @@
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Status</label>
-                                                <asp:DropDownList ID="dropServiceStatus" runat="server" class="form-control" AppendDataBoundItems="true">
+                                                <asp:DropDownList ID="dropServiceStatus" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
@@ -274,14 +274,14 @@
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Start Date & Time</label><span class="style1">*</span>
-                                                <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
                                                     ErrorMessage="Select Start Date"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <br />
                                             <div class="form-group col-sm-3">
-                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowTime" runat="server" ControlToValidate="txtFollowTime" Display="Dynamic"
                                                     ErrorMessage="Enter Start Time"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -290,14 +290,14 @@
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Due Date & Time</label><span class="style1">*</span>
-                                                <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
                                                     ErrorMessage="Select Due Date"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                             <br />
                                             <div class="form-group col-sm-3">
-                                                <asp:TextBox ID="txtDueTime" TextMode="Time" runat="server" class="form-control"></asp:TextBox>
+                                                <asp:TextBox ID="txtDueTime" TextMode="Time" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvDueTime" runat="server" ControlToValidate="txtDueTime" Display="Dynamic"
                                                     ErrorMessage="Enter Due Time"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>

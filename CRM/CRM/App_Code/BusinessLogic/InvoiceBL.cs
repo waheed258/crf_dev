@@ -26,6 +26,7 @@ namespace BusinessLogic
             hashtable.Add("@InvoiceDate", InvoiceEntity.InvoiceDate);
             hashtable.Add("@VatInclusive", InvoiceEntity.VatInclusive);
             hashtable.Add("@ClientSRNO", InvoiceEntity.ClientSRNO);
+            hashtable.Add("@TotalAmount", InvoiceEntity.TotalAmount);
             int result = dataUtilities.ExecuteNonQuery("InvoiceMasterCRUD", hashtable);
             return result;
 
@@ -62,6 +63,14 @@ namespace BusinessLogic
 
             Hashtable hashtable = new Hashtable();        
             DataSet ds = dataUtilities.ExecuteDataSet("GetInvoiceNum", hashtable);
+            return ds;
+        }
+
+        public DataSet GetInvoiceReport()
+        {
+
+            Hashtable hashtable = new Hashtable();
+            DataSet ds = dataUtilities.ExecuteDataSet("GetInvoiceReport", hashtable);
             return ds;
         }
 
