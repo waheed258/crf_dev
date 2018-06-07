@@ -14,6 +14,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     ClientRegistrationEntity clientRegEntity = new ClientRegistrationEntity();
     FeedbackEntity feedbackEntity = new FeedbackEntity();
     CommanClass _objComman = new CommanClass();
+    ServiceRequestBL serviceRequestBL = new ServiceRequestBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -37,6 +38,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPageValidate);
                         _objComman.getRecordsPerPage(DropPageFeedback);
                         GetGridData();
+                        BindAdvisors();
                         //ValidateGridData();
                         //FeedbackGridData();
                         sectionClientList.Visible = true;
@@ -73,6 +75,24 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         }
         catch
         {
+            message.Text = "Something went wrong, please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void BindAdvisors()
+    {
+        try
+        {
+            dataset = serviceRequestBL.GetAdvisors();
+            ddlAssignTo.DataSource = dataset;
+            ddlAssignTo.DataTextField = "Name";
+            ddlAssignTo.DataValueField = "AdvisorID";
+            ddlAssignTo.DataBind();
+            // ddlAdvisors.Items.Insert(0, new ListItem("--Select Advisor Type --", "0"));
+        }
+        catch
+        {
+            message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Something went wrong, please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
@@ -425,6 +445,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             clientRegEntity.SAID = ViewState["SAID"].ToString();
             clientRegEntity.VerifiedThough = ddlVerifiedThrough.SelectedItem.Text;
             clientRegEntity.VerifiedOn = txtVerifiedOn.Text;
+            clientRegEntity.AssignTo = Convert.ToInt32(ddlAssignTo.SelectedValue);
             feedbackEntity.AdvisorFeedBack = txtAdvisorFeedback.Text;
             int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'V');
 
@@ -440,6 +461,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 txtVerifiedOn.Text = "";
                 txtAdvisorFeedback.Text = "";
                 ddlVerifiedThrough.SelectedValue = "-1";
+                ddlAssignTo.SelectedValue = "-1";
                 ValidateGridData();
             }
             else

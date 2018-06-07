@@ -24,6 +24,7 @@
         table {
             border: 1px solid #e4e5e7;
         }
+
         .style1 {
             color: #FF0000;
         }
@@ -298,9 +299,9 @@
                                     <label>Title</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlTitle" runat="server" class="form-control">
                                         <asp:ListItem Text="--Select Title--" Value="-1" />
-                                       <asp:ListItem Value="Mr">Mr</asp:ListItem>
-                                       <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
-                                       <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                        <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                        <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                        <asp:ListItem Value="Ms">Ms</asp:ListItem>
                                         <asp:ListItem Value="Miss">Miss</asp:ListItem>
                                         <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                         <asp:ListItem Value="Prof">Prof</asp:ListItem>
@@ -388,7 +389,7 @@
                                         ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label>VerifiedThrough</label><span class="style1">*</span>
+                                    <label>Verified Via</label><span class="style1">*</span>
                                     <asp:DropDownList ID="ddlVerifiedThrough" runat="server" class="form-control">
                                         <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
                                         <asp:ListItem Text="Phone" Value="Phone"></asp:ListItem>
@@ -403,10 +404,15 @@
                                     <asp:RequiredFieldValidator ID="rfvAdvisorFeedback" runat="server" ErrorMessage="Please Enter Feedback" ControlToValidate="txtAdvisorFeedback" Display="Dynamic"
                                         ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
                                 </div>
-
+                                <div class="form-group col-sm-3">
+                                    <label>Assign To Advisor</label><span class="style1">*</span>
+                                    <asp:DropDownList ID="ddlAssignTo" runat="server" class="form-control" AppendDataBoundItems="true">
+                                        <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvAssignTo" runat="server" ErrorMessage="Please Select an Advisor" ControlToValidate="ddlAssignTo" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
+                                </div>
                             </div>
-
-
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>

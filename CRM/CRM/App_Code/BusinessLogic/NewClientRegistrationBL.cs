@@ -63,6 +63,7 @@ namespace BusinessLogic
                 hashtable.Add("@ClientSAID", DBNull.Value);
                 hashtable.Add("@ClientFeedback", DBNull.Value);
                 hashtable.Add("@AdvisorFeedback", DBNull.Value);
+                hashtable.Add("@AssignTo", DBNull.Value);
             }
             else if (Operation == 'V')
             {
@@ -72,6 +73,7 @@ namespace BusinessLogic
                 hashtable.Add("@VerifiedThough", clientinfo.VerifiedThough);
                 hashtable.Add("@ClientRegistrationID", clientinfo.ClientRegistartionID);
                 hashtable.Add("@ClientSAID", clientinfo.SAID);
+                hashtable.Add("@AssignTo", clientinfo.AssignTo);
                 hashtable.Add("@ClientFeedback", DBNull.Value);
                 hashtable.Add("@AdvisorFeedback", feedbackEntity.AdvisorFeedBack);
             }
@@ -85,6 +87,7 @@ namespace BusinessLogic
                 hashtable.Add("@ClientSAID", clientinfo.SAID);
                 hashtable.Add("@ClientFeedback", feedbackEntity.ClientFeedBack);
                 hashtable.Add("@AdvisorFeedback", DBNull.Value);
+                hashtable.Add("@AssignTo", DBNull.Value);
             }
             hashtable.Add("@Operation", Operation);
             DataUtilities dataUtilities = new DataUtilities();
