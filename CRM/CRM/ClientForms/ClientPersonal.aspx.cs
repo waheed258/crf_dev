@@ -138,10 +138,10 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             }
             else
             {
-                txtSAId.ReadOnly = false;
+                txtSAId.ReadOnly = true;
                 txtFirstName.ReadOnly = false;
                 txtLastName.ReadOnly = false;
-                txtEmail.ReadOnly = false;
+                txtEmail.ReadOnly = true;
                 txtPhoneNo.ReadOnly = false;
                 txtMobileNo.ReadOnly = false;
                 txtDateofBirth.ReadOnly = false;
