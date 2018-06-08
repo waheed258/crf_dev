@@ -10,7 +10,6 @@ using System.Web;
 using System.Collections.Generic;
 using System;
 
-
 namespace BusinessLogic
 {
 
@@ -41,7 +40,16 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("GetClientSRList");
             return ds;
         }
-
+        public DataSet OpenItemsReport()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_OpenItemsReport");
+            return ds;
+        }
+        public DataSet ServiceWiseReport()
+        {
+            DataSet ds = dataUtilities.ExecuteDataSet("usp_ServiceWiseReport");
+            return ds;
+        }
         public int CUDUServiceRequest(ClientServiceMasterEntity clinetservicem, char Operation) 
         {
             Hashtable hashtable = new Hashtable();
