@@ -69,9 +69,14 @@ namespace BusinessLogic
             hashtable.Add("@InvoiceNum", InvoiceNum);
             int result = dataUtilities.ExecuteNonQuery("UpdateInvAmountStatus", hashtable);
             return result;
-
-
         }
 
+        public DataSet GetAmountReceivedReport()
+        {
+
+            Hashtable hashtable = new Hashtable();
+            DataSet ds = dataUtilities.ExecuteDataSet("GetAmountReceivedReport", hashtable);
+            return ds;
+        }
     }
 }

@@ -11,11 +11,10 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
-
-public partial class AdminForms_InvoiceReport : System.Web.UI.Page
+public partial class AdminForms_AmountReceivedReport : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
-    InvoiceBL invoiceBL = new InvoiceBL();
+    InvoicePaymentBL invoicepaymentBL = new InvoicePaymentBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -54,20 +53,20 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
         try
         {
             DataSet ds = new DataSet();
-            ds = invoiceBL.GetInvoiceReport();
-            if(ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            ds = invoicepaymentBL.GetAmountReceivedReport();
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                gvInvoiceReport.DataSource = ds;
+                gvAmountReceived.DataSource = ds;
                 search.Visible = true;
-                InvoiceList.Visible = true;
+                AmountList.Visible = true;
             }
             else
             {
                 search.Visible = false;
-                InvoiceList.Visible = false;
+                AmountList.Visible = false;
             }
-            gvInvoiceReport.PageSize = Convert.ToInt32(DropPage.SelectedValue);
-            gvInvoiceReport.DataBind();
+            gvAmountReceived.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvAmountReceived.DataBind();
         }
         catch { }
     }
@@ -75,12 +74,6 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
     {
         GetGridData();
     }
-    protected void gvInvoiceReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        gvInvoiceReport.PageIndex = e.NewPageIndex;
-        GetGridData();
-    }
-
     protected void imgbtnExcel_Click(object sender, ImageClickEventArgs e)
     {
         try
@@ -91,15 +84,15 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
             Response.ClearHeaders();
             Response.Charset = "";
             string datetime = DateTime.Now.ToString();
-            string FileName = "InvoiceReport " + datetime + ".xls";
+            string FileName = "AmountReceived " + datetime + ".xls";
             StringWriter strwritter = new StringWriter();
             HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.ContentType = "application/vnd.ms-excel";
             Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
-            gvInvoiceReport.GridLines = GridLines.Both;
-            gvInvoiceReport.HeaderStyle.Font.Bold = true;
-            gvInvoiceReport.RenderControl(htmltextwrtter);
+            gvAmountReceived.GridLines = GridLines.Both;
+            gvAmountReceived.HeaderStyle.Font.Bold = true;
+            gvAmountReceived.RenderControl(htmltextwrtter);
             Response.Write(strwritter.ToString());
             Response.End();
         }
@@ -109,8 +102,8 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
     {
         try
         {
-            PdfPTable pdfptable = new PdfPTable(gvInvoiceReport.HeaderRow.Cells.Count);
-            foreach (TableCell headerCell in gvInvoiceReport.HeaderRow.Cells)
+            PdfPTable pdfptable = new PdfPTable(gvAmountReceived.HeaderRow.Cells.Count);
+            foreach (TableCell headerCell in gvAmountReceived.HeaderRow.Cells)
             {
 
                 Font font = new Font();
@@ -119,12 +112,12 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
                 pdfptable.AddCell(pdfCell);
 
             }
-            foreach (GridViewRow gridviewrow in gvInvoiceReport.Rows)
+            foreach (GridViewRow gridviewrow in gvAmountReceived.Rows)
             {
                 foreach (TableCell tableCell in gridviewrow.Cells)
                 {
 
-                    tableCell.BackColor = gvInvoiceReport.HeaderStyle.BackColor;
+                    tableCell.BackColor = gvAmountReceived.HeaderStyle.BackColor;
                     PdfPCell pdfCell = new PdfPCell(new Phrase(tableCell.Text.Trim()));
                     pdfptable.AddCell(pdfCell);
 
@@ -137,14 +130,18 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
             pdfDocument.Add(pdfptable);
             pdfDocument.Close();
             Response.ContentType = "application/pdf";
-            Response.AppendHeader("content-disposition", "attachment;filename=InvoiceReport.pdf");
+            Response.AppendHeader("content-disposition", "attachment;filename=AmountReceived.pdf");
             Response.Write(pdfDocument);
             Response.Flush();
             Response.End();
         }
         catch { }
     }
-
+    protected void gvAmountReceived_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvAmountReceived.PageIndex = e.NewPageIndex;
+        GetGridData();
+    }
     public override void VerifyRenderingInServerForm(Control control)
     {
         try
@@ -154,7 +151,7 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
         catch { }
         // Verifies that the control is rendered /
     }
-    protected void gvInvoiceReport_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void gvAmountReceived_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType.Equals(DataControlRowType.DataRow))
         {
