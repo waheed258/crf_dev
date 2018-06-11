@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
      <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
@@ -86,7 +85,7 @@
                         }
                     }
                 } else {
-                    alert('There is no Service Requests for this month.');
+                   // alert('There is no Service Requests for this month.');
                     // Data Not Available for the month
                     for (var k = 1; k <= arrLabels.length - 1; k++) {
                         arrDashboard[k] = [k + " - " + monthNames[monthName - 1], 0, "#4285f4"]; //0;                       
@@ -261,7 +260,7 @@
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width:97.3%">
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#e8f1f3;font-weight:bold"><h4>Outstanding Service Requests</h4></div>
+                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#82c2d0;font-weight:bold"><h4>Outstanding Service Requests</h4></div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#ffffff;">
                             <div class="col-md-5"></div>
                             <div class="col-md-2 text-center">
@@ -292,7 +291,7 @@
                 
                  <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width:97.3%">
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#e8f1f3;font-weight:bold"><h4>Proposal Requests</h4></div>
+                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#82c2d0;font-weight:bold"><h4>Proposal Requests</h4></div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#ffffff;">
                             <div class="col-md-5"></div>
                             <div class="col-md-2 text-center">
