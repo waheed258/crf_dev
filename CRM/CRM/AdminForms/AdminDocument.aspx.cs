@@ -9,6 +9,7 @@ using BusinessLogic;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Web.UI.HtmlControls;
 
 public partial class AdminForms_AdminDocument : System.Web.UI.Page
 {
@@ -288,5 +289,19 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
     protected void buttoncancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("ActiveClientList.aspx");
+    }
+    protected void gvDocument_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDocumentName");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorDocument");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/AdminDocuments/" + ObjEn.Decrypt(Request.QueryString["x"].ToString()) + "/" + "AdminRequest" + "/" + LblDoc.Text;
+            }
+        }
+        catch { }
     }
 }

@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group col-sm-2">
-                            <label class="control-label">SaId</label>
+                            <label class="control-label">SAID</label>
                         </div>
                         <div class="form-group col-sm-6">
                             <asp:TextBox ID="txtSaId" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
@@ -144,7 +144,7 @@
                             <asp:GridView ID="gvDocument" runat="server" Width="100%"
                                 AutoGenerateColumns="False" DataKeyNames="DocId" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                 BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
-                                ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvDocument_RowCommand" OnPageIndexChanging="gvDocument_PageIndexChanging">
+                                ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvDocument_RowCommand" OnPageIndexChanging="gvDocument_PageIndexChanging" OnRowDataBound="gvDocument_RowDataBound">
                                 <PagerStyle CssClass="pagination_grid" />
                                 <Columns>
                                     <asp:TemplateField HeaderText="S No.">
@@ -164,9 +164,8 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Document Name">
                                         <ItemTemplate>
-                                            <a id="anchorDocument" runat="server" href="#" target="_blank">
-                                                <asp:Label runat="server" ID="lblDocumentName" Text='<%#Eval("DocumentName") %>'></asp:Label>
-                                            </a>
+                                            <a id="anchorDocument" runat="server" href="#" target="_blank" ><%#Eval("DocumentName") %> </a>
+                                                <asp:Label runat="server" ID="lblDocumentName" Text='<%#Eval("Document") %>' Visible="false"></asp:Label>                                          
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Edit">
