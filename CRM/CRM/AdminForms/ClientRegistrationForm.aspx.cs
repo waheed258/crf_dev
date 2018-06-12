@@ -39,8 +39,10 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
         }
         catch
         {
-            lblMessage.ForeColor = System.Drawing.Color.Red;
-            lblMessage.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -51,7 +53,10 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
             int res = newClientRegistrationBL.CheckClient(txtEmailId.Text, txtSAID.Text);
             if (res == 1)
             {
-                lblMessage.Text = "Client already exists with the same Email ID or SAID!";
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Client already exists with the same Email ID or SAID!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
@@ -70,8 +75,11 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
                 int result = newClientRegistrationBL.CUDclientinfo(clientRegEntity, 'i');
                 if (result == 1)
                 {
-                    SendMail(txtEmailId.Text.Trim());  
-                    lblMessage.Text = "Client Registered Successfully!";
+                    SendMail(txtEmailId.Text.Trim());
+                    lblTitle.Text = "Thank You!";
+                    lblTitle.ForeColor = System.Drawing.Color.Green;
+                    message.ForeColor = System.Drawing.Color.Green;
+                    message.Text = "Client Registered Successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }
@@ -84,8 +92,10 @@ public partial class AdminForms_ClientRegistrationForm : System.Web.UI.Page
         }
         catch 
         {
-            lblMessage.ForeColor = System.Drawing.Color.Red;
-            lblMessage.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

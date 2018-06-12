@@ -45,7 +45,11 @@ public partial class AdminForms_AmountReceivedReport : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void GetGridData()
@@ -68,7 +72,14 @@ public partial class AdminForms_AmountReceivedReport : System.Web.UI.Page
             gvAmountReceived.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvAmountReceived.DataBind();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -96,7 +107,14 @@ public partial class AdminForms_AmountReceivedReport : System.Web.UI.Page
             Response.Write(strwritter.ToString());
             Response.End();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void imgpdf_Click(object sender, ImageClickEventArgs e)
     {
@@ -135,7 +153,14 @@ public partial class AdminForms_AmountReceivedReport : System.Web.UI.Page
             Response.Flush();
             Response.End();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvAmountReceived_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {

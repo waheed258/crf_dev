@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="InvoicesList.aspx.cs" Inherits="ClientForms_InvoicesList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+     <script type="text/javascript">
+         function openModal() {
+             $('#ContentPlaceHolder1_Success').modal('show');
+         }
+    </script>
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -147,6 +152,31 @@
             </div>
         </section>
         <!-- /.content -->
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                         <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="message" runat="server" class="control-label"/>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     </div>
 </asp:Content>
 

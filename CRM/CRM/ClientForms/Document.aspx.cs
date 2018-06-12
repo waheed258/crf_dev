@@ -48,7 +48,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -259,6 +262,9 @@ public partial class ClientForms_Document : System.Web.UI.Page
                     message.Text = "Document updated successfully!";
                 else
                     message.Text = "Documents saved successfully!";
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearControls();
                 GetDouments();
@@ -266,7 +272,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -309,7 +318,14 @@ public partial class ClientForms_Document : System.Web.UI.Page
             }
             ClearControls();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvDocument_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -318,7 +334,14 @@ public partial class ClientForms_Document : System.Web.UI.Page
             gvDocument.PageIndex = e.NewPageIndex;
             GetDouments();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void gvDocument_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -344,7 +367,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -354,7 +380,14 @@ public partial class ClientForms_Document : System.Web.UI.Page
         {
             GetDouments();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void btnSure_Click(object sender, EventArgs e)
     {
@@ -375,7 +408,10 @@ public partial class ClientForms_Document : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

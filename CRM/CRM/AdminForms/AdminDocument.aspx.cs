@@ -50,12 +50,15 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
-    protected void btnSubmit_Click(object sender, EventArgs e) 
+    protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
         {
@@ -66,6 +69,9 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
                     message.Text = "Document updated successfully!";
                 else
                     message.Text = "Documents saved successfully!";
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearService();
                 GetAdminDouments();
@@ -73,7 +79,10 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -82,14 +91,14 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
     {
         Response.Redirect("ActiveClientList.aspx", false);
     }
-     
+
     private void ClearService()
     {
         hfDocID.Value = "0";
         ddlDocumentType.SelectedIndex = -1;
         lblFileName.Text = "";
         fuDocument.AllowMultiple = true;
-     }
+    }
 
 
     private int InsertDocument()
@@ -112,41 +121,52 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
                 }
                 string fileName = date + strfile;
                 fuDocument.SaveAs(Path.Combine(folder, fileName));
-                AdminDocumentEntity AdminDocumentEntity = new AdminDocumentEntity 
+                AdminDocumentEntity AdminDocumentEntity = new AdminDocumentEntity
                 {
-                    DocId =Convert.ToInt32(hfDocID.Value),
-                    SAID = txtSaId.Text.ToString(),                    
+                    DocId = Convert.ToInt32(hfDocID.Value),
+                    SAID = txtSaId.Text.ToString(),
                     Document = fileName,
                     DocumentName = inFilename,
-                    DocType = Convert.ToInt32(ddlDocumentType.SelectedValue),                  
+                    DocType = Convert.ToInt32(ddlDocumentType.SelectedValue),
                     AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
                     Status = 1,
                 };
-                 if (btnSubmit.Text == "Update")
-                     res = _ObjClientDcoumentAdvisorBL.AdminDocumentManager(AdminDocumentEntity, 'u');
-                 else
-                     res = _ObjClientDcoumentAdvisorBL.AdminDocumentManager(AdminDocumentEntity, 'i');
+                if (btnSubmit.Text == "Update")
+                    res = _ObjClientDcoumentAdvisorBL.AdminDocumentManager(AdminDocumentEntity, 'u');
+                else
+                    res = _ObjClientDcoumentAdvisorBL.AdminDocumentManager(AdminDocumentEntity, 'i');
             }
         }
         return res;
     }
 
     private void GetAdminDouments()
-     {
-         ds = _ObjClientDcoumentAdvisorBL.GetDocuments(txtSaId.Text,0);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+    {
+        try
         {
-            search.Visible = true;
-            gvDocument.DataSource = ds.Tables[0];
+            ds = _ObjClientDcoumentAdvisorBL.GetDocuments(txtSaId.Text, 0);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                search.Visible = true;
+                gvDocument.DataSource = ds.Tables[0];
+            }
+            else
+            {
+                search.Visible = false;
+                gvDocument.DataSource = null;
+            }
+            gvDocument.PageSize = Convert.ToInt32(DropPage.SelectedValue.ToString());
+            gvDocument.DataBind();
         }
-        else
+        catch
         {
-            search.Visible = false;
-            gvDocument.DataSource = null;
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
-          gvDocument.PageSize = Convert.ToInt32(DropPage.SelectedValue.ToString());
-          gvDocument.DataBind();
-     }
+    }
 
     protected void gvDocument_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -173,20 +193,34 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
 
-    private void BindAdminDocument(int DocId) 
+    private void BindAdminDocument(int DocId)
     {
-        ds = _ObjClientDcoumentAdvisorBL.GetAdminDocumentById(DocId);
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            hfDocID.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocId"]);
-            ddlDocumentType.SelectedIndex = ddlDocumentType.Items.IndexOf(ddlDocumentType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
-            lblFileName.Text = ds.Tables[0].Rows[0]["DocumentName"].ToString();
+            ds = _ObjClientDcoumentAdvisorBL.GetAdminDocumentById(DocId);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                hfDocID.Value = Convert.ToString(ds.Tables[0].Rows[0]["DocId"]);
+                ddlDocumentType.SelectedIndex = ddlDocumentType.Items.IndexOf(ddlDocumentType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
+                lblFileName.Text = ds.Tables[0].Rows[0]["DocumentName"].ToString();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -198,7 +232,14 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
             gvDocument.PageIndex = e.NewPageIndex;
             GetAdminDouments();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
@@ -207,10 +248,17 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         {
             GetAdminDouments();
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
-  
+
 
     protected void btnSure_Click(object sender, EventArgs e)
     {
@@ -227,17 +275,23 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
                 }
                 GetAdminDouments();
                 ClearService();
-                message.Text = "Succesfully Delete Document";
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Document Succesfully Deleted ";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
         catch
         {
-            message.Text = "Something went wrong, please contact administrator";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    
+
 
     private void GetClientPersonal()
     {
@@ -255,20 +309,22 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
                 documentsection.Visible = false;
                 messagedoc.Text = "Please enter Personal Details in order to upload Documents";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "CloseDocumentModal();", true);
-                
+
             }
-           
+
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    
 
-    public void GetClientDcoument(DropDownList ddlDocumentType)  
+
+    public void GetClientDcoument(DropDownList ddlDocumentType)
     {
         try
         {
@@ -281,7 +337,11 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -302,6 +362,13 @@ public partial class AdminForms_AdminDocument : System.Web.UI.Page
                 AnchorDoc.HRef = "http://" + url + "/AdminDocuments/" + ObjEn.Decrypt(Request.QueryString["x"].ToString()) + "/" + "AdminRequest" + "/" + LblDoc.Text;
             }
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="AmountReceivedReport.aspx.cs" Inherits="AdminForms_AmountReceivedReport" EnableEventValidation="false" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-     <script src="../Scripts/jquery-1.10.2.min.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
+    </script>
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -63,7 +68,7 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
@@ -114,15 +119,15 @@
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnPageIndexChanging="gvAmountReceived_PageIndexChanging" OnRowDataBound="gvAmountReceived_RowDataBound"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
                                     <PagerStyle CssClass="pagination_grid" />
-                                    <Columns>                                      
-                                <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
-                                <asp:BoundField DataField="InvoiceNum" HeaderText="Invoice Number" ReadOnly="true" />
-                                <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" ReadOnly="true" />
-                                <asp:BoundField DataField="AdvisorName" HeaderText="Advisor Name" ReadOnly="true" />
-                                <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" ReadOnly="true" />
-                                <asp:BoundField DataField="PaymentReceived" HeaderText="Amount Received" ReadOnly="true" />
-                                <asp:BoundField DataField="AmountStatus" HeaderText="Amount Status" ReadOnly="true" />
-                                
+                                    <Columns>
+                                        <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
+                                        <asp:BoundField DataField="InvoiceNum" HeaderText="Invoice Number" ReadOnly="true" />
+                                        <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" ReadOnly="true" />
+                                        <asp:BoundField DataField="AdvisorName" HeaderText="Advisor Name" ReadOnly="true" />
+                                        <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" ReadOnly="true" />
+                                        <asp:BoundField DataField="PaymentReceived" HeaderText="Amount Received" ReadOnly="true" />
+                                        <asp:BoundField DataField="AmountStatus" HeaderText="Amount Status" ReadOnly="true" />
+
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -132,6 +137,32 @@
             </div>
         </section>
         <!-- /.content -->
+        <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                        <asp:Label ID="message" runat="server" class="control-label" />
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     </div>
 </asp:Content>
 

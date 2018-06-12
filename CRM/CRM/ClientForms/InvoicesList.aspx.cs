@@ -45,7 +45,11 @@ public partial class ClientForms_InvoicesList : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -73,7 +77,11 @@ public partial class ClientForms_InvoicesList : System.Web.UI.Page
         }
         catch
         {
-           
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,6 +97,11 @@ public partial class ClientForms_InvoicesList : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void imgPDF_Click(object sender, ImageClickEventArgs e)

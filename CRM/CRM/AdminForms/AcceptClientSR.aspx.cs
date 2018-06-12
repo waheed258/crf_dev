@@ -50,7 +50,11 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -66,8 +70,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -86,8 +92,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -135,12 +143,14 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                 {
                     if (ddlAdvisors.SelectedValue == "-1")
                     {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Blue;
                         message.Text = "Please assign Advisor to this SR";
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     }
                     else
                     {
-
                         sectionRequestList.Visible = true;
                         AdvisorSection.Visible = false;
                         lbldeletemessage.Text = "Are you sure, you want to Activate SR?";
@@ -152,8 +162,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -169,14 +181,19 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             int result = serviceRequestBL.CUDUServiceRequest(clientserviceMasterEntity, 'a');
             if (result > 0)
             {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Updated Successfully";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -200,6 +217,9 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
             int result = serviceRequestBL.UpdateClientServiceRequest(id);
             if (result == 1)
             {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Service Request Activated Successfully";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 GetGridData();
@@ -208,8 +228,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -226,8 +248,10 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

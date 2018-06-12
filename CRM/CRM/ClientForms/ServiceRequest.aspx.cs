@@ -54,8 +54,10 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -74,7 +76,11 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -90,6 +96,9 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         res = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
         if (res == 1)
         {
+            lblTitle.Text = "Thank You!";
+            lblTitle.ForeColor = System.Drawing.Color.Green;
+            message.ForeColor = System.Drawing.Color.Green;
             message.Text = "ServiceRequest updated Successfully!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             SendMail(Session["email"].ToString());
@@ -101,7 +110,11 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
         else
         {
-            lblMessage.Text = "Please try again!";
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Please try again!";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
 
@@ -119,6 +132,9 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             clientserviceentitym.Status = 1;
             int result;
             result = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'i');
+            lblTitle.Text = "Thank You!";
+            lblTitle.ForeColor = System.Drawing.Color.Green;
+            message.ForeColor = System.Drawing.Color.Green;
             message.Text = "New Service Request created Successfully!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             if (result == 1)
@@ -131,13 +147,21 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             }
             else
             {
-                lblMessage.Text = "Please try again!";
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry, Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
 
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -236,7 +260,14 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 gvServiceDetails.DataBind();
             }
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gvServiceDetails_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -264,7 +295,14 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
             }
         }
-        catch { }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     private void BindPriority()
@@ -281,8 +319,10 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again!";
+            message.Text = "Sorry, Something went wrong, please try again!";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -327,8 +367,10 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
