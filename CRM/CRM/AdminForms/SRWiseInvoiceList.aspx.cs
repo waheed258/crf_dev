@@ -47,7 +47,11 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
@@ -77,7 +81,11 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,6 +101,11 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
   
@@ -113,23 +126,40 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
                 }
             }
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
 
     }
     protected void imgPDF_Click(object sender, ImageClickEventArgs e)
     {
-        ImageButton btndetails = sender as ImageButton;
+        try
+        {
+            ImageButton btndetails = sender as ImageButton;
 
-        GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
-        string InvNo = gvSRInvoiceList.DataKeys[gvrow.RowIndex].Value.ToString();
+            GridViewRow gvrow = (GridViewRow)btndetails.NamingContainer;
+            string InvNo = gvSRInvoiceList.DataKeys[gvrow.RowIndex].Value.ToString();
 
 
-        string path = Server.MapPath("~/InvoiceDocuments/" + "Invoice " + InvNo + ".pdf");
+            string path = Server.MapPath("~/InvoiceDocuments/" + "Invoice " + InvNo + ".pdf");
 
-        WebClient client = new WebClient();
-        Byte[] buffer = client.DownloadData(path);
-        Response.ContentType = "application/pdf";
-        Response.AddHeader("content-length", buffer.Length.ToString());
-        Response.BinaryWrite(buffer);
+            WebClient client = new WebClient();
+            Byte[] buffer = client.DownloadData(path);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-length", buffer.Length.ToString());
+            Response.BinaryWrite(buffer);
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,This Pdf doesn't exists";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

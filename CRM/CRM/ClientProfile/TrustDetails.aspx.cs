@@ -82,8 +82,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -108,10 +110,14 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             {
 
                 if (btnSubmitTrust.Text == "Update")
+
                     message.Text = "Trust details updated successfully !";
                 else
                     message.Text = "Trust details saved successfully !";
 
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 GetTrustGrid();
                 ClearTrustControls();
@@ -122,7 +128,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             else
             {
-                message.ForeColor = System.Drawing.Color.Blue;
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Trust Information not Saved please check the Details !!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
@@ -130,8 +138,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -201,7 +211,13 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 btnSubmitTrust.Text = "Update";
             }
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     private void GetTrustGrid()
@@ -222,7 +238,13 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             gvTrust.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvTrust.DataBind();
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void gvTrust_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -323,33 +345,33 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
     protected void gvTrust_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvTrust.PageIndex = e.NewPageIndex;
-        GetTrustGrid();
+        try
+        {
+            gvTrust.PageIndex = e.NewPageIndex;
+            GetTrustGrid();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+       
     }
 
-    //protected void txtUIC_TextChanged(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        ds = _objTrustBL.GetTrustTest(txtUIC.Text.Trim());
-    //        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-    //        {
-    //            lblUICError.Text = "Registration Number Already Exists";
-    //            txtUIC.Text = "";
-    //        }
-    //        else
-    //            lblUICError.Text = "";
-    //    }
-    //    catch { }
-    //}
+    
 
     #endregion
 
@@ -386,8 +408,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -432,6 +456,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             int result = addressBL.InsertUpdateAddress(addressEntity, 'i');
             if (result == 1)
             {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Address details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearAddressControls();
@@ -440,13 +467,20 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Please try again!";
+                ClearAddressControls();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -478,6 +512,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
             if (result == 1)
             {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Address details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearAddressControls();
@@ -485,14 +522,21 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Please try again!";
+                ClearAddressControls();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindAddressDetails();
             }
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -546,8 +590,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -571,29 +617,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
-    //protected void txtAccountNumber_TextChanged(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        string accountNum = txtAccountNumber.Text;
-    //        ds = bankBL.CheckAccountNum(accountNum);
-    //        if (ds.Tables[0].Rows.Count > 0)
-    //        {
-    //            lblBankMsg.Text = "Already Exists";
-    //            txtAccountNumber.Text = "";
-    //        }
-    //        else
-    //        {
-    //            lblBankMsg.Text = "";
-    //        }
-    //    }
-    //    catch
-    //    {
-    //        message.ForeColor = System.Drawing.Color.Red;
-    //        message.Text = "Something went wrong, please contact administrator";
-    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-    //    }
-    //}
+
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindBankDetails();
@@ -620,6 +644,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
             {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Bank details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBankControls();
@@ -627,13 +654,21 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Please try again!";
+                ClearBankControls();               
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindBankDetails();
             }
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -659,6 +694,9 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
             if (result == 1)
             {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Bank details updated successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 ClearBankControls();
@@ -666,14 +704,21 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             }
             else
             {
-                message.Text = "Please try again!";
+                ClearBankControls();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindBankDetails();
             }
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -713,8 +758,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -759,16 +806,29 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gdvBankList.PageIndex = e.NewPageIndex;
-        BindBankDetails();
+        try
+        {
+            gdvBankList.PageIndex = e.NewPageIndex;
+            BindBankDetails();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     #endregion
@@ -812,8 +872,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
 
@@ -828,7 +890,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             {
                 if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
                 {
-                    message.Text = "The Trust is already registered with you!";
+                    lblTitle.Text = "Warning!";
+                    lblTitle.ForeColor = System.Drawing.Color.Red;
+                    message.ForeColor = System.Drawing.Color.Red;
+                    message.Text = "Sorry,The Trust is already registered with you!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
@@ -852,8 +917,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

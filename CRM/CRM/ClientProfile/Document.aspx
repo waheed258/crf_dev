@@ -69,6 +69,9 @@
         table {
             border: 1px solid #e4e5e7;
         }
+          .style1 {
+            color: #FF0000;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -102,7 +105,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4 form-group">
-                                    <asp:Label ID="lblName" runat="server" CssClass="control-label"></asp:Label>
+                                    <asp:Label ID="lblName" runat="server" CssClass="control-label"></asp:Label><span class="style1">*</span>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <asp:TextBox ID="txtSAID" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
@@ -113,7 +116,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4 form-group">
-                                    <label class="control-label">Type of Document</label>
+                                    <label class="control-label">Type of Document</label><span class="style1">*</span>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <asp:DropDownList ID="ddlDocType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
@@ -124,7 +127,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4 form-group">
-                                    <label class="control-label">Document</label>
+                                    <label class="control-label">Document</label><span class="style1">*</span>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <asp:FileUpload ID="fuDoc" runat="server" AllowMultiple="true"></asp:FileUpload>
@@ -225,14 +228,14 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header modal-header-primary">
-                                <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                                 <h3><asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <fieldset>
                                             <div class="col-md-12 form-group user-form-group">
-                                                <asp:Label ID="message" runat="server" class="control-label" Style="color: green" />
+                                                <asp:Label ID="message" runat="server" class="control-label"/>
                                             </div>
                                         </fieldset>
                                     </div>

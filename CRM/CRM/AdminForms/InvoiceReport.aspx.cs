@@ -46,7 +46,11 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
         }
         catch
         {
-
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void GetGridData()
@@ -69,7 +73,13 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
             gvInvoiceReport.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvInvoiceReport.DataBind();
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -77,8 +87,19 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
     }
     protected void gvInvoiceReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvInvoiceReport.PageIndex = e.NewPageIndex;
-        GetGridData();
+        try
+        {
+            gvInvoiceReport.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     protected void imgbtnExcel_Click(object sender, ImageClickEventArgs e)
@@ -103,7 +124,13 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
             Response.Write(strwritter.ToString());
             Response.End();
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
     protected void imgpdf_Click(object sender, ImageClickEventArgs e)
     {
@@ -142,7 +169,13 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
             Response.Flush();
             Response.End();
         }
-        catch { }
+        catch {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 
     public override void VerifyRenderingInServerForm(Control control)
@@ -156,9 +189,20 @@ public partial class AdminForms_InvoiceReport : System.Web.UI.Page
     }
     protected void gvInvoiceReport_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType.Equals(DataControlRowType.DataRow))
+        try
         {
-            e.Row.Cells[0].Text = "" + ((((GridView)sender).PageIndex * ((GridView)sender).PageSize) + (e.Row.RowIndex + 1));
+            if (e.Row.RowType.Equals(DataControlRowType.DataRow))
+            {
+                e.Row.Cells[0].Text = "" + ((((GridView)sender).PageIndex * ((GridView)sender).PageSize) + (e.Row.RowIndex + 1));
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 }

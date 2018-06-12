@@ -62,6 +62,11 @@
             border: 1px solid #e4e5e7;
         }
     </style>
+      <script type="text/javascript">
+          function openModal() {
+              $('#ContentPlaceHolder1_Success').modal('show');
+          }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <div class="content-wrapper">
@@ -132,5 +137,30 @@
         </section>
         <!-- /.content -->
     </div>
+      <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <div class="col-md-12 form-group user-form-group">
+                                       <asp:Label ID="message" runat="server" class="control-label"/>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
 </asp:Content>
 

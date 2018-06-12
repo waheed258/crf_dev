@@ -140,7 +140,7 @@
                                 <div class="panel-footer">
                                     <div class="col-sm-5"></div>
                                     <asp:button id="btnUpdate" runat="server" text="Update" class="btn btn-add" validationgroup="advisor" onclick="btnUpdate_Click" />
-                                    <asp:button id="btncancel" runat="server" text="cancel" class="btn btn-danger" onclick="btncancel_Click" />
+                                    <asp:button id="btncancel" runat="server" text="Cancel" class="btn btn-danger" onclick="btncancel_Click" />
                                 </div>
                             </div>
                         </div>
@@ -152,14 +152,14 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header modal-header-primary">
-                                <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                               <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <fieldset>
                                             <div class="col-md-12 form-group user-form-group">
-                                                 <asp:Label ID="message" runat="server" CssClass="control-label" style="color: green"></asp:Label>
+                                                 <asp:Label ID="message" runat="server" CssClass="control-label"></asp:Label>
                                             </div>
                                         </fieldset>
                                     </div>

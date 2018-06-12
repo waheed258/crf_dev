@@ -49,8 +49,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -67,8 +69,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch 
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -85,8 +89,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch 
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -103,8 +109,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -121,27 +129,14 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch 
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    //protected void GetRole()
-    //{
-    //    try
-    //    {
-    //        dataset = newAdvisorBL.GetRole();
-    //        ddlRole.DataSource = dataset;
-    //        ddlRole.DataTextField = "Role";
-    //        ddlRole.DataValueField = "RoleID";
-    //        ddlRole.DataBind();
-    //        ddlRole.Items.Insert(0, new ListItem("--Select Role --", "-1"));
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //    }
-    //}
+    
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         try
@@ -164,6 +159,9 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'i');
             if (result == 1)
             {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 message.Text = "Advisor Added Successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -171,6 +169,9 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             }
             else
             {
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Please try again!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
@@ -178,8 +179,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch 
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -273,8 +276,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please try again";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
       
@@ -298,8 +303,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
@@ -311,7 +318,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             DataSet dataset = validateSAIDBL.ValidateAdvisorSAID(txtSAId.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                message.Text = "The member already exists as Adviosr!";
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "The member already exists as Advisor!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Disable();
             }
@@ -323,8 +333,10 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         }
         catch
         {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Something went wrong, please contact administrator";
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
