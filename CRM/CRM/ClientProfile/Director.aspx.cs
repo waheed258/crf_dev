@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using EntityManager;
 using BusinessLogic;
+using System.Globalization;
 
 public partial class ClientProfile_Director : System.Web.UI.Page
 {
@@ -962,8 +963,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
                     txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
                     txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();         
+                    DateTime DOB = DateTime.ParseExact(Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToShortDateString(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None);
                     txtDateOfBirth.Text = DOB.ToShortDateString();
                     txtSharePerc.ReadOnly = false;
                     txtShareValue.ReadOnly = false;
