@@ -254,7 +254,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <ul style="list-style-type: none">
                         <li>
-                            <a href="#">
+                            <a href="AcceptClientSR.aspx">
                                 <div id="cardbox4">
                                     <div class="statistic-box">
                                         <i class="fa fa-files-o fa-3x"></i>
