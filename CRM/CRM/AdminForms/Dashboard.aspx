@@ -24,7 +24,7 @@
             //getDashboardData(crrMonth, 2);
 
             executeAsynchronously(
-    [getDashboardData(crrMonth, 1), getDashboardData(crrMonth, 2)], 10);
+    [getDashboardData(crrMonth, 1), getDashboardData(crrMonth, 2)], 20);
 
             function executeAsynchronously(functions, timeout) {
                 for (var i = 0; i < functions.length; i++) {
