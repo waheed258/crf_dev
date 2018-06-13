@@ -123,7 +123,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             txtMobile.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblMobileNumber")).Text.ToString();
             ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
             ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();
-            ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+            ddlTitle.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
         }
         catch
         {
@@ -645,7 +645,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
         {
             //gvAdvisor.PageSize = int.Parse(ViewState["ps"].ToString());
             dataset = newClientRegistrationBL.GetFeedbackList(ViewState["SAID"].ToString());
-            if (dataset.Tables[0].Rows[0]["ClientFeedBack"] != "")
+            if (dataset.Tables.Count > 0 || dataset.Tables[0].Rows[0]["ClientFeedBack"] != "")
             {
                 gvFeedBack.DataSource = dataset;
                 ViewState["dt"] = dataset.Tables[0];
