@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
-     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
@@ -19,9 +19,19 @@
             var d = new Date();
             var crrMonth = d.getMonth() + 1;
             $('#ddlMonth').val(crrMonth);
-            getDashboardData(crrMonth, 1);
+            //getDashboardData(crrMonth, 1);
             $('#ddlPropMonth').val(crrMonth);
-            getDashboardData(crrMonth, 2);
+            //getDashboardData(crrMonth, 2);
+
+            executeAsynchronously(
+    [getDashboardData(crrMonth, 1), getDashboardData(crrMonth, 2)], 10);
+
+            function executeAsynchronously(functions, timeout) {
+                for (var i = 0; i < functions.length; i++) {
+                    setTimeout(functions[i], timeout);
+                }
+            }
+
 
 
             $('#ddlMonth').change(function () {
@@ -85,7 +95,7 @@
                         }
                     }
                 } else {
-                   // alert('There is no Service Requests for this month.');
+                    // alert('There is no Service Requests for this month.');
                     // Data Not Available for the month
                     for (var k = 1; k <= arrLabels.length - 1; k++) {
                         arrDashboard[k] = [k + " - " + monthNames[monthName - 1], 0, "#4285f4"]; //0;                       
@@ -256,22 +266,24 @@
                     </ul>
                 </div>
 
-                 <%-- chart code--%>
+                <%-- chart code--%>
 
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width:97.3%">
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#82c2d0;font-weight:bold"><h4>Outstanding Service Requests</h4></div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#ffffff;">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 97.3%">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #82c2d0; font-weight: bold">
+                            <h4>Outstanding Service Requests</h4>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #ffffff;">
                             <div class="col-md-5"></div>
                             <div class="col-md-2 text-center">
-                                <strong>Select Month</strong>                               
+                                <strong>Select Month</strong>
                                 <select id="ddlMonth" class="form-control">
                                     <option value="1">January</option>
                                     <option value="2">February</option>
-                                     <option value="3">March</option>
+                                    <option value="3">March</option>
                                     <option value="4">April</option>
                                     <option value="5">May</option>
-                                     <option value="6">June</option>
+                                    <option value="6">June</option>
                                     <option value="7">July</option>
                                     <option value="8">August</option>
                                     <option value="9">September</option>
@@ -280,29 +292,31 @@
                                     <option value="12">December</option>
                                 </select>
                             </div>
-                            <div class="col-md-5"></div>                           
+                            <div class="col-md-5"></div>
                         </div>
-                        
+
                     </div>
-                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="min-height:400px;">
-                    <div id="columnchart_values" style="height: 300px;"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="min-height: 400px;">
+                        <div id="columnchart_values" style="height: 300px;"></div>
+                    </div>
                 </div>
-                </div>
-                
-                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width:97.3%">
-                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#82c2d0;font-weight:bold"><h4>Proposal Requests</h4></div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color:#ffffff;">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 97.3%">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #82c2d0; font-weight: bold">
+                            <h4>Proposal Requests</h4>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #ffffff;">
                             <div class="col-md-5"></div>
                             <div class="col-md-2 text-center">
-                                <strong>Select Month</strong>                               
+                                <strong>Select Month</strong>
                                 <select id="ddlPropMonth" class="form-control">
                                     <option value="1">January</option>
                                     <option value="2">February</option>
-                                     <option value="3">March</option>
+                                    <option value="3">March</option>
                                     <option value="4">April</option>
                                     <option value="5">May</option>
-                                     <option value="6">June</option>
+                                    <option value="6">June</option>
                                     <option value="7">July</option>
                                     <option value="8">August</option>
                                     <option value="9">September</option>
@@ -311,13 +325,13 @@
                                     <option value="12">December</option>
                                 </select>
                             </div>
-                            <div class="col-md-5"></div>                           
+                            <div class="col-md-5"></div>
                         </div>
-                        
+
                     </div>
-                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="min-height:400px;">
-                    <div id="proposal_chart" style="height: 300px;"></div>
-                </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="min-height: 400px;">
+                        <div id="proposal_chart" style="height: 300px;"></div>
+                    </div>
                 </div>
 
 
