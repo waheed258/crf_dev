@@ -895,8 +895,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     Disable();
                     btnSubmitTrust.Enabled = true;
                     txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
-                    DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
-                    txtYearofFoundation.Text = YOF.ToShortDateString();
+                    txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString()).ToString("yyyy-MM-dd");
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
                     txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
                     txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();

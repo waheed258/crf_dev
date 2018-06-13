@@ -960,9 +960,8 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
                     txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
                     txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
-                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();             
+                    txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
                     txtSharePerc.ReadOnly = false;
                     txtShareValue.ReadOnly = false;
                 }

@@ -988,8 +988,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 Disable();
                 btnCompantDetails.Enabled = true;
                 txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
-                DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
-                txtYearofFoundation.Text = YOF.ToShortDateString();
+                txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
                 txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
                 txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
                 txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
