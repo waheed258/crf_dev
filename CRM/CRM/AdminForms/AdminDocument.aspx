@@ -254,14 +254,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
+                        <h3><asp:Label ID="lblmsgdoc" runat="server" class="control-label" Style="color: red" Text="Warning!" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                        <asp:Label ID="messagedoc" runat="server" class="control-label" Style="color: green" />
+                                        <asp:Label ID="messagedoc" runat="server" class="control-label" Style="color: red" />
                                     </div>
                                 </fieldset>
                             </div>
