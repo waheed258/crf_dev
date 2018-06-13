@@ -23,37 +23,29 @@
             $('#ddlPropMonth').val(crrMonth);
             //getDashboardData(crrMonth, 2);
 
-            executeAsynchronously(
-    [getDashboardData(crrMonth, 1), getDashboardData(crrMonth, 2)], 20);
-
-            function executeAsynchronously(functions, timeout) {
-                for (var i = 0; i < functions.length; i++) {
-                    setTimeout(functions[i], timeout);
-                }
-            }
-
-
+            getDashboardData(crrMonth);
+            getDashboardServiceProposal(crrMonth);
 
             $('#ddlMonth').change(function () {
                 var value = $(this).val();
-                getDashboardData(value, 1);
+                getDashboardData(value);
             });
 
             $('#ddlPropMonth').change(function () {
                 var value = $(this).val();
-                getDashboardData(value, 2);
+                getDashboardServiceProposal(value);
             });
 
-            function getDashboardData(month, type) {
+            function getDashboardData(month) {
                 $.ajax({
                     type: "POST",
                     url: "/AdminForms/Dashboard.aspx/getData",
-                    data: '{strMonth: "' + month + '",strType: "' + type + '"}',
+                    data: '{strMonth: "' + month + '",strType: "1"}',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
                         var dashboardInfo = response.d;
-                        Dashboard(dashboardInfo, type);
+                        Dashboard(dashboardInfo);
                     },
                     failure: function (response) {
                         alert(response.d);
@@ -63,7 +55,7 @@
 
 
             var arrDashboard = [];
-            function Dashboard(serviceData, type) {
+            function Dashboard(serviceData) {
 
                 var monthName = $('#ddlMonth').val();
                 var arrData = [];
@@ -102,28 +94,14 @@
                     }
                 }
 
-                google.charts.load("current", { packages: ['corechart'] });
-                if (type == 1) {
-                    google.charts.setOnLoadCallback(drawChart);
-                } else {
-                    google.charts.setOnLoadCallback(proposaldrawChart);
-                }
-
-
+                google.charts.load("current", { packages: ['corechart'] });               
+                google.charts.setOnLoadCallback(drawChart);   
             }
 
             function drawChart() {
                 arrDashboard[0] = ["Element", "Service Requests", { role: "style" }];
 
                 var data = google.visualization.arrayToDataTable(arrDashboard);
-
-                //var data = google.visualization.arrayToDataTable([
-                //  ["Element", "Density", { role: "style" }],
-                //  ["Copper", 1, "#4285f4"],
-                //  ["Silver", 5, "#4285f4"],
-                //  ["Gold", 2, "#4285f4"],
-                //  ["Platinum", 30, "color: #4285f4"]
-                //]);
 
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,
@@ -153,10 +131,77 @@
                 chart.draw(view, options);
             }
 
-            function proposaldrawChart() {
-                arrDashboard[0] = ["Element", "Proposal Requests", { role: "style" }];
+            //======================================2nd Chart=========================
 
-                var data = google.visualization.arrayToDataTable(arrDashboard);
+
+            function getDashboardServiceProposal(month) {
+                $.ajax({
+                    type: "POST",
+                    url: "/AdminForms/Dashboard.aspx/getData",
+                    data: '{strMonth: "' + month + '",strType: "2"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var dashboardInfo = response.d;
+                        DashboardServiceProposal(dashboardInfo);
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+            }
+
+            var arrDashboardServiceProposal = [];
+            function DashboardServiceProposal(serviceData) {
+
+                var monthName = $('#ddlMonth').val();
+                var arrData = [];
+                arrDashboardServiceProposal = [];
+
+                var info = JSON.parse(serviceData);
+
+                for (var i = 0; i < info.length; i++) {
+                    arrData.push({ day: info[i].DAY, count: info[i].CNT, date: info[i].DATE });
+                }
+
+                var days = daysInThisMonth(monthName);
+                var arrLabels = [];
+                for (var j = 1; j <= days; j++) {
+                    arrLabels[j] = j.toString();
+                }
+
+                // Data Available for the month
+                if (arrData.length > 0) {
+                    for (var k = 1; k <= arrLabels.length - 1; k++) {
+                        for (var l = 0; l < arrData.length; l++) {
+                            var cnt = l;
+                            if (arrLabels[k] == arrData[l].day) {
+                                arrDashboardServiceProposal[k] = [k + " - " + monthNames[monthName - 1], arrData[l].count, "#4285f4"]; // arrData[l].count;
+                            } else {
+                                if (l == 0)
+                                    arrDashboardServiceProposal[k] = [k + " - " + monthNames[monthName - 1], 0, "#4285f4"]; //0;
+                            }
+                        }
+                    }
+                } else {
+                    // alert('There is no Service Requests for this month.');
+                    // Data Not Available for the month
+                    for (var k = 1; k <= arrLabels.length - 1; k++) {
+                        arrDashboardServiceProposal[k] = [k + " - " + monthNames[monthName - 1], 0, "#4285f4"]; //0;                       
+                    }
+                }
+
+                google.charts.load("current", { packages: ['corechart'] });
+
+                google.charts.setOnLoadCallback(proposaldrawChart);
+            }
+
+
+
+            function proposaldrawChart() {
+                arrDashboardServiceProposal[0] = ["Element", "Proposal Requests", { role: "style" }];
+
+                var data = google.visualization.arrayToDataTable(arrDashboardServiceProposal);
 
                 var view = new google.visualization.DataView(data);
                 view.setColumns([0, 1,
