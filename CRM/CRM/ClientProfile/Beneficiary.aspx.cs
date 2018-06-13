@@ -1028,8 +1028,9 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                     txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
                     txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
                     txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
-                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                    //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                    //txtDateOfBirth.Text = DOB.ToShortDateString();
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
                 {
