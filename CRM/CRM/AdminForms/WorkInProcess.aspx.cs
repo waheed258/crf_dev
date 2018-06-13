@@ -102,7 +102,16 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     txtClientName.Text = ViewState["ClientName"].ToString();
                     txtAssignedTo.Text = ViewState["Name"].ToString();
                     BindFollowUp(clientServiceID);
-                    dropServiceStatus.SelectedValue= ViewState["ServiceStatus"].ToString();
+                    if (ViewState["ServiceStatus"].ToString() == "1" || ViewState["ServiceStatus"].ToString() == "2")
+                    {
+                        dropServiceStatus.SelectedValue = "-1";
+                    }
+                    else
+                    {
+                        dropServiceStatus.SelectedValue = ViewState["ServiceStatus"].ToString();
+                    }
+                    
+           
                     if(dropServiceStatus.SelectedValue == "6")
                     {
                         dropServiceStatus.Enabled = false;
@@ -161,7 +170,16 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             if (Result > 0)
             {
                 string srno= ViewState["SRNO"].ToString();
-                int status = Convert.ToInt32(dropServiceStatus.SelectedValue);
+                int status = 0;
+                if(dropServiceStatus.SelectedValue =="-1")
+                {
+                    status = 2;
+                }
+                else
+                {
+                    status = Convert.ToInt32(dropServiceStatus.SelectedValue);
+                }
+               
                 int res = serviceRequestBL.UpdateServiceStatus(status, srno);
                 Clear();
                 TabName.Value = "tab2";
