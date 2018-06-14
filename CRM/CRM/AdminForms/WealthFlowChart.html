@@ -64,6 +64,9 @@
                         companyInfo = $.grep(resdata, function (element, index) {
                             return element.TYPE == 9;
                         });
+                        directorInfo = $.grep(resdata, function (element, index) {
+                            return element.TYPE == 10;
+                        });
 
                         if (resdata[i].TYPE == 1) {
                             data.addRows([                               
@@ -167,6 +170,16 @@
                                     ]);
                                 }
                             }
+
+                            for (var k = 0; k < directorInfo.length; k++) {
+                                if (resdata[i].UIC == directorInfo[k].UIC) {
+                                    companydata.addRows([
+                                       [directorInfo[k].NAME + "<div class='hdname'>(Director)</div>", '<div class="hdname">' + resdata[i].NAME + " -</div> Director", "Director"]
+                                    ]);
+                                }
+                            }
+
+
                         }
                     }
 
