@@ -982,7 +982,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
                 {
-                    Enable();
+                    Disable();
                     btnSubmit.Enabled = true;
                     ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
                     txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
