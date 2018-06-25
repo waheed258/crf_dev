@@ -169,30 +169,30 @@
             </div>
             <div class="col-sm-2"></div>
             <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header modal-header-primary">
-                            <h3><i class="fa fa-user m-r-5"></i>Thank you</h3>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <div class="col-md-12 form-group user-form-group">
-                                            <asp:Label ID="lblMessage" runat="server" Style="color: green"></asp:Label>
-                                        </div>
-                                    </fieldset>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-primary">
+                                <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <asp:Label ID="message" runat="server" class="control-label"/>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                        <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-content -->
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
         </div>
         <!-- /.wrapper -->
         <!-- Start Core Plugins

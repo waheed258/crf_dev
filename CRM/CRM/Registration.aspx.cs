@@ -25,10 +25,22 @@ public partial class Registration : System.Web.UI.Page
     {
         try
         {
-            int res = newClientRegistrationBL.CheckClient(txtEmailId.Text, txtSAID.Text);
+            int res = newClientRegistrationBL.CheckClient(txtSAID.Text);
             if (res == 1)
             {
-                lblMessage.Text = "Client already exists. Please Login with existing credentials!";
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Client already exists. Please Login with existing credentials!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                Clear();
+            }
+            else if (res == 2)
+            {
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Client already Registered,Please contact one of our Advisors";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
             }
@@ -48,7 +60,10 @@ public partial class Registration : System.Web.UI.Page
                 if (result == 1)
                 {
                     SendMail(txtEmailId.Text.Trim());
-                    lblMessage.Text = "You Registered Successfully. One of our Advisors will contact you soon!";
+                    lblTitle.Text = "Thank You";
+                    lblTitle.ForeColor = System.Drawing.Color.Green;
+                    message.ForeColor = System.Drawing.Color.Green;
+                    message.Text = "You Registered Successfully. One of our Advisors will contact you soon!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Clear();
                 }
@@ -63,8 +78,10 @@ public partial class Registration : System.Web.UI.Page
         {
             if (ex.Message.Contains("UNIQUE KEY"))
             {
-                lblMessage.ForeColor = System.Drawing.Color.Red;
-                lblMessage.Text = "Client already registered!";
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Client already registered!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
