@@ -289,7 +289,7 @@
                                     <div class="statistic-box">
                                         <i class="fa fa-user-secret fa-3x"></i>
 
-                                        <h3>Registered Clients</h3>
+                                        <h3>Prospect Clients</h3>
                                     </div>
                                 </div>
                             </a>

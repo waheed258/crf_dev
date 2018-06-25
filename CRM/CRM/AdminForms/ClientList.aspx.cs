@@ -46,7 +46,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                         statusSection.Visible = false;
                         validateSection.Visible = false;
                         ClientFeedbackSection.Visible = false;
-
+                        lblResignedDate.Visible = false;
+                        txtResignedDate.Visible = false;
                     }
                 }
             }
@@ -242,6 +243,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             {
                 int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
                 clientRegEntity.Status = Status;
+                clientRegEntity.ResignedDate = txtResignedDate.Text;
                 clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
                 int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
@@ -685,5 +687,18 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     protected void DropPageFeedback_SelectedIndexChanged(object sender, EventArgs e)
     {
         FeedbackGridData();
+    }
+    protected void ddlClientStatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlClientStatus.SelectedItem.Text == "Resigned")
+        {
+            lblResignedDate.Visible = true;
+            txtResignedDate.Visible = true;
+        }
+        else
+        {
+            lblResignedDate.Visible = false;
+            txtResignedDate.Visible = false;
+        }
     }
 }

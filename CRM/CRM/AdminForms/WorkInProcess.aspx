@@ -18,6 +18,7 @@
         table {
             border: 1px solid #e4e5e7;
         }
+
         .style1 {
             color: #FF0000;
         }
@@ -176,17 +177,17 @@
                                                 <asp:Label runat="server" ID="lblAdvisorName" Text='<%#Eval("AdvisorName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="Allocated Date" Visible="true">
+                                        <asp:TemplateField HeaderText="Allocated Date" Visible="true">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblAllocatedDate" Text='<%#Eval("AllocatedDate") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                          <asp:TemplateField HeaderText="Status" Visible="true">
+                                        <asp:TemplateField HeaderText="Status" Visible="true">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblServiceStatus" Text='<%#Eval("ServiceStatus") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                         <asp:TemplateField HeaderText="StatusID" Visible="false">
+                                        <asp:TemplateField HeaderText="StatusID" Visible="false">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblServiceStatusID" Text='<%#Eval("ServiceStatusID") %>'></asp:Label>
                                             </ItemTemplate>
@@ -196,8 +197,8 @@
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnGenerateInvoice" ImageUrl="~/assets/dist/img/invoice.jpg" data-toggle="modal" data-target="#GenerateInvoice" runat="server" Width="23px" Height="23px"
-                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />    
-                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>"/>
+                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
 
                                             </ItemTemplate>
                                         </asp:TemplateField>
@@ -268,38 +269,24 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <h5><u>Follow Up Date & Time</u></h5>
+                                                <h5><u>Follow Up Date</u></h5>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Start Date & Time</label><span class="style1">*</span>
+                                                <label>Start Date</label><span class="style1">*</span>
                                                 <asp:TextBox ID="txtFollowDate" TextMode="Date" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtFollowDate" runat="server" ControlToValidate="txtFollowDate" Display="Dynamic"
                                                     ErrorMessage="Select Start Date"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
-                                            <br />
-                                            <div class="form-group col-sm-3">
-                                                <asp:TextBox ID="txtFollowTime" TextMode="Time" runat="server" CssClass="form-control"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvtxtFollowTime" runat="server" ControlToValidate="txtFollowTime" Display="Dynamic"
-                                                    ErrorMessage="Enter Start Time"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
-                                            </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Due Date & Time</label><span class="style1">*</span>
+                                                <label>Due Date</label><span class="style1">*</span>
                                                 <asp:TextBox ID="txtDueDate" TextMode="Date" runat="server" CssClass="form-control"></asp:TextBox>
                                                 <asp:RequiredFieldValidator ID="rfvtxtDueDate" runat="server" ControlToValidate="txtDueDate" Display="Dynamic"
                                                     ErrorMessage="Select Due Date"
-                                                    ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <br />
-                                            <div class="form-group col-sm-3">
-                                                <asp:TextBox ID="txtDueTime" TextMode="Time" runat="server" CssClass="form-control"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvDueTime" runat="server" ControlToValidate="txtDueTime" Display="Dynamic"
-                                                    ErrorMessage="Enter Due Time"
                                                     ValidationGroup="Follow" ForeColor="Red"></asp:RequiredFieldValidator>
                                             </div>
                                         </div>
@@ -335,11 +322,11 @@
                                                             <asp:Label runat="server" ID="lblFollowUpDate" Text='<%#Eval("FollowUpDates") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="FollowUpTime">
+                                                    <%--<asp:TemplateField HeaderText="FollowUpTime">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblFollowUpTime" Text='<%#Eval("FollowUpTime") %>'></asp:Label>
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                     <asp:TemplateField HeaderText="Client ServiceID" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>
@@ -359,7 +346,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </section>
 
         <section class="content" id="InvoiceSection" runat="server">
@@ -384,11 +371,11 @@
                                         ErrorMessage="Enter Description"
                                         ValidationGroup="Invoice" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
-                                  <div class="form-group col-sm-3">
+                                <div class="form-group col-sm-3">
                                     <label>Amount</label><span class="style1">*</span>
                                     <asp:TextBox ID="txtAmount" runat="server" class="form-control"></asp:TextBox>
-                                      <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" AutoPostBack="true" OnCheckedChanged="chkVatInclusive_CheckedChanged" />
-                                      <asp:Label ID="lblvat" runat="server">+ 15%</asp:Label>
+                                    <asp:CheckBox ID="chkVatInclusive" runat="server" Text="Inclusive Of Vat" AutoPostBack="true" OnCheckedChanged="chkVatInclusive_CheckedChanged" />
+                                    <asp:Label ID="lblvat" runat="server">+ 15%</asp:Label>
                                     <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" Display="Dynamic"
                                         ErrorMessage="Enter Amount"
                                         ValidationGroup="Invoice" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -398,9 +385,9 @@
                         </div>
                         <div class="panel-footer">
                             <div class="col-sm-5"></div>
-                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" CssClass="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click"/>
+                            <asp:Button ID="btnInvoiceSubmit" runat="server" Text="Submit" CssClass="btn btn-add btn-sm" ValidationGroup="Invoice" OnClick="btnInvoiceSubmit_Click" />
                             <asp:Button ID="btnInvoiceCancel" runat="server" CssClass="btn btn-danger btn-sm" Text="Back to List" OnClick="btnInvoiceCancel_Click" OnClientClick="window.document.forms[0].target='_self';" />
-                           
+
                         </div>
                     </div>
                 </div>
@@ -414,14 +401,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                       <asp:Label ID="message" runat="server" class="control-label"/>
+                                        <asp:Label ID="message" runat="server" class="control-label" />
                                     </div>
                                 </fieldset>
                             </div>

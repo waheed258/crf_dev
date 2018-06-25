@@ -96,7 +96,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                     FollowUpSection.Visible = true;
                     sectionRequestList.Visible = false;
                     InvoiceSection.Visible = false;
-                    txtFollowTime.Text = DateTime.Now.ToShortTimeString();
+                    //txtFollowTime.Text = DateTime.Now.ToShortTimeString();
                     txtServiceRequest.Text = ViewState["ServiceName"].ToString();
                     txtClientSAID.Text = ViewState["SAID"].ToString();
                     txtClientName.Text = ViewState["ClientName"].ToString();
@@ -162,9 +162,9 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             followupEntity.ClientName = txtClientName.Text;
             followupEntity.AssignedTo = txtAssignedTo.Text;
             followupEntity.FollowUpDate = string.IsNullOrEmpty(txtFollowDate.Text) ? null : txtFollowDate.Text;
-            followupEntity.FollowUpTime = string.IsNullOrEmpty(txtFollowTime.Text) ? null : txtFollowTime.Text;
+            //followupEntity.FollowUpTime = string.IsNullOrEmpty(txtFollowTime.Text) ? null : txtFollowTime.Text;
             followupEntity.DueDate = string.IsNullOrEmpty(txtDueDate.Text) ? null : txtDueDate.Text;
-            followupEntity.DueTime = string.IsNullOrEmpty(txtDueTime.Text) ? null : txtDueTime.Text;
+            //followupEntity.DueTime = string.IsNullOrEmpty(txtDueTime.Text) ? null : txtDueTime.Text;
             followupEntity.ActivityType = Convert.ToInt32(dropActivityType.SelectedValue);
             int Result = followBL.FollowUpCRUD(followupEntity, 'i');
             if (Result > 0)
@@ -205,9 +205,9 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
     private void Clear()
     {
         txtFollowDate.Text = "";
-        txtFollowTime.Text = "";
+        //txtFollowTime.Text = "";
         txtDueDate.Text = "";
-        txtDueTime.Text = "";
+        //txtDueTime.Text = "";
         dropActivityType.SelectedValue = "-1";
     }
 

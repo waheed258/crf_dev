@@ -64,6 +64,7 @@ namespace BusinessLogic
                 hashtable.Add("@ClientFeedback", DBNull.Value);
                 hashtable.Add("@AdvisorFeedback", DBNull.Value);
                 hashtable.Add("@AssignTo", DBNull.Value);
+                hashtable.Add("@ResignedDate", clientinfo.ResignedDate);
             }
             else if (Operation == 'V')
             {
@@ -76,6 +77,7 @@ namespace BusinessLogic
                 hashtable.Add("@AssignTo", clientinfo.AssignTo);
                 hashtable.Add("@ClientFeedback", DBNull.Value);
                 hashtable.Add("@AdvisorFeedback", feedbackEntity.AdvisorFeedBack);
+                hashtable.Add("@ResignedDate", DBNull.Value);
             }
             else
             {
@@ -88,6 +90,7 @@ namespace BusinessLogic
                 hashtable.Add("@ClientFeedback", feedbackEntity.ClientFeedBack);
                 hashtable.Add("@AdvisorFeedback", DBNull.Value);
                 hashtable.Add("@AssignTo", DBNull.Value);
+                hashtable.Add("@ResignedDate", DBNull.Value);
             }
             hashtable.Add("@Operation", Operation);
             DataUtilities dataUtilities = new DataUtilities();
@@ -135,10 +138,9 @@ namespace BusinessLogic
             return ds;
         }
 
-        public int CheckClient(string Email, string SAID)
+        public int CheckClient(string SAID)
         {
-            Hashtable hashtable = new Hashtable();
-            hashtable.Add("@EmailID", Email);
+            Hashtable hashtable = new Hashtable();          
             hashtable.Add("@SAID", SAID);
             hashtable.Add("@Exists", DBNull.Value);
             return dataUtilities.ExecuteNonQuery("usp_CheckClientRegistration", hashtable, "@return");

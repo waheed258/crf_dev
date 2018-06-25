@@ -22,6 +22,7 @@ namespace EntityManager
         public int? VerifiedBy { get; set; }
         public string VerifiedOn { get; set; }
         public string VerifiedThough { get; set; }
+        public string ResignedDate { get; set; }
         public int? Status { get; set; }
     }
 }

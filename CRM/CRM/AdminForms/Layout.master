@@ -142,7 +142,7 @@
                             </a>
                             <ul class="treeview-menu">
                                  <li><a href="ClientRegistrationForm.aspx">Client Registration Form</a></li>
-                                <li><a href="ClientList.aspx">Registered Clients</a></li>
+                                <li><a href="ClientList.aspx">Prospect Clients</a></li>
                                  <li><a href="ActiveClientList.aspx">Active Clients</a></li>
                                 <li><a href="#">Location Wise Clients</a></li>                        
                             </ul>

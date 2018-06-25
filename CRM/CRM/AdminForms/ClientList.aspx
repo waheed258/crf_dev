@@ -160,7 +160,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
-                <h1>Registered Clients</h1>
+                <h1>Prospect Clients</h1>
             </div>
         </section>
         <!-- Main content -->
@@ -566,10 +566,14 @@
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
                                     <label>Status</label><span class="style1">*</span>
-                                    <asp:DropDownList ID="ddlClientStatus" runat="server" class="form-control">
+                                    <asp:DropDownList ID="ddlClientStatus" runat="server" class="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlClientStatus_SelectedIndexChanged">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvClientStatus" runat="server" ErrorMessage="Please select Status" Display="Dynamic"
                                         ControlToValidate="ddlClientStatus" ValidationGroup="Client" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <asp:Label runat="server" ID="lblResignedDate">Resigned Date</asp:Label>
+                                    <asp:TextBox ID="txtResignedDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>                                   
                                 </div>
                             </div>
                         </div>
@@ -589,7 +593,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                         <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
