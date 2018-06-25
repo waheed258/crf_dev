@@ -207,10 +207,11 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
-            if (ddlClientStatus.SelectedItem.Text == "Active")
+            if (ddlClientStatus.SelectedItem.Text == "Client Active")
             {
                 int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
                 clientRegEntity.Status = Status;
+                clientRegEntity.ResignedDate = "";
                 clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
                 int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
@@ -449,7 +450,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
               + " <td align='center' bgcolor='#ffffff' style='padding: 75px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;'>"
               + "Thanks for Registering with Activ8 group <br/><br/>"
               + "Your LogIn Credentials <br/>"
-              + "<table><tr><td style='text-align:right;'>User Id :</td><td><b> " + ViewState["Email"].ToString() + "</b></td> </tr><tr><td style='text-align:right;'>Password :</td><td><b>" + ViewState["RandomPwd"].ToString() + "</b></td></tr></table>"
+              + "<table><tr><td style='text-align:right;'>User Id :</td><td><b> " + "Your User ID is your SAID" + "</b></td> </tr><tr><td style='text-align:right;'>Password :</td><td><b>" + ViewState["RandomPwd"].ToString() + "</b></td></tr></table>"
 
               + " </td>"
            + "</tr>"

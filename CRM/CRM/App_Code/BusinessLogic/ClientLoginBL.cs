@@ -13,10 +13,10 @@ public class ClientLoginBL
 {
     DataUtilities dataUtilities = new DataUtilities();
     DataSet ds = new DataSet();
-    public DataSet ValidateClient(string EmailId)
+    public DataSet ValidateClient(string SAID)
     {
         Hashtable hashtable = new Hashtable();
-        hashtable.Add("@EmailID", EmailId);
+        hashtable.Add("@SAID", SAID);
         ds = dataUtilities.ExecuteDataSet("ValidateClient", hashtable);
         return ds;
     }

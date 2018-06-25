@@ -18,7 +18,7 @@ public partial class Login : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                Session["LoginId"] = null;
+                Session["SAID"] = null;
                 Session["Password"] = null;
             }
         }

@@ -45,8 +45,8 @@
                         <div class="panel-body">
 
                             <div class="form-group">
-                                <label class="control-label" for="username">Email Id</label>
-                                <asp:TextBox ID="txtUserName" placeholder="example@gmail.com" runat="server" class="form-control"></asp:TextBox>
+                                <label class="control-label" for="username">SAID</label>
+                                <asp:TextBox ID="txtUserName" placeholder="SAID" runat="server" class="form-control"></asp:TextBox>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
