@@ -41,7 +41,7 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
                         GetServiceRequest();
                         GetServiceRequestdetails();
                         BindPriority();
-                        btnUpdateSR.Visible = false;
+                        //btnUpdateSR.Visible = false;
                     }
 
                 }
@@ -84,41 +84,41 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
         }
     }
 
-    protected void btnUpdateSR_Click(object sender, EventArgs e)
-    {
-        clientserviceentitym.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
-        clientserviceentitym.SAID = Session["SAID"].ToString();
-        clientserviceentitym.ClientService = Convert.ToInt32(ddlService.SelectedValue);
-        clientserviceentitym.DetailInformation = txtDetails.Text.Trim();
-        clientserviceentitym.Priority = Convert.ToInt32(ddlPriority.SelectedValue);
-        clientserviceentitym.Status = 1;
-        int res;
-        res = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
-        if (res == 1)
-        {
-            lblTitle.Text = "Thank You!";
-            lblTitle.ForeColor = System.Drawing.Color.Green;
-            message.ForeColor = System.Drawing.Color.Green;
-            message.Text = "ServiceRequest updated Successfully!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-            SendMail(Session["email"].ToString());
-            InsertDocument();
-            ClearService();
-            GetServiceRequestdetails();
-            btnSubmitServiceRequest.Visible = true;
-            btnUpdateSR.Visible = false;
-        }
-        else
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry, Please try again!";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+    //protected void btnUpdateSR_Click(object sender, EventArgs e)
+    //{
+    //    clientserviceentitym.ClientServiceID = Convert.ToInt32(ViewState["ClientServiceID"]);
+    //    clientserviceentitym.SAID = Session["SAID"].ToString();
+    //    clientserviceentitym.ClientService = Convert.ToInt32(ddlService.SelectedValue);
+    //    clientserviceentitym.DetailInformation = txtDetails.Text.Trim();
+    //    clientserviceentitym.Priority = Convert.ToInt32(ddlPriority.SelectedValue);
+    //    clientserviceentitym.Status = 1;
+    //    int res;
+    //    res = _objServiceRequestBL.CUDUServiceRequest(clientserviceentitym, 'u');
+    //    if (res == 1)
+    //    {
+    //        lblTitle.Text = "Thank You!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Green;
+    //        message.ForeColor = System.Drawing.Color.Green;
+    //        message.Text = "ServiceRequest updated Successfully!";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //        SendMail(Session["email"].ToString());
+    //        InsertDocument();
+    //        ClearService();
+    //        GetServiceRequestdetails();
+    //        btnSubmitServiceRequest.Visible = true;
+    //        btnUpdateSR.Visible = false;
+    //    }
+    //    else
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry, Please try again!";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
 
 
-    }
+    //}
 
     protected void btnSubmitServiceRequest_Click(object sender, EventArgs e)
     {
@@ -278,22 +278,22 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
             int RowIndex = row.RowIndex;
             ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
 
-            if (e.CommandName == "EditServices")
-            {
+            //if (e.CommandName == "EditServices")
+            //{
 
-                ddlService.SelectedValue = ((Label)row.FindControl("lblClientServiceIDFK")).Text.ToString();
-                txtDetails.Text = ((Label)row.FindControl("lblDetailInformation")).Text.ToString();
-                ddlPriority.SelectedValue = ((Label)row.FindControl("lblPriorityID")).Text.ToString();
-                //ViewState["Serviceflag"] = 1;
-                btnSubmitServiceRequest.Visible = false;
-                btnUpdateSR.Visible = true;
-            }
-            else if (e.CommandName == "Delete")
-            {
-                ViewState["flag"] = 1;
-                lbldeletemessage.Text = "Are you sure, you want to delete Services Request Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-            }
+            //    ddlService.SelectedValue = ((Label)row.FindControl("lblClientServiceIDFK")).Text.ToString();
+            //    txtDetails.Text = ((Label)row.FindControl("lblDetailInformation")).Text.ToString();
+            //    ddlPriority.SelectedValue = ((Label)row.FindControl("lblPriorityID")).Text.ToString();
+            //    //ViewState["Serviceflag"] = 1;
+            //    btnSubmitServiceRequest.Visible = false;
+            //    btnUpdateSR.Visible = true;
+            //}
+            //else if (e.CommandName == "Delete")
+            //{
+            //    ViewState["flag"] = 1;
+            //    lbldeletemessage.Text = "Are you sure, you want to delete Services Request Details?";
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+            //}
         }
         catch
         {
@@ -337,18 +337,18 @@ public partial class ClientForms_ServiceRequest : System.Web.UI.Page
 
     }
 
-    protected void btnSure_Click(object sender, EventArgs e)
-    {
+    //protected void btnSure_Click(object sender, EventArgs e)
+    //{
 
-        if (Convert.ToInt32(ViewState["flag"]) == 1)
-        {
-            int result = _objServiceRequestBL.DeleteServicesDetails(ViewState["ClientServiceID"].ToString());
-            if (result == 1)
-            {
-                GetServiceRequestdetails();
-            }
-        }
-    }
+    //    if (Convert.ToInt32(ViewState["flag"]) == 1)
+    //    {
+    //        int result = _objServiceRequestBL.DeleteServicesDetails(ViewState["ClientServiceID"].ToString());
+    //        if (result == 1)
+    //        {
+    //            GetServiceRequestdetails();
+    //        }
+    //    }
+    //}
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         ClearService();

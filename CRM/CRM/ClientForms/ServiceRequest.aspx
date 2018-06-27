@@ -12,9 +12,9 @@
         //function openAddressModal() {
         //    $('#ContentPlaceHolder1_addressPopup').modal('show');
         //}
-        function openDeleteModal() {
-            $('#delete').modal('show');
-        }
+        //function openDeleteModal() {
+        //    $('#delete').modal('show');
+        //}
     </script>
 
 
@@ -152,7 +152,7 @@
                     <div class="col-sm-4"></div>
 
                     <asp:Button ID="btnSubmitServiceRequest" runat="server" Text="Submit" ValidationGroup="Service" OnClick="btnSubmitServiceRequest_Click" CssClass="btn btn-primary"></asp:Button>
-                    <asp:Button ID="btnUpdateSR" runat="server" Text="Update" ValidationGroup="Service" OnClick="btnUpdateSR_Click" CssClass="btn btn-primary"></asp:Button>
+                   <%-- <asp:Button ID="btnUpdateSR" runat="server" Text="Update" ValidationGroup="Service" OnClick="btnUpdateSR_Click" CssClass="btn btn-primary"></asp:Button>--%>
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnCancel_Click"></asp:Button>
                 </div>
 
@@ -236,7 +236,7 @@
                                         <asp:Label runat="server" ID="lblServiceStatus" Text='<%#Eval("ServiceStatus") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Edit">
+                               <%-- <asp:TemplateField HeaderText="Edit">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                             CommandName="EditServices" ToolTip="Edit" />
@@ -247,7 +247,7 @@
                                         <asp:ImageButton ID="btnAddressDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                             CommandName="Delete" ToolTip="Delete" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                             </Columns>
                         </asp:GridView>
                     </div>
@@ -258,7 +258,7 @@
 
 
         <!-- delete user Modal2 -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <%--<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -288,7 +288,7 @@
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
-        </div>
+        </div>--%>
 
 
         <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">

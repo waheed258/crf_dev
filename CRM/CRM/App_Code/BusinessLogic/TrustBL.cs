@@ -20,7 +20,7 @@ namespace BusinessLogic
                         {"@inTrustName",_objTrust.TrustName},
                         {"@inYearOfFoundation",_objTrust.YearOfFoundation},
                         {"@inTelephone",_objTrust.Telephone},
-                        {"@inFaxNo",_objTrust.FaxNo},
+                        {"@inFaxNo",DBNull.Value},
                         {"@inEmailID",_objTrust.EmailID},
                         {"@inWebsite",_objTrust.Website},
                         {"@inVATNo",_objTrust.VATNo},

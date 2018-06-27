@@ -28,11 +28,11 @@ public class CompanyBL
         hashtable.Add("@CompanyName", companyInfoEntity.CompanyName);
         hashtable.Add("@YearOfEstablishment", companyInfoEntity.YearOfEstablishment);
         hashtable.Add("@Telephone", companyInfoEntity.Telephone);
-        hashtable.Add("@FaxNo", companyInfoEntity.FaxNo);
+        hashtable.Add("@FaxNo", DBNull.Value);
         hashtable.Add("@EmailID", companyInfoEntity.EmailID);
         hashtable.Add("@Website", companyInfoEntity.Website);
         hashtable.Add("@VATNo", companyInfoEntity.VATNo);
-        hashtable.Add("@TrustUIC", companyInfoEntity.TrustUIC);
+        hashtable.Add("@TrustUIC", DBNull.Value);
         hashtable.Add("@AdvisorID", companyInfoEntity.AdvisorID);
         
         hashtable.Add("@Operation", Operation);

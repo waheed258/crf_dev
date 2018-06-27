@@ -49,9 +49,9 @@
         function openModal() {
             $('#ContentPlaceHolder1_Success').modal('show', { backdrop: 'static' });
         }
-        function openDeleteModal() {
-            $('#delete').modal('show', { backdrop: 'static' });
-        }
+        //function openDeleteModal() {
+        //    $('#delete').modal('show', { backdrop: 'static' });
+        //}
     </script>
     <style type="text/css">
         tr {
@@ -203,7 +203,7 @@
                                                 <asp:Label ID="lblDoc" runat="server" OnClick="linkDoc_Click" Text='<%#Eval("Document") %>' Visible="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Edit">
+                                       <%-- <asp:TemplateField HeaderText="Edit">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                     CommandName="EditDoc" ToolTip="Edit" CommandArgument='<%#Eval("DocId") %>' />
@@ -214,7 +214,7 @@
                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                     CommandName="DeleteDec" ToolTip="Delete Trust" CommandArgument='<%#Eval("DocId")+","+Eval("Document") %>' />
                                             </ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>--%>
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -249,7 +249,7 @@
                     <!-- /.modal-dialog -->
                 </div>
 
-                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+                <%--<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header modal-header-primary">
@@ -277,7 +277,7 @@
                         <!-- /.modal-content -->
                     </div>
                     <!-- /.modal-dialog -->
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>

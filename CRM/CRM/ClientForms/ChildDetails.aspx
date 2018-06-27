@@ -159,9 +159,9 @@
         function openAddressModal() {
             $('#ContentPlaceHolder1_addressPopup').modal('show');
         }
-        function openDeleteModal() {
-            $('#delete').modal('show', { backdrop: 'static' });
-        }
+        //function openDeleteModal() {
+        //    $('#delete').modal('show', { backdrop: 'static' });
+        //}
     </script>
 
     <style type="text/css">
@@ -234,7 +234,7 @@
                                             </div>
 
                                             <div class="form-group col-sm-3">
-                                                <label>Title</label><span class="style1">*</span>
+                                                <label>Title</label><%--<span class="style1">*</span>--%>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
@@ -244,8 +244,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
-                                                    ValidationGroup="Child" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
+                                             <%--   <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
+                                                    ValidationGroup="Child" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>--%>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>First Name</label><span class="style1">*</span>
@@ -254,29 +254,29 @@
                                                     ErrorMessage="Please Enter First Name" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Last Name</label><span class="style1">*</span>
+                                                <label>Last Name</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server" placeholder="Enter Last Name" MaxLength="50"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ForeColor="Red"
-                                                    ErrorMessage="Please Enter Last Name" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
+                                               <%-- <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ForeColor="Red"
+                                                    ErrorMessage="Please Enter Last Name" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                             </div>
 
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Email</label><span class="style1">*</span>
+                                                <label>Email</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtEmailId" CssClass="form-control" runat="server" placeholder="Enter EmailId" MaxLength="75"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="Red"
-                                                    ErrorMessage="Please Enter Email" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
+                                               <%-- <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="Red"
+                                                    ErrorMessage="Please Enter Email" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
                                                     ControlToValidate="txtEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Child">
                                                 </asp:RegularExpressionValidator>
 
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Mobile</label><span class="style1">*</span>
+                                                <label>Mobile</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtMobileNum" CssClass="form-control" runat="server" placeholder="Enter Mobile Number" MaxLength="10"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="Red"
-                                                    ErrorMessage="Please Enter Mobile" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
+                                               <%-- <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="Red"
+                                                    ErrorMessage="Please Enter Mobile" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revMobileNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtMobileNum" ForeColor="Red" ValidationGroup="Child"></asp:RegularExpressionValidator>
                                             </div>
@@ -289,16 +289,15 @@
                                             <div class="form-group col-sm-3">
                                                 <label>Tax Reference Number</label>
                                                 <asp:TextBox ID="txtTaxRefNum" runat="server" CssClass="form-control" placeholder="Enter Tax Reference Number"></asp:TextBox>
-
                                             </div>
                                         </div>
 
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Date Of Birth</label><span class="style1">*</span>
+                                                <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
-                                                 <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="Red"
-                                                    ErrorMessage="Please Select Date of Birth" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>
+                                               <%--  <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="Red"
+                                                    ErrorMessage="Please Select Date of Birth" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Photo Upload</label>
@@ -315,7 +314,7 @@
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
                                         <asp:Button ID="btnChildSubmit" runat="server" Text="Submit" CssClass="btn btn-primary" ValidationGroup="Child" OnClick="btnChildSubmit_Click" />
-                                        <asp:Button ID="btnChildUpdate" runat="server" Text="Update" ValidationGroup="Company" CssClass="btn btn-primary" OnClick="btnChildUpdate_Click"></asp:Button>
+<%--                                        <asp:Button ID="btnChildUpdate" runat="server" Text="Update" ValidationGroup="Company" CssClass="btn btn-primary" OnClick="btnChildUpdate_Click"></asp:Button>--%>
                                         <asp:Button ID="btnChildCancel" runat="server" Text="Cancel" class="btn btn-danger" OnClick="btnChildCancel_Click" />
                                     </div>
 
@@ -417,7 +416,7 @@
                                                             <asp:Label runat="server" ID="lblImage" Text='<%#Eval("Image") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Edit">
+                                                   <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="Edit" CommandArgument='<%#Eval("ChildrenID") %>' ToolTip="Edit" />
@@ -429,7 +428,7 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
 
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                     <asp:TemplateField HeaderText="Document">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
@@ -538,7 +537,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="Edit">
+                                                 <%--   <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
@@ -549,7 +548,7 @@
                                                             <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
                                             </asp:GridView>
@@ -671,7 +670,7 @@
                                                             <asp:Label runat="server" ID="lblCity" Text='<%#Eval("City") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Edit">
+                                                  <%--  <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="Edit" ToolTip="Edit" CommandArgument='<%#Eval("AddressDetailID") %>' />
@@ -682,7 +681,7 @@
                                                             <asp:ImageButton ID="btnAddressDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
@@ -760,16 +759,16 @@
                                                                 ValidationGroup="Bank" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                         </div>
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Currency</label><span class="style1">*</span>
+                                                            <label class="control-label">Currency</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtCurrency" runat="server" CssClass="form-control" placeholder="Enter Currency"></asp:TextBox>
-                                                            <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
-                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                           <%-- <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Swift</label><span class="style1">*</span>
+                                                            <label class="control-label">Swift</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtSwift" runat="server" CssClass="form-control" placeholder="Enter Swift"></asp:TextBox>
-                                                            <asp:RequiredFieldValidator ID="rfvSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
-                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                          <%--  <asp:RequiredFieldValidator ID="rfvSwift" runat="server" ControlToValidate="txtSwift" Display="Dynamic" ErrorMessage="Enter Swift"
+                                                                ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -782,7 +781,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: center">
                         <asp:Button ID="btnBankSubmit" runat="server" Text="Submit" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnBankSubmit_Click"></asp:Button>
-                        <asp:Button ID="btnUpdateBank" runat="server" Text="Update" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnUpdateBank_Click"></asp:Button>
+                        <%--<asp:Button ID="btnUpdateBank" runat="server" Text="Update" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnUpdateBank_Click"></asp:Button>--%>
                         <asp:Button ID="btnBankCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnBankCancel_Click"></asp:Button>
                     </div>
                 </div>
@@ -909,7 +908,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: center">
                         <asp:Button ID="btnAddressSubmit" runat="server" Text="Submit" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnAddressSubmit_Click"></asp:Button>
-                        <asp:Button ID="btnUpdateAddress" runat="server" Text="Update" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnUpdateAddress_Click"></asp:Button>
+                       <%-- <asp:Button ID="btnUpdateAddress" runat="server" Text="Update" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnUpdateAddress_Click"></asp:Button>--%>
                         <asp:Button ID="btnAddressCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnAddressCancel_Click"></asp:Button>
                     </div>
                 </div>
@@ -944,7 +943,7 @@
             <!-- /.modal-dialog -->
         </div>
 
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <%--<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -974,7 +973,7 @@
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
-        </div>
+        </div>--%>
 
 
     </div>

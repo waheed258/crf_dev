@@ -104,11 +104,11 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = true;
         txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
-        rfvtxtLastName.Enabled = false;
-        rfvtxtMobile.Enabled = false;
+        //rfvtxtLastName.Enabled = false;
+        //rfvtxtMobile.Enabled = false;
         revtxtEmail.Enabled = false;
         btnSubmit.Enabled = false;
-        rfvTitle.Enabled = false;
+        //rfvTitle.Enabled = false;
     }
 
     protected void Enable()
@@ -122,11 +122,11 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = false;
         txtDateOfBirth.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;
-        rfvtxtLastName.Enabled = true;
-        rfvtxtMobile.Enabled = true;
+        //rfvtxtLastName.Enabled = true;
+        //rfvtxtMobile.Enabled = true;
         revtxtEmail.Enabled = true;
         btnSubmit.Enabled = true;
-        rfvTitle.Enabled = true;
+       // rfvTitle.Enabled = true;
     }
 
 
@@ -367,22 +367,22 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
 
-                if (e.CommandName == "EditTrustSettler")
-                {
-                    int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
-                    Enable();
-                    BindTrustSettler(TrustSettlerId);
-                }
-                else if (e.CommandName == "Document")
+                //if (e.CommandName == "EditTrustSettler")
+                //{
+                //    int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
+                //    Enable();
+                //    BindTrustSettler(TrustSettlerId);
+                //}
+                 if (e.CommandName == "Document")
                 {
                     Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("5") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
-                else if (e.CommandName == "DeleteSettler")
-                {
-                    ViewState["flag"] = 1;
-                    lbldeletemessage.Text = "Are you sure, you want to delete Trust Settlor Details?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-                }
+                //else if (e.CommandName == "DeleteSettler")
+                //{
+                //    ViewState["flag"] = 1;
+                //    lbldeletemessage.Text = "Are you sure, you want to delete Trust Settlor Details?";
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                //}
                 else if (e.CommandName == "Address")
                 {
                     DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
@@ -407,7 +407,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                             ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
                         }
                     }
-                    btnUpdateAddress.Visible = false;
+                   // btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
@@ -433,7 +433,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
-                    btnUpdateBank.Visible = false;
+                    //btnUpdateBank.Visible = false;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
                 }
             }
@@ -556,61 +556,61 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    protected void btnUpdateAddress_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            addressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
-            addressEntity.Type = 5;
-            addressEntity.SAID = ViewState["AddressSAID"].ToString();
-            addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
-            addressEntity.UIC = txtTrustUIC.Text.Trim();
-            addressEntity.HouseNo = txtHouseNo.Text;
-            addressEntity.BuildingName = txtBulding.Text;
-            addressEntity.Floor = txtFloor.Text;
-            addressEntity.FlatNo = txtFlatNo.Text;
-            addressEntity.RoadName = txtRoadName.Text;
-            addressEntity.RoadNo = txtRoadNo.Text;
-            addressEntity.SuburbName = txtSuburbName.Text;
-            addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
-            addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
-            addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
-            addressEntity.PostalCode = txtPostalCode.Text;
-            addressEntity.AdvisorId = 0;
-            addressEntity.Status = 1;
-            addressEntity.CreatedBy = 0;
-            addressEntity.UpdatedBy = "0";
+    //protected void btnUpdateAddress_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        addressEntity.AddressDetailID = Convert.ToInt32(ViewState["AddressDetailID"]);
+    //        addressEntity.Type = 5;
+    //        addressEntity.SAID = ViewState["AddressSAID"].ToString();
+    //        addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
+    //        addressEntity.UIC = txtTrustUIC.Text.Trim();
+    //        addressEntity.HouseNo = txtHouseNo.Text;
+    //        addressEntity.BuildingName = txtBulding.Text;
+    //        addressEntity.Floor = txtFloor.Text;
+    //        addressEntity.FlatNo = txtFlatNo.Text;
+    //        addressEntity.RoadName = txtRoadName.Text;
+    //        addressEntity.RoadNo = txtRoadNo.Text;
+    //        addressEntity.SuburbName = txtSuburbName.Text;
+    //        addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+    //        addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
+    //        addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
+    //        addressEntity.PostalCode = txtPostalCode.Text;
+    //        addressEntity.AdvisorId = 0;
+    //        addressEntity.Status = 1;
+    //        addressEntity.CreatedBy = 0;
+    //        addressEntity.UpdatedBy = "0";
 
-            int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
-            if (result == 1)
-            {
-                lblTitle.Text = "Thank You!";
-                lblTitle.ForeColor = System.Drawing.Color.Green;
-                message.ForeColor = System.Drawing.Color.Green;
-                message.Text = "Address details updated successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                ClearAddressControls();
-                BindAddressDetails();
-            }
-            else
-            {
-                lblTitle.Text = "Warning!";
-                lblTitle.ForeColor = System.Drawing.Color.Red;
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Sorry, Please try again!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                BindAddressDetails();
-            }
-        }
-        catch
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry, Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //        int result = addressBL.InsertUpdateAddress(addressEntity, 'u');
+    //        if (result == 1)
+    //        {
+    //            lblTitle.Text = "Thank You!";
+    //            lblTitle.ForeColor = System.Drawing.Color.Green;
+    //            message.ForeColor = System.Drawing.Color.Green;
+    //            message.Text = "Address details updated successfully!";
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //            ClearAddressControls();
+    //            BindAddressDetails();
+    //        }
+    //        else
+    //        {
+    //            lblTitle.Text = "Warning!";
+    //            lblTitle.ForeColor = System.Drawing.Color.Red;
+    //            message.ForeColor = System.Drawing.Color.Red;
+    //            message.Text = "Sorry, Please try again!";
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //            BindAddressDetails();
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry, Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void btnAddressCancel_Click(object sender, EventArgs e)
     {
         ClearAddressControls();
@@ -626,34 +626,34 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
 
-            if (e.CommandName == "EditAddress")
-            {
-                addressmessage.InnerText = "Update Address Details";
-                btnAddressSubmit.Visible = false;
-                btnUpdateAddress.Visible = true;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+            //if (e.CommandName == "EditAddress")
+            //{
+            //    addressmessage.InnerText = "Update Address Details";
+            //    btnAddressSubmit.Visible = false;
+            //    btnUpdateAddress.Visible = true;
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
 
-                //txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
-                //txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
+            //    //txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+            //    //txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
 
-                txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
-                txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
-                txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
-                txtFlatNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
-                txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
-                txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
-                txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
-                ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
-                txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
-                ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
-                ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
-            }
-            else if (e.CommandName == "DeleteAddress")
-            {
-                ViewState["flag"] = 3;
-                lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-            }
+            //    txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
+            //    txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
+            //    txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
+            //    txtFlatNo.Text = ((Label)row.FindControl("lblFlatNo")).Text.ToString();
+            //    txtRoadName.Text = ((Label)row.FindControl("lblRoadName")).Text.ToString();
+            //    txtRoadNo.Text = ((Label)row.FindControl("lblRoadNo")).Text.ToString();
+            //    txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
+            //    ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
+            //    txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
+            //    ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
+            //    ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
+            //}
+            //else if (e.CommandName == "DeleteAddress")
+            //{
+            //    ViewState["flag"] = 3;
+            //    lbldeletemessage.Text = "Are you sure, you want to delete Address Details?";
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+            //}
         }
         catch
         {
@@ -736,56 +736,56 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    protected void btnUpdateBank_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            bankEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
-            bankEntity.Type = 5;
-            bankEntity.SAID = ViewState["BankSAID"].ToString();
-            bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
-            bankEntity.UIC = txtTrustUIC.Text.Trim();
-            bankEntity.BankName = txtBankName.Text;
-            bankEntity.BranchNumber = txtBranchNumber.Text;
-            bankEntity.AccountNumber = txtAccountNumber.Text;
-            bankEntity.AccountType = Convert.ToInt32(ddlAccountType.SelectedValue);
-            bankEntity.Currency = txtCurrency.Text;
-            bankEntity.SWIFT = txtSwift.Text;
-            bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = 0;
-            bankEntity.UpdatedBy = 0;
+    //protected void btnUpdateBank_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        bankEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
+    //        bankEntity.Type = 5;
+    //        bankEntity.SAID = ViewState["BankSAID"].ToString();
+    //        bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
+    //        bankEntity.UIC = txtTrustUIC.Text.Trim();
+    //        bankEntity.BankName = txtBankName.Text;
+    //        bankEntity.BranchNumber = txtBranchNumber.Text;
+    //        bankEntity.AccountNumber = txtAccountNumber.Text;
+    //        bankEntity.AccountType = Convert.ToInt32(ddlAccountType.SelectedValue);
+    //        bankEntity.Currency = txtCurrency.Text;
+    //        bankEntity.SWIFT = txtSwift.Text;
+    //        bankEntity.CreatedBy = 0;
+    //        bankEntity.AdvisorID = 0;
+    //        bankEntity.UpdatedBy = 0;
 
 
-            int result = bankBL.CURDBankInfo(bankEntity, 'u');
-            if (result == 1)
-            {
-                lblTitle.Text = "Thank You!";
-                lblTitle.ForeColor = System.Drawing.Color.Green;
-                message.ForeColor = System.Drawing.Color.Green;
-                message.Text = "Bank details updated successfully!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                ClearBankControls();
-                BindBankDetails();
-            }
-            else
-            {
-                lblTitle.Text = "Warning!";
-                lblTitle.ForeColor = System.Drawing.Color.Red;
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Sorry, Please try again!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                BindBankDetails();
-            }
-        }
-        catch
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry, Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //        int result = bankBL.CURDBankInfo(bankEntity, 'u');
+    //        if (result == 1)
+    //        {
+    //            lblTitle.Text = "Thank You!";
+    //            lblTitle.ForeColor = System.Drawing.Color.Green;
+    //            message.ForeColor = System.Drawing.Color.Green;
+    //            message.Text = "Bank details updated successfully!";
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //            ClearBankControls();
+    //            BindBankDetails();
+    //        }
+    //        else
+    //        {
+    //            lblTitle.Text = "Warning!";
+    //            lblTitle.ForeColor = System.Drawing.Color.Red;
+    //            message.ForeColor = System.Drawing.Color.Red;
+    //            message.Text = "Sorry, Please try again!";
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //            BindBankDetails();
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry, Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void btnBankCancel_Click(object sender, EventArgs e)
     {
         ClearBankControls();
@@ -841,30 +841,30 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                if (e.CommandName == "EditBank")
-                {
-                    bankmessage.InnerText = "Update Bank Details";
-                    btnBankSubmit.Visible = false;
-                    btnUpdateBank.Visible = true;
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                //if (e.CommandName == "EditBank")
+                //{
+                //    bankmessage.InnerText = "Update Bank Details";
+                //    btnBankSubmit.Visible = false;
+                //    btnUpdateBank.Visible = true;
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
 
-                    txtSAIDBank.Text = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
-                    txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
+                //    txtSAIDBank.Text = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
+                //    txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
 
-                    txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
-                    txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
-                    txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
-                    txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
-                    txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
-                    ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
-                }
-                else if (e.CommandName == "DeleteBank")
-                {
-                    ViewState["flag"] = 2;
-                    lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                //    txtBankName.Text = ((Label)row.FindControl("lblBankName")).Text.ToString();
+                //    txtBranchNumber.Text = ((Label)row.FindControl("lblBranchNumber")).Text.ToString();
+                //    txtAccountNumber.Text = ((Label)row.FindControl("lblAccountNumber")).Text.ToString();
+                //    txtCurrency.Text = ((Label)row.FindControl("lblCurrency")).Text.ToString();
+                //    txtSwift.Text = ((Label)row.FindControl("lblSWIFT")).Text.ToString();
+                //    ddlAccountType.SelectedValue = ((Label)row.FindControl("lblAccountType")).Text.ToString();
+                //}
+                //else if (e.CommandName == "DeleteBank")
+                //{
+                //    ViewState["flag"] = 2;
+                //    lbldeletemessage.Text = "Are you sure, you want to delete Bank Details?";
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
 
-                }
+                //}
             }
         }
         catch
@@ -886,52 +886,52 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
     #endregion
 
 
-    protected void btnSure_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            if (Convert.ToInt32(ViewState["flag"]) == 1)
-            {
-                int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]),txtTrustUIC.Text.Trim(), ViewState["SAID"].ToString());
-                if (res > 0)
-                {
-                    GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
-                    BindBankDetails();
-                    BindAddressDetails();
-                    ClearTrustSettlerControls();
-                    ClearBankControls();
-                    ClearAddressControls();
-                }
-            }
-            else if (Convert.ToInt32(ViewState["flag"]) == 2)
-            {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
-                if (result == 1)
-                {
-                    ClearBankControls();
-                    BindBankDetails();
-                }
-            }
-            else if (Convert.ToInt32(ViewState["flag"]) == 3)
-            {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
-                if (result == 1)
-                {
-                    ClearAddressControls();
-                    BindAddressDetails();
-                }
-            }
-        }
-        catch
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry, Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
+    //protected void btnSure_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (Convert.ToInt32(ViewState["flag"]) == 1)
+    //        {
+    //            int res = _ObjTrustSettlerBL.DeleteTrustSettler(Convert.ToInt32(ViewState["TrusteeSettlerId"]),txtTrustUIC.Text.Trim(), ViewState["SAID"].ToString());
+    //            if (res > 0)
+    //            {
+    //                GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+    //                BindBankDetails();
+    //                BindAddressDetails();
+    //                ClearTrustSettlerControls();
+    //                ClearBankControls();
+    //                ClearAddressControls();
+    //            }
+    //        }
+    //        else if (Convert.ToInt32(ViewState["flag"]) == 2)
+    //        {
+    //            int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
+    //            if (result == 1)
+    //            {
+    //                ClearBankControls();
+    //                BindBankDetails();
+    //            }
+    //        }
+    //        else if (Convert.ToInt32(ViewState["flag"]) == 3)
+    //        {
+    //            int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
+    //            if (result == 1)
+    //            {
+    //                ClearAddressControls();
+    //                BindAddressDetails();
+    //            }
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry, Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
 
-    }
+    //}
 
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {

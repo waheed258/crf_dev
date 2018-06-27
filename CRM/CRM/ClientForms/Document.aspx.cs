@@ -349,20 +349,20 @@ public partial class ClientForms_Document : System.Web.UI.Page
         {
             if (e.CommandName != "Page")
             {
-                if (e.CommandName == "EditDoc")
-                {
-                    int DocID = Convert.ToInt32(e.CommandArgument.ToString());
-                    BindDocument(DocID);
-                    btnSubmit.Text = "Update";
-                }
-                else if (e.CommandName == "DeleteDec")
-                {
-                    string[] strparas = e.CommandArgument.ToString().Split(new char[] { ',' });
-                    ViewState["DocId"] = Convert.ToInt32(strparas[0]);
-                    hfDocumentName.Value = strparas[1];
-                    lbldeletemessage.Text = "Are you sure, you want to delete Document ?";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
-                }
+                //if (e.CommandName == "EditDoc")
+                //{
+                //    int DocID = Convert.ToInt32(e.CommandArgument.ToString());
+                //    BindDocument(DocID);
+                //    btnSubmit.Text = "Update";
+                //}
+                //else if (e.CommandName == "DeleteDec")
+                //{
+                //    string[] strparas = e.CommandArgument.ToString().Split(new char[] { ',' });
+                //    ViewState["DocId"] = Convert.ToInt32(strparas[0]);
+                //    hfDocumentName.Value = strparas[1];
+                //    lbldeletemessage.Text = "Are you sure, you want to delete Document ?";
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                //}
             }
         }
         catch
@@ -389,32 +389,32 @@ public partial class ClientForms_Document : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    protected void btnSure_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            int res = _objDocumentBL.DeleteDocument(Convert.ToInt32(ViewState["DocId"]), Session["SAID"].ToString());
-            if (res > 0)
-            {
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim());
-                if (File.Exists(Path.Combine(folder, hfDocumentName.Value.ToString())))
-                {
-                    //delete file in folder
-                    File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
-                }
-                GetDouments();
-                ClearControls();
-            }
-        }
-        catch
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry, Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //protected void btnSure_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        int res = _objDocumentBL.DeleteDocument(Convert.ToInt32(ViewState["DocId"]), Session["SAID"].ToString());
+    //        if (res > 0)
+    //        {
+    //            var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim());
+    //            if (File.Exists(Path.Combine(folder, hfDocumentName.Value.ToString())))
+    //            {
+    //                //delete file in folder
+    //                File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
+    //            }
+    //            GetDouments();
+    //            ClearControls();
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry, Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
 
     #endregion
 
