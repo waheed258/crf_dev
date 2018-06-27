@@ -155,7 +155,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         {
             UIC = txtUIC.Text.Trim(),
             TrustName = txtTrustName.Text.Trim(),
-            YearOfFoundation = txtYearofFoundation.Text.Trim(),
+            YearOfFoundation = string.IsNullOrEmpty(txtYearofFoundation.Text) ? null : txtYearofFoundation.Text,
             VATNo = txtVATRef.Text.Trim(),
             Telephone = txtTelephone.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
@@ -273,6 +273,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         Response.Redirect("Beneficiary.aspx?t=" + ObjEn.Encrypt("1"), false);
                         break;
                     case "Address":
+                        ClearAddressControls();
                         DataSet dsAddress = addressbankBL.GetAddressDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
                         if (dsAddress.Tables[0].Rows.Count > 0)
                         {
@@ -301,6 +302,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
                         break;
                     case "Bank":
+                        ClearAddressControls();
                         DataSet dsBank = addressbankBL.GetBankDetails("0", Session["SAID"].ToString(), ViewState["UIC"].ToString());
                         if (dsBank.Tables[0].Rows.Count > 0)
                         {

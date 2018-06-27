@@ -117,7 +117,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
         txtDateOfBirth.ReadOnly = false;
-        //rfvtxtFirstName.Enabled = true;
+        rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtMobile.Enabled = true;
         //rfvEmail.Enabled = true;
@@ -217,7 +217,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             Status = 1,
             AdvisorID = 0,
             Title = ddlTitle.SelectedValue,
-            DateOfBirth = txtDateOfBirth.Text,
+            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
             Phone = txtPhoneNum.Text
         };
         int result;

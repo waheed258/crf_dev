@@ -111,9 +111,9 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
-            DateOfBirth=txtDateOfBirth.Text,
+            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
             TaxRefNo = txtTaxRefNo.Text.Trim(),
-            ShareHolderPercentage = txtSharePerc.Text.Trim(),
+            ShareHolderPercentage = string.IsNullOrEmpty(txtSharePerc.Text) ? null : txtSharePerc.Text,
             ShareValue=txtShareValue.Text.Trim(),
             Status = 1,
             AdvisorID = 0,
@@ -213,7 +213,6 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
                 txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
                 txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
-
                 btnDirectorSubmit.Text = "Update";
             }
         }

@@ -134,7 +134,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             EmailID = txtEmail.Text.Trim(),
             Mobile = txtMobile.Text.Trim(),
             Phone = txtPhone.Text.Trim(),
-            DateOfBirth = txtDateOfBirth.Text,
+            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
             TaxRefNo = txtTaxRefNo.Text.Trim(),
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,

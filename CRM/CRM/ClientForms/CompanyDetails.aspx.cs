@@ -208,7 +208,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             companyInfoEntity.ReferenceSAID = Session["SAID"].ToString();
             companyInfoEntity.UIC = txtCompanyUIC.Text;
             companyInfoEntity.CompanyName = txtCompanyName.Text;
-            companyInfoEntity.YearOfEstablishment = txtYearofFoundation.Text;
+            companyInfoEntity.YearOfEstablishment = string.IsNullOrEmpty(txtYearofFoundation.Text) ? null : txtYearofFoundation.Text;
             companyInfoEntity.Telephone = txtTelephone.Text;
             //companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
@@ -232,6 +232,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                 message.Text = "Company details saved successfully!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 Clear();
+                Disable();
                 GetGridData();
             }
             else
