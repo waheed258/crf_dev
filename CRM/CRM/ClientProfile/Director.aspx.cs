@@ -109,9 +109,9 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                 EmailID = txtEmail.Text.Trim(),
                 Mobile = txtMobile.Text.Trim(),
                 Phone = txtPhone.Text.Trim(),
-                DateOfBirth = txtDateOfBirth.Text,
+                DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
                 TaxRefNo = txtTaxRefNo.Text.Trim(),
-                ShareHolderPercentage = txtSharePerc.Text.Trim(),
+                ShareHolderPercentage = string.IsNullOrEmpty(txtSharePerc.Text) ? null : txtSharePerc.Text,
                 ShareValue = txtShareValue.Text.Trim(),
                 AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
 
@@ -216,10 +216,18 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
                 txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-                DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
-                txtDateOfBirth.Text = DOB.ToShortDateString();
+
+                if (ds.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                {
+                    txtDateOfBirth.Text = "";
+                }
+                else
+                {
+                    DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                }
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+                txtSharePerc.Text =ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
                 txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
 
                 btnDirectorSubmit.Text = "Update";

@@ -196,7 +196,7 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
-                <h1>Beneficiary Information</h1>
+                <h1>Share Holder Information</h1>
             </div>
         </div>
         <!-- Main content -->
@@ -208,13 +208,13 @@
                     <div class="panel panel-bd">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <h5>Add Beneficiary</h5>
+                                <h5>Add Share Holder</h5>
                             </div>
                         </div>
                         <div class="panel-body" id="Tabs">
 
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tabTrust" data-toggle="tab">Beneficiary Info</a></li>
+                                <li class="active"><a href="#tabTrust" data-toggle="tab">Share Holder Info</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
                             </ul>
@@ -331,7 +331,7 @@
                                     <div class="panel panel-bd" id="divBeneficiarylist" runat="server">
                                         <div class="panel-heading">
                                             <div class="panel-title">
-                                                <h5>List of Beneficiaries</h5>
+                                                <h5>List of Share Holders</h5>
                                             </div>
                                         </div>
                                         <div class="panel-body">
@@ -494,7 +494,7 @@
                                                             <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Beneficiary Name">
+                                                    <asp:TemplateField HeaderText="Share Holder Name">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -627,7 +627,7 @@
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Beneficiary Name">
+                                                    <asp:TemplateField HeaderText="Share Holder Name">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -719,7 +719,7 @@
                                                                 <asp:TextBox ID="txtSAIDBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                             </div>
                                                             <div class="col-sm-8 form-group">
-                                                                <label class="control-label">Beneficiary Name</label>
+                                                                <label class="control-label">Share Holder Name</label>
                                                                 <asp:TextBox ID="txtBeneficiaryNameBank" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                             </div>
                                                         </div>
@@ -800,7 +800,7 @@
                                                         <asp:TextBox ID="txtSAIDBeneficiary" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                     </div>
                                                     <div class="col-sm-8 form-group">
-                                                        <label class="control-label">Beneficiary Name</label>
+                                                        <label class="control-label">Share Holder Name</label>
                                                         <asp:TextBox ID="txtBeneficiaryAddress" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                     </div>
                                                 </div>

@@ -158,7 +158,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         {
             UIC = txtUIC.Text.Trim(),
             TrustName = txtTrustName.Text.Trim(),
-            YearOfFoundation = txtYearofFoundation.Text.Trim(),
+            YearOfFoundation = string.IsNullOrEmpty(txtYearofFoundation.Text) ? null : txtYearofFoundation.Text,          
             VATNo = txtVATRef.Text.Trim(),
             Telephone = txtTelephone.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),

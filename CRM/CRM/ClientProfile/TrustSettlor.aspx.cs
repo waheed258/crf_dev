@@ -213,7 +213,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             Status = 1,
             AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
             Title = ddlTitle.SelectedValue,
-            DateOfBirth = txtDateOfBirth.Text
+            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text
         };
 
         if (btnSubmit.Text == "Update")

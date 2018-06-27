@@ -189,7 +189,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             Status = 1,
             AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
             Title = ddlTitle.SelectedValue,
-            DateOfBirth = txtDateOfBirth.Text,
+            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
             Phone = txtPhoneNum.Text
         };
         int result;

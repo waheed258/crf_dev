@@ -296,11 +296,11 @@
                                                 <asp:TextBox ID="txtPhoneNum" CssClass="form-control" runat="server" placeholder="Enter Phone Number" MaxLength="10"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Tax Reference No.</label><span class="style1">*</span>
+                                                <label class="control-label">Tax Reference No.</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtTaxRefNo" CssClass="form-control" runat="server" placeholder="Enter Tax Ref No"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                               <%-- <asp:RequiredFieldValidator ID="rfvtxtTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference Number"
-                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
                                         </div>
                                     </div>
