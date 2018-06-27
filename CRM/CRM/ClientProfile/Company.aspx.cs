@@ -40,7 +40,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         commonClass.getRecordsPerPage(dropBank);
                         commonClass.getRecordsPerPage(dropAddress);
                         GetGridData();
-                        GetTrustNames();
+                        //GetTrustNames();
                         GetBankDetails();
                         GetAddressDetails();
                         btnUpdateCompany.Visible = false;
@@ -183,19 +183,19 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.CompanyName = txtCompanyName.Text;
             companyInfoEntity.YearOfEstablishment = txtYearofFoundation.Text;
             companyInfoEntity.Telephone = txtTelephone.Text;
-            companyInfoEntity.FaxNo = txtFax.Text;
+           // companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
             companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
-            if (ddlTrustNames.SelectedValue != "0")
-            {
-                companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
-            }
-            else
-            {
-                companyInfoEntity.TrustUIC = "0";
-            }
+            //if (ddlTrustNames.SelectedValue != "0")
+            //{
+            //    companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
+            //}
+            //else
+            //{
+            //    companyInfoEntity.TrustUIC = "0";
+            //}
             int result = companyBL.CUDCompany(companyInfoEntity, 'C');
             if (result == 1)
             {
@@ -235,36 +235,36 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         txtVATRef.Text = "";
         txtYearofFoundation.Text = "";
         txtTelephone.Text = "";
-        txtFax.Text = "";
+        //txtFax.Text = "";
         txtEmail.Text = "";
         txtWebsite.Text = "";
-        ddlTrustNames.SelectedValue = "0";
+        //ddlTrustNames.SelectedValue = "0";
 
     }
 
-    private void GetTrustNames()
-    {
-        try
-        {
-            DataSet ds = companyBL.GetTrustNames();
-            if (ds.Tables.Count > 0)
-            {
-                ddlTrustNames.DataSource = ds;
-                ddlTrustNames.DataTextField = "TrustName";
-                ddlTrustNames.DataValueField = "UIC";
-                ddlTrustNames.DataBind();
-                ddlTrustNames.Items.Insert(0, new ListItem("--Select Trust --", "0"));
-            }
-        }
-        catch (Exception ex)
-        {
-            lblTitle.Text = "Warning!";
-            lblTitle.ForeColor = System.Drawing.Color.Red;
-            message.ForeColor = System.Drawing.Color.Red;
-            message.Text = "Sorry,Something went wrong, please contact administrator";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        }
-    }
+    //private void GetTrustNames()
+    //{
+    //    try
+    //    {
+    //        DataSet ds = companyBL.GetTrustNames();
+    //        if (ds.Tables.Count > 0)
+    //        {
+    //            ddlTrustNames.DataSource = ds;
+    //            ddlTrustNames.DataTextField = "TrustName";
+    //            ddlTrustNames.DataValueField = "UIC";
+    //            ddlTrustNames.DataBind();
+    //            ddlTrustNames.Items.Insert(0, new ListItem("--Select Trust --", "0"));
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblTitle.Text = "Warning!";
+    //        lblTitle.ForeColor = System.Drawing.Color.Red;
+    //        message.ForeColor = System.Drawing.Color.Red;
+    //        message.Text = "Sorry,Something went wrong, please contact administrator";
+    //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+    //    }
+    //}
     protected void btnCpmpanyDetailsCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("Company.aspx");
@@ -301,11 +301,11 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     txtCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
                     txtYearofFoundation.Text = Convert.ToDateTime(((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString()).Date.ToString("yyyy-MM-dd");
                     txtTelephone.Text = ((Label)row.FindControl("lblTelephone")).Text.ToString();
-                    txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
+                    //txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
                     txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                     txtWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
                     txtVATRef.Text = ((Label)row.FindControl("lblVATNo")).Text.ToString();
-                    ddlTrustNames.SelectedValue = ((Label)row.FindControl("lblTrusts")).Text.ToString();
+                    //ddlTrustNames.SelectedValue = ((Label)row.FindControl("lblTrusts")).Text.ToString();
                 }
                 else if (e.CommandName == "Document")
                 {
@@ -400,12 +400,12 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             companyInfoEntity.CompanyName = txtCompanyName.Text;
             companyInfoEntity.YearOfEstablishment = txtYearofFoundation.Text;
             companyInfoEntity.Telephone = txtTelephone.Text;
-            companyInfoEntity.FaxNo = txtFax.Text;
+            //companyInfoEntity.FaxNo = txtFax.Text;
             companyInfoEntity.EmailID = txtEmail.Text;
             companyInfoEntity.Website = txtWebsite.Text;
             companyInfoEntity.VATNo = txtVATRef.Text.Trim();
             companyInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
-            companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
+            //companyInfoEntity.TrustUIC = ddlTrustNames.SelectedValue;
             int result = companyBL.CUDCompany(companyInfoEntity, 'U');
             if (result == 1)
             {
@@ -925,7 +925,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
                     txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
                     txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
-                    txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                    //txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
                     txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
@@ -944,15 +944,15 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephone.ReadOnly = true;
-        txtFax.ReadOnly = true;
+        //txtFax.ReadOnly = true;
         txtEmail.ReadOnly = true;
         txtWebsite.ReadOnly = true;
         rfvTCompanyName.Enabled = false;
-        rfvYearOfFoundation.Enabled = false;
-        rfvtxtVATRef.Enabled = false;
-        rfvTelephone.Enabled = false;
-        rgvFax.Enabled = false;
-        rfvEmail.Enabled = false;
+        //rfvYearOfFoundation.Enabled = false;
+        //rfvtxtVATRef.Enabled = false;
+        //rfvTelephone.Enabled = false;
+        //rgvFax.Enabled = false;
+        //rfvEmail.Enabled = false;
         rgvWebsite.Enabled = false;
         btnCompantDetails.Enabled = false;
     }
@@ -963,15 +963,15 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         txtYearofFoundation.ReadOnly = false;
         txtVATRef.ReadOnly = false;
         txtTelephone.ReadOnly = false;
-        txtFax.ReadOnly = false;
+        //txtFax.ReadOnly = false;
         txtEmail.ReadOnly = false;
         txtWebsite.ReadOnly = false;
         rfvTCompanyName.Enabled = true;
-        rfvYearOfFoundation.Enabled = true;
-        rfvtxtVATRef.Enabled = true;
-        rfvTelephone.Enabled = true;
-        rgvFax.Enabled = true;
-        rfvEmail.Enabled = true;
+        //rfvYearOfFoundation.Enabled = true;
+        //rfvtxtVATRef.Enabled = true;
+        //rfvTelephone.Enabled = true;
+        //rgvFax.Enabled = true;
+        //rfvEmail.Enabled = true;
         rgvWebsite.Enabled = true;
         btnCompantDetails.Enabled = true;
     }

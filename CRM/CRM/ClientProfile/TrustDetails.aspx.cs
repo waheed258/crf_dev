@@ -162,7 +162,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             VATNo = txtVATRef.Text.Trim(),
             Telephone = txtTelephone.Text.Trim(),
             EmailID = txtEmail.Text.Trim(),
-            FaxNo = txtFax.Text.Trim(),
+            //FaxNo = txtFax.Text.Trim(),
             Website = txtWebsite.Text.Trim(),
             ReferenceSAID = Session["SAID"].ToString(),
             Status = 1,
@@ -189,7 +189,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         txtVATRef.Text = "";
         txtTelephone.Text = "";
         txtEmail.Text = "";
-        txtFax.Text = "";
+        //txtFax.Text = "";
         txtWebsite.Text = "";
     }
 
@@ -205,7 +205,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 txtYearofFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
                 txtTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-                txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
+                //txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
                 txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
                 txtVATRef.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
                 btnSubmitTrust.Text = "Update";
@@ -907,7 +907,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
                     txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
                     txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
-                    txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                    //txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
                     txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
@@ -931,15 +931,15 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephone.ReadOnly = true;
-        txtFax.ReadOnly = true;
+        //txtFax.ReadOnly = true;
         txtEmail.ReadOnly = true;
         txtWebsite.ReadOnly = true;
         rfvTrustName.Enabled = false;
-        rfvYearOfFoundation.Enabled = false;
-        rfvtxtVATRef.Enabled = false;
-        rfvTelephone.Enabled = false;
-        revtxtFax.Enabled = false;
-        rfvEmail.Enabled = false;
+        //rfvYearOfFoundation.Enabled = false;
+        //rfvtxtVATRef.Enabled = false;
+        //rfvTelephone.Enabled = false;
+        //revtxtFax.Enabled = false;
+        //rfvEmail.Enabled = false;
         rgvWebsite.Enabled = false;
         btnSubmitTrust.Enabled = false;
     }
@@ -950,15 +950,15 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         txtYearofFoundation.ReadOnly = false;
         txtVATRef.ReadOnly = false;
         txtTelephone.ReadOnly = false;
-        txtFax.ReadOnly = false;
+        //txtFax.ReadOnly = false;
         txtEmail.ReadOnly = false;
         txtWebsite.ReadOnly = false;
         rfvTrustName.Enabled = true;
-        rfvYearOfFoundation.Enabled = true;
-        rfvtxtVATRef.Enabled = true;
-        rfvTelephone.Enabled = true;
-        revtxtFax.Enabled = true;
-        rfvEmail.Enabled = true;
+        //rfvYearOfFoundation.Enabled = true;
+        //rfvtxtVATRef.Enabled = true;
+        //rfvTelephone.Enabled = true;
+        //revtxtFax.Enabled = true;
+        //rfvEmail.Enabled = true;
         rgvWebsite.Enabled = true;
         btnSubmitTrust.Enabled = true;
     }

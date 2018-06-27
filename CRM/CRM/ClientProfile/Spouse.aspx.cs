@@ -1064,13 +1064,13 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtTaxRefNum.ReadOnly = true;
         txtDateOfBirth.ReadOnly = true;
         rfvFirstName.Enabled = false;
-        rfvLastName.Enabled = false;
-        rfvMobileNum.Enabled = false;
-        rfvEmailId.Enabled = false;
+        //rfvLastName.Enabled = false;
+        //rfvMobileNum.Enabled = false;
+        //rfvEmailId.Enabled = false;
         fuPhoto.Enabled = false;
         btnSpouseSubmit.Enabled = false;
-        rfvTitle.Enabled = false;
-        rfvDateOfBirth.Enabled = false;
+        //rfvTitle.Enabled = false;
+        //rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -1084,11 +1084,11 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtDateOfBirth.ReadOnly = false;
         fuPhoto.Enabled = true;
         rfvFirstName.Enabled = true;
-        rfvLastName.Enabled = true;
-        rfvMobileNum.Enabled = true;
-        rfvEmailId.Enabled = true;
+        //rfvLastName.Enabled = true;
+        //rfvMobileNum.Enabled = true;
+        //rfvEmailId.Enabled = true;
         btnSpouseSubmit.Enabled = true;
-        rfvTitle.Enabled = true;
-        rfvDateOfBirth.Enabled = true;
+        //rfvTitle.Enabled = true;
+        //rfvDateOfBirth.Enabled = true;
     }
 }

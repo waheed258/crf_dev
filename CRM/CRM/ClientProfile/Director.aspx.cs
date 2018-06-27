@@ -904,14 +904,14 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         txtSharePerc.ReadOnly = true;
         txtShareValue.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
-        rfvtxtLastName.Enabled = false;
-        rfvtxtTaxRefNo.Enabled = false;
-        rfvtxtEmail.Enabled = false;
-        rfvtxtMobile.Enabled = false;
-        rfvPhone.Enabled = false;
+        //rfvtxtLastName.Enabled = false;
+        //rfvtxtTaxRefNo.Enabled = false;
+        //rfvtxtEmail.Enabled = false;
+        //rfvtxtMobile.Enabled = false;
+        //rfvPhone.Enabled = false;
         btnDirectorSubmit.Enabled = false;
-        rfvTitle.Enabled = false;
-        rfvDateOfBirth.Enabled = false;
+        //rfvTitle.Enabled = false;
+        //rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -926,14 +926,14 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         txtSharePerc.ReadOnly = false;
         txtShareValue.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;
-        rfvtxtLastName.Enabled = true;
-        rfvtxtTaxRefNo.Enabled = true;
-        rfvtxtEmail.Enabled = true;
-        rfvtxtMobile.Enabled = true;
-        rfvPhone.Enabled = true;
+        //rfvtxtLastName.Enabled = true;
+        //rfvtxtTaxRefNo.Enabled = true;
+        //rfvtxtEmail.Enabled = true;
+        //rfvtxtMobile.Enabled = true;
+        //rfvPhone.Enabled = true;
         btnDirectorSubmit.Enabled = true;
-        rfvTitle.Enabled = true;
-        rfvDateOfBirth.Enabled = true;
+        //rfvTitle.Enabled = true;
+        //rfvDateOfBirth.Enabled = true;
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {

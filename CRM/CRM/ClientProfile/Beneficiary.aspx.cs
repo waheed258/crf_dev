@@ -922,14 +922,14 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = true;
         txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
-        rfvtxtLastName.Enabled = false;
-        rfvtxtTaxRefNo.Enabled = false;
-        rfvtxtEmail.Enabled = false;
-        rfvtxtMobile.Enabled = false;
-        rfvPhone.Enabled = false;
+        //rfvtxtLastName.Enabled = false;
+        //rfvtxtTaxRefNo.Enabled = false;
+        //rfvtxtEmail.Enabled = false;
+        //rfvtxtMobile.Enabled = false;
+        //rfvPhone.Enabled = false;
         btnSubmit.Enabled = false;
-        rfvTitle.Enabled = false;
-        rfvDateOfBirth.Enabled = false;
+        //rfvTitle.Enabled = false;
+        //rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
     {
@@ -942,14 +942,14 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = false;
         txtDateOfBirth.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;
-        rfvtxtLastName.Enabled = true;
-        rfvtxtTaxRefNo.Enabled = true;
-        rfvtxtEmail.Enabled = true;
-        rfvtxtMobile.Enabled = true;
-        rfvPhone.Enabled = true;
+        //rfvtxtLastName.Enabled = true;
+        //rfvtxtTaxRefNo.Enabled = true;
+        //rfvtxtEmail.Enabled = true;
+        //rfvtxtMobile.Enabled = true;
+        //rfvPhone.Enabled = true;
         btnSubmit.Enabled = true;
-        rfvTitle.Enabled = true;
-        rfvDateOfBirth.Enabled = true;
+        //rfvTitle.Enabled = true;
+        //rfvDateOfBirth.Enabled = true;
     }
     protected void btnSure_Click(object sender, EventArgs e)
     {

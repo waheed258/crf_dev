@@ -106,12 +106,12 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = true;
         txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
-        rfvtxtLastName.Enabled = false;
-        rfvtxtMobile.Enabled = false;
+        //rfvtxtLastName.Enabled = false;
+        //rfvtxtMobile.Enabled = false;
         revtxtEmail.Enabled = false;
         btnSubmit.Enabled = false;
-        rfvTitle.Enabled = false;
-        rfvDateOfBirth.Enabled = false;
+        //rfvTitle.Enabled = false;
+        //rfvDateOfBirth.Enabled = false;
     }
 
     protected void Enable()
@@ -125,12 +125,12 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
         txtTaxRefNo.ReadOnly = false;
         txtDateOfBirth.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;
-        rfvtxtLastName.Enabled = true;
-        rfvtxtMobile.Enabled = true;
+        //rfvtxtLastName.Enabled = true;
+        //rfvtxtMobile.Enabled = true;
         revtxtEmail.Enabled = true;
         btnSubmit.Enabled = true;
-        rfvTitle.Enabled = true;
-        rfvDateOfBirth.Enabled = true;
+        //rfvTitle.Enabled = true;
+        //rfvDateOfBirth.Enabled = true;
     }
     /// <summary>
     /// Trust Settler Methods, Events
