@@ -1070,7 +1070,10 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                     txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
                     txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
                     txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                        txtDateOfBirth.Text = "";
+                    else
+                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");                  
                     //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
                     //txtDateOfBirth.Text = DOB.ToShortDateString();
                     //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();

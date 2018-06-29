@@ -901,7 +901,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                     Disable();
                     btnSubmitTrust.Enabled = true;
                     txtTrustName.Text = dataset.Tables[0].Rows[0]["TrustName"].ToString();
-                    txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString()).ToString("yyyy-MM-dd");
+                    if (dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString() == "")
+                        txtYearofFoundation.Text = "";
+                    else
+                        txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString()).ToString("yyyy-MM-dd");                   
                     //DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfFoundation"].ToString());
                     //txtYearofFoundation.Text = YOF.ToShortDateString();
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();

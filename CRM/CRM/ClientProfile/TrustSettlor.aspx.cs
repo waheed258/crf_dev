@@ -1001,7 +1001,10 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                     txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
                     //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
                     //txtDateOfBirth.Text = DOB.ToShortDateString();
-                    txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                        txtDateOfBirth.Text = "";
+                    else
+                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");                    
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
                 {

@@ -919,7 +919,10 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     Disable();
                     btnCompantDetails.Enabled = true;
                     txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
-                    txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
+                    if (dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString() == "")
+                        txtYearofFoundation.Text = "";
+                    else
+                        txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");                    
                     //DateTime YOF = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString());
                     //txtYearofFoundation.Text = YOF.ToShortDateString();
                     txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
