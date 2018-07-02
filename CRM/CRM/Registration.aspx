@@ -126,24 +126,24 @@
                                         ControlToValidate="txtSAID" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label class="control-label">Province</label><span class="style1">*</span>
+                                    <label class="control-label">Province</label><%--<span class="style1">*</span>--%>
                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
-                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                    <%--<asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
+                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label class="control-label">City</label><span class="style1">*</span>
+                                    <label class="control-label">City</label><%--<span class="style1">*</span>--%>
                                     <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
-                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                    <%--<asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
+                                        ValidationGroup="Save" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <label class="control-label">Mobile</label><span class="style1">*</span>
+                                    <label class="control-label">Mobile</label><%--<span class="style1">*</span>--%>
                                     <asp:TextBox ID="txtMobile" CssClass="form-control" placeholder="Mobile Number" runat="server" MaxLength="10"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ErrorMessage="Please enter Mobile Number" ControlToValidate="txtMobile"
-                                        Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>
+                                 <%--   <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ErrorMessage="Please enter Mobile Number" ControlToValidate="txtMobile"
+                                        Display="Dynamic" ValidationGroup="Save" ForeColor="#f31010"></asp:RequiredFieldValidator>--%>
                                     <asp:RegularExpressionValidator ID="rgvMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                         ControlToValidate="txtMobile" ForeColor="#f31010" ValidationGroup="Save"></asp:RegularExpressionValidator>
                                 </div>

@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <label class="control-label" for="username">SAID</label>
-                                <asp:TextBox ID="txtUserName" placeholder="SAID" runat="server" class="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtUserName" placeholder="SAID" runat="server" class="form-control" MaxLength="13"></asp:TextBox>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>

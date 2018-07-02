@@ -83,6 +83,7 @@ namespace BusinessLogic
             //}
 
             hashtable.Add("@inSAID", PersonalInfo.SAID);
+            hashtable.Add("@inTitle", PersonalInfo.Title);
             hashtable.Add("@inFirstName", PersonalInfo.FirstName);
             hashtable.Add("@inLastName", PersonalInfo.LastName);
             hashtable.Add("@inEmailID", PersonalInfo.EmailID);
