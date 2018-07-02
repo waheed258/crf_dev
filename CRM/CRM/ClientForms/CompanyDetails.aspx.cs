@@ -973,33 +973,53 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
-        DataSet dataset = validateSAID.ValidateCompanyUIC(Session["SAID"].ToString(), txtCompanyUIC.Text);
-        if (dataset.Tables[0].Rows.Count > 0)
+        try
         {
-            if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+
+            DataSet dataset = validateSAID.ValidateCompanyUIC(Session["SAID"].ToString(), txtCompanyUIC.Text);
+            if (dataset.Tables[0].Rows.Count > 0)
             {
-                lblTitle.Text = "Warning!";
-                lblTitle.ForeColor = System.Drawing.Color.Red;
-                message.ForeColor = System.Drawing.Color.Red;
-                message.Text = "Sorry, The Company is already registered with you!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
+                {
+                    lblTitle.Text = "Warning!";
+                    lblTitle.ForeColor = System.Drawing.Color.Red;
+                    message.ForeColor = System.Drawing.Color.Red;
+                    message.Text = "Sorry, The Company is already registered with you!";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
+                {
+                    Disable();
+                    btnCompantDetails.Enabled = true;
+                    txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
+                    //txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
+                    if (dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString() == "")
+                    {
+                        txtYearofFoundation.Text = "";
+                    }
+                    else
+                    {
+                        txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
+                    }
+                    txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                    txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
+                    txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
+                    //txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
+                    txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
+                }
+                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                {
+                    Enable();
+                }
             }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXIST WITH OTHER CLIENT")
-            {                
-                Disable();
-                btnCompantDetails.Enabled = true;
-                txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
-                txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
-                txtEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
-                txtTelephone.Text = dataset.Tables[0].Rows[0]["Telephone"].ToString();
-                //txtFax.Text = dataset.Tables[0].Rows[0]["FaxNo"].ToString();
-                txtWebsite.Text = dataset.Tables[0].Rows[0]["Website"].ToString();
-            }
-            else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-            {
-                Enable();
-            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 

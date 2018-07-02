@@ -32,6 +32,14 @@ public class BeneficiaryBL:DataUtilities
                         {"@inStatus",_objBeneficiary.Status},
                         {"@inTaxRefNo",_objBeneficiary.TaxRefNo},
                         {"@inType",_objBeneficiary.Type},
+                        {"@inUICNo",_objBeneficiary.UICNo},
+                        {"@inCompanyName",_objBeneficiary.CompanyName},
+                        {"@inYearOfEstablishment",_objBeneficiary.YearOfEstablishment},
+                        {"@inVATNo",_objBeneficiary.VATNo},
+                        {"@inCompanyTelephone",_objBeneficiary.CompanyTelephone},
+                        {"@inCompanyEmailID",_objBeneficiary.CompanyEmailID},
+                        {"@inCompanyWebsite",_objBeneficiary.CompanyWebsite},
+                        {"@inBenificiaryType",_objBeneficiary.BenificiaryType},
                         {"@inOperationName",operation}
                     };
 
@@ -66,5 +74,9 @@ public class BeneficiaryBL:DataUtilities
         hsparams.Add("@inUIC", UIC);
 
         return ExecuteNonQuery("DeleteBenefaciary", hsparams);
+    }
+    public DataSet GetBeneficiaryType()
+    {
+        return ExecuteDataSet("GetBeneficiaryType");
     }
 }

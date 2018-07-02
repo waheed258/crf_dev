@@ -47,4 +47,13 @@ public class ValidateSAIDBL
         ds = dataUtilities.ExecuteDataSet("usp_ValidateCompanyUIC", hashtable);
         return ds;
     }
+    public DataSet ValidateBeneficiaryUIC(string RSAID, string UIC,string UICNo)
+    {
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("@REFSAID", RSAID);
+        hashtable.Add("@UIC", UIC);
+        hashtable.Add("@UICNo", UICNo);
+        ds = dataUtilities.ExecuteDataSet("usp_ValidateBeneficiaryUIC", hashtable);
+        return ds;
+    }
 }

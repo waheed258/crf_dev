@@ -26,5 +26,14 @@ namespace EntityManager
         public int? AdvisorID { get; set; }
         public int? Type { get; set; }
         public int? Status { get; set; }
+        public string UICNo { get; set; }
+        public string CompanyName { get; set; }
+        public string YearOfEstablishment { get; set; }
+        public string VATNo { get; set; }
+        public string CompanyTelephone { get; set; }
+        public string CompanyEmailID { get; set; }
+        public string CompanyWebsite { get; set; }
+        public int BenificiaryType { get; set; }
+        
     }
 }
