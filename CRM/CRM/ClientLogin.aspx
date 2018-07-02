@@ -22,6 +22,7 @@
     <link href="../assets/dist/css/stylecrm.css" rel="stylesheet" type="text/css" />
     <!-- Theme style rtl -->
     <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -54,7 +55,7 @@
                             </div>
                             <div>
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-add" OnClick="btnLogin_Click" />
-                                <asp:Label ID="lblError" runat="server" style="color:red"></asp:Label>
+                                <asp:Label ID="lblError" runat="server" Style="color: red"></asp:Label>
                             </div>
 
                         </div>
@@ -68,5 +69,32 @@
         <!-- bootstrap js -->
         <script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     </form>
+    <script type="text/javascript">
+        $(document).ready(function (event) {
+            $("#txtUserName").bind('keypress', function (e) {
+                if (e.keyCode == '9' || e.keyCode == '16') {
+                    return;
+                }
+                var code;
+                if (e.keyCode) code = e.keyCode;
+                else if (e.which) code = e.which;
+                if (e.which == 46)
+                    return false;
+                if (code == 8 || code == 46)
+                    return true;
+                if (code < 48 || code > 57)
+                    return false;
+            });
+            $("#txtUserName").bind('mouseenter', function (e) {
+                var val = $(this).val();
+                if (val != '0') {
+                    val = val.replace(/[^0-9]+/g, "");
+                    $(this).val(val);
+                }
+            });
+
+
+        })
+    </script>
 </body>
 </html>
