@@ -118,7 +118,8 @@
         table {
             border: 1px solid #e4e5e7;
         }
-         .style1 {
+
+        .style1 {
             color: #FF0000;
         }
     </style>
@@ -173,6 +174,20 @@
                                                 <label class="control-label">Identification Number</label>
                                                 <asp:TextBox ID="txtSAId" runat="server" class="form-control" MaxLength="13" placeholder="Enter SAID"></asp:TextBox>
                                             </div>
+                                            <div class="form-group col-sm-3">
+                                                <label>Title</label><%--<span class="style1">*</span>--%>
+                                                <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
+                                                    <asp:ListItem Value="">Title</asp:ListItem>
+                                                    <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                    <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                    <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                    <asp:ListItem Value="Prof">Prof</asp:ListItem>
+                                                </asp:DropDownList>
+                                                <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
+                                                    ValidationGroup="Spouse" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                            </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label>
                                                 <asp:TextBox ID="txtFirstName" runat="server" class="form-control" placeholder="Enter Given Name"></asp:TextBox>
@@ -181,40 +196,41 @@
                                                 <label class="control-label">Last Name</label>
                                                 <asp:TextBox ID="txtLastName" runat="server" class="form-control" placeholder="Enter Sur Name"></asp:TextBox>
                                             </div>
+
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">EmailId</label>
                                                 <asp:TextBox ID="txtEmail" runat="server" class="form-control" placeholder="Enter EmailId"></asp:TextBox>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile No</label>
                                                 <asp:TextBox ID="txtMobileNo" runat="server" class="form-control" MaxLength="10" placeholder="Enter Mobile No"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Phone No</label><span class="style1">*</span>
+                                                <label class="control-label">Phone No</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control" MaxLength="10" placeholder="Enter Phone No"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" Display="Dynamic"
-                                                    ErrorMessage="Enter PhoneNo" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                           <%--     <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" Display="Dynamic"
+                                                    ErrorMessage="Enter PhoneNo" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="rgvPhoneNo" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhoneNo" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
-                                                <label>Date of Birth</label><span class="style1">*</span>
+                                                <label>Date of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateofBirth" runat="server" TextMode="Date" CssClass="form-control" placeholder="Enter Date of Birth"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
-                                                    ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label class="control-label">Tax Ref No</label><span class="style1">*</span>
-                                                <asp:TextBox ID="txtTaxRefNo" runat="server" CssClass="form-control" placeholder="Enter Tax Ref No"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
-                                                    ErrorMessage="Enter Tax Ref No" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                <%--<asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
+                                                    ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
 
                                         </div>
 
                                         <div class="col-sm-12">
+                                            <div class="col-sm-3 form-group">
+                                                <label class="control-label">Tax Ref No</label><%--<span class="style1">*</span>--%>
+                                                <asp:TextBox ID="txtTaxRefNo" runat="server" CssClass="form-control" placeholder="Enter Tax Ref No"></asp:TextBox>
+                                              <%--  <asp:RequiredFieldValidator ID="rfvTaxRefNo" runat="server" ControlToValidate="txtTaxRefNo" Display="Dynamic"
+                                                    ErrorMessage="Enter Tax Ref No" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                                            </div>
                                             <div class="form-group col-sm-3">
                                                 <label>Upload Photo</label>
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
@@ -474,14 +490,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                       <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                        <asp:Label ID="message" runat="server" class="control-label"/>
+                                        <asp:Label ID="message" runat="server" class="control-label" />
                                     </div>
                                 </fieldset>
                             </div>

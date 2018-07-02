@@ -91,6 +91,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 txtSAId.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
@@ -116,6 +117,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 txtSAId.ReadOnly = true;
+                ddlTitle.Enabled = false;
                 txtFirstName.ReadOnly = true;
                 txtLastName.ReadOnly = true;
                 txtEmail.ReadOnly = true;
@@ -126,15 +128,21 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 fuImageUpload.Enabled = false;
                 ViewState["flag"] = 1;
                 txtSAId.Text = Session["SAID"].ToString();
+                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
                 txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
                 txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
                 txtMobileNo.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
                 txtPhoneNo.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
 
-                if (ds.Tables[0].Rows[0]["DateOfBirth"].ToString() != null)
+
+                if (ds.Tables[0].Rows[0]["DateOfBirth"].ToString() != "")
                 {
                     txtDateofBirth.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString()).Date.ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    txtDateofBirth.Text = "";
                 }
 
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
@@ -144,7 +152,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             else
             {
                 txtSAId.ReadOnly = true;
-                txtFirstName.ReadOnly = false;
+                ddlTitle.Enabled = false;
+                txtFirstName.ReadOnly = true;
                 txtLastName.ReadOnly = false;
                 txtEmail.ReadOnly = true;
                 txtPhoneNo.ReadOnly = false;
@@ -178,7 +187,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             {
                 btnSubmitClientPersonal.Text = "Update";
                 txtSAId.ReadOnly = true;
-                txtFirstName.ReadOnly = false;
+                ddlTitle.Enabled = false;
+                txtFirstName.ReadOnly = true;
                 txtLastName.ReadOnly = false;
                 txtEmail.ReadOnly = true;
                 txtPhoneNo.ReadOnly = false;
@@ -206,12 +216,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     ClientPersonalInfoEntity.Image = Session["Image"].ToString();
                 }
                 ClientPersonalInfoEntity.SAID = txtSAId.Text;
+                ClientPersonalInfoEntity.Title = ddlTitle.SelectedValue;
                 ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
                 ClientPersonalInfoEntity.LastName = txtLastName.Text;
                 ClientPersonalInfoEntity.EmailID = txtEmail.Text;
                 ClientPersonalInfoEntity.Phone = txtPhoneNo.Text;
                 ClientPersonalInfoEntity.Mobile = txtMobileNo.Text;
-                ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
+                if (txtDateofBirth.Text == "")
+                    ClientPersonalInfoEntity.DateOfBirth = null;
+                else
+                    ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;       
                 ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
                 ClientPersonalInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
                 ClientPersonalInfoEntity.UpdatedBy = Session["AdvisorID"].ToString();
