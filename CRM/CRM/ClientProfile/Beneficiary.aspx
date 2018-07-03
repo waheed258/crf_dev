@@ -366,7 +366,7 @@
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label>   
-                                                <asp:TextBox ID="txtTelephoneNum" CssClass="form-control" runat="server" placeholder="VAT Number"></asp:TextBox>                                         
+                                                <asp:TextBox ID="txtTelephoneNum" CssClass="form-control" runat="server" placeholder="Telephone Number" MaxLength="10"></asp:TextBox>                                         
                                                 <asp:RegularExpressionValidator ID="rgvTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtTelephoneNum" ForeColor="Red" ValidationGroup="Beneficiary"></asp:RegularExpressionValidator>
                                             </div>

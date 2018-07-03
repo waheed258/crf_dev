@@ -369,9 +369,27 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 if (e.CommandName == "Document")
                 {
                     if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
-                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                        //Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                        if (ViewState["ShareHolderType"].ToString() == "Individual")
+                        {
+                            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                        }
+                        else
+                        {
+                            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=t" + "&x=" + ObjEn.Encrypt(ViewState["UICNO"].ToString()), false);
+                        }
                     else
-                        Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    {
+                        if (ViewState["ShareHolderType"].ToString() == "Individual")
+                        {
+                            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                        }
+                        else
+                        {
+                            Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["UICNO"].ToString()), false);
+                        }
+                    }
+                       // Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 //else if (e.CommandName == "DeleteBeneficiary")
                 //{
@@ -381,7 +399,16 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 //}
                 else if (e.CommandName == "Address")
                 {
-                    DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    //DataSet dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    DataSet dsAddress = new DataSet();
+                    if (ViewState["ShareHolderType"].ToString() == "Individual")
+                    {
+                        dsAddress = addressbankBL.GetAddressDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    }
+                    else
+                    {
+                        dsAddress = addressbankBL.GetAddressDetails(ViewState["UICNO"].ToString(), Session["SAID"].ToString(), UIC);
+                    }
                     if (dsAddress.Tables[0].Rows.Count > 0)
                     {
                         if (dsAddress.Tables[0].Rows[0]["Type"].ToString() == "7")
@@ -410,7 +437,16 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Bank")
                 {
-                    DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                   // DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    DataSet dsBank = new DataSet();
+                    if (ViewState["ShareHolderType"].ToString() == "Individual")
+                    {
+                        dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    }
+                    else
+                    {
+                        dsBank = addressbankBL.GetBankDetails(ViewState["UICNO"].ToString(), Session["SAID"].ToString(), UIC);
+                    }
                     if (dsBank.Tables[0].Rows.Count > 0)
                     {
                         if (dsBank.Tables[0].Rows[0]["Type"].ToString() == "7")
