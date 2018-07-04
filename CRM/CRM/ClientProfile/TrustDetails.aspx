@@ -119,6 +119,84 @@
                             });
                 }
             });
+            $("#targetAccountant").keyup(function () {
+                if ($("[id *=target3]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAccountDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAccountDetails]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetAccountant]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvAccountDetails]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAccountDetails]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#targetPrivateBank").keyup(function () {
+                if ($("[id *=target4]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvPrivateBank]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvPrivateBank]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetPrivateBank]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvPrivateBank]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvPrivateBank]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
         });
     </script>
 
@@ -169,6 +247,8 @@
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Trust Details</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
+                                <li><a href="#tabAccountant" data-toggle="tab">Accountant Details</a></li>
+                                <li><a href="#tabPrivateBanker" data-toggle="tab">Private Banker</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabTrust">
@@ -302,12 +382,12 @@
                                                                 <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("TrustName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Year Of Foundation">
+                                                        <asp:TemplateField HeaderText="Year Of Foundation" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblYearOfFoundation" Text='<%#Eval("YearOfFoundation") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Telephone">
+                                                        <asp:TemplateField HeaderText="Telephone" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblTelephone" Text='<%#Eval("Telephone") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -356,6 +436,18 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAddress" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/address.png"
                                                                     CommandName="Address" ToolTip="Address Details" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                          <asp:TemplateField HeaderText="Accountant">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnAccountant" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/accountant.png"
+                                                                    CommandName="Accountant" ToolTip="Accountant Details" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Private Banker">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="btnPrivateBanker" runat="server" Width="28px" Height="23px" ImageUrl="~/assets/dist/img/privatebank.png"
+                                                                    CommandName="PrivateBanker" ToolTip="Private Banker" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Trustee">
@@ -630,6 +722,191 @@
                                     </div>
                                 </div>
 
+                                <div class="tab-pane fade" id="tabAccountant">
+                                    <div class="panel-body">
+                                        <div class="row" id="searchaccountant" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="dropAccountant" runat="server" CssClass="form-control"
+                                                        OnSelectedIndexChanged="dropAccountant_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
+                                                    <label class="control-label">Records per page</label>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3 form-group">
+                                                    <input id="targetAccountant" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gvAccountDetails" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="AccountantID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
+                                                ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvAccountDetails_RowCommand" OnPageIndexChanging="gvAccountDetails_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Accountant ID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountantID" Text='<%#Eval("AccountantID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Trust Registration #">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Trust Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("TrustName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Accountant Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountantName" Text='<%#Eval("AccountantName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Telephone Number">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountantTelNum" Text='<%#Eval("AccountantTelNum") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="AccountantEmail" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountantEmail" Text='<%#Eval("AccountantEmail") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="AccountantType" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountantType" Text='<%#Eval("Type") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Account UICNo" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAccountUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+               
+                                                    <asp:TemplateField HeaderText="Edit">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnAccountEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
+                                                                CommandName="EditAccount" CommandArgument='<%#Eval("AccountantID") %>' ToolTip="Edit" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Delete">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnAccountDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
+                                                                CommandName="DeleteAccount" ToolTip="Delete" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tabPrivateBanker">
+                                    <div class="panel-body">
+                                        <div class="row" id="searchprivatebank" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="dropPrivateBank" runat="server" CssClass="form-control"
+                                                        OnSelectedIndexChanged="dropPrivateBank_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
+                                                    <label class="control-label">Records per page</label>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3 form-group">
+                                                    <input id="targetPrivateBank" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gvPrivateBank" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="PrivateBankID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
+                                                ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvPrivateBank_RowCommand" OnPageIndexChanging="gvPrivateBank_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="PrivateBank ID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblPrivateBankID" Text='<%#Eval("PrivateBankID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Trust Registration #">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Trust Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblTrustName" Text='<%#Eval("TrustName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Client Identification #" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Bank Name">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblPrivateBankName" Text='<%#Eval("PrivateBankName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Contact Number">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblPrivateContactNum" Text='<%#Eval("PrivateContactNum") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    
+                                                    <asp:TemplateField HeaderText="Banker UICNo" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBankerUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+               
+                                                    <asp:TemplateField HeaderText="Edit">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnBankerEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
+                                                                CommandName="EditBanker" CommandArgument='<%#Eval("PrivateBankID") %>' ToolTip="Edit" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Delete">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="btnBankerDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
+                                                                CommandName="DeleteBanker" ToolTip="Delete" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -843,6 +1120,138 @@
             <!-- /.modal-dialog -->
         </div>
 
+        <div class="modal fade" id="accountantPopup" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-bank m-r-5" id="accountmessage" runat="server"></i></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Trust Reg No.</label>
+                                                            <asp:TextBox ID="txtaccTrustRegNum" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                        <div class="col-sm-8 form-group">
+                                                            <label class="control-label">Trust Name</label>
+                                                            <asp:TextBox ID="txtaccTrustName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Accountant Name</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtAccountantName" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtAccountantName" runat="server" ControlToValidate="txtAccountantName" Display="Dynamic" ErrorMessage="Enter Accountant Name"
+                                                                ValidationGroup="Account" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Telephone Num</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtAccTelNum" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtAccTelNum" runat="server" ControlToValidate="txtAccTelNum" Display="Dynamic" ErrorMessage="Enter Telephone Num"
+                                                                ValidationGroup="Account" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                             <asp:RegularExpressionValidator ID="revtxtAccTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtAccTelNum" ForeColor="Red" ValidationGroup="Account"></asp:RegularExpressionValidator>
+                                                        </div>
+
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Email ID</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtAccEmailId" runat="server" class="form-control"></asp:TextBox>
+                                                             <asp:RegularExpressionValidator ID="revtxtAccEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                    ControlToValidate="txtAccEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Account">
+                                                </asp:RegularExpressionValidator>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtAccEmailId" runat="server" ControlToValidate="txtAccEmailId" Display="Dynamic" ErrorMessage="Enter Email ID"
+                                                                ValidationGroup="Account" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                        <asp:Button ID="btnAccountSubmit" runat="server" Text="Submit" ValidationGroup="Account" CssClass="btn btn-primary" OnClick="btnAccountSubmit_Click"></asp:Button>
+                        <asp:Button ID="btnAccountUpdate" runat="server" Text="Update" ValidationGroup="Account" CssClass="btn btn-primary" OnClick="btnAccountUpdate_Click"></asp:Button>
+                        <asp:Button ID="btnAccountantCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnAccountantCancel_Click"></asp:Button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <div class="modal fade" id="PrivateBankerPopup" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-bank m-r-5" id="bankermessage" runat="server"></i></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Trust Reg No.</label>
+                                                            <asp:TextBox ID="txtBankerTrustRegNo" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                        <div class="col-sm-8 form-group">
+                                                            <label class="control-label">Trust Name</label>
+                                                            <asp:TextBox ID="txtBankerTrustname" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Bank Name</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtPrivBankName" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtPrivBankName" runat="server" ControlToValidate="txtPrivBankName" Display="Dynamic" ErrorMessage="Enter Bank Name"
+                                                                ValidationGroup="Banker" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Contact Number</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtPrivBankTelNum" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvtxtPrivBankTelNum" runat="server" ControlToValidate="txtPrivBankTelNum" Display="Dynamic" ErrorMessage="Enter Contact Number"
+                                                                ValidationGroup="Banker" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                             <asp:RegularExpressionValidator ID="revtxtPrivBankTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                    ControlToValidate="txtPrivBankTelNum" ForeColor="Red" ValidationGroup="Banker"></asp:RegularExpressionValidator>
+                                                        </div>
+
+                                                       
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                        <asp:Button ID="btnBankerSubmit" runat="server" Text="Submit" ValidationGroup="Banker" CssClass="btn btn-primary" OnClick="btnBankerSubmit_Click"></asp:Button>
+                        <asp:Button ID="btnBankerUpdate" runat="server" Text="Update" ValidationGroup="Banker" CssClass="btn btn-primary" OnClick="btnBankerUpdate_Click"></asp:Button>
+                        <asp:Button ID="btnBankerCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnBankerCancel_Click"></asp:Button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
         <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -904,7 +1313,7 @@
 
     <script type="text/javascript">
         $(document).ready(function (event) {
-            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
+            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtAccTelNum,#ContentPlaceHolder1_txtPrivBankTelNum").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
                 }
@@ -918,7 +1327,7 @@
                 if (code < 48 || code > 57)
                     return false;
             });
-            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('mouseenter', function (e) {
+            $("#ContentPlaceHolder1_txtUIC,#ContentPlaceHolder1_txtTaxRef,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtAccTelNum,#ContentPlaceHolder1_txtPrivBankTelNum").bind('mouseenter', function (e) {
                 var val = $(this).val();
                 if (val != '0') {
                     val = val.replace(/[^0-9]+/g, "");
@@ -936,6 +1345,12 @@
         }
         function openAddressModal() {
             $('#ContentPlaceHolder1_addressPopup').modal('show', { backdrop: 'static' });
+        }
+        function openAccountantModal() {
+            $('#ContentPlaceHolder1_accountantPopup').modal('show', { backdrop: 'static' });
+        }
+        function openPrivateBankerModal() {
+            $('#ContentPlaceHolder1_PrivateBankerPopup').modal('show', { backdrop: 'static' });
         }
         function openDeleteModal() {
             $('#delete').modal('show', { backdrop: 'static' });

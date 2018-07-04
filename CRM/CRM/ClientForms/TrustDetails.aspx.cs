@@ -20,6 +20,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     ValidateSAIDBL validateSAID = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
+    AccountantEntity accountEntity = new AccountantEntity();
+    AccountantBL accountBL = new AccountantBL();
+    PrivateBankEntity privateEntity = new PrivateBankEntity();
+    PrivateBankBL privateBL = new PrivateBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -44,10 +48,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(dropAddress);
                         _objComman.getRecordsPerPage(dropBank);
+                        _objComman.getRecordsPerPage(dropAccountant);
+                        _objComman.getRecordsPerPage(dropPrivateBank);
                         GetTrustGrid();
                         BindBankDetails();
                         BindAddressDetails();
+                        BindAccountant();
                         Disable();
+                        BindPrivateBanker();
                     }
                 }
 
@@ -65,6 +73,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
                     {
                         TabName.Value = "tabBank";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvAccountDetails"))
+                    {
+                        TabName.Value = "tabAccountant";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvPrivateBank"))
+                    {
+                        TabName.Value = "tabPrivateBank";
                     }
                     else
                     {
@@ -251,6 +267,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 txtUICAddress.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
                 txtTrustNameAddress.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
 
+                txtaccTrustRegNum.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtaccTrustName.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
+
+                txtBankerTrustRegNo.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtBankerTrustname.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
+
                 string UIC = e.CommandArgument.ToString();
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 Session["TrustUIC"] = UIC;
@@ -325,11 +347,21 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                        // btnUpdateBank.Visible = false;
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
                         break;
+                    case "Accountant":
+                        accountmessage.InnerText = "Save Accountant Details";
+                        btnAccountSubmit.Visible = true;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAccountantModal();", true);
+                        break;
                     //case "DeleteTrust":
                     //    ViewState["flag"] = 1;
                     //  /  lbldeletemessage.Text = "Are you sure, you want to delete Trust Details?";
                     //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
                     //    break;
+                    case "PrivateBanker":
+                        bankermessage.InnerText = "Save Banker Details";
+                        btnBankerSubmit.Visible = true;                      
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openPrivateBankerModal();", true);
+                        break;
                 }
             }
         }
@@ -966,4 +998,254 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
         btnSubmitTrust.Enabled = true;
     }
 
+    protected void gvAccountDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["AccountantID"] = ((Label)row.FindControl("lblAccountantID")).Text.ToString();
+                ViewState["AccountantUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["AccType"] = ((Label)row.FindControl("lblAccountantType")).Text.ToString();
+                ViewState["UICNo"] = ((Label)row.FindControl("lblAccountUICNo")).Text.ToString();
+
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvAccountDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvAccountDetails.PageIndex = e.NewPageIndex;
+            BindAccountant();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropAccountant_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindAccountant();
+    }
+    protected void btnAccountSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+
+            accountEntity.AccountantName = txtAccountantName.Text;
+            accountEntity.AccountantTelNum = txtAccTelNum.Text;
+            accountEntity.AccountantEmail = txtAccEmailId.Text;
+            accountEntity.Type = 1;
+            accountEntity.UICNo = ViewState["UIC"].ToString();
+            accountEntity.AdvisorID = 0;
+            accountEntity.ReferenceSAID = Session["SAID"].ToString();
+
+            int result = accountBL.InsertUpdateAccountant(accountEntity, 'i');
+            if (result == 1)
+            {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Accountant details saved successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                ClearAcountant();
+                BindAccountant();
+            }
+            else
+            {
+                ClearAcountant();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindAccountant();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void ClearAcountant()
+    {
+
+        txtAccountantName.Text = "";
+        txtAccTelNum.Text = "";
+        txtAccEmailId.Text = "";
+    }
+    protected void btnAccountantCancel_Click(object sender, EventArgs e)
+    {
+        ClearAcountant();
+    }
+    private void BindAccountant()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = accountBL.GetTrustAccountant(Session["SAID"].ToString(), 1);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvAccountDetails.DataSource = ds.Tables[0];
+                searchaccountant.Visible = true;
+            }
+            else
+            {
+                gvAccountDetails.DataSource = null;
+                searchaccountant.Visible = false;
+            }
+            gvAccountDetails.PageSize = Convert.ToInt32(dropAccountant.SelectedValue);
+            gvAccountDetails.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropPrivateBank_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvPrivateBank_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["PrivateBankID"] = ((Label)row.FindControl("lblPrivateBankID")).Text.ToString();
+                ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["BankerUICNo"] = ((Label)row.FindControl("lblBankerUICNo")).Text.ToString();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void BindPrivateBanker()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = privateBL.GetPrivateBank(Session["SAID"].ToString());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvPrivateBank.DataSource = ds.Tables[0];
+                searchprivatebank.Visible = true;
+            }
+            else
+            {
+                gvPrivateBank.DataSource = null;
+                searchprivatebank.Visible = false;
+            }
+            gvPrivateBank.PageSize = Convert.ToInt32(dropAccountant.SelectedValue);
+            gvPrivateBank.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvPrivateBank_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvPrivateBank.PageIndex = e.NewPageIndex;
+            BindPrivateBanker();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnBankerSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+
+            privateEntity.PrivateBankName = txtPrivBankName.Text;
+            privateEntity.PrivateContactNum = txtPrivBankTelNum.Text;
+            privateEntity.UICNo = ViewState["UIC"].ToString();
+            privateEntity.AdvisorID = 0;
+            privateEntity.ReferenceSAID = Session["SAID"].ToString();
+
+            int result = privateBL.InsUpdatePrivatebank(privateEntity, 'i');
+            if (result == 1)
+            {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Private Banker details saved successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                ClearPrivateBanker();
+                BindPrivateBanker();
+            }
+            else
+            {
+                ClearPrivateBanker();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindPrivateBanker();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void ClearPrivateBanker()
+    {
+        txtPrivBankName.Text = "";
+        txtPrivBankTelNum.Text = "";
+    }
+    protected void btnBankerCancel_Click(object sender, EventArgs e)
+    {
+        ClearPrivateBanker();
+    }
 }

@@ -20,6 +20,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     AddressBL addressBL = new AddressBL();
     ValidateSAIDBL validateSAID = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
+    AccountantEntity accountEntity = new AccountantEntity();
+    AccountantBL accountBL = new AccountantBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -39,6 +41,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         commonClass.getRecordsPerPage(DropPage);
                         commonClass.getRecordsPerPage(dropBank);
                         commonClass.getRecordsPerPage(dropAddress);
+                        commonClass.getRecordsPerPage(dropAccountant);
                         GetGridData();
                         //GetTrustNames();
                         GetBankDetails();
@@ -46,6 +49,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         btnUpdateCompany.Visible = false;
                         btnUpdateBank.Visible = false;
                         btnUpdateAddress.Visible = false;
+                        BindAccountant();
                         Disable();
                     }
                     if (this.IsPostBack)
@@ -61,6 +65,10 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                         else if (Request.Form[TabName.UniqueID].Contains("gvAddressDetails"))
                         {
                             TabName.Value = "tab3";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvAccountDetails"))
+                        {
+                            TabName.Value = "tabAccountant";
                         }
                         else
                         {
@@ -291,6 +299,9 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 txtAddrUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
                 txtAddrCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
 
+                txtaccCompanyRegNum.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                txtaccCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+
                 if (e.CommandName == "EditCompany")
                 {
                     Enable();
@@ -299,7 +310,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     txtCompanyUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
                     txtCompanyUIC.ReadOnly = true;
                     txtCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
-                    txtYearofFoundation.Text = Convert.ToDateTime(((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString()).Date.ToString("yyyy-MM-dd");
+                    txtYearofFoundation.Text = ((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString();
                     txtTelephone.Text = ((Label)row.FindControl("lblTelephone")).Text.ToString();
                     //txtFax.Text = ((Label)row.FindControl("lblFaxNo")).Text.ToString();
                     txtEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
@@ -378,6 +389,13 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 else if (e.CommandName == "EditDirector")
                 {
                     Response.Redirect("Director.aspx?t=" + ObjEn.Encrypt("3"), false);
+                }
+                else if (e.CommandName == "Accountant")
+                {
+                    accountmessage.InnerText = "Save Accountant Details";
+                    btnAccountSubmit.Visible = true;
+                    btnAccountUpdate.Visible = false;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAccountantModal();", true);
                 }
             }
         }
@@ -593,7 +611,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
                 if (e.CommandName == "Edit")
                 {
-                    bankmessage.InnerText = "Update Bank Details";
+                    accountmessage.InnerText = "Update Bank Details";
                     btnBankSubmit.Visible = false;
                     btnUpdateBank.Visible = true;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
@@ -814,6 +832,15 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                     GetAddressDetails();
                 }
             }
+            else if (Convert.ToInt32(ViewState["flag"]) == 4)
+            {
+                int result = accountBL.DeleteAccountant(Convert.ToInt32(ViewState["AccountantID"].ToString()));
+                if (result == 1)
+                {
+                    BindAccountant();
+                    ClearAcountant();
+                }
+            }
 
         }
         catch
@@ -983,5 +1010,196 @@ public partial class ClientProfile_Company : System.Web.UI.Page
         //rfvEmail.Enabled = true;
         rgvWebsite.Enabled = true;
         btnCompantDetails.Enabled = true;
+    }
+    protected void dropAccountant_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindAccountant();
+    }
+    protected void gvAccountDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvAccountDetails.PageIndex = e.NewPageIndex;
+            BindAccountant();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvAccountDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName != "Page")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["AccountantID"] = ((Label)row.FindControl("lblAccountantID")).Text.ToString();
+                ViewState["AccountantUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["AccType"] = ((Label)row.FindControl("lblAccountantType")).Text.ToString();
+                ViewState["UICNo"] = ((Label)row.FindControl("lblAccountUICNo")).Text.ToString();
+
+                if (e.CommandName == "EditAccount")
+                {
+                    bankmessage.InnerText = "Update Accountant Details";
+                    btnAccountSubmit.Visible = false;
+                    btnAccountUpdate.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAccountantModal();", true);
+                    txtaccCompanyRegNum.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                    txtaccCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                    txtAccountantName.Text = ((Label)row.FindControl("lblAccountantName")).Text.ToString();
+                    txtAccTelNum.Text = ((Label)row.FindControl("lblAccountantTelNum")).Text.ToString();
+                    txtAccEmailId.Text = ((Label)row.FindControl("lblAccountantEmail")).Text.ToString();
+                }
+                else if (e.CommandName == "DeleteAccount")
+                {
+                    ViewState["flag"] = 4;
+                    lbldeletemessage.Text = "Are you sure, you want to delete Accountant Details?";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnAccountSubmit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+
+            accountEntity.AccountantName = txtAccountantName.Text;
+            accountEntity.AccountantTelNum = txtAccTelNum.Text;
+            accountEntity.AccountantEmail = txtAccEmailId.Text;
+            accountEntity.Type = 2;
+            accountEntity.UICNo = ViewState["UIC"].ToString();
+            accountEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
+            accountEntity.ReferenceSAID = Session["SAID"].ToString();
+
+            int result = accountBL.InsertUpdateAccountant(accountEntity, 'i');
+            if (result == 1)
+            {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Accountant details saved successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                ClearAcountant();
+                BindAccountant();
+            }
+            else
+            {
+                ClearAcountant();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindAccountant();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnAccountUpdate_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            accountEntity.AccountantID = Convert.ToInt32(ViewState["AccountantID"].ToString());
+            accountEntity.AccountantName = txtAccountantName.Text;
+            accountEntity.AccountantTelNum = txtAccTelNum.Text;
+            accountEntity.AccountantEmail = txtAccEmailId.Text;
+            accountEntity.Type = 2;
+            accountEntity.UICNo = ViewState["AccountantUIC"].ToString();
+            accountEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
+            accountEntity.ReferenceSAID = Session["SAID"].ToString();
+
+            int result = accountBL.InsertUpdateAccountant(accountEntity, 'u');
+            if (result == 1)
+            {
+                lblTitle.Text = "Thank You";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Accountant details Updated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                ClearAcountant();
+                BindAccountant();
+            }
+            else
+            {
+                ClearAcountant();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry,Please Try Again";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindAccountant();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void ClearAcountant()
+    {
+
+        txtAccountantName.Text = "";
+        txtAccTelNum.Text = "";
+        txtAccEmailId.Text = "";
+    }
+    protected void btnAccountantCancel_Click(object sender, EventArgs e)
+    {
+        ClearAcountant();
+    }
+    private void BindAccountant()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = accountBL.GetCompanyAccountant(Session["SAID"].ToString(),2);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvAccountDetails.DataSource = ds.Tables[0];
+                searchaccountant.Visible = true;
+            }
+            else
+            {
+                gvAccountDetails.DataSource = null;
+                searchaccountant.Visible = false;
+            }
+            gvAccountDetails.PageSize = Convert.ToInt32(dropAccountant.SelectedValue);
+            gvAccountDetails.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }
