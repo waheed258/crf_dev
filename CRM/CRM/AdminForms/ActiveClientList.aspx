@@ -134,22 +134,22 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Last Name">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblLastName" Text='<%#Eval("LastName") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblLastName" Text='<%#Eval("LastName").ToString()==""?"-NA-" :Eval("LastName") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Email ID">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID").ToString()==""?"-NA-" :Eval("EmailID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Mobile Number">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblMobileNumber" Text='<%#Eval("MobileNumber") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblMobileNumber" Text='<%#Eval("MobileNumber").ToString()==""?"-NA-" :Eval("MobileNumber") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Resigned On">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblResignedOn" Text='<%#Eval("ResignedDate") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblResignedOn" Text='<%#Eval("ResignedDate").ToString()==""?"-NA-" :Eval("ResignedDate") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                          <asp:TemplateField HeaderText="ResignedDate" Visible="false">
@@ -179,7 +179,7 @@
                                         </asp:TemplateField>
                                          <asp:TemplateField HeaderText="AssignTo">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblAssignTo" Text='<%#Eval("AssignTo") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblAssignTo" Text='<%#Eval("AssignTo").ToString()==""?"-NA-" :Eval("AssignTo") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RegID" Visible="false">

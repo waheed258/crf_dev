@@ -128,10 +128,11 @@
                                         <asp:BoundField HeaderText="SlNo" ReadOnly="true" />
                                         <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
                                         <asp:BoundField DataField="SRNO" HeaderText="SR NO" ReadOnly="true" />
-                                        <asp:BoundField DataField="AssignTo" HeaderText="Advisor Name" ReadOnly="true" />
+                                        <asp:BoundField DataField="AssignTo" HeaderText="Advisor Name" ReadOnly="true" NullDisplayText="-NA-" />
                                         <asp:BoundField DataField="SRStatus" HeaderText="SR Status" ReadOnly="true" />
                                     </Columns>
                                 </asp:GridView>
+                                
                             </div>
                         </div>
                     </div>
