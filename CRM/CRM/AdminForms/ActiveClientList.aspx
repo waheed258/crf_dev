@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <asp:GridView ID="gvClientsList" runat="server" Width="100%"
+                                <asp:GridView ID="gvClientsList" runat="server" Width="100%" OnRowDataBound="gvClientsList_RowDataBound"
                                     AutoGenerateColumns="False" DataKeyNames="ClientRegistartionID" CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display." OnPageIndexChanging="gvClientsList_PageIndexChanging"
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowEditing="gvClientsList_RowEditing"
@@ -147,9 +147,14 @@
                                                 <asp:Label runat="server" ID="lblMobileNumber" Text='<%#Eval("MobileNumber") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Status">
+                                        <asp:TemplateField HeaderText="Resigned On">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="lblStatus" Text='<%#Eval("ClientStatus") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="lblResignedOn" Text='<%#Eval("ResignedDate") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="ResignedDate" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblResignedDate" Text='<%#Eval("ResignedDate") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="CStatus" Visible="false">
@@ -170,6 +175,11 @@
                                         <asp:TemplateField HeaderText="Title" Visible="false">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblTitle" Text='<%#Eval("Title") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="AssignTo">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblAssignTo" Text='<%#Eval("AssignTo") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RegID" Visible="false">

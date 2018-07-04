@@ -95,6 +95,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
             ddlProvince.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblProvince")).Text.ToString();
             ddlCity.SelectedValue = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblCity")).Text.ToString();
             ddlTitle.SelectedItem.Text = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblTitle")).Text.ToString();
+            ViewState["AssignTo"] = ((Label)gvClientsList.Rows[RowIndex].FindControl("lblAssignTo")).Text.ToString();
         }
         catch
         {
@@ -248,4 +249,17 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
 
     }
 
+    protected void gvClientsList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            for (int i = 0; i < e.Row.Cells.Count; i++)
+            {
+                if (e.Row.Cells[i].Text == "&nbsp;" || e.Row.Cells[i].Text == null)
+                {
+                    e.Row.Cells[i].Text = "not available";
+                }
+            }
+        }
+    }
 }

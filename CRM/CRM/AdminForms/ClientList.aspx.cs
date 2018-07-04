@@ -15,6 +15,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     FeedbackEntity feedbackEntity = new FeedbackEntity();
     CommanClass _objComman = new CommanClass();
     ServiceRequestBL serviceRequestBL = new ServiceRequestBL();
+    string status = String.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -207,11 +208,11 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
-            if (ddlClientStatus.SelectedItem.Text == "Client Active")
+            if (ddlClientStatus.SelectedItem.Text == "Client Active" || ddlClientStatus.SelectedItem.Text == "Resigned")
             {
                 int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
                 clientRegEntity.Status = Status;
-                clientRegEntity.ResignedDate = "";
+                clientRegEntity.ResignedDate = txtResignedDate.Text;
                 clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
                 int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
@@ -483,12 +484,14 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
     {
         try
         {
+            Retrieve();
+            string assign = status.Trim(',');
             clientRegEntity.Status = Convert.ToInt32(ViewState["Status"]);
             clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
             clientRegEntity.SAID = ViewState["SAID"].ToString();
             clientRegEntity.VerifiedThough = ddlVerifiedThrough.SelectedItem.Text;
             clientRegEntity.VerifiedOn = txtVerifiedOn.Text;
-            clientRegEntity.AssignTo = Convert.ToInt32(ddlAssignTo.SelectedValue);
+            clientRegEntity.AssignTo = assign;
             feedbackEntity.AdvisorFeedBack = txtAdvisorFeedback.Text;
             int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'V');
 
@@ -507,7 +510,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 txtVerifiedOn.Text = "";
                 txtAdvisorFeedback.Text = "";
                 ddlVerifiedThrough.SelectedValue = "-1";
-                ddlAssignTo.SelectedValue = "-1";
+               // ddlAssignTo.SelectedValue = "-1";
                 ValidateGridData();
             }
             else
@@ -701,5 +704,16 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             lblResignedDate.Visible = false;
             txtResignedDate.Visible = false;
         }
+    }
+    public void Retrieve()
+    {
+        try
+        {
+            status = string.Empty;
+            foreach (ListItem item in this.ddlAssignTo.Items)
+                if (item.Selected)
+                    status += item + ",";
+        }
+        catch { }
     }
 }

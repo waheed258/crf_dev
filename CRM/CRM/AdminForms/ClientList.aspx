@@ -1,13 +1,68 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/Layout.master" AutoEventWireup="true" CodeFile="ClientList.aspx.cs" Inherits="AdminForms_ClientList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script src="../Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
-        function openModal() {
-            $('#ContentPlaceHolder1_Success').modal('show');
+    <style>
+        .multi-select-container {
+            display: inline-block;
+            position: relative;
         }
 
-    </script>
+        .multi-select-menu {
+            position: absolute;
+            left: 0;
+            top: 0.8em;
+            float: left;
+            min-width: 100%;
+            background: #fff;
+            margin: 1em 0;
+            padding: 0.4em 0;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+            .multi-select-menu input {
+                margin-right: 0.3em;
+                vertical-align: 0.1em;
+            }
+
+        .multi-select-button {
+            display: inline-block;
+            font-size: 0.875em;
+            padding: 0.2em 0.6em;
+            max-width: 20em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: -0.5em;
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            cursor: default;
+        }
+
+            .multi-select-button:after {
+                content: "";
+                display: inline-block;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0.4em 0.4em 0 0.4em;
+                border-color: #999 transparent transparent transparent;
+                margin-left: 0.4em;
+                vertical-align: 0.1em;
+            }
+
+        .multi-select-container--open .multi-select-menu {
+            display: block;
+        }
+
+        .multi-select-container--open .multi-select-button:after {
+            border-width: 0 0.4em 0.4em 0.4em;
+            border-color: transparent transparent #999 transparent;
+        }
+    </style>
     <style type="text/css">
         tr {
             height: 30px;
@@ -29,134 +84,8 @@
             color: #FF0000;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#target").keyup(function () {
-                if ($("[id *=target]").val() != "") {
-                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
-                    ('tbody').children('tr').each(function () {
-                        $(this).show();
-                    });
-                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
-                    ('tbody').children('tr').each(function () {
-                        var match = false;
-                        $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
-                                match = true;
-                                return false;
-                            }
-                        });
-                        if (match) {
-                            $(this).show();
-                            $(this).children('th').show();
-                        }
-                        else {
-                            $(this).hide();
-                            $(this).children('th').show();
-                        }
-                    });
-
-
-                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
-                            children('tr').each(function (index) {
-                                if (index == 0)
-                                    $(this).show();
-                            });
-                }
-                else {
-                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
-                            children('tr').each(function () {
-                                $(this).show();
-                            });
-                }
-            });
-        });
-        $(document).ready(function () {
-            $("#target1").keyup(function () {
-                if ($("[id *=target1]").val() != "") {
-                    $("[id *=ContentPlaceHolder1_gvValidate]").children
-                    ('tbody').children('tr').each(function () {
-                        $(this).show();
-                    });
-                    $("[id *=ContentPlaceHolder1_gvValidate]").children
-                    ('tbody').children('tr').each(function () {
-                        var match = false;
-                        $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
-                                match = true;
-                                return false;
-                            }
-                        });
-                        if (match) {
-                            $(this).show();
-                            $(this).children('th').show();
-                        }
-                        else {
-                            $(this).hide();
-                            $(this).children('th').show();
-                        }
-                    });
-
-
-                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
-                            children('tr').each(function (index) {
-                                if (index == 0)
-                                    $(this).show();
-                            });
-                }
-                else {
-                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
-                            children('tr').each(function () {
-                                $(this).show();
-                            });
-                }
-            });
-        });
-        $(document).ready(function () {
-            $("#target2").keyup(function () {
-                if ($("[id *=target2]").val() != "") {
-                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
-                    ('tbody').children('tr').each(function () {
-                        $(this).show();
-                    });
-                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
-                    ('tbody').children('tr').each(function () {
-                        var match = false;
-                        $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
-                                match = true;
-                                return false;
-                            }
-                        });
-                        if (match) {
-                            $(this).show();
-                            $(this).children('th').show();
-                        }
-                        else {
-                            $(this).hide();
-                            $(this).children('th').show();
-                        }
-                    });
-
-
-                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
-                            children('tr').each(function (index) {
-                                if (index == 0)
-                                    $(this).show();
-                            });
-                }
-                else {
-                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
-                            children('tr').each(function () {
-                                $(this).show();
-                            });
-                }
-            });
-        });
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <div class="content-wrapper">
         <section class="content-header">
             <div class="header-title">
@@ -406,11 +335,13 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Assign To Advisor</label><span class="style1">*</span>
-                                    <asp:DropDownList ID="ddlAssignTo" runat="server" class="form-control" AppendDataBoundItems="true">
-                                        <asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>
-                                    </asp:DropDownList>
+                                    <%--<asp:DropDownList ID="ddlAssignTo" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple="multiple">
+                                        <%--<asp:ListItem Text="--Select--" Value="-1"></asp:ListItem>--%>
+                                    <%--</asp:DropDownList>--%>
+                                    <asp:ListBox ID="ddlAssignTo" runat="server" CssClass="form-control" AppendDataBoundItems="true" SelectionMode="Multiple"></asp:ListBox>
                                     <asp:RequiredFieldValidator ID="rfvAssignTo" runat="server" ErrorMessage="Please Select an Advisor" ControlToValidate="ddlAssignTo" Display="Dynamic"
                                         ValidationGroup="Client" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
+
                                 </div>
                             </div>
                         </div>
@@ -573,7 +504,9 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <asp:Label runat="server" ID="lblResignedDate">Resigned Date</asp:Label>
-                                    <asp:TextBox ID="txtResignedDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>                                   
+                                    <asp:TextBox ID="txtResignedDate" TextMode="Date" runat="server" class="form-control"></asp:TextBox>
+                                     <asp:RequiredFieldValidator ID="rfvResignedDate" runat="server" ErrorMessage="Please Select Resigned Date" ControlToValidate="txtResignedDate" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -618,5 +551,130 @@
 
 
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvClientsList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#target1").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvValidate]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#target2").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvFeedBack]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#ContentPlaceHolder1_ddlAssignTo").multiSelect();
+        });
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
+    </script>
 </asp:Content>
 

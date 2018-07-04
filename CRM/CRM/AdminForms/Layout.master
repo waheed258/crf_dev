@@ -222,6 +222,7 @@
         <!-- Bootstrap -->
         <script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- lobipanel -->
+        
         <script src="../assets/plugins/lobipanel/lobipanel.min.js" type="text/javascript"></script>
         <!-- Pace js -->
         <script src="../assets/plugins/pace/pace.min.js" type="text/javascript"></script>
@@ -231,11 +232,14 @@
         <script src="../assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
         <!-- CRMadmin frame -->
         <script src="../assets/dist/js/custom.js" type="text/javascript"></script>
+        <script src="../jquery.multi-select.js"></script>
+       
         <!-- End Core Plugins
          =====================================================================-->
         <!-- Start Page Lavel Plugins
          =====================================================================-->
         <!-- ChartJs JavaScript -->
+        
         <script src="../assets/plugins/chartJs/Chart.min.js" type="text/javascript"></script>
         <!-- Counter js -->
         <script src="../assets/plugins/counterup/waypoints.js" type="text/javascript"></script>
