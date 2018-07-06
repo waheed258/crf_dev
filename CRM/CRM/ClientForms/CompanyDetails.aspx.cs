@@ -23,6 +23,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
     AccountantEntity accountEntity = new AccountantEntity();
     AccountantBL accountBL = new AccountantBL();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -422,6 +423,20 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                      accountmessage.InnerText = "Save Accountant Details";
                      btnAccountSubmit.Visible = true;                  
                      ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAccountantModal();", true);
+                 }
+                 else if (e.CommandName == "Validate")
+                 {
+
+                     txtvalidRegNum.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                     txtValidCompanyName.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
+                     txtValidYCF.Text = ((Label)row.FindControl("lblYearOfEstablishment")).Text.ToString();
+                     txtValidTelnum.Text = ((Label)row.FindControl("lblTelephone")).Text.ToString();
+                     txtvalidEmailId.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                     txtvalidWebsite.Text = ((Label)row.FindControl("lblWebsite")).Text.ToString();
+                     txtValidVatNum.Text = ((Label)row.FindControl("lblVATNo")).Text.ToString();
+                     validatemessage.InnerText = "Company Details";
+                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+
                  }
             }
         }
@@ -1205,5 +1220,61 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     protected void dropAccountant_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindAccountant();
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAIDBL.UpdateValidation(Session["SAID"].ToString(),"", txtvalidRegNum.Text, "", 8);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetGridData();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvCompany_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

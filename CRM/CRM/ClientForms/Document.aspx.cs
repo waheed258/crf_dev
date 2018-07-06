@@ -139,6 +139,22 @@ public partial class ClientForms_Document : System.Web.UI.Page
                 lblHeading.Text = "Director Documents";
                 ViewState["FoldertName"] = "Director";
                 break;
+            case "10":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "GrandChildren #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "GrandChildren Documents";
+                ViewState["FoldertName"] = "GrandChildren";
+                break;
+            case "11":
+                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                lblName.Text = "Parent #";
+                hfUIC.Value = "0";
+                hfSAID.Value = txtSAID.Text;
+                lblHeading.Text = "Parent Documents";
+                ViewState["FoldertName"] = "Parent";
+                break;
         }
     }
     private void GetDocuType()
@@ -314,6 +330,12 @@ public partial class ClientForms_Document : System.Web.UI.Page
                     break;
                 case "9":
                     Response.Redirect("DirectorDetails.aspx", false);
+                    break;
+                case "10":
+                    Response.Redirect("GrandChildren.aspx", false);
+                    break;
+                case "11":
+                    Response.Redirect("Parents.aspx", false);
                     break;
             }
             ClearControls();

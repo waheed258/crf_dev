@@ -373,7 +373,7 @@
                                                     AutoGenerateColumns="False" DataKeyNames="CompanyID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnPageIndexChanging="gvCompany_PageIndexChanging"
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand">
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvCompany_RowCommand" OnRowDataBound="gvCompany_RowDataBound">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="S No.">
@@ -434,6 +434,11 @@
                                                         <asp:TemplateField HeaderText="Trusts" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblTrusts" Text='<%#Eval("TrustUIC") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">

@@ -96,6 +96,8 @@
                                 <li><a href="../ClientProfile/ClientPersonal.aspx">Client</a></li>
                                 <li><a href="../ClientProfile/Spouse.aspx">Spouse </a></li>
                                 <li><a href="../ClientProfile/Children.aspx">Children  </a></li>
+                                <li><a href="GrandChildren.aspx">Grand Children  </a></li>
+                                <li><a href="Parents.aspx">Parents  </a></li>
 
                             </ul>
                         </li>

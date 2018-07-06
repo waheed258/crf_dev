@@ -43,47 +43,6 @@
                             });
                 }
             });
-        });
-        $(document).ready(function () {
-            $("#targetBank").keyup(function () {
-                if ($("[id *=target1]").val() != "") {
-                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                    ('tbody').children('tr').each(function () {
-                        $(this).show();
-                    });
-                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                    ('tbody').children('tr').each(function () {
-                        var match = false;
-                        $(this).children('td').each(function () {
-                            if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
-                                match = true;
-                                return false;
-                            }
-                        });
-                        if (match) {
-                            $(this).show();
-                            $(this).children('th').show();
-                        }
-                        else {
-                            $(this).hide();
-                            $(this).children('th').show();
-                        }
-                    });
-                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                            children('tr').each(function (index) {
-                                if (index == 0)
-                                    $(this).show();
-                            });
-                }
-                else {
-                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                            children('tr').each(function () {
-                                $(this).show();
-                            });
-                }
-            });
-        });
-        $(document).ready(function () {
             $("#targetAddress").keyup(function () {
                 if ($("[id *=target2]").val() != "") {
                     $("[id *=ContentPlaceHolder1_gvAddress]").children
@@ -123,7 +82,45 @@
                             });
                 }
             });
+            $("#targetBank").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=targetBank]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
         });
+      
     </script>
     <script type="text/javascript">
 
@@ -164,6 +161,9 @@
         }
         function openAddressModal() {
             $('#ContentPlaceHolder1_addressPopup').modal('show', { backdrop: 'static' });
+        }
+        function openValidateModal() {
+            $('#ContentPlaceHolder1_validatepopup').modal('show');
         }
         //function openDeleteModal() {
         //    $('#delete').modal('show', { backdrop: 'static' });
@@ -260,7 +260,7 @@
                                      
                                       
                                             <div class="form-group col-sm-3">
-                                                <label>Title</label><%--<span class="style1">*</span>--%>
+                                                <label>Title</label><span class="style1">*</span>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
@@ -270,8 +270,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
-                                                    ValidationGroup="Beneficiary" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
+                                                    ValidationGroup="Beneficiary" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label><span class="style1">*</span>
@@ -424,7 +424,7 @@
                                                     AutoGenerateColumns="False" DataKeyNames="BeneficiaryID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display." OnPageIndexChanging="gvBeneficiary_PageIndexChanging"
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvBeneficiary_RowCommand">
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvBeneficiary_RowCommand" OnRowDataBound="gvBeneficiary_RowDataBound">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="S No.">
@@ -524,6 +524,12 @@
                                                                     CommandName="DeleteBeneficiary" ToolTip="Address Details" CommandArgument='<%#Eval("BeneficiaryID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>--%>
+                                                         <asp:TemplateField HeaderText="Validate">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton ID="imgbtnValidate" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/tick.jpg"
+                                                                CommandName="Validate" ToolTip="Validate" CommandArgument='<%#Eval("BeneficiaryID") %>' />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>
@@ -987,6 +993,150 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+
+            <div class="modal fade" id="validatepopup" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-home m-r-5" id="validatemessage" runat="server"></i></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                        <ContentTemplate>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                  <div>
+                                        <asp:HiddenField ID="hfBeneficiaryID1" runat="server" Value="0" />
+                                    </div>
+                                                <div class="panel-body">
+                                                   <div class="col-sm-12">
+                                              <div class="col-sm-4 form-group">
+                                                <label class="control-label">Registration Number</label>
+                                                <asp:TextBox ID="txtvalidUICNum" CssClass="form-control" ReadOnly="true" MaxLength="13" runat="server"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Type Of Share Holder</label>
+                                                <asp:DropDownList ID="dropvalidShareType" runat="server" CssClass="form-control" Enabled="false">
+                                                </asp:DropDownList>                                              
+                                            </div>
+                                              </div>
+                                        <div id="divvalidIndividual" runat="server">
+                                        <div class="col-sm-12">            
+                                            <div class="col-sm-4 form-group">
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label class="control-label">Identification#</label>
+                                                    <asp:TextBox ID="txtvalidSAIDNum" CssClass="form-control" ReadOnly="true" MaxLength="13" runat="server"></asp:TextBox>                                              
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <label>Title</label>
+                                                <asp:DropDownList ID="dropvalidTitle" runat="server" CssClass="form-control" Enabled="false">
+                                                    <asp:ListItem Value="">Title</asp:ListItem>
+                                                    <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                    <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                    <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                    <asp:ListItem Value="Prof">Prof</asp:ListItem>
+                                                </asp:DropDownList>                                                
+                                            </div>
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">First Name</label>
+                                                <asp:TextBox ID="txtvalidFirstName" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>  
+                                                </div>
+                                            </div>
+                                              <div class="col-sm-12">                                           
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Last Name</label>
+                                                <asp:TextBox ID="txtValidLastName" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>                                             
+                                            </div>
+                                           
+                                            <div class="col-sm-4 form-group ">
+                                                <label>Date Of Birth</label>
+                                                <asp:TextBox ID="txtvalidDOB" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                       
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Tax Reference No.</label>
+                                                <asp:TextBox ID="txtvalidRefNum" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>                                         
+                                            </div>
+                                                  </div>
+                                            <div class="col-sm-12"> 
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Email Id</label>
+                                                <asp:TextBox ID="txtvalidEmailId" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
+                                            </div>
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Mobile</label>
+                                                <asp:TextBox ID="txtvalidMobileNum" CssClass="form-control" runat="server" MaxLength="10" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                                
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Phone</label>
+                                                <asp:TextBox ID="txtvalidPhoneNum" CssClass="form-control" runat="server" MaxLength="10" ReadOnly="true"></asp:TextBox>
+                                            </div>
+                                                  </div>
+                                            </div>
+                                            
+                                        <div id="divvalidCompany" runat="server">
+                                             <div class="col-sm-12">
+                                            <div class="col-sm-4 form-group">
+                                                <div class="col-sm-11" style="padding: 0px;">
+                                                    <label class="control-label">Registration #</label>
+                                                    <asp:TextBox ID="txtvalidCompanyRegNum" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="13"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Company Name</label>
+                                                <asp:TextBox ID="txtvalidCompanyName" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>                                                                                              
+                                            </div>
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Year of Foundation</label>
+                                                <asp:TextBox ID="txtvalidYCF" ReadOnly="true" CssClass="form-control" runat="server"></asp:TextBox>
+                                            </div>
+                                                 </div>
+                                             <div class="col-sm-12">
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">VAT Number</label>
+                                                <asp:TextBox ID="txtvalidVATNum" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>                
+                                            </div>
+                                       
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Telephone</label>   
+                                                <asp:TextBox ID="txtvalidcTelNum" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="10"></asp:TextBox>                                         
+                                            
+                                            </div>
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Email Id</label>
+                                                <asp:TextBox ID="txtvalidCEMailID" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>                                               
+                                            </div>
+                                                 </div>
+                                            <div class="col-sm-12">
+                                            <div class="col-sm-4 form-group">
+                                                <label class="control-label">Website</label>
+                                                <asp:TextBox ID="txtvalidCWebsite" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>                                             
+                                            </div>
+                                        </div>
+                                        </div>
+                                            </div>
+                                           
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                        <asp:Button ID="btnValidOK" runat="server" Text="Validate" CssClass="btn btn-primary" OnClick="btnValidOK_Click" />
+                        <asp:Button ID="btnValidCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnValidCancel_Click"></asp:Button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
 
             <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
                 <div class="modal-dialog">

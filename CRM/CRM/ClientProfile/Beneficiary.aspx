@@ -43,8 +43,6 @@
                             });
                 }
             });
-        });
-        $(document).ready(function () {
             $("#targetBank").keyup(function () {
                 if ($("[id *=target1]").val() != "") {
                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
@@ -82,8 +80,6 @@
                             });
                 }
             });
-        });
-        $(document).ready(function () {
             $("#targetAddress").keyup(function () {
                 if ($("[id *=target2]").val() != "") {
                     $("[id *=ContentPlaceHolder1_gvAddress]").children
@@ -124,6 +120,7 @@
                 }
             });
         });
+       
     </script>
     <script type="text/javascript">
 
@@ -259,7 +256,7 @@
                                             </div>
                                        
                                             <div class="form-group col-sm-3">
-                                                <label>Title</label><%-- <span class="style1">*</span>--%>
+                                                <label>Title</label> <span class="style1">*</span>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
@@ -269,8 +266,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                      <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
-                                                    ErrorMessage="Please Select Title" ValidationGroup="Beneficiary" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
+                                                    ErrorMessage="Please Select Title" ValidationGroup="Beneficiary" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label> <span class="style1">*</span>
@@ -425,7 +422,7 @@
                                                     AutoGenerateColumns="False" DataKeyNames="BeneficiaryID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display." OnPageIndexChanging="gvBeneficiary_PageIndexChanging"
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
-                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvBeneficiary_RowCommand">
+                                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvBeneficiary_RowCommand" OnRowDataBound="gvBeneficiary_RowDataBound">
                                                     <PagerStyle CssClass="pagination_grid" />
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="S No.">
@@ -493,6 +490,11 @@
                                                                 <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"

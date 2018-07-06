@@ -188,8 +188,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 Disable1();
                 ClearAddressControls();
                 ClearBankControls();
-                //BindBankDetails();
-               // BindAddressDetails();
+                BindBankDetails();
+                BindAddressDetails();
 
             }
             else
@@ -830,7 +830,15 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     {
         try
         {
-            bankEntity.Type = 7;
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                bankEntity.Type = 7;
+            }
+            else
+            {
+                bankEntity.Type =12;
+            }
+            
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -888,7 +896,14 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         try
         {
             bankEntity.BankDetailID = Convert.ToInt32(ViewState["BankDetailID"]);
-            bankEntity.Type = 7;
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                bankEntity.Type = 7;
+            }
+            else
+            {
+                bankEntity.Type = 12;
+            }
             if (ViewState["ShareHolderType"].ToString() == "Individual")
             {
                 bankEntity.SAID = ViewState["SAID"].ToString();
@@ -960,8 +975,16 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     {
         try
         {
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 7);
+            }
+            else
+            {
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 12);
+            }
 
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 7);
+            
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];
@@ -1075,7 +1098,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         //rfvtxtMobile.Enabled = false;
         //rfvPhone.Enabled = false;
         btnSubmit.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
         //rfvDateOfBirth.Enabled = false;
     }
     protected void Enable()
@@ -1095,7 +1118,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         //rfvtxtMobile.Enabled = true;
         //rfvPhone.Enabled = true;
         btnSubmit.Enabled = true;
-        //rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
         //rfvDateOfBirth.Enabled = true;
     }
     protected void btnSure_Click(object sender, EventArgs e)
@@ -1104,7 +1127,16 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
+                int res = 0;
+                if (ViewState["ShareHolderType"].ToString() == "Individual")
+                {
+                    res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
+                }
+                else
+                {
+                   res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["UICNo"].ToString(), txtUIC.Text.Trim());
+                }
+                
                 if (res > 0)
                 {
                     GetBeneficiaryGrid(txtUIC.Text.Trim());
@@ -1348,6 +1380,42 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             {
                 divCompany.Visible = true;
                 divIndividual.Visible = false;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvBeneficiary_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((Image)e.Row.FindControl("btnDelete")).Visible = false;
+                    ((Image)e.Row.FindControl("btnDocument")).Visible = false;
+                    ((Image)e.Row.FindControl("btnBank")).Visible = false;
+                    ((Image)e.Row.FindControl("btnAddress")).Visible = false;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                    ((Image)e.Row.FindControl("btnDelete")).Visible = true;
+                    ((Image)e.Row.FindControl("btnDocument")).Visible = true;
+                    ((Image)e.Row.FindControl("btnBank")).Visible = true;
+                    ((Image)e.Row.FindControl("btnAddress")).Visible = true;
+                }
             }
         }
         catch

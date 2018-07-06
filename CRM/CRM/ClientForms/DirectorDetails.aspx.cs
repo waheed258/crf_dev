@@ -199,21 +199,19 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             ds = directorBL.GetDirector(DirectorID, txtUIC.Text.Trim());
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                hfDirectorId.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
-                txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-                DateTime DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateOfBirth"].ToString());
-                txtDateOfBirth.Text = DOB.ToShortDateString();
-                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                txtSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
-                txtShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
-                btnDirectorSubmit.Text = "Update";
+                hfDirectorID1.Value = ds.Tables[0].Rows[0]["DirectorID"].ToString();
+                txtValidCompanyRegNum.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                txtValidSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                dropvalidTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+                txtvalidFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtvalidLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtvalidEmailId.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtvalidMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtvalidPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtvalidDOB.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                txtvalidRefNum.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtvalidSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
+                txtvalidShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();                
             }
         }
         catch
@@ -400,6 +398,14 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                     btnBankSubmit.Visible = true;
                    // btnUpdateBank.Visible = false;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                }
+                else if (e.CommandName == "Validate")
+                {
+                    int directorId = Convert.ToInt32(e.CommandArgument);
+                    BindDirector(directorId);
+                    validatemessage.InnerText = "Director Details";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+
                 }
             }
         }
@@ -998,5 +1004,61 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
         
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAIDBL.UpdateValidation(Session["SAID"].ToString(), txtValidSAID.Text, ViewState["UIC"].ToString(), "", 9);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetDirectorGrid(txtUIC.Text.Trim());
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvDirector_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

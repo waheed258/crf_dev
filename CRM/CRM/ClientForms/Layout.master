@@ -123,6 +123,8 @@
                                 <li><a href="ClientPersonal.aspx">Client</a></li>
                                 <li><a href="Spouse.aspx">Spouse </a></li>
                                 <li><a href="ChildDetails.aspx">Children  </a></li>
+                                <li><a href="GrandChildren.aspx">Grand Children  </a></li>
+                                <li><a href="Parents.aspx">Parents  </a></li>
 
                             </ul>
                         </li>
