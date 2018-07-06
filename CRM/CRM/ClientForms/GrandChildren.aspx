@@ -1,129 +1,125 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ClientForms/Layout.master" AutoEventWireup="true" CodeFile="GrandChildren.aspx.cs" Inherits="ClientForms_GrandChildren" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $("#target").keyup(function () {
-                 if ($("[id *=target]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
 
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#target1").keyup(function () {
-                 if ($("[id *=target1]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#target2").keyup(function () {
-                 if ($("[id *=target2]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#target1").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+            $("#target2").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
 
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function (event) {
@@ -160,11 +156,14 @@
         function openAddressModal() {
             $('#ContentPlaceHolder1_addressPopup').modal('show');
         }
-        function openDeleteModal() {
-            $('#delete').modal('show');
+        function openValidateModal() {
+            $('#ContentPlaceHolder1_validatepopup').modal('show');
         }
+        //function openDeleteModal() {
+        //    $('#delete').modal('show');
+        //}
     </script>
-     <style type="text/css">
+    <style type="text/css">
         tr {
             height: 30px;
         }
@@ -180,6 +179,7 @@
         table {
             border: 1px solid #e4e5e7;
         }
+
         .style1 {
             color: #FF0000;
         }
@@ -188,9 +188,9 @@
 
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager ID="scriptmanager" runat="server"></asp:ScriptManager>
-     <div class="content-wrapper">
+    <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
@@ -246,8 +246,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
-                                                    ValidationGroup="GrandChildren" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
+                                                    ValidationGroup="GrandChildren" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>First Name</label><span class="style1">*</span>
@@ -256,7 +256,7 @@
                                                     ErrorMessage="Please Enter First Name" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Last Name</label><span class="style1">*</span>
+                                                <label>Last Name</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtLastName" class="form-control" runat="server" placeholder="Enter Sur Name" MaxLength="50"></asp:TextBox>
                                                 <%--<asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ForeColor="red"
                                                     ErrorMessage="Please Enter Last Name" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
@@ -264,9 +264,9 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Email</label><span class="style1">*</span>
+                                                <label>Email</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtEmailId" class="form-control" runat="server" placeholder="Enter EmailId" MaxLength="75"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="red"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="red"
                                                     ErrorMessage="Please Enter Email" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revEmailId" runat="server" ForeColor="red" Display="Dynamic" ErrorMessage="Please check Email Format"
                                                     ControlToValidate="txtEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="GrandChildren">
@@ -274,9 +274,9 @@
 
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Mobile</label><span class="style1">*</span>
+                                                <label>Mobile</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtMobileNum" class="form-control" runat="server" placeholder="Enter Mobile Number" MaxLength="10"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="red"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="red"
                                                     ErrorMessage="Please Enter Mobile" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revMobileNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtMobileNum" ForeColor="red" ValidationGroup="GrandChildren"></asp:RegularExpressionValidator>
@@ -295,7 +295,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Date Of Birth</label><span class="style1">*</span>
+                                                <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="red"
                                                     ErrorMessage="Please Enter Date Of Birth" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
@@ -317,8 +317,8 @@
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
                                         <asp:Button ID="btnGrandChildSubmit" runat="server" Text="Submit" CssClass="btn btn-primary" ValidationGroup="GrandChildren" OnClick="btnGrandChildSubmit_Click" />
-                                       <%-- <asp:Button ID="btnUpdateGrandChild" runat="server" Text="Update" ValidationGroup="GrandChild" CssClass="btn btn-primary" OnClick="btnUpdateGrandChild_Click"></asp:Button>--%>
-                                        <asp:Button ID="btnGrandChildCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnGrandChildCancel_Click" /> 
+                                        <%-- <asp:Button ID="btnUpdateGrandChild" runat="server" Text="Update" ValidationGroup="GrandChild" CssClass="btn btn-primary" OnClick="btnUpdateGrandChild_Click"></asp:Button>--%>
+                                        <asp:Button ID="btnGrandChildCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnGrandChildCancel_Click" />
                                     </div>
 
                                     <div class="panel panel-bd" id="GrandChildlist" runat="server">
@@ -347,7 +347,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvgrandchild" runat="server" Width="100%"
+                                                <asp:GridView ID="gvgrandchild" runat="server" Width="100%" OnRowDataBound="gvgrandchild_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="GrandchildrenID" CssClass="rounded-corners" OnPageIndexChanging="gvgrandchild_PageIndexChanging"
                                                     EmptyDataText="There are no data records to display."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvgrandchild_RowEditing" OnRowDeleting="gvgrandchild_RowDeleting"
@@ -419,12 +419,17 @@
                                                                 <asp:Label runat="server" ID="lblTitle" Text='<%#Eval("Title") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Photo Upload" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblImage" Text='<%#Eval("Image") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                      <%--  <asp:TemplateField HeaderText="Edit">
+                                                        <%--  <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                     CommandName="Edit" ToolTip="Edit" CommandArgument='<%#Eval("GrandchildrenID") %>' />
@@ -453,6 +458,12 @@
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAddress" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/address.png"
                                                                     CommandName="Address" ToolTip="Address Details" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Validate">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton ID="imgbtnValidate" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/tick.jpg"
+                                                                    CommandName="Validate" ToolTip="Validate" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -549,7 +560,7 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                   <%-- <asp:TemplateField HeaderText="Edit">
+                                                    <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="Edit" CommandArgument='<%#Eval("BankDetailID") %>' ToolTip="Edit" />
@@ -561,7 +572,6 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>--%>
-
                                                 </Columns>
                                             </asp:GridView>
 
@@ -684,7 +694,7 @@
                                                             <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                   <%-- <asp:TemplateField HeaderText="Edit">
+                                                    <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="Edit" ToolTip="Edit" CommandArgument='<%#Eval("AddressDetailID") %>' />
@@ -696,7 +706,6 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>--%>
-
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
@@ -715,7 +724,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                      <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -738,7 +748,7 @@
         </div>
         <!-- /.modal-success -->
 
-       <%-- <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <%-- <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -771,7 +781,104 @@
         </div>--%>
         <!-- /.modal-delete -->
 
+        <div class="modal fade" id="validatepopup" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <h3><i class="fa fa-home m-r-5" id="validatemessage" runat="server"></i></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <fieldset>
+                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                        <ContentTemplate>
+                                            <div class="col-md-12 form-group user-form-group">
+                                                <div class="panel-body">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group col-sm-4">
+                                                            <div class="col-sm-11" style="padding: 0px;">
+                                                                <label>Identification#</label>
+                                                                <asp:TextBox ID="txtValidIdentityNum" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Title</label>
+                                                            <asp:DropDownList ID="ddlvalidTitle" runat="server" CssClass="form-control" Enabled="false">
+                                                                <asp:ListItem Value="">Title</asp:ListItem>
+                                                                <asp:ListItem Value="Mr">Mr</asp:ListItem>
+                                                                <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
+                                                                <asp:ListItem Value="Ms">Ms</asp:ListItem>
+                                                                <asp:ListItem Value="Miss">Miss</asp:ListItem>
+                                                                <asp:ListItem Value="Dr">Dr</asp:ListItem>
+                                                                <asp:ListItem Value="Prof">Prof</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label>First Name</label>
+                                                            <asp:TextBox ID="txtvalidFirstName" CssClass="form-control" runat="server" MaxLength="50" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Last Name</label>
+                                                            <asp:TextBox ID="txtvalidLastName" CssClass="form-control" runat="server" MaxLength="50" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Email</label>
+                                                            <asp:TextBox ID="txtvalidEmail" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="75"></asp:TextBox>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Mobile</label>
+                                                            <asp:TextBox ID="txtvalidMobile" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="10"></asp:TextBox>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Phone</label>
+                                                            <asp:TextBox ID="txtvalidPhone" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="10"></asp:TextBox>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                                ControlToValidate="txtPhoneNum" ForeColor="Red" ValidationGroup="Child"></asp:RegularExpressionValidator>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Tax Ref Num</label>
+                                                            <asp:TextBox ID="txtvalidReferenceNum" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+
+                                                        <div class="form-group col-sm-4">
+                                                            <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
+                                                            <asp:TextBox ID="txtValidDOB" CssClass="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <%--<div class="col-sm-3 form-group">
+                                                <label class="control-label">Photo Upload</label>
+                                                <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true"></asp:FileUpload>
+                                                <a id="a1" href="#" runat="server" target="_blank">
+                                                    <asp:Label ID="Label2" runat="server" /></a>
+                                                <asp:RegularExpressionValidator ControlToValidate="fuPhoto" runat="server" ID="RegularExpressionValidator5" ForeColor="Red"
+                                                    Display="Dynamic" CssClass="span6 m-wrap" ErrorMessage="Select only jpg,png Files." ValidationGroup="Child"
+                                                    ValidationExpression="^.*\.(jpg|png|JPG|PNG)$" />
+                                            </div>--%>
+                                                </div>
+                                            </div>
+                                           
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                        <asp:Button ID="btnValidOK" runat="server" Text="Validate" CssClass="btn btn-primary" OnClick="btnValidOK_Click" />
+                        <asp:Button ID="btnValidCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnValidCancel_Click"></asp:Button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
 
         <div class="modal fade" id="bankPopup" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
             <div class="modal-dialog">
@@ -833,7 +940,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Currency</label><span class="style1">*</span>
                                                             <asp:TextBox ID="txtCurrency" runat="server" class="form-control" placeholder="Enter Currency"></asp:TextBox>
-                                                           <%-- <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                            <%-- <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                         <div class="col-sm-4 form-group">
@@ -853,7 +960,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: center">
                         <asp:Button ID="btnBankSubmit" runat="server" Text="Submit" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnBankSubmit_Click"></asp:Button>
-                       <%-- <asp:Button ID="btnUpdateBank" runat="server" Text="Update" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnUpdateBank_Click"></asp:Button>--%>
+                        <%-- <asp:Button ID="btnUpdateBank" runat="server" Text="Update" ValidationGroup="Bank" CssClass="btn btn-primary" OnClick="btnUpdateBank_Click"></asp:Button>--%>
                         <asp:Button ID="btnBankCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnBankCancel_Click"></asp:Button>
                     </div>
                 </div>
@@ -978,7 +1085,7 @@
                     </div>
                     <div class="modal-footer" style="text-align: center">
                         <asp:Button ID="btnAddressSubmit" runat="server" Text="Submit" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnAddressSubmit_Click"></asp:Button>
-                      <%--  <asp:Button ID="btnUpdateAddress" runat="server" Text="Update" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnUpdateAddress_Click"></asp:Button>--%>
+                        <%--  <asp:Button ID="btnUpdateAddress" runat="server" Text="Update" ValidationGroup="Address" CssClass="btn btn-primary" OnClick="btnUpdateAddress_Click"></asp:Button>--%>
                         <asp:Button ID="btnAddressCancel" runat="server" Text="Cancel" CssClass="btn btn-danger" OnClick="btnAddressCancel_Click"></asp:Button>
                     </div>
                 </div>
@@ -988,14 +1095,14 @@
         </div>
     </div>
 
-      <script type="text/javascript">
-          $(function () {
-              var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
-              $('#Tabs a[href="#' + tabName + '"]').tab('show');
-              $("#Tabs a").click(function () {
-                  $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-              });
-          });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
 
 

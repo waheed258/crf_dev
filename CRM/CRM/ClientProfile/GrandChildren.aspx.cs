@@ -1020,7 +1020,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
         //rfvEmailId.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
         fuPhoto.Enabled = false;
         btnGrandChildSubmit.Enabled = false;
     }
@@ -1040,7 +1040,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         //rfvLastName.Enabled = true;
         //rfvMobileNum.Enabled = true;
         //rfvEmailId.Enabled = true;
-        //rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
         btnGrandChildSubmit.Enabled = true;
     }
 
@@ -1049,4 +1049,40 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
     }
 
 
+    protected void gvgrandchild_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+         try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((Image)e.Row.FindControl("btnDelete")).Visible = false;
+                    ((Image)e.Row.FindControl("btnDocument")).Visible = false;
+                    ((Image)e.Row.FindControl("btnBank")).Visible = false;
+                    ((Image)e.Row.FindControl("btnAddress")).Visible = false;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                    ((Image)e.Row.FindControl("btnDelete")).Visible = true;
+                    ((Image)e.Row.FindControl("btnDocument")).Visible = true;
+                    ((Image)e.Row.FindControl("btnBank")).Visible = true;
+                    ((Image)e.Row.FindControl("btnAddress")).Visible = true;
+                }
+            }
+        }
+         catch
+         {
+             lblTitle.Text = "Warning!";
+             lblTitle.ForeColor = System.Drawing.Color.Red;
+             message.ForeColor = System.Drawing.Color.Red;
+             message.Text = "Sorry, Something went wrong, please contact administrator";
+             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+         }
+    }
 }

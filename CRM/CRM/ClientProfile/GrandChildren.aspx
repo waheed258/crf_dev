@@ -1,130 +1,130 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminForms/LayoutForClientProfile.master" AutoEventWireup="true" CodeFile="GrandChildren.aspx.cs" Inherits="ClientProfile_GrandChildren" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
-      <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $("#target").keyup(function () {
-                 if ($("[id *=target]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
-
-
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#target1").keyup(function () {
-                 if ($("[id *=target1]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
-         $(document).ready(function () {
-             $("#target2").keyup(function () {
-                 if ($("[id *=target2]").val() != "") {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         $(this).show();
-                     });
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children
-                     ('tbody').children('tr').each(function () {
-                         var match = false;
-                         $(this).children('td').each(function () {
-                             if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
-                                 match = true;
-                                 return false;
-                             }
-                         });
-                         if (match) {
-                             $(this).show();
-                             $(this).children('th').show();
-                         }
-                         else {
-                             $(this).hide();
-                             $(this).children('th').show();
-                         }
-                     });
+    <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#target").keyup(function () {
+                if ($("[id *=target]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
 
 
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function (index) {
-                                 if (index == 0)
-                                     $(this).show();
-                             });
-                 }
-                 else {
-                     $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
-                             children('tr').each(function () {
-                                 $(this).show();
-                             });
-                 }
-             });
-         });
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvgrandchild]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#target1").keyup(function () {
+                if ($("[id *=target1]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target1]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gdvBankList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#target2").keyup(function () {
+                if ($("[id *=target2]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target2]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvAddress]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function (event) {
@@ -165,7 +165,7 @@
             $('#delete').modal('show');
         }
     </script>
-     <style type="text/css">
+    <style type="text/css">
         tr {
             height: 30px;
         }
@@ -181,6 +181,7 @@
         table {
             border: 1px solid #e4e5e7;
         }
+
         .style1 {
             color: #FF0000;
         }
@@ -189,11 +190,11 @@
 
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager ID="scriptmanager" runat="server"></asp:ScriptManager>
 
 
-     <div class="content-wrapper">
+    <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="header-title">
@@ -249,8 +250,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
-                                                    ValidationGroup="GrandChildren" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" Display="Dynamic" ErrorMessage="Please Select Title"
+                                                    ValidationGroup="GrandChildren" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>First Name</label><span class="style1">*</span>
@@ -259,7 +260,7 @@
                                                     ErrorMessage="Please Enter First Name" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Last Name</label><span class="style1">*</span>
+                                                <label>Last Name</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtLastName" class="form-control" runat="server" placeholder="Enter Sur Name" MaxLength="50"></asp:TextBox>
                                                 <%--<asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ForeColor="red"
                                                     ErrorMessage="Please Enter Last Name" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
@@ -267,9 +268,9 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Email</label><span class="style1">*</span>
+                                                <label>Email</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtEmailId" class="form-control" runat="server" placeholder="Enter EmailId" MaxLength="75"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="red"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="red"
                                                     ErrorMessage="Please Enter Email" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revEmailId" runat="server" ForeColor="red" Display="Dynamic" ErrorMessage="Please check Email Format"
                                                     ControlToValidate="txtEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="GrandChildren">
@@ -277,9 +278,9 @@
 
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Mobile</label><span class="style1">*</span>
+                                                <label>Mobile</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtMobileNum" class="form-control" runat="server" placeholder="Enter Mobile Number" MaxLength="10"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="red"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvMobileNum" runat="server" ControlToValidate="txtMobileNum" ForeColor="red"
                                                     ErrorMessage="Please Enter Mobile" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revMobileNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtMobileNum" ForeColor="red" ValidationGroup="GrandChildren"></asp:RegularExpressionValidator>
@@ -298,7 +299,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
-                                                <label>Date Of Birth</label><span class="style1">*</span>
+                                                <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="red"
                                                     ErrorMessage="Please Enter Date Of Birth" ValidationGroup="GrandChildren" Display="Dynamic"></asp:RequiredFieldValidator>--%>
@@ -325,7 +326,7 @@
                                     </div>
 
                                     <div class="panel panel-bd" id="GrandChildlist" runat="server">
-                                        <div class="panel-heading"> 
+                                        <div class="panel-heading">
                                             <div class="panel-title">
                                                 <h5>GrandChild List</h5>
                                             </div>
@@ -350,7 +351,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvgrandchild" runat="server" Width="100%"
+                                                <asp:GridView ID="gvgrandchild" runat="server" Width="100%" OnRowDataBound="gvgrandchild_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="GrandchildrenID" CssClass="rounded-corners" OnPageIndexChanging="gvgrandchild_PageIndexChanging"
                                                     EmptyDataText="There are no data records to display."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvgrandchild_RowEditing" OnRowDeleting="gvgrandchild_RowDeleting"
@@ -420,6 +421,11 @@
                                                         <asp:TemplateField HeaderText="Title" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblTitle" Text='<%#Eval("Title") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Photo Upload" Visible="false">
@@ -719,7 +725,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                      <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -769,9 +776,9 @@
                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
         <!-- /.modal-delete -->
 
@@ -992,14 +999,14 @@
         </div>
     </div>
 
-      <script type="text/javascript">
-          $(function () {
-              var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
-              $('#Tabs a[href="#' + tabName + '"]').tab('show');
-              $("#Tabs a").click(function () {
-                  $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
-              });
-          });
+    <script type="text/javascript">
+        $(function () {
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "tab1";
+            $('#Tabs a[href="#' + tabName + '"]').tab('show');
+            $("#Tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
+        });
     </script>
 
 
