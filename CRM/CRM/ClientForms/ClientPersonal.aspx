@@ -350,7 +350,7 @@
                                                             <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Edit">
+                                                   <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="EditAddress" ToolTip="Edit" />
@@ -361,7 +361,7 @@
                                                             <asp:ImageButton ID="btnAddressDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
 
                                                 </Columns>
@@ -461,7 +461,7 @@
                                                             <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Edit">
+                                                   <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="EditBank" ToolTip="Edit" />
@@ -472,7 +472,7 @@
                                                             <asp:ImageButton ID="btnbankDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

@@ -56,4 +56,14 @@ public class ValidateSAIDBL
         ds = dataUtilities.ExecuteDataSet("usp_ValidateBeneficiaryUIC", hashtable);
         return ds;
     }
+    public int UpdateValidation(string ReferenceSAID, string TrustSAID, string UIC, string ReferenceUIC, int ClientType)
+    {
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("@ReferenceSAID", ReferenceSAID);
+        hashtable.Add("@SAID", TrustSAID);
+        hashtable.Add("@UIC", UIC);
+        hashtable.Add("@ReferenceUIC", ReferenceUIC);
+        hashtable.Add("@ClientType", ClientType);
+        return dataUtilities.ExecuteNonQuery("usp_UpdateValidation", hashtable);
+    }
 }

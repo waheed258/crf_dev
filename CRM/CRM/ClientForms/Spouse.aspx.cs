@@ -507,6 +507,22 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     addressmessage.InnerText = "Save Address Details";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
                 }
+                else if (e.CommandName == "Validate")
+                {
+
+                    txtValidIdentityNum.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    ddlvalidTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                    txtvalidFirstName.Text = ((Label)row.FindControl("lblFirstName")).Text.ToString();
+                    txtvalidLastName.Text = ((Label)row.FindControl("lblLastName")).Text.ToString();
+                    txtvalidEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                    txtvalidMobile.Text = ((Label)row.FindControl("lblMobile")).Text.ToString();
+                    txtvalidPhone.Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
+                    txtvalidReferenceNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
+                    txtValidDOB.Text = (((Label)row.FindControl("lblDateOfBirth")).Text);
+                    validatemessage.InnerText = "Spouse Details";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+
+                }
                 //else if (e.CommandName == "Delete")
                 //{
                 //    ViewState["flag"] = 1;
@@ -1076,7 +1092,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
         //rfvEmailId.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
         fuPhoto.Enabled = false;
         btnSpouseSubmit.Enabled = false;
     }
@@ -1095,8 +1111,65 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         //rfvLastName.Enabled = true;
         //rfvMobileNum.Enabled = true;
         //rfvEmailId.Enabled = true;
-        //rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
         btnSpouseSubmit.Enabled = true;
     }
 
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAIDBL.UpdateValidation(Session["SAID"].ToString(), txtValidIdentityNum.Text, "", "", 2);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindSpouseDetails();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvSpouse_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 }

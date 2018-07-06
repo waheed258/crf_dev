@@ -216,7 +216,8 @@
         table {
             border: 1px solid #e4e5e7;
         }
-          .style1 {
+
+        .style1 {
             color: #FF0000;
         }
     </style>
@@ -279,14 +280,14 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Trust Foundation</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Income Tax</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtVATRef" CssClass="form-control" runat="server" placeholder="Income Tax"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvtxtVATRef" runat="server" ControlToValidate="txtVATRef" Display="Dynamic"
                                                     ErrorMessage="Enter Tax Reference"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
@@ -295,7 +296,7 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Telephone</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtTelephone" CssClass="form-control" MaxLength="10" runat="server" placeholder="Telephone"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvTelephone" runat="server" ControlToValidate="txtTelephone" Display="Dynamic"
                                                     ErrorMessage="Enter Telephone" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revtxtTelephone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtTelephone" ForeColor="Red" ValidationGroup="trust"></asp:RegularExpressionValidator>
@@ -309,7 +310,7 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Email Id</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" placeholder="Email Id"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic"
                                                     ErrorMessage="Enter Email ID" ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revtxtEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
                                                     ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="trust">
@@ -323,7 +324,7 @@
                                                 </asp:RegularExpressionValidator>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="panel-footer" style="border-top: 0px !important;">
                                         <div class="col-sm-5"></div>
@@ -356,7 +357,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvTrust" runat="server" Width="100%"
+                                                <asp:GridView ID="gvTrust" runat="server" Width="100%" OnRowDataBound="gvTrust_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="TrustID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
                                                     ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvTrust_RowCommand" OnPageIndexChanging="gvTrust_PageIndexChanging">
@@ -412,14 +413,18 @@
                                                                 <asp:Label runat="server" ID="lblTaxRefNo" Text='<%#Eval("VATNo") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                     CommandName="EditTrust" ToolTip="Edit" CommandArgument='<%#Eval("UIC") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="Document">
+                                                        <asp:TemplateField HeaderText="Document">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
                                                                     CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("UIC") %>' />
@@ -431,20 +436,20 @@
                                                                     CommandName="Bank" ToolTip="Bank Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                       
+
                                                         <asp:TemplateField HeaderText="Address">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAddress" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/address.png"
                                                                     CommandName="Address" ToolTip="Address Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                          <asp:TemplateField HeaderText="Accountant">
+                                                        <asp:TemplateField HeaderText="Accountant">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnAccountant" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/accountant.png"
                                                                     CommandName="Accountant" ToolTip="Accountant Details" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="Private Banker">
+                                                        <asp:TemplateField HeaderText="Private Banker">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnPrivateBanker" runat="server" Width="28px" Height="23px" ImageUrl="~/assets/dist/img/privatebank.png"
                                                                     CommandName="PrivateBanker" ToolTip="Private Banker" />
@@ -789,7 +794,7 @@
                                                             <asp:Label runat="server" ID="lblAccountantEmail" Text='<%#Eval("AccountantEmail") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                     <asp:TemplateField HeaderText="AccountantType" Visible="false">
+                                                    <asp:TemplateField HeaderText="AccountantType" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblAccountantType" Text='<%#Eval("Type") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -799,7 +804,7 @@
                                                             <asp:Label runat="server" ID="lblAccountUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-               
+
                                                     <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnAccountEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
@@ -881,13 +886,13 @@
                                                             <asp:Label runat="server" ID="lblPrivateContactNum" Text='<%#Eval("PrivateContactNum") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    
+
                                                     <asp:TemplateField HeaderText="Banker UICNo" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankerUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-               
+
                                                     <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnBankerEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
@@ -958,7 +963,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label><span class="style1">*</span>
                                                             <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>
-                                                            
+
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
@@ -975,7 +980,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Currency</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtCurrency" runat="server" class="form-control"></asp:TextBox>
-                                                          <%--  <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                            <%--  <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                         <div class="col-sm-4 form-group">
@@ -1156,16 +1161,16 @@
                                                             <asp:TextBox ID="txtAccTelNum" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
                                                             <asp:RequiredFieldValidator ID="rfvtxtAccTelNum" runat="server" ControlToValidate="txtAccTelNum" Display="Dynamic" ErrorMessage="Enter Telephone Num"
                                                                 ValidationGroup="Account" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                             <asp:RegularExpressionValidator ID="revtxtAccTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
-                                                    ControlToValidate="txtAccTelNum" ForeColor="Red" ValidationGroup="Account"></asp:RegularExpressionValidator>
+                                                            <asp:RegularExpressionValidator ID="revtxtAccTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                                ControlToValidate="txtAccTelNum" ForeColor="Red" ValidationGroup="Account"></asp:RegularExpressionValidator>
                                                         </div>
 
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Email ID</label><span class="style1">*</span>
                                                             <asp:TextBox ID="txtAccEmailId" runat="server" class="form-control"></asp:TextBox>
-                                                             <asp:RegularExpressionValidator ID="revtxtAccEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
-                                                    ControlToValidate="txtAccEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Account">
-                                                </asp:RegularExpressionValidator>
+                                                            <asp:RegularExpressionValidator ID="revtxtAccEmailId" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
+                                                                ControlToValidate="txtAccEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Account">
+                                                            </asp:RegularExpressionValidator>
                                                             <asp:RequiredFieldValidator ID="rfvtxtAccEmailId" runat="server" ControlToValidate="txtAccEmailId" Display="Dynamic" ErrorMessage="Enter Email ID"
                                                                 ValidationGroup="Account" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
@@ -1226,11 +1231,11 @@
                                                             <asp:TextBox ID="txtPrivBankTelNum" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
                                                             <asp:RequiredFieldValidator ID="rfvtxtPrivBankTelNum" runat="server" ControlToValidate="txtPrivBankTelNum" Display="Dynamic" ErrorMessage="Enter Contact Number"
                                                                 ValidationGroup="Banker" ForeColor="Red"></asp:RequiredFieldValidator>
-                                                             <asp:RegularExpressionValidator ID="revtxtPrivBankTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
-                                                    ControlToValidate="txtPrivBankTelNum" ForeColor="Red" ValidationGroup="Banker"></asp:RegularExpressionValidator>
+                                                            <asp:RegularExpressionValidator ID="revtxtPrivBankTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
+                                                                ControlToValidate="txtPrivBankTelNum" ForeColor="Red" ValidationGroup="Banker"></asp:RegularExpressionValidator>
                                                         </div>
 
-                                                       
+
 
                                                     </div>
                                                 </div>
@@ -1256,14 +1261,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                       <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                        <asp:Label ID="message" runat="server" class="control-label"/>
+                                        <asp:Label ID="message" runat="server" class="control-label" />
                                     </div>
                                 </fieldset>
                             </div>

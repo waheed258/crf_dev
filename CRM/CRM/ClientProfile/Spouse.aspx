@@ -234,8 +234,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3">
-                                                <label>Title</label>
-                                                <%--<span class="style1">*</span>--%>
+                                                <label>Title</label><span class="style1">*</span>
+                                                
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
@@ -245,8 +245,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                                <%--<asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
-                                                    ErrorMessage="Please Select Title" ValidationGroup="Spouse" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
+                                                    ErrorMessage="Please Select Title" ValidationGroup="Spouse" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="form-group col-sm-3">
                                                 <label>First Name</label><span class="style1">*</span>
@@ -296,7 +296,7 @@
                                             <div class="form-group col-sm-3">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="red"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="red"
                                                     ErrorMessage="Please Enter Date Of Birth" ValidationGroup="Spouse" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -346,7 +346,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvSpouse" runat="server" Width="100%"
+                                                <asp:GridView ID="gvSpouse" runat="server" Width="100%" OnRowDataBound="gvSpouse_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="SpouseID" CssClass="rounded-corners" OnPageIndexChanging="gvSpouse_PageIndexChanging"
                                                     EmptyDataText="There are no data records to display."
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" OnRowEditing="gvSpouse_RowEditing" OnRowDeleting="gvSpouse_RowDeleting"
@@ -416,6 +416,11 @@
                                                         <asp:TemplateField HeaderText="Title" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblTitle" Text='<%#Eval("Title") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Photo Upload" Visible="false">

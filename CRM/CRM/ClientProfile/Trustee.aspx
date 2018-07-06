@@ -237,7 +237,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Title</label><%--<span class="style1">*</span>--%>
+                                                <label class="control-label">Title</label><span class="style1">*</span>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
@@ -247,8 +247,8 @@
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
                                                      <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                                <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
-                                                    ErrorMessage="Please Select Title" ValidationGroup="trust" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                 <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
+                                                    ErrorMessage="Please Select Title" ValidationGroup="trust" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label><span class="style1">*</span>
@@ -336,7 +336,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvTrustee" runat="server" Width="100%"
+                                                <asp:GridView ID="gvTrustee" runat="server" Width="100%" OnRowDataBound="gvTrustee_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="TrusteeID" CssClass="rounded-corners"
                                                     EmptyDataText="There are no data records to display." OnPageIndexChanging="gvTrustee_PageIndexChanging"
                                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" HeaderStyle-BackColor="#e8f1f3"
@@ -389,7 +389,11 @@
                                                                 <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                          <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"

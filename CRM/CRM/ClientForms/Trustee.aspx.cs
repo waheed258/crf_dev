@@ -178,16 +178,16 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 hfTrusteeId.Value = ds.Tables[0].Rows[0]["TrusteeID"].ToString();
-                txtUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
-                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-                txtPhoneNum.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtvalidUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
+                txtvalidSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtvalidFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtvalidLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtvalidEmailId.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtvalidMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtvalidTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtvalidDOB.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                ddlvalidTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+                txtvalidPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
                 btnSubmit.Text = "Update";
             }
         }
@@ -354,7 +354,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
                 txtTrusteeAddress.Text = TrusteeName;
                 txtSAIDAddress.Text = ViewState["SAID"].ToString();
-
+                int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 switch (e.CommandName)
                 {
@@ -421,6 +421,11 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                         btnBankSubmit.Visible = true;
                        // btnUpdateBank.Visible = false;
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
+                        break;
+                    case "Validate":
+                        BindTrustee(TrusteeId);
+                        validatemessage.InnerText = "Validate Details";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
                         break;
                 }
             }
@@ -995,5 +1000,61 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
             message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+    protected void gvTrustee_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAID.UpdateValidation(Session["SAID"].ToString(), txtvalidSAID.Text, "", txtvalidUIC.Text, 6);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetTrusteeGrid(txtvalidUIC.Text);
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
     }
 }

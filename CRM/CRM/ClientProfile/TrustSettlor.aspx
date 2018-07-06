@@ -174,6 +174,7 @@
         table {
             border: 1px solid #e4e5e7;
         }
+
         .style1 {
             color: #FF0000;
         }
@@ -236,18 +237,18 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3 form-group">
-                                                <label class="control-label">Title</label><%--<span class="style1">*</span>--%>
+                                                <label class="control-label">Title</label><span class="style1">*</span>
                                                 <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control">
                                                     <asp:ListItem Value="">Title</asp:ListItem>
                                                     <asp:ListItem Value="Mr">Mr</asp:ListItem>
-                                                     <asp:ListItem Value="Mrs">Mrs</asp:ListItem>                                          
+                                                    <asp:ListItem Value="Mrs">Mrs</asp:ListItem>
                                                     <asp:ListItem Value="Ms">Ms</asp:ListItem>
-                                                     <asp:ListItem Value="Miss">Miss</asp:ListItem>                                                   
+                                                    <asp:ListItem Value="Miss">Miss</asp:ListItem>
                                                     <asp:ListItem Value="Dr">Dr</asp:ListItem>
-                                                     <asp:ListItem Value="Prof">Prof</asp:ListItem>
+                                                    <asp:ListItem Value="Prof">Prof</asp:ListItem>
                                                 </asp:DropDownList>
-                                                 <%-- <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
-                                                    ErrorMessage="Please Select Title" ValidationGroup="Settler" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="ddlTitle" ForeColor="Red"
+                                                    ErrorMessage="Please Select Title" ValidationGroup="Settler" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">First Name</label><span class="style1">*</span>
@@ -258,7 +259,7 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Last Name</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtLastName" CssClass="form-control" runat="server" placeholder="Enter Last Name"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvtxtLastName" runat="server" ControlToValidate="txtLastName" Display="Dynamic"
                                                     ErrorMessage="Enter Last Name"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
@@ -278,13 +279,13 @@
                                             <div class="form-group col-sm-3">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
-                                               <%--  <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic"
+                                                <%--  <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic"
                                                     ErrorMessage="Enter Date Of Birth" ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Mobile</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtMobile" CssClass="form-control" runat="server" MaxLength="10" placeholder="Enter Mobile Numbert"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvtxtMobile" runat="server" ControlToValidate="txtMobile" Display="Dynamic"
                                                     ErrorMessage="Enter Mobile Number" ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtMobile" ForeColor="Red" ValidationGroup="Settler"></asp:RegularExpressionValidator>
@@ -292,7 +293,7 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Phone</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtPhone" CssClass="form-control" runat="server" placeholder="Enter Telephone" MaxLength="10"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvPhone" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Enter Phone Number"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvPhone" runat="server" ControlToValidate="txtPhone" Display="Dynamic" ErrorMessage="Enter Phone Number"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="revPhone" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhone" ForeColor="Red" ValidationGroup="Settler"></asp:RegularExpressionValidator>
@@ -343,7 +344,7 @@
                                             </div>
 
                                             <div class="table-responsive">
-                                                <asp:GridView ID="gvTrustSettler" runat="server" Width="100%"
+                                                <asp:GridView ID="gvTrustSettler" runat="server" Width="100%" OnRowDataBound="gvTrustSettler_RowDataBound"
                                                     AutoGenerateColumns="False" DataKeyNames="TrustSettlerID" CssClass="rounded-corners" OnPageIndexChanging="gvTrustSettler_PageIndexChanging"
                                                     EmptyDataText="There are no data records to display." BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" HeaderStyle-BackColor="#e8f1f3"
                                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvTrustSettler_RowCommand">
@@ -400,6 +401,11 @@
                                                                 <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Phone" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
@@ -412,7 +418,7 @@
                                                                     CommandName="EditTrustSettler" ToolTip="Edit" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="Document">
+                                                        <asp:TemplateField HeaderText="Document">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDocument" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/upload.png"
                                                                     CommandName="Document" ToolTip="Add Documents" CommandArgument='<%#Eval("SAID") %>' />
@@ -750,7 +756,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Account Number</label><span class="style1">*</span>
                                                             <asp:TextBox ID="txtAccountNumber" runat="server" class="form-control"></asp:TextBox>
-                                                         
+
                                                             <asp:RequiredFieldValidator ID="rfvtxtAccountNumber" runat="server" ControlToValidate="txtAccountNumber" Display="Dynamic" ErrorMessage="Enter Account Number"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
@@ -768,7 +774,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Currency</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtCurrency" runat="server" class="form-control"></asp:TextBox>
-                                                          <%--  <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                            <%--  <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                         <div class="col-sm-4 form-group">
@@ -924,14 +930,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
+                        <h3>
+                            <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <fieldset>
                                     <div class="col-md-12 form-group user-form-group">
-                                        <asp:Label ID="message" runat="server" class="control-label"/>
+                                        <asp:Label ID="message" runat="server" class="control-label" />
                                     </div>
                                 </fieldset>
                             </div>

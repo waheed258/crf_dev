@@ -213,14 +213,14 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), UIC);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                txtUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-                txtTrustName.Text = ds.Tables[0].Rows[0]["TrustName"].ToString();
-                txtYearofFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
-                txtTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtvalidUIC.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                txtvalidTrustName.Text = ds.Tables[0].Rows[0]["TrustName"].ToString();
+                txtvalidYearOfFoundation.Text = ds.Tables[0].Rows[0]["YearOfFoundation"].ToString();
+                txtvalidTelephone.Text = ds.Tables[0].Rows[0]["Telephone"].ToString();
+                txtvalidEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
                 //txtFax.Text = ds.Tables[0].Rows[0]["FaxNo"].ToString();
-                txtWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
-                txtVATRef.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
+                txtvalidWebsite.Text = ds.Tables[0].Rows[0]["Website"].ToString();
+                txtvalidIncomeTax.Text = ds.Tables[0].Rows[0]["VATNo"].ToString();
                 btnSubmitTrust.Text = "Update";
             }
         }
@@ -361,6 +361,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         bankermessage.InnerText = "Save Banker Details";
                         btnBankerSubmit.Visible = true;                      
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openPrivateBankerModal();", true);
+                        break;
+                    case "Validate":
+                        BindTrust(UIC);
+                        validatemessage.InnerText = "Validate Details";
+                        btnBankerSubmit.Visible = true;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
                         break;
                 }
             }
@@ -1247,5 +1253,61 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void btnBankerCancel_Click(object sender, EventArgs e)
     {
         ClearPrivateBanker();
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAID.UpdateValidation(Session["SAID"].ToString(),"", txtvalidUIC.Text,"",  4);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetTrustGrid();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvTrust_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }

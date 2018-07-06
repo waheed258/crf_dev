@@ -108,7 +108,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         //rfvtxtMobile.Enabled = false;
         revtxtEmail.Enabled = false;
         btnSubmit.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
     }
 
     protected void Enable()
@@ -126,7 +126,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
         //rfvtxtMobile.Enabled = true;
         revtxtEmail.Enabled = true;
         btnSubmit.Enabled = true;
-       // rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
     }
 
 
@@ -172,17 +172,17 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 hfTrustSettlerId.Value = ds.Tables[0].Rows[0]["TrustSettlerID"].ToString();
-                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                txtTrustUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
-                txtFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
-                txtLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
-                txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
-                txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-                txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                txtDateOfBirth.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
-                ddlTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
-                btnSubmit.Text = "Update";
+                txtvalidSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                txtvalidTrustUIC.Text = ds.Tables[0].Rows[0]["ReferenceUIC"].ToString();
+                txtvalidFirstName.Text = ds.Tables[0].Rows[0]["FirstName"].ToString();
+                txtvalidLastName.Text = ds.Tables[0].Rows[0]["LastName"].ToString();
+                txtvalidEmail.Text = ds.Tables[0].Rows[0]["EmailID"].ToString();
+                txtvalidMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
+                txtvalidPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+                txtvalidReferenceNum.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                txtValidDOB.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                ddlvalidTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
+               // btnSubmit.Text = "Update";
             }
         }
         catch
@@ -364,7 +364,7 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
 
                 txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 txtSettlorNameAddress.Text = SettlorName;
-
+                 int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
 
                 //if (e.CommandName == "EditTrustSettler")
@@ -436,6 +436,12 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     //btnUpdateBank.Visible = false;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
                 }
+                 else if (e.CommandName == "Validate")
+                 {
+
+                     BindTrustSettler(TrustSettlerId);
+                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+                 }
             }
         }
         catch
@@ -983,6 +989,62 @@ public partial class ClientForms_TrustSettlor : System.Web.UI.Page
                     txtMobile.Text = "";
                     txtPhone.Text = "";
                     txtTaxRefNo.Text = "";
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAID.UpdateValidation(Session["SAID"].ToString(), txtvalidSAID.Text, "", txtvalidTrustUIC.Text, 5);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void gvTrustSettler_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0"))
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
                 }
             }
         }
