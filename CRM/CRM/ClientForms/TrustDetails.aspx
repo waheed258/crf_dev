@@ -418,6 +418,11 @@
                                                                 <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                          <asp:TemplateField HeaderText="AdvisorID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                         <%--                                                        <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"

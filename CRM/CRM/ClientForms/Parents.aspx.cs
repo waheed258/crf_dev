@@ -266,7 +266,7 @@ public partial class ClientForms_Parents : System.Web.UI.Page
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
         //rfvEmailId.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
         fuPhoto.Enabled = false;
         btnParentSubmit.Enabled = false;
     }
@@ -285,7 +285,7 @@ public partial class ClientForms_Parents : System.Web.UI.Page
         //rfvLastName.Enabled = true;
         //rfvMobileNum.Enabled = true;
         //rfvEmailId.Enabled = true;
-        //rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
         btnParentSubmit.Enabled = true;
     }
 
@@ -440,6 +440,22 @@ public partial class ClientForms_Parents : System.Web.UI.Page
                 //    lbldeletemessage.Text = "Are you sure, you want to delete Parents Details?";
                 //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
                 //}
+                else if (e.CommandName == "Validate")
+                {
+
+                    txtValidIdentityNum.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    ddlvalidTitle.SelectedValue = ((Label)row.FindControl("lblTitle")).Text.ToString();
+                    txtvalidFirstName.Text = ((Label)row.FindControl("lblFirstName")).Text.ToString();
+                    txtvalidLastName.Text = ((Label)row.FindControl("lblLastName")).Text.ToString();
+                    txtvalidEmail.Text = ((Label)row.FindControl("lblEmailID")).Text.ToString();
+                    txtvalidMobile.Text = ((Label)row.FindControl("lblMobile")).Text.ToString();
+                    txtvalidPhone.Text = ((Label)row.FindControl("lblPhone")).Text.ToString();
+                    txtvalidReferenceNum.Text = ((Label)row.FindControl("lblTaxRefNo")).Text.ToString();
+                    txtValidDOB.Text = (((Label)row.FindControl("lblDateOfBirth")).Text);
+                    validatemessage.InnerText = "Parents Details";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+
+                }
             }
         }
         catch
@@ -838,4 +854,60 @@ public partial class ClientForms_Parents : System.Web.UI.Page
 
 
 
+    protected void gvParent_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0") && drv["AdvisorID"].ToString() != "0")
+                {
+                    e.Row.BackColor = System.Drawing.Color.IndianRed;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+                }
+                else
+                {
+                    e.Row.BackColor = System.Drawing.Color.White;
+                    ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                }
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int result = validateSAIDBL.UpdateValidation(Session["SAID"].ToString(), txtValidIdentityNum.Text, "", "", 11);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindParentDetails();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnValidCancel_Click(object sender, EventArgs e)
+    {
+
+    }
 }

@@ -411,6 +411,11 @@
                                                                 <asp:Label runat="server" ID="lblPhone" Text='<%#Eval("Phone") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="AdvisorID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
                                                         <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>

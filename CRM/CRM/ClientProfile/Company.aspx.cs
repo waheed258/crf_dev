@@ -1209,7 +1209,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
-                if (drv["Flag"].ToString().Equals("0"))
+                if (drv["Flag"].ToString().Equals("0") && drv["AdvisorID"].ToString() != "0")
                 {
                     e.Row.BackColor = System.Drawing.Color.IndianRed;
                     ((Image)e.Row.FindControl("btnEdit")).Visible = false;

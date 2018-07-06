@@ -485,14 +485,15 @@
                                                                 <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="EmailID" Visible="false">
-                                                            <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                       
                                                         <asp:TemplateField HeaderText="Flag" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                           <asp:TemplateField HeaderText="AdvisorID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Edit">
