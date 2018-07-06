@@ -2,6 +2,31 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $("#ContentPlaceHolder1_txtDateOfBirth").datepicker({
+                  changeMonth: true,
+                  changeYear: true,
+                  yearRange: "-100:+0",
+                  dateFormat: 'dd-mm-yy',
+                  //numberOfMonths: 1,               
+              });
+          });
+        </script>
+
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $("#ContentPlaceHolder1_txtYearofFoundation").datepicker({
+                 changeMonth: true,
+                 changeYear: true,
+                 yearRange: "-100:+0",
+                 dateFormat: 'dd-mm-yy',
+                 //numberOfMonths: 1,               
+             });
+         });
+        </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -289,7 +314,7 @@
                                               <div class="col-sm-12">
                                             <div class="col-sm-3 form-group ">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth"></asp:TextBox>
                                              <%--   <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic"
                                                     ErrorMessage="Enter Date of Birth" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
@@ -355,7 +380,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Company Foundation</label>
-                                                <asp:TextBox ID="txtYearofFoundation" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtYearofFoundation"  CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">VAT Number</label>

@@ -2,6 +2,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ContentPlaceHolder1_txtYearofFoundation").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                dateFormat: 'dd-mm-yy',
+                //numberOfMonths: 1,                
+
+            });
+        });
+        </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#target").keyup(function () {
@@ -278,7 +292,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Trust Foundation</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>
