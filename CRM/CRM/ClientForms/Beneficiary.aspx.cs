@@ -471,7 +471,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Validate")
                 {
-                    int BenfId = Convert.ToInt32(e.CommandArgument);
+                    int BenfId = Convert.ToInt32(ViewState["BeneficiaryID"].ToString());
                     BindBeneficiary1(BenfId);
                     validatemessage.InnerText = "Child Details";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
@@ -864,7 +864,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         try
         {
 
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 7);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 7, txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

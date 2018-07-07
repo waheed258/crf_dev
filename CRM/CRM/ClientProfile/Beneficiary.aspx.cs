@@ -438,7 +438,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 {
                     Enable();
                     Enable1();
-                    int BenfId = Convert.ToInt32(e.CommandArgument);
+                    int BenfId = Convert.ToInt32(ViewState["BeneficiaryID"].ToString());
                     BindBeneficiary(BenfId);
                 }
                 else if (e.CommandName == "Document")
@@ -977,11 +977,11 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         {
             if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
             {
-                ds = bankBL.GetBankList(Session["SAID"].ToString(), 7);
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 7, txtUIC.Text);
             }
             else
             {
-                ds = bankBL.GetBankList(Session["SAID"].ToString(), 12);
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 12, txtUIC.Text);
             }
 
             

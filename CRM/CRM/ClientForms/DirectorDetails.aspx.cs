@@ -401,7 +401,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Validate")
                 {
-                    int directorId = Convert.ToInt32(e.CommandArgument);
+                    int directorId = Convert.ToInt32(ViewState["DirectorID"].ToString());
                     BindDirector(directorId);
                     validatemessage.InnerText = "Director Details";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
@@ -711,7 +711,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         try
         {
             DataSet ds = new DataSet();
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 9);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 9, txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

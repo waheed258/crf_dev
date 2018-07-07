@@ -343,7 +343,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
                 if (e.CommandName == "EditDirector")
                 {
                     Enable();
-                    int directorId = Convert.ToInt32(e.CommandArgument);
+                    int directorId = Convert.ToInt32(ViewState["DirectorID"].ToString());
                     BindDirector(directorId);
                 }
                 else if (e.CommandName == "Document")
@@ -712,7 +712,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         try
         {
             DataSet ds = new DataSet();
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 9);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 9, txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];
