@@ -743,7 +743,15 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     {
         try
         {
-            bankEntity.Type = 7;
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                bankEntity.Type = 7;
+            }
+            else
+            {
+                bankEntity.Type = 12;
+            }
+           
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -863,8 +871,16 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     {
         try
         {
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 7, txtUIC.Text);
+            }
+            else
+            {
+                ds = bankBL.GetBankList(Session["SAID"].ToString(), 12, txtUIC.Text);
+            }
 
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 7, txtUIC.Text);
+            
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];
