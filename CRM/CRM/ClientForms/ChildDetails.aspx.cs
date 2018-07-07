@@ -462,7 +462,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3);
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;

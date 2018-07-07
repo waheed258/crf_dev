@@ -532,7 +532,7 @@ public partial class ClientForms_Parents : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 11);
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 11,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;

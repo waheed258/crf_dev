@@ -103,7 +103,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         //rfvtxtLastName.Enabled = false;
         //rfvtxtMobile.Enabled = false;
         //rfvEmail.Enabled = false;
-        //rfvTitle.Enabled = false;
+        rfvTitle.Enabled = false;
         btnSubmit.Enabled = false;
     }
 
@@ -122,7 +122,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         //rfvtxtMobile.Enabled = true;
         //rfvEmail.Enabled = true;
         btnSubmit.Enabled = true;
-        //rfvTitle.Enabled = true;
+        rfvTitle.Enabled = true;
     }
 
     /// <summary>
@@ -354,7 +354,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
 
                 txtTrusteeAddress.Text = TrusteeName;
                 txtSAIDAddress.Text = ViewState["SAID"].ToString();
-                int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
+                int TrusteeId = Convert.ToInt32(ViewState["TrusteeId"].ToString());
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 switch (e.CommandName)
                 {
@@ -400,7 +400,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
                         break;
                     case "Bank":
-                        DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                        DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), txtUIC.Text);
                         if (dsBank.Tables[0].Rows.Count > 0)
                         {
                             if (dsBank.Tables[0].Rows[0]["Type"].ToString() == "6")
@@ -801,7 +801,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
     {
         try
         {
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 6);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 6,txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

@@ -544,7 +544,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2);
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;
