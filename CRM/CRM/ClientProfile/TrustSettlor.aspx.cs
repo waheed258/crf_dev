@@ -382,7 +382,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 
                 if (e.CommandName == "EditTrustSettler")
                 {
-                    int TrustSettlerId = Convert.ToInt32(e.CommandArgument);
+                    int TrustSettlerId = Convert.ToInt32(ViewState["TrusteeSettlerId"].ToString());
                     Enable();
                     BindTrustSettler(TrustSettlerId);
                 }
@@ -832,7 +832,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     {
         try
         {
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 5);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 5, txtTrustUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

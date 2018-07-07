@@ -331,7 +331,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 switch (e.CommandName)
                 {
                     case "EditTrustee":
-                        int TrusteeId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int TrusteeId = Convert.ToInt32(ViewState["TrusteeId"].ToString());
                         Enable();
                         BindTrustee(TrusteeId);
                         break;
@@ -785,7 +785,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
     {
         try
         {
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 6);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 6, txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

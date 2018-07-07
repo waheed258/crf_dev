@@ -44,8 +44,6 @@
                             });
                 }
             });
-        });
-        $(document).ready(function () {
             $("#target1").keyup(function () {
                 if ($("[id *=target1]").val() != "") {
                     $("[id *=ContentPlaceHolder1_gdvBankList]").children
@@ -83,8 +81,6 @@
                             });
                 }
             });
-        });
-        $(document).ready(function () {
             $("#target2").keyup(function () {
                 if ($("[id *=target2]").val() != "") {
                     $("[id *=ContentPlaceHolder1_gvAddress]").children

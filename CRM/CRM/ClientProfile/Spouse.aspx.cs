@@ -370,6 +370,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)
             {
+                int r = validateSAIDBL.UpdateValidation(ViewState["ReferenceSAID"].ToString(), ViewState["SAID"].ToString(), "", "", 2);
                 lblTitle.Text = "Thank You";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
                 message.ForeColor = System.Drawing.Color.Green;
@@ -383,6 +384,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 btnUpdateSpouse.Visible = false;
                 btnSpouseSubmit.Visible = true;
                 txtSAID.ReadOnly = false;
+                
             }
             else
             {
@@ -526,7 +528,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2);
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;

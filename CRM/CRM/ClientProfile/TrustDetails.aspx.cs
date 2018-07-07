@@ -285,7 +285,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 txtBankerTrustRegNo.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
                 txtBankerTrustname.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
 
-                string UIC = e.CommandArgument.ToString();
+                string UIC = ViewState["UIC"].ToString();
                 EncryptDecrypt ObjEn = new EncryptDecrypt();
                 Session["TrustUIC"] = UIC;
                 switch (e.CommandName)
@@ -776,7 +776,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     {
         try
         {
-            ds = bankBL.GetBankList(Session["SAID"].ToString(), 4);
+            ds = bankBL.GetBankList(Session["SAID"].ToString(), 4,"");
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];

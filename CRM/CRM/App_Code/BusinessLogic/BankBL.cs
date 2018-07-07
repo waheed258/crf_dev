@@ -45,12 +45,13 @@ namespace BusinessLogic
 
         }
 
-        public DataSet GetBankList(string SAID,int Type)
+        public DataSet GetBankList(string SAID,int Type,string RefUIC)
         {
             var newBank = new List<BankInfoEntity>();
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@ReferenceSAID", SAID);
             hashtable.Add("@Type", Type);
+            hashtable.Add("@RefUIC", RefUIC);
             DataSet ds = dataUtilities.ExecuteDataSet("usp_GetBankDetails", hashtable);
             return ds;
         }

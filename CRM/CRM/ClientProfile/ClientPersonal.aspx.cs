@@ -346,7 +346,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            ds = bankbl.GetBankList(Session["SAID"].ToString(), 1);
+            ds = bankbl.GetBankList(Session["SAID"].ToString(), 1,"");
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvBankDetails.DataSource = ds.Tables[0];
