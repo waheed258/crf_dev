@@ -439,7 +439,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            ds = addressbl.GetAddressDetails(Session["SAID"].ToString(), 1);
+            ds = addressbl.GetAddressDetails(Session["SAID"].ToString(), 1,"");
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddressDetails.DataSource = ds;

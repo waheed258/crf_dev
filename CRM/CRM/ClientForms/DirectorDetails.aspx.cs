@@ -427,7 +427,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         try
         {
             DataSet ds = new DataSet();
-            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 9);
+            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 9, txtUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = ds.Tables[0];

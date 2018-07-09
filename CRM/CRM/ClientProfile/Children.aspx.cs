@@ -417,7 +417,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3);
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;

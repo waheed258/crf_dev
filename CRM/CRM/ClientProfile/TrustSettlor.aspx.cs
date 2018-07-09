@@ -478,7 +478,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     {
         try
         {
-            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 5);
+            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 5, txtTrustUIC.Text);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = ds.Tables[0];

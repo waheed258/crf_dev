@@ -159,7 +159,7 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8);
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 8,"");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddressDetails.DataSource = dataset;

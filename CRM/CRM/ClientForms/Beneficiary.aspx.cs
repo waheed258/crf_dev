@@ -506,7 +506,18 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     {
         try
         {
-            ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7);
+            DataSet ds = new DataSet();
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7, txtUIC.Text);
+                
+            }
+            else
+            {
+                ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 12, txtUIC.Text);
+                
+            }
+           // ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = ds.Tables[0];
@@ -549,7 +560,15 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     {
         try
         {
-            addressEntity.Type = 7;
+            if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
+            {
+                addressEntity.Type = 7;
+            }
+            else
+            {
+                addressEntity.Type = 12;
+            }
+            //addressEntity.Type = 7;
             addressEntity.UIC = txtUIC.Text.Trim();
             addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
             addressEntity.BuildingName = txtBulding.Text;
