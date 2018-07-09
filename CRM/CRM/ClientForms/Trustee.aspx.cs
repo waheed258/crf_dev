@@ -98,7 +98,7 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+        //txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtMobile.Enabled = false;
@@ -116,7 +116,8 @@ public partial class ClientForms_Trustee : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+       // txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtMobile.Enabled = true;

@@ -123,6 +123,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtPhoneNo.ReadOnly = true;
                 txtMobileNo.ReadOnly = true;
                 txtDateofBirth.ReadOnly = true;
+                //txtDateofBirth.Attributes.Add("disabled", "disabled");
                 txtTaxRefNo.ReadOnly = true;
                 fuImageUpload.Enabled = false;
                 ViewState["flag"] = 1;
@@ -157,6 +158,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtPhoneNo.ReadOnly = false;
                 txtMobileNo.ReadOnly = false;
                 txtDateofBirth.ReadOnly = false;
+                //txtDateofBirth.Attributes.Add("disabled", "disabled");
                 txtTaxRefNo.ReadOnly = false;
                 ViewState["flag"] = 2;
                 btnSubmitClientPersonal.Text = "Submit";
@@ -192,6 +194,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 txtPhoneNo.ReadOnly = false;
                 txtMobileNo.ReadOnly = false;
                 txtDateofBirth.ReadOnly = false;
+                //txtDateofBirth.Attributes.Remove("disabled");
                 txtTaxRefNo.ReadOnly = false;
                 fuImageUpload.Enabled = true;
             }

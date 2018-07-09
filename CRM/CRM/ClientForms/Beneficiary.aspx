@@ -9,7 +9,7 @@
                   changeMonth: true,
                   changeYear: true,
                   yearRange: "-100:+0",
-                  dateFormat: 'dd-mm-yy',
+                  dateFormat: 'yy-mm-dd',
                   //numberOfMonths: 1,               
               });
           });
@@ -21,7 +21,7 @@
                  changeMonth: true,
                  changeYear: true,
                  yearRange: "-100:+0",
-                 dateFormat: 'dd-mm-yy',
+                 dateFormat: 'yy-mm-dd',
                  //numberOfMonths: 1,               
              });
          });
@@ -314,7 +314,7 @@
                                               <div class="col-sm-12">
                                             <div class="col-sm-3 form-group ">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth"></asp:TextBox>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" disabled="disabled" autocomplete="off" placeholder="Enter Date Of Birth"></asp:TextBox>
                                              <%--   <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic"
                                                     ErrorMessage="Enter Date of Birth" ValidationGroup="Beneficiary" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
@@ -380,7 +380,8 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Company Foundation</label>
-                                                <asp:TextBox ID="txtYearofFoundation"  CssClass="form-control" runat="server"></asp:TextBox>
+                                               <%-- <asp:TextBox ID="txtYearofFoundation"  CssClass="form-control" disabled="disabled" autocomplete="off" placeholder="Enter Year of Company Foundation" runat="server"></asp:TextBox>--%>
+                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" runat="server" disabled="disabled" autocomplete="off" placeholder="Enter Year of Company Foundation"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">VAT Number</label>

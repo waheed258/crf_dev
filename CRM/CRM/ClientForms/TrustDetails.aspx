@@ -9,7 +9,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "-100:+0",
-                dateFormat: 'dd-mm-yy',
+                dateFormat: 'yy-mm-dd',
                 //numberOfMonths: 1,                
 
             });
@@ -292,7 +292,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Trust Foundation</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtYearofFoundation" CssClass="form-control" disabled="disabled" autocomplete="off" runat="server"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="trust" ForeColor="Red"></asp:RequiredFieldValidator>--%>

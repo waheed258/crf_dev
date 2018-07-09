@@ -969,7 +969,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void Disable()
     {
         txtTrustName.ReadOnly = true;
-        txtYearofFoundation.ReadOnly = true;
+       // txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephone.ReadOnly = true;
         //txtFax.ReadOnly = true;
@@ -988,7 +988,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     protected void Enable()
     {
         txtTrustName.ReadOnly = false;
-        txtYearofFoundation.ReadOnly = false;
+        txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephone.ReadOnly = false;
         //txtFax.ReadOnly = false;

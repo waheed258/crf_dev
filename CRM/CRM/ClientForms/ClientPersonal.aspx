@@ -9,7 +9,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "-100:+0",
-                dateFormat: 'dd-mm-yy',
+                dateFormat: 'yy-mm-dd',
                 //numberOfMonths: 1,                
 
             });
@@ -229,7 +229,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label>Date of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateofBirth" runat="server"  CssClass="form-control" placeholder="Enter Date of Birth"></asp:TextBox>
+                                                <asp:TextBox ID="txtDateofBirth" runat="server"  CssClass="form-control" autocomplete="off" placeholder="Enter Date of Birth"></asp:TextBox>
                                                <%-- <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
                                                     ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>

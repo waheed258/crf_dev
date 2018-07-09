@@ -904,7 +904,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+        //txtDateOfBirth.ReadOnly = true;
         txtSharePerc.ReadOnly=true;
         txtShareValue.ReadOnly=true;
         rfvtxtFirstName.Enabled = false;
@@ -925,7 +925,8 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+       // txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         txtSharePerc.ReadOnly=false;
         txtShareValue.ReadOnly=false;
         //rfvTitle.Enabled = true;

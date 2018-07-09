@@ -99,7 +99,8 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+        //txtDateOfBirth.ReadOnly = true;
+
         ddlTitle.Enabled = false;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
@@ -118,7 +119,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         txtMobileNum.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         ddlTitle.Enabled = true;
         fuPhoto.Enabled = true;
         btnChildSubmit.Enabled = true;
