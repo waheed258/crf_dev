@@ -101,7 +101,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+       // txtDateOfBirth.ReadOnly = true;
         ddlTitle.Enabled = false;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
@@ -121,7 +121,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         txtMobileNum.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        //txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         ddlTitle.Enabled = true;
         fuPhoto.Enabled = true;
         btnChildSubmit.Enabled = true;
@@ -868,7 +869,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int result = childBL.DeleteChildDetails(ViewState["SAID"].ToString());
+                int result = childBL.DeleteChildDetails(ViewState["SAID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (result > 0)
                 {
                     BindChildDetails();

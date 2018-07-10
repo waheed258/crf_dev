@@ -60,10 +60,11 @@ namespace BusinessLogic
             return ds;
         }
 
-        public int DeleteChildDetails(string SAID)
+        public int DeleteChildDetails(string SAID, int AdvisorID)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@SAID", SAID);
+            hashtable.Add("@Deletedby", AdvisorID);
             int result = dataUtilities.ExecuteNonQuery("DeleteChild", hashtable);
             return result;
         }

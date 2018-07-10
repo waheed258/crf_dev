@@ -50,13 +50,15 @@ namespace BusinessLogic
             hashtable.Add("@spouseSAID", SAID);
             return dataUtilities.ExecuteDataSet("GetSpouse", hashtable);
         }
-       
-        public int DeleteSpouse(string SAID)
+
+        public int DeleteSpouse(string SAID, int AdvisorID)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@SAID", SAID);
+            hashtable.Add("@Deletedby", AdvisorID);
             int result = dataUtilities.ExecuteNonQuery("DeleteSpouse", hashtable);
             return result;
         }
+
     }
 }

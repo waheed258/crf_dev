@@ -54,13 +54,13 @@ public class TrustSettlerBL:DataUtilities
         hsparams.Add("@inSAID", SAID);
         return ExecuteDataSet("GetTrustSettlersTest", hsparams);
     }
-    public int DeleteTrustSettler(int TrustSettlerId,string UIC, string SAID)
+    public int DeleteTrustSettler(int TrustSettlerId, string UIC, string SAID, int AdvisorID)
     {
         Hashtable hsparams = new Hashtable();
         hsparams.Add("@inTrustSettlerID", TrustSettlerId);
         hsparams.Add("@inUIC", UIC);
         hsparams.Add("@inSAID", SAID);
-
+        hsparams.Add("@Deletedby", AdvisorID);
         return ExecuteNonQuery("DeleteTrustSettler", hsparams);
     }
 }

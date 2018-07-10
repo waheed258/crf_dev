@@ -4,6 +4,19 @@
     <script src="../Scripts/jquery-1.10.2.min.js"></script>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ContentPlaceHolder1_txtYearofFoundation").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                dateFormat: 'yy-mm-dd',
+                //numberOfMonths: 1,               
+            });
+        });
+        </script>
+
+
+    <script type="text/javascript">
         $(document).ready(function (event) {
             $("#ContentPlaceHolder1_txtCompanyUIC,#ContentPlaceHolder1_txtTelephone,#ContentPlaceHolder1_txtFax,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber,#ContentPlaceHolder1_txtAccTelNum").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
@@ -287,7 +300,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Year of Company Foundation</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtYearofFoundation" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtYearofFoundation" disabled="disabled" autocomplete="off" placeholder="Enter Year of Company Foundation" CssClass="form-control" runat="server"></asp:TextBox>
                                                 <%--<asp:RequiredFieldValidator ID="rfvYearOfFoundation" runat="server" ControlToValidate="txtYearofFoundation" Display="Dynamic"
                                                     ErrorMessage="Enter year of Foundation"
                                                     ValidationGroup="Company" ForeColor="Red"></asp:RequiredFieldValidator>--%>

@@ -1117,7 +1117,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+       // txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtTaxRefNo.Enabled = false;
@@ -1137,7 +1137,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        //txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtTaxRefNo.Enabled = true;
@@ -1157,11 +1158,11 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 int res = 0;
                 if (ViewState["ShareHolderType"].ToString() == "Individual")
                 {
-                    res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
+                    res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 }
                 else
                 {
-                   res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["UICNo"].ToString(), txtUIC.Text.Trim());
+                    res = _objBeneficiaryBL.DeleteBenefaciary(Convert.ToInt32(ViewState["BeneficiaryID"]), ViewState["UICNo"].ToString(), txtUIC.Text.Trim(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 }
                 
                 if (res > 0)
@@ -1358,7 +1359,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     protected void Enable1()
     {
         txtCompanyName.ReadOnly = false;
-        txtYearofFoundation.ReadOnly = false;
+        //txtYearofFoundation.ReadOnly = false;
+        txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephoneNum.ReadOnly = false;
         txtCompanyEmail.ReadOnly = false;

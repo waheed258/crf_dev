@@ -1015,7 +1015,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+       // txtDateOfBirth.ReadOnly = true;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
@@ -1034,7 +1034,8 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         txtMobileNum.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        //txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled"); 
         fuPhoto.Enabled = true;
         rfvFirstName.Enabled = true;
         //rfvLastName.Enabled = true;

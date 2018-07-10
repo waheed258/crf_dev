@@ -882,7 +882,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]), txtUIC.Text.Trim(), ViewState["SAID"].ToString());
+                int res = _objTrusteeBL.DeleteTrustee(Convert.ToInt32(ViewState["TrusteeId"]), txtUIC.Text.Trim(), ViewState["SAID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (res > 0)
                 {
                     GetTrusteeGrid(txtUIC.Text.Trim());
@@ -932,7 +932,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+        //txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtMobile.Enabled = false;
@@ -951,7 +951,8 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+       // txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtMobile.Enabled = true;

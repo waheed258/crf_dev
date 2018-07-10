@@ -878,7 +878,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int result = spouseBL.DeleteSpouse(ViewState["SAID"].ToString());
+                int result = spouseBL.DeleteSpouse(ViewState["SAID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (result > 0)
                 {
                     BindSpouseDetails();
@@ -1067,7 +1067,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+       // txtDateOfBirth.ReadOnly = true;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
@@ -1086,7 +1086,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtMobileNum.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        //txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         fuPhoto.Enabled = true;
         rfvFirstName.Enabled = true;
         //rfvLastName.Enabled = true;

@@ -57,13 +57,13 @@ public class DirectorBL : DataUtilities
         hsparams.Add("@SAID", SAID);
         return ExecuteDataSet("GetDirectorBYSAID", hsparams);
     }
-    public int DeleteDirector(int DirectorID, string SAID, string UIC)
+    public int DeleteDirector(int DirectorID, string SAID, string UIC, int AdvisorID)
     {
         Hashtable hsparams = new Hashtable();
         hsparams.Add("@DirectorID", DirectorID);
         hsparams.Add("@SAID", SAID);
         hsparams.Add("@UIC", UIC);
-
+        hsparams.Add("@Deletedby", AdvisorID);
         return ExecuteNonQuery("DeleteDirector", hsparams);
     }
 }

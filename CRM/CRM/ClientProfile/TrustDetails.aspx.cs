@@ -874,7 +874,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = _objTrustBL.DeleteTrust(ViewState["UIC"].ToString());
+                int res = _objTrustBL.DeleteTrust(ViewState["UIC"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (res > 0)
                 {
                     GetTrustGrid();
@@ -983,7 +983,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     protected void Disable()
     {
         txtTrustName.ReadOnly = true;
-        txtYearofFoundation.ReadOnly = true;
+       // txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephone.ReadOnly = true;
         //txtFax.ReadOnly = true;
@@ -1002,7 +1002,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     protected void Enable()
     {
         txtTrustName.ReadOnly = false;
-        txtYearofFoundation.ReadOnly = false;
+       // txtYearofFoundation.ReadOnly = false;
+        txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephone.ReadOnly = false;
         //txtFax.ReadOnly = false;

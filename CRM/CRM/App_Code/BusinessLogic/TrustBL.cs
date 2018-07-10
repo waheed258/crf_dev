@@ -50,11 +50,11 @@ namespace BusinessLogic
         }
 
 
-        public int DeleteTrust(string UIC)
+        public int DeleteTrust(string UIC, int AdvisorID)
         {
             Hashtable hsparams = new Hashtable();
             hsparams.Add("@inUIC", UIC);
-
+            hsparams.Add("@Deletedby", AdvisorID);
             return ExecuteNonQuery("DeleteTrust", hsparams);
         }
     }

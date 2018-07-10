@@ -859,7 +859,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int res = directorBL.DeleteDirector(Convert.ToInt32(ViewState["DirectorID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim());
+                int res = directorBL.DeleteDirector(Convert.ToInt32(ViewState["DirectorID"]), ViewState["SAID"].ToString(), txtUIC.Text.Trim(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (res > 0)
                 {
                     GetDirectorGrid(txtUIC.Text.Trim());
@@ -908,7 +908,7 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+       // txtDateOfBirth.ReadOnly = true;
         txtSharePerc.ReadOnly = true;
         txtShareValue.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
@@ -930,7 +930,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+       // txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         txtSharePerc.ReadOnly = false;
         txtShareValue.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;

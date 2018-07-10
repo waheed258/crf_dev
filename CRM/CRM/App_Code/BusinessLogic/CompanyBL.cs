@@ -57,10 +57,11 @@ public class CompanyBL
         DataSet ds = dataUtilities.ExecuteDataSet("CheckCompanyName", hashtable);
         return ds;
     }
-    public int DeleteCompanyDetails(string UIC)
+    public int DeleteCompanyDetails(string UIC, int AdvisorID)
     {
         Hashtable hashtable = new Hashtable();
         hashtable.Add("@UIC", UIC);
+        hashtable.Add("@Deletedby", AdvisorID);
         int result = dataUtilities.ExecuteNonQuery("usp_DeleteCompanyDetails", hashtable);
         return result;
     }

@@ -808,7 +808,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
 
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int result = companyBL.DeleteCompanyDetails(ViewState["UIC"].ToString());
+                int result = companyBL.DeleteCompanyDetails(ViewState["UIC"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
                 if (result > 0)
                 {
                     GetGridData();
@@ -977,7 +977,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     protected void Disable()
     {
         txtCompanyName.ReadOnly = true;
-        txtYearofFoundation.ReadOnly = true;
+       // txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephone.ReadOnly = true;
         //txtFax.ReadOnly = true;
@@ -996,7 +996,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
     protected void Enable()
     {
         txtCompanyName.ReadOnly = false;
-        txtYearofFoundation.ReadOnly = false;
+      //  txtYearofFoundation.ReadOnly = false;
+        txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephone.ReadOnly = false;
         //txtFax.ReadOnly = false;

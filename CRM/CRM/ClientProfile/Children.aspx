@@ -2,8 +2,21 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript">
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ContentPlaceHolder1_txtDateOfBirth").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                dateFormat: 'yy-mm-dd',
+                //numberOfMonths: 1,                
+
+            });
+        });
+        </script>
+
+    <script type="text/javascript">
         $(document).ready(function (event) {
             $("#ContentPlaceHolder1_txtMobileNum,#ContentPlaceHolder1_txtPhoneNum,#ContentPlaceHolder1_txtSAID,#ContentPlaceHolder1_txtPostalCode,#ContentPlaceHolder1_txtAccountNumber").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
@@ -292,7 +305,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" placeholder="Enter Date Of Birth" TextMode="Date"></asp:TextBox>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" disabled="disabled" autocomplete="off" placeholder="Enter Date Of Birth"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" ForeColor="Red"
                                                     ErrorMessage="Please Enter Date Of Birth" ValidationGroup="Child" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                                             </div>
