@@ -197,6 +197,17 @@
                                 <li><a href="AmountReceivedReport.aspx">Amount Received Report</a></li>                                                   
                             </ul>
                         </li>
+                           <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-history"></i><span>Activity Log</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">            
+                                <li><a href="ActivityLogList.aspx">Activity Log History</a></li>                                                                      
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar -->
