@@ -173,9 +173,9 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             if (res > 0)
             {
                 if (btnSubmit.Text == "Update")
-                    message.Text = "Beneficiary details updated successfully!";
+                    message.Text = "Share Holder details updated successfully!";
                 else
-                    message.Text = "Beneficiary details saved successfully!";
+                    message.Text = "Share Holder details saved successfully!";
                 lblTitle.Text = "Thank You!";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
                 message.ForeColor = System.Drawing.Color.Green;
@@ -1035,7 +1035,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        //txtDateOfBirth.ReadOnly = true;
+        txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtTaxRefNo.Enabled = false;
@@ -1054,7 +1054,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.Attributes.Remove("disabled");
+        txtDateOfBirth.ReadOnly = false;
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtTaxRefNo.Enabled = true;
@@ -1239,8 +1239,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     protected void Enable1()
     {
         txtCompanyName.ReadOnly = false;
-       // txtYearofFoundation.ReadOnly = false;
-        txtYearofFoundation.Attributes.Remove("disabled");
+        txtYearofFoundation.ReadOnly = false;
         txtVATRef.ReadOnly = false;
         txtTelephoneNum.ReadOnly = false;
         txtCompanyEmail.ReadOnly = false;

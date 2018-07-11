@@ -174,9 +174,9 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             if (res > 0)
             {
                 if (btnSubmit.Text == "Update")
-                    message.Text = "Beneficiary details updated successfully!";
+                    message.Text = "Share Holder details updated successfully!";
                 else
-                    message.Text = "Beneficiary details saved successfully!";
+                    message.Text = "Share Holder details saved successfully!";
 
                 lblTitle.Text = "Thank You";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
@@ -1218,7 +1218,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                     lblTitle.Text = "Warning!";
                     lblTitle.ForeColor = System.Drawing.Color.Red;
                     message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "The member already exists as beneficiary!";
+                    message.Text = "The member already exists as Share Holder!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||

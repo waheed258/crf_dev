@@ -245,10 +245,10 @@
                                         ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label>Last Name</label><span class="style1">*</span>
+                                    <label>Last Name</label><%--<span class="style1">*</span>--%>
                                     <asp:TextBox ID="txtLastName" runat="server" class="form-control" placeholder="Enter Sur Name"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ErrorMessage="Please Enter Last Name" ControlToValidate="txtLastName" Display="Dynamic"
-                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
+                                   <%-- <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ErrorMessage="Please Enter Last Name" ControlToValidate="txtLastName" Display="Dynamic"
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>SAID</label><span class="style1">*</span>
