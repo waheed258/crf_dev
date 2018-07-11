@@ -49,6 +49,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                         ClientFeedbackSection.Visible = false;
                         lblResignedDate.Visible = false;
                         txtResignedDate.Visible = false;
+                        rfvResignedDate.Enabled = false;
                     }
                 }
             }
@@ -212,7 +213,14 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
             {
                 int Status = Convert.ToInt32(ddlClientStatus.SelectedValue);
                 clientRegEntity.Status = Status;
-                clientRegEntity.ResignedDate = txtResignedDate.Text;
+                if (ddlClientStatus.SelectedItem.Text == "Client Active")
+                    clientRegEntity.ResignedDate = null;
+                else
+                {
+                    rfvResignedDate.Enabled = true;
+                    clientRegEntity.ResignedDate = txtResignedDate.Text;
+                }
+                                                  
                 clientRegEntity.ClientRegistartionID = Convert.ToInt32(ViewState["ClientRegID"]);
 
                 int result = newClientRegistrationBL.ChangeClientActions(clientRegEntity, feedbackEntity, 'S');
