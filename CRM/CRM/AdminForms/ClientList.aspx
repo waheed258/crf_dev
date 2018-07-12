@@ -340,7 +340,7 @@
                                     <%--</asp:DropDownList>--%>
                                     <asp:ListBox ID="ddlAssignTo" runat="server" CssClass="form-control" AppendDataBoundItems="true" SelectionMode="Multiple"></asp:ListBox>
                                     <asp:RequiredFieldValidator ID="rfvAssignTo" runat="server" ErrorMessage="Please Select an Advisor" ControlToValidate="ddlAssignTo" Display="Dynamic"
-                                        ValidationGroup="Client" ForeColor="#d0582e" InitialValue="-1"></asp:RequiredFieldValidator>
+                                        ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
