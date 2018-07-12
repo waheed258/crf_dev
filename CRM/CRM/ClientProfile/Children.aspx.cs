@@ -1052,15 +1052,15 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                     message.Text = "Sorry, Duplicate Child ID!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "10" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "11")
                 {
                     lblTitle.Text = "Warning!";
                     lblTitle.ForeColor = System.Drawing.Color.Red;
                     message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry,The member already exists as Spouse, you cannot add as Child!";
+                    message.Text = "Sorry, The member already exists, you cannot add as Child!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "10" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "11"
                     && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
                 {
                     btnChildSubmit.Enabled = true;
