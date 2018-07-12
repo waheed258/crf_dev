@@ -1021,6 +1021,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 }
             }
             else
+            {
                 txtHouseNo.ReadOnly = false;
                 txtBulding.ReadOnly = false;
                 txtFloor.ReadOnly = false;
@@ -1045,13 +1046,15 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ddlProvince.SelectedValue = "-1";
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+        
     }
 
     private void GetClientAddress()
