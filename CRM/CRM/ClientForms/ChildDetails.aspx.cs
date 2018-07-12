@@ -1029,9 +1029,20 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
         {
             if (chkClientAddress.Checked)
             {
-                DataSet ds = (DataSet)ViewState["ClientAddress"];
+                DataSet ds = (DataSet)ViewState["ClientAddress"];              
                 if (ds.Tables.Count > 0)
                 {
+                    txtHouseNo.ReadOnly = true;
+                    txtBulding.ReadOnly = true;
+                    txtFloor.ReadOnly = true;
+                    txtFlatNo.ReadOnly = true;
+                    txtRoadName.ReadOnly = true;
+                    txtRoadNo.ReadOnly = true;
+                    txtSuburbName.ReadOnly = true;
+                    ddlCity.Enabled = false;
+                    ddlProvince.Enabled = false;
+                    ddlCountry.Enabled = false;
+                    txtPostalCode.ReadOnly = true;
                     txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
                     txtBulding.Text = ds.Tables[0].Rows[0]["BuildingName"].ToString();
                     txtFloor.Text = ds.Tables[0].Rows[0]["FloorNo"].ToString();
@@ -1047,6 +1058,17 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             }
             else
             {
+                txtHouseNo.ReadOnly = false;
+                txtBulding.ReadOnly = false;
+                txtFloor.ReadOnly = false;
+                txtFlatNo.ReadOnly = false;
+                txtRoadName.ReadOnly = false;
+                txtRoadNo.ReadOnly = false;
+                txtSuburbName.ReadOnly = false;
+                ddlCity.Enabled = true;
+                ddlProvince.Enabled = true;
+                ddlCountry.Enabled = true;
+                txtPostalCode.ReadOnly = false;
                 txtHouseNo.Text = "";
                 txtPostalCode.Text = "";
                 txtRoadName.Text = "";
