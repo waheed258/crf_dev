@@ -535,16 +535,16 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         {
             if (Convert.ToInt32(ViewState["flag"]) == 1)
             {
-                int result = bankbl.DeleteBankDetails(ViewState["BankDetailID"].ToString());
-                if (result == 1)
+                int result = bankbl.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["ReferenceSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     GetBankDetails();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = addressbl.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
-                if (result == 1)
+                int result = addressbl.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressReferenceSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     GetAddressDetails();
                 }

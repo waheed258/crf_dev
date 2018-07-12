@@ -50,10 +50,13 @@ namespace BusinessLogic
             DataSet ds = dataUtilities.ExecuteDataSet("usp_GetAddressDetails", hashtable);
             return ds;
         }
-        public int DeleteAddressDetails(string AddressDetailID)
+        public int DeleteAddressDetails(string AddressDetailID, int Deletedby, string SAID_OR_UIC, string NAME)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@AddressDetailID", @AddressDetailID);
+            hashtable.Add("@Deletedby", Deletedby);
+            hashtable.Add("@SAID_OR_UIC", SAID_OR_UIC);
+            hashtable.Add("@NAME", NAME);
             int result = dataUtilities.ExecuteNonQuery("usp_DeleteAddressDetails", hashtable);
             return result;
         }

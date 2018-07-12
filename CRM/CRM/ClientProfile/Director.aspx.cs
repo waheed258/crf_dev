@@ -873,8 +873,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
-                if (result == 1)
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     ClearBankControls();
                     BindBankDetails();
@@ -882,8 +882,8 @@ public partial class ClientProfile_Director : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
-                if (result == 1)
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     ClearAddressControls();
                     BindAddressDetails();

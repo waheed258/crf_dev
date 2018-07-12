@@ -889,16 +889,16 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString());
-                if (result == 1)
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(),Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     BindBankDetails();
                 }
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString());
-                if (result == 1)
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(),Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                if (result == 2)
                 {
                     BindAddressDetails();
                 }
@@ -986,7 +986,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         BindBankDetails();
     }
-   
+
     protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
     {
         try
@@ -1045,6 +1045,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ddlCountry.SelectedValue = "-1";
                 ddlProvince.SelectedValue = "-1";
             }
+
+
         }
         catch
         {
@@ -1054,7 +1056,6 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
-        
     }
 
     private void GetClientAddress()

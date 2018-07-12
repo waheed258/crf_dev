@@ -56,10 +56,13 @@ namespace BusinessLogic
             return ds;
         }
 
-        public int DeleteBankDetails(string BankDetailID)
+        public int DeleteBankDetails(string BankDetailID, int Deletedby, string SAID_OR_UIC, string NAME)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@BankDetailID", BankDetailID);
+            hashtable.Add("@Deletedby", Deletedby);
+            hashtable.Add("@SAID_OR_UIC", SAID_OR_UIC);
+            hashtable.Add("@NAME", NAME);
             int result = dataUtilities.ExecuteNonQuery("usp_DeleteBankDetails", hashtable);
             return result;
         }
