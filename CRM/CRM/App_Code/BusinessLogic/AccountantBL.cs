@@ -47,10 +47,12 @@ namespace BusinessLogic
             return ds;
 
         }
-        public int DeleteAccountant(int AccountantID)
+        public int DeleteAccountant(int AccountantID, string UIC, int Deletedby)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@AccountantID", AccountantID);
+            hashtable.Add("@inUIC", UIC);
+            hashtable.Add("@Deletedby", Deletedby);
             int result = dataUtilities.ExecuteNonQuery("DeleteAccountant", hashtable);
             return result;
         }

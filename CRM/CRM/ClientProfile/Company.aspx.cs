@@ -834,8 +834,8 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 4)
             {
-                int result = accountBL.DeleteAccountant(Convert.ToInt32(ViewState["AccountantID"].ToString()));
-                if (result == 1)
+                int result = accountBL.DeleteAccountant(Convert.ToInt32(ViewState["AccountantID"].ToString()), ViewState["UICNo"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()));
+                if (result == 2)
                 {
                     BindAccountant();
                     ClearAcountant();

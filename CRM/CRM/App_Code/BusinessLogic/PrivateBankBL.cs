@@ -37,10 +37,12 @@ namespace BusinessLogic
             return ds;
 
         }
-        public int DeletePrivateBank(int PrivateBankID)
+        public int DeletePrivateBank(int PrivateBankID, string UIC, int Deletedby)
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("@PrivateBankID", PrivateBankID);
+            hashtable.Add("@inUIC", UIC);
+            hashtable.Add("@Deletedby", Deletedby);
             int result = dataUtilities.ExecuteNonQuery("DeletePrivatebank", hashtable);
             return result;
         }
