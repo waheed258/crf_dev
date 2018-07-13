@@ -175,7 +175,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     message.Text = "Sorry, Duplicate Spouse ID!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "10" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "11")
+                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
                 {
                     lblTitle.Text = "Warning!";
                     lblTitle.ForeColor = System.Drawing.Color.Red;
@@ -184,7 +184,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
-                    && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "10" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "11"
+                    && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
                     && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
                 {
                     btnSpouseSubmit.Enabled = true;
@@ -226,8 +226,12 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
                     txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
                     txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
-                    txtDateOfBirth.Text = DOB.ToShortDateString();
+                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                        txtDateOfBirth.Text = "";
+                    else
+                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                    //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                    //txtDateOfBirth.Text = DOB.ToShortDateString();
                 }
             }
 
