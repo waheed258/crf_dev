@@ -189,6 +189,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Clear();
+        Response.Redirect("Dashboard.aspx", false);
     }
     public void Clear()
     {

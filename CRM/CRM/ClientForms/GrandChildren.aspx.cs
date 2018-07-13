@@ -50,7 +50,7 @@ public partial class ClientForms_GrandChildren : System.Web.UI.Page
                         _objComman.getRecordsPerPage(dropPage2);
                         BindGrandChildDetails();
                         chkClientAddress.Visible = false;
-                       // GetClientAddress();
+                        GetClientAddress();
                         //btnUpdateGrandChild.Visible = false;
                         BindAddressDetails();
                         BindBankDetails();
@@ -1062,8 +1062,100 @@ public partial class ClientForms_GrandChildren : System.Web.UI.Page
 
     protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
     {
-
+        try
+        {
+            if (chkClientAddress.Checked)
+            {
+                DataSet ds = (DataSet)ViewState["ClientAddress"];
+                if (ds.Tables.Count > 0)
+                {
+                    txtHouseNo.ReadOnly = true;
+                    txtBulding.ReadOnly = true;
+                    txtFloor.ReadOnly = true;
+                    txtFlatNo.ReadOnly = true;
+                    txtRoadName.ReadOnly = true;
+                    txtRoadNo.ReadOnly = true;
+                    txtSuburbName.ReadOnly = true;
+                    ddlCity.Enabled = false;
+                    ddlProvince.Enabled = false;
+                    ddlCountry.Enabled = false;
+                    txtPostalCode.ReadOnly = true;
+                    txtHouseNo.Text = ds.Tables[0].Rows[0]["HouseNo"].ToString();
+                    txtBulding.Text = ds.Tables[0].Rows[0]["BuildingName"].ToString();
+                    txtFloor.Text = ds.Tables[0].Rows[0]["FloorNo"].ToString();
+                    txtFlatNo.Text = ds.Tables[0].Rows[0]["FlatNo"].ToString();
+                    txtRoadName.Text = ds.Tables[0].Rows[0]["RoadName"].ToString();
+                    txtRoadNo.Text = ds.Tables[0].Rows[0]["RoadNo"].ToString();
+                    txtSuburbName.Text = ds.Tables[0].Rows[0]["SuburbName"].ToString();
+                    ddlCity.SelectedValue = ds.Tables[0].Rows[0]["City"].ToString();
+                    ddlProvince.SelectedValue = ds.Tables[0].Rows[0]["Province"].ToString();
+                    ddlCountry.SelectedValue = ds.Tables[0].Rows[0]["Country"].ToString();
+                    txtPostalCode.Text = ds.Tables[0].Rows[0]["PostalCode"].ToString();
+                }
+            }
+            else
+            {
+                txtHouseNo.ReadOnly = false;
+                txtBulding.ReadOnly = false;
+                txtFloor.ReadOnly = false;
+                txtFlatNo.ReadOnly = false;
+                txtRoadName.ReadOnly = false;
+                txtRoadNo.ReadOnly = false;
+                txtSuburbName.ReadOnly = false;
+                ddlCity.Enabled = true;
+                ddlProvince.Enabled = true;
+                ddlCountry.Enabled = true;
+                txtPostalCode.ReadOnly = false;
+                txtHouseNo.Text = "";
+                txtPostalCode.Text = "";
+                txtRoadName.Text = "";
+                txtRoadNo.Text = "";
+                txtSuburbName.Text = "";
+                txtFlatNo.Text = "";
+                txtBulding.Text = "";
+                txtFloor.Text = "";
+                ddlCity.SelectedValue = "-1";
+                ddlCountry.SelectedValue = "-1";
+                ddlProvince.SelectedValue = "-1";
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
+
+    private void GetClientAddress()
+    {
+        try
+        {
+            string CLientSAID = Session["SAID"].ToString();
+            DataSet ds = addressBL.GetPrimaryAddrClient(CLientSAID);
+            ViewState["ClientAddress"] = ds;
+            if (ds.Tables.Count > 0)
+            {
+                chkClientAddress.Visible = true;
+
+            }
+            else
+            {
+                chkClientAddress.Visible = false;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
 
 
     protected void gvgrandchild_RowDataBound(object sender, GridViewRowEventArgs e)
