@@ -312,14 +312,25 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 ViewState["Email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                 ViewState["FirstName"] = ((Label)row.FindControl("lblFirstName")).Text.ToString();
                 ViewState["LastName"] = ((Label)row.FindControl("lblLastName")).Text.ToString();
+                ViewState["Advisor"] = ((Label)row.FindControl("lblAdvisor")).Text.ToString();
                 if (e.CommandName == "Status")
                 {
-                    GetClientStatus();
-                    sectionClientList.Visible = false;
-                    editSection.Visible = false;
-                    statusSection.Visible = true;
-                    ddlClientStatus.SelectedValue = ViewState["Status"].ToString();
-
+                    if (ViewState["Advisor"].ToString() == "")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Please fill the validation and assign Advisor to the Client";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else
+                    {
+                        GetClientStatus();
+                        sectionClientList.Visible = false;
+                        editSection.Visible = false;
+                        statusSection.Visible = true;
+                        ddlClientStatus.SelectedValue = ViewState["Status"].ToString();
+                    }
                 }
                 else if (e.CommandName == "Validate")
                 {

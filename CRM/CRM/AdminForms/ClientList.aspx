@@ -190,6 +190,11 @@
                                                 <asp:Label runat="server" ID="lblRegID" Text='<%#Eval("ClientRegistartionID") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Advisor" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="lblAdvisor" Text='<%#Eval("AssignTo") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnEdit" ImageUrl="~/assets/dist/img/edit_new.png" data-toggle="modal" data-target="#Edit" runat="server" Width="23px" Height="23px"
