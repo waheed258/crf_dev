@@ -184,7 +184,7 @@ public partial class AdminForms_AcceptClientSR : System.Web.UI.Page
                 lblTitle.Text = "Thank You!";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
                 message.ForeColor = System.Drawing.Color.Green;
-                message.Text = "Updated Successfully";
+                message.Text = "Allocated Successfully";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
         }
