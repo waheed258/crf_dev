@@ -252,6 +252,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     message.Text = "Client created successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     DivAddBank.Visible = true;
+                    ViewState["flag"] = 1;
                 }
                 if (result == 1)
                 {

@@ -235,7 +235,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 {
                     result = _ObjClientProfileBL.CURDClientPersonalInfo(ClientPersonalInfoEntity, 'u');
                     Label lblUserName = (Label)this.Master.FindControl("lblUserName");
-                    lblUserName.Text = txtFirstName.Text + " " + txtLastName.Text;
+                    lblUserName.Text = txtFirstName.Text.ToUpper() + " " + txtLastName.Text.ToUpper();
                     int res = credentialsBL.InsImage(img, txtSAId.Text);
                     lblTitle.Text = "Thank You!";
                     lblTitle.ForeColor = System.Drawing.Color.Green;
@@ -255,6 +255,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     message.Text = "Client created successfully!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     DivAddBank.Visible = true;
+                    ViewState["flag"] = 1;
                 }
                 if (result == 1)
                 {
