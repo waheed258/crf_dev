@@ -120,7 +120,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     lblName.Text = "Identification #";
                     hfUIC.Value = "0";
                     hfSAID.Value = txtSAID.Text;
-                    lblHeading.Text = "Beneficiary Documents";
+                    lblHeading.Text = "Share Holder Documents";
                     ViewState["FoldertName"] = "Beneficiary";
                     break;
 

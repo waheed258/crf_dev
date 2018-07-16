@@ -187,7 +187,7 @@
                                                 <%#Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Client Type">
+                                        <asp:TemplateField HeaderText="Client Type" Visible="false">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lblClientType" Text='<%#Eval("Type") %>'></asp:Label>
                                             </ItemTemplate>
