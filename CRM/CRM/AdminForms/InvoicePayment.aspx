@@ -137,7 +137,7 @@
                                         <label>Payment Date</label><span class="style1">*</span>
                                         <asp:TextBox ID="txtNextFollowUpDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
                                          <asp:RequiredFieldValidator ID="rfvNextFollowUpDate" runat="server" ControlToValidate="txtNextFollowUpDate" ForeColor="red"
-                                            ErrorMessage="Please Enter Next FollowUp Date" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            ErrorMessage="Please Enter Payment Date" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
