@@ -1346,7 +1346,7 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
     protected void Disable1()
     {
         txtCompanyName.ReadOnly = true;
-        txtYearofFoundation.ReadOnly = true;
+        //txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephoneNum.ReadOnly = true;
         txtCompanyEmail.ReadOnly = true;

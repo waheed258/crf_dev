@@ -1054,7 +1054,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-        txtDateOfBirth.ReadOnly = false;
+        //txtDateOfBirth.ReadOnly = false;
+        txtDateOfBirth.Attributes.Remove("disabled");
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
         //rfvtxtTaxRefNo.Enabled = true;
@@ -1226,7 +1227,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     protected void Disable1()
     {
         txtCompanyName.ReadOnly = true;
-        txtYearofFoundation.ReadOnly = true;
+       // txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephoneNum.ReadOnly = true;
         txtCompanyEmail.ReadOnly = true;
@@ -1239,7 +1240,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     protected void Enable1()
     {
         txtCompanyName.ReadOnly = false;
-        txtYearofFoundation.ReadOnly = false;
+       // txtYearofFoundation.ReadOnly = false;
+        txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephoneNum.ReadOnly = false;
         txtCompanyEmail.ReadOnly = false;
