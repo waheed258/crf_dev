@@ -260,9 +260,9 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group col-sm-3">
-                                    <label>Mobile</label><span class="style1">*</span>
+                                    <label>Mobile</label><%--<span class="style1">*</span>--%>
                                     <asp:TextBox ID="txtMobile" runat="server" class="form-control" placeholder="Enter Mobile" MaxLength="10"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvMobile" runat="server" ErrorMessage="Please Enter Mobile Number" ControlToValidate="txtMobile" Display="Dynamic" ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>
+<%--                                    <asp:RequiredFieldValidator ID="rfvMobile" runat="server" ErrorMessage="Please Enter Mobile Number" ControlToValidate="txtMobile" Display="Dynamic" ValidationGroup="Client" ForeColor="#d0582e"></asp:RequiredFieldValidator>--%>
                                     <asp:RegularExpressionValidator ID="rgvMobile" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                         ControlToValidate="txtMobile" ForeColor="#d0582e" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                 </div>
@@ -275,18 +275,18 @@
                                     </asp:RegularExpressionValidator>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Province</label><span class="style1">*</span>
+                                    <label class="control-label">Province</label><%--<span class="style1">*</span>--%>
                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
-                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                  <%--  <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
+                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">City</label><span class="style1">*</span>
+                                    <label class="control-label">City</label><%--<span class="style1">*</span>--%>
                                     <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
-                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                 <%--   <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
+                                        ValidationGroup="Client" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>--%>
                                 </div>
                             </div>
                         </div>
