@@ -48,6 +48,11 @@
 
     <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" />
     <!--Pagenation-->
+    <script type = "text/javascript" >
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
