@@ -146,6 +146,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
 
                 txtTaxRefNo.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                lblPhotoName.Text = ds.Tables[0].Rows[0]["Image"].ToString();
+                anchorId.Attributes["href"] = lblPhotoName.Text;
                 btnSubmitClientPersonal.Text = "Edit";
                 DivAddBank.Visible = true;
             }
@@ -201,20 +203,26 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             {
                 string fileName = string.Empty;
                 string fileNamemain = string.Empty;
-                if (fuImageUpload.HasFile)
+                if (lblPhotoName.Text != "" && fuImageUpload.HasFile == false)
+                {
+                    img = lblPhotoName.Text;
+                    ClientPersonalInfoEntity.Image=lblPhotoName.Text;
+                    //ClientPersonalInfoEntity.Image = Session["Image"].ToString(); 
+                }
+                else
                 {
                     fuImageUpload.SaveAs(Server.MapPath("~/ClientImages/" + txtSAId.Text + this.fuImageUpload.FileName));
                     fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
                     ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
                     img = "~/ClientImages/" + txtSAId.Text + fileName;
                     ClientPersonalInfoEntity.Image = img;
-                    Session["Image"] = img;
+                   // Session["Image"] = img;
                 }
-                else
-                {
-                    ClientPersonalInfoEntity.Image = "";
-                    ClientPersonalInfoEntity.Image = Session["Image"].ToString();
-                }
+                //else
+                //{
+                //    ClientPersonalInfoEntity.Image = "";
+                //    ClientPersonalInfoEntity.Image = Session["Image"].ToString();
+                //}
                 ClientPersonalInfoEntity.SAID = txtSAId.Text;
                 ClientPersonalInfoEntity.Title = ddlTitle.SelectedValue;
                 ClientPersonalInfoEntity.FirstName = txtFirstName.Text;
@@ -267,6 +275,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     txtTaxRefNo.ReadOnly = true;
                     btnSubmitClientPersonal.Text = "Edit";
                     fuImageUpload.Enabled = false;
+                    lblPhotoName.Text = img;
+                    anchorId.Attributes["href"] = lblPhotoName.Text;
                 }
                 else
                 {

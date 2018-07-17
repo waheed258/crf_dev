@@ -249,6 +249,11 @@
                                                 <label>Upload Photo</label>
                                                 <asp:FileUpload ID="fuImageUpload" runat="server" />
                                                 <asp:HiddenField ID="hfImage" runat="server" />
+                                                 <a id="anchorId" href="#" runat="server" target="_blank">
+                                                    <asp:Label ID="lblPhotoName" runat="server" /></a>
+                                                <asp:RegularExpressionValidator ControlToValidate="fuImageUpload" runat="server" ID="revfuImageUpload" ForeColor="Red"
+                                                    Display="Dynamic" CssClass="span6 m-wrap" ErrorMessage="Select only jpg,png Files." ValidationGroup="Client"
+                                                    ValidationExpression="^.*\.(jpg|png|JPG|PNG)$" />
                                             </div>
 
                                         </div>
