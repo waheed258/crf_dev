@@ -531,6 +531,7 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
                 ddlVerifiedThrough.SelectedValue = "-1";
                // ddlAssignTo.SelectedValue = "-1";
                 ValidateGridData();
+                GetGridData();
             }
             else
             {
