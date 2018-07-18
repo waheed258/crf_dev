@@ -157,7 +157,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             gvTrustSettler.PageSize = Convert.ToInt32(DropPage.SelectedValue);
             gvTrustSettler.DataBind();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -187,7 +188,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                 btnSubmit.Text = "Update";
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -340,7 +342,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                 ddlTitle.SelectedValue = "";
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -350,7 +353,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
 
     }
 
-  
+
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         GetTrustSettlerGrid(txtTrustUIC.Text.Trim());
@@ -708,7 +711,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
     /// <returns></returns>
     #region Bank Details
 
-  
+
     protected void dropBank_SelectedIndexChanged(object sender, EventArgs e)
     {
         BindBankDetails();
@@ -978,15 +981,26 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "4")
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry,The member already exists as settlor!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "4")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry,The member already exists as settlor!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
                 }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                //if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "4")
+                //{
+                //    lblTitle.Text = "Warning!";
+                //    lblTitle.ForeColor = System.Drawing.Color.Red;
+                //    message.ForeColor = System.Drawing.Color.Red;
+                //    message.Text = "Sorry,The member already exists as settlor!";
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                //}
+                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
                     dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
@@ -1005,7 +1019,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                     if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
                         txtDateOfBirth.Text = "";
                     else
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");                    
+                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
                 }
                 else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
                 {
