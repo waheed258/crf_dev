@@ -174,11 +174,11 @@ public partial class AdminForms_InvoicePayment : System.Web.UI.Page
 
                 if (recievedamount < amount1)
                 {
-                    invAmountStatus = "Not Yet Recieved";
+                    invAmountStatus = "Not Yet Received";
                 }
                 else if (recievedamount >= amount1)
                 {
-                    invAmountStatus = "Amount Recieved";
+                    invAmountStatus = "Amount Received";
                 }
                 int result1 = invoicePaymentBL.UpdateAmountStatus(invAmountStatus, ObjDec.Decrypt(Request.QueryString["payment"].ToString()));
 

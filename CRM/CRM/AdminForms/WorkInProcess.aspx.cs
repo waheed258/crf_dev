@@ -370,7 +370,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 string srno1 = ViewState["SRNO"].ToString();
                 int status1 = 6;
                 int res1 = serviceRequestBL.UpdateServiceStatus(status1, srno1);
-                string invAmountStatus = "Not Yet Recieved";
+                string invAmountStatus = "Not Yet Received";
                 int result1 = invoicePaymentBL.UpdateAmountStatus(invAmountStatus,invoicenum);
                            
             }
