@@ -375,7 +375,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)
             {
-                int r = validateSAIDBL.UpdateValidation(ViewState["ReferenceSAID"].ToString(), ViewState["SAID"].ToString(), "", "", 2);
+                
                 lblTitle.Text = "Thank You";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
                 message.ForeColor = System.Drawing.Color.Green;
