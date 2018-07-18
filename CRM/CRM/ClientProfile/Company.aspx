@@ -1029,13 +1029,13 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Plot No</label>
+                                                    <label class="control-label">Plot No</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtPlotNo" CssClass="form-control" runat="server" placeholder="Plot No"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvtxtPlotNo" runat="server" ControlToValidate="txtPlotNo" Display="Dynamic" ErrorMessage="Enter Plot No Number"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Building Name</label>
+                                                    <label class="control-label">Building Name</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtBulding" CssClass="form-control" runat="server" placeholder="Building Name"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvBuildingNo" runat="server" ControlToValidate="txtBulding" Display="Dynamic" ErrorMessage="Enter Building name"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -1053,13 +1053,13 @@
                                                     <asp:TextBox ID="txtFlatrNo" CssClass="form-control" runat="server" placeholder="Flat No"></asp:TextBox>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Road Name</label>
+                                                    <label class="control-label">Road Name</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtRoadName" CssClass="form-control" runat="server" placeholder="Road Name"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvRoadName" runat="server" ControlToValidate="txtRoadName" Display="Dynamic" ErrorMessage="Enter Road Name"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Road No</label>
+                                                    <label class="control-label">Road No</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtRoadNo" CssClass="form-control" runat="server" placeholder="Road No"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvRoadNo" runat="server" ControlToValidate="txtRoadNo" Display="Dynamic" ErrorMessage="Enter Road No"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -1069,20 +1069,20 @@
 
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Suburb Name</label>
+                                                    <label class="control-label">Suburb Name</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server" placeholder="Suburb Name"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label>
+                                                    <label class="control-label">City</label><span class="style1">*</span>
                                                     <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
                                                         ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Postal Code</label>
+                                                    <label class="control-label">Postal Code</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" placeholder="Postal Code" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -1090,14 +1090,14 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Province</label>
+                                                    <label class="control-label">Province</label><span class="style1">*</span>
                                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ControlToValidate="ddlProvince" Display="Dynamic" ErrorMessage="Please select Province"
                                                         ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Country</label>
+                                                    <label class="control-label">Country</label><span class="style1">*</span>
                                                     <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                     </asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ControlToValidate="ddlCountry" Display="Dynamic" ErrorMessage="Please select Country"
