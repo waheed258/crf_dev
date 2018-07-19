@@ -378,12 +378,12 @@
                                                                 <asp:Label runat="server" ID="lblTrustSettlerId" Text='<%#Eval("TrustSettlerID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client Identification #">
+                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Client UIC" Visible="false">
+                                                        <asp:TemplateField HeaderText="Trust Registration #">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("ReferenceUIC") %>'></asp:Label>
                                                             </ItemTemplate>

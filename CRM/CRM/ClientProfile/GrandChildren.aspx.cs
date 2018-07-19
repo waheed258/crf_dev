@@ -109,7 +109,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
             GrandChildrenEntity.ReferenceSAID = Session["SAID"].ToString();
             GrandChildrenEntity.TaxRefNo = txtTaxRefNum.Text;
             GrandChildrenEntity.EmailID = txtEmailId.Text;
-            GrandChildrenEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); 
+            GrandChildrenEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             GrandChildrenEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
             string fileName = string.Empty;
             string fileNamemain = string.Empty;
@@ -318,7 +318,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
                     anchorId.Attributes["href"] = lblPhotoName.Text;
                 }
 
-                else  if (e.CommandName == "Document")
+                else if (e.CommandName == "Document")
                 {
                     Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("10") + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
@@ -430,7 +430,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 10,"");
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 10, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;
@@ -458,7 +458,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 10,"");
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 10, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
@@ -712,7 +712,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["GrandChildName"] = ((Label)row.FindControl("lblGrandChildName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     addressmessage.InnerText = "Update Address Details";
@@ -767,6 +767,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["GrandChildName"] = ((Label)row.FindControl("lblGrandChildName")).Text.ToString();
 
                 if (e.CommandName == "Edit")
                 {
@@ -925,7 +926,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), ViewState["GrandChildName"].ToString());
                 if (result == 2)
                 {
                     BindBankDetails();
@@ -933,7 +934,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), ViewState["GrandChildName"].ToString());
                 if (result == 2)
                 {
                     BindAddressDetails();
@@ -996,7 +997,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-        } 
+        }
     }
 
     protected void gdvBankList_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1016,7 +1017,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         }
     }
 
-    protected void btnGrandchildCancel_Click(object sender, EventArgs e) 
+    protected void btnGrandchildCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("GrandChildren.aspx");
     }
@@ -1030,82 +1031,91 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Client can't be a GrandChild!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Duplicate GrandChild ID!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry,The member already exists, you cannot add as GrandChild!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
-                    && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
-                {
-                    btnGrandChildSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "7")
                     {
-                        txtDateOfBirth.Text = "";
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Duplicate GrandChild ID!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     }
-                    else
-                    {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
-                    }
-                    //txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
-                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
                 }
+                if (count == 0)
+                {
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Client can't be a GrandChild!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
 
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    ddlTitle.SelectedValue = "";
-                    txtPhoneNum.Text = "";
-                    txtMobileNum.Text = "";
-                    txtEmailId.Text = "";
-                    txtTaxRefNum.Text = "";
-                    txtDateOfBirth.Text = "";
-                    Enable();
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-                {
-                    btnGrandChildSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                    else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
                     {
-                        txtDateOfBirth.Text = "";
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry,The member already exists, you cannot add as GrandChild!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     }
-                    else
+                    else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
+                        && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
                     {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        btnGrandChildSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        }
+                        //txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                    }
+
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                    {
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        ddlTitle.SelectedValue = "";
+                        txtPhoneNum.Text = "";
+                        txtMobileNum.Text = "";
+                        txtEmailId.Text = "";
+                        txtTaxRefNum.Text = "";
+                        txtDateOfBirth.Text = "";
+                        Enable();
+                    }
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                    {
+                        btnGrandChildSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        }
                     }
                 }
             }
@@ -1130,7 +1140,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-       // txtDateOfBirth.ReadOnly = true;
+        // txtDateOfBirth.ReadOnly = true;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
@@ -1150,7 +1160,7 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
         //txtDateOfBirth.ReadOnly = false;
-        txtDateOfBirth.Attributes.Remove("disabled"); 
+        txtDateOfBirth.Attributes.Remove("disabled");
         fuPhoto.Enabled = true;
         rfvFirstName.Enabled = true;
         //rfvLastName.Enabled = true;
@@ -1160,12 +1170,12 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
         btnGrandChildSubmit.Enabled = true;
     }
 
-  
+
 
 
     protected void gvgrandchild_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-         try
+        try
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -1190,13 +1200,13 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
                 }
             }
         }
-         catch
-         {
-             lblTitle.Text = "Warning!";
-             lblTitle.ForeColor = System.Drawing.Color.Red;
-             message.ForeColor = System.Drawing.Color.Red;
-             message.Text = "Sorry, Something went wrong, please contact administrator";
-             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-         }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }
