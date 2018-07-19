@@ -10,7 +10,7 @@ using EntityManager;
 using BusinessLogic;
 using System.Data;
 
-public partial class ClientProfile_Parents : System.Web.UI.Page 
+public partial class ClientProfile_Parents : System.Web.UI.Page
 {
 
     CommanClass _objComman = new CommanClass();
@@ -50,7 +50,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
                         _objComman.getRecordsPerPage(dropPage2);
                         BindParentDetails();
                         chkClientAddress.Visible = false;
-                         GetClientAddress();
+                        GetClientAddress();
                         btnUpdateParent.Visible = false;
                         BindAddressDetails();
                         BindBankDetails();
@@ -93,7 +93,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
     }
 
 
-      protected void btnParentSubmit_Click(object sender, EventArgs e) 
+    protected void btnParentSubmit_Click(object sender, EventArgs e)
     {
         try
         {
@@ -154,72 +154,72 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
 
 
 
-      protected void btnUpdateParent_Click(object sender, EventArgs e) 
-      {
-          try
-          {
-              parentEntity.SAID = ViewState["SAID"].ToString();
-              parentEntity.Title = ddlTitle.SelectedValue;
-              parentEntity.FirstName = txtFirstName.Text;
-              parentEntity.LastName = txtLastName.Text;
-              parentEntity.Mobile = txtMobileNum.Text;
-              parentEntity.Phone = txtPhoneNum.Text;
-              parentEntity.ReferenceSAID = ViewState["ReferenceSAID"].ToString();
-              parentEntity.TaxRefNo = txtTaxRefNum.Text;
-              parentEntity.EmailID = txtEmailId.Text;
-              parentEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
-              parentEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); ;
-              string fileName = string.Empty;
-              string fileNamemain = string.Empty;
-              if (lblPhotoName.Text != "" && fuPhoto.HasFile == false)
-              {
-                  parentEntity.Image = lblPhotoName.Text;
+    protected void btnUpdateParent_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            parentEntity.SAID = ViewState["SAID"].ToString();
+            parentEntity.Title = ddlTitle.SelectedValue;
+            parentEntity.FirstName = txtFirstName.Text;
+            parentEntity.LastName = txtLastName.Text;
+            parentEntity.Mobile = txtMobileNum.Text;
+            parentEntity.Phone = txtPhoneNum.Text;
+            parentEntity.ReferenceSAID = ViewState["ReferenceSAID"].ToString();
+            parentEntity.TaxRefNo = txtTaxRefNum.Text;
+            parentEntity.EmailID = txtEmailId.Text;
+            parentEntity.DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text;
+            parentEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); ;
+            string fileName = string.Empty;
+            string fileNamemain = string.Empty;
+            if (lblPhotoName.Text != "" && fuPhoto.HasFile == false)
+            {
+                parentEntity.Image = lblPhotoName.Text;
 
-              }
-              else
-              {
-                  fuPhoto.SaveAs(Server.MapPath("~/ParentImages/" + txtSAID.Text + this.fuPhoto.FileName));
-                  fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
-                  parentEntity.Image = "~/ParentImages/" + txtSAID.Text + fileName;
-              }
-              int result = parentBL.ParentCRUD(parentEntity, 'u');
-              if (result == 1)
-              {
-                  lblTitle.Text = "Thank You!";
-                  lblTitle.ForeColor = System.Drawing.Color.Green;
-                  message.ForeColor = System.Drawing.Color.Green;
-                  message.Text = "Parent details updated successfully!";
-                  ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                  BindParentDetails();
-                  BindBankDetails();
-                  BindAddressDetails();
-                  Clear();
-                  Disable();
-                  btnUpdateParent.Visible = false;
-                  btnParentSubmit.Visible = true;
-                  txtSAID.ReadOnly = false;
-              }
-              else
-              {
-                  Clear();
-                  lblTitle.Text = "Warning!";
-                  lblTitle.ForeColor = System.Drawing.Color.Red;
-                  message.ForeColor = System.Drawing.Color.Red;
-                  message.Text = "Sorry, Please try again!";
-                  ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-              }
-          }
-          catch
-          {
-              lblTitle.Text = "Warning!";
-              lblTitle.ForeColor = System.Drawing.Color.Red;
-              message.ForeColor = System.Drawing.Color.Red;
-              message.Text = "Sorry, Something went wrong, please contact administrator";
-              ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-          }
-      }
+            }
+            else
+            {
+                fuPhoto.SaveAs(Server.MapPath("~/ParentImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                parentEntity.Image = "~/ParentImages/" + txtSAID.Text + fileName;
+            }
+            int result = parentBL.ParentCRUD(parentEntity, 'u');
+            if (result == 1)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Parent details updated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                BindParentDetails();
+                BindBankDetails();
+                BindAddressDetails();
+                Clear();
+                Disable();
+                btnUpdateParent.Visible = false;
+                btnParentSubmit.Visible = true;
+                txtSAID.ReadOnly = false;
+            }
+            else
+            {
+                Clear();
+                lblTitle.Text = "Warning!";
+                lblTitle.ForeColor = System.Drawing.Color.Red;
+                message.ForeColor = System.Drawing.Color.Red;
+                message.Text = "Sorry, Please try again!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
 
-    protected void btnParentCancel_Click(object sender, EventArgs e) 
+    protected void btnParentCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("Parents.aspx");
     }
@@ -234,20 +234,27 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
+                {
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "8")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Duplicate Parent ID!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                }
+
                 if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
                 {
+
                     lblTitle.Text = "Warning!";
                     lblTitle.ForeColor = System.Drawing.Color.Red;
                     message.ForeColor = System.Drawing.Color.Red;
                     message.Text = "Sorry, Client can't be a Parent!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Duplicate Parent ID!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7")
@@ -326,7 +333,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
     }
 
 
-  
+
 
     private void Clear()
     {
@@ -377,7 +384,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-       // txtDateOfBirth.ReadOnly = true;
+        // txtDateOfBirth.ReadOnly = true;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
         //rfvMobileNum.Enabled = false;
@@ -396,7 +403,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
         txtMobileNum.ReadOnly = false;
         txtPhoneNum.ReadOnly = false;
         txtTaxRefNum.ReadOnly = false;
-       // txtDateOfBirth.ReadOnly = false;
+        // txtDateOfBirth.ReadOnly = false;
         txtDateOfBirth.Attributes.Remove("disabled");
         fuPhoto.Enabled = true;
         rfvFirstName.Enabled = true;
@@ -411,7 +418,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
 
 
 
-    protected void gvParent_RowEditing(object sender, GridViewEditEventArgs e) 
+    protected void gvParent_RowEditing(object sender, GridViewEditEventArgs e)
     {
 
     }
@@ -425,7 +432,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
             {
                 GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
                 int RowIndex = row.RowIndex;
-                ViewState["ParentID"] = ((Label)row.FindControl("lblParentID")).Text.ToString(); 
+                ViewState["ParentID"] = ((Label)row.FindControl("lblParentID")).Text.ToString();
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
                 string ParentName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
@@ -562,7 +569,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 11,"");
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 11, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
@@ -591,7 +598,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 11,"");
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 11, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;
@@ -848,7 +855,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["ParentName"] = ((Label)row.FindControl("lblParentName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     addressmessage.InnerText = "Update Address Details";
@@ -903,7 +910,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["ParentName"] = ((Label)row.FindControl("lblParentName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     bankmessage.InnerText = "Update Bank Details";
@@ -938,7 +945,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
     }
 
     protected void gvParent_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    { 
+    {
 
     }
     protected void gvAddress_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -1136,7 +1143,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), ViewState["ParentName"].ToString());
                 if (result == 2)
                 {
                     BindBankDetails();
@@ -1144,7 +1151,7 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), ViewState["ParentName"].ToString());
                 if (result == 2)
                 {
                     BindAddressDetails();

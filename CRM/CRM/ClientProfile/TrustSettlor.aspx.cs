@@ -642,6 +642,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
             ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
             ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+            ViewState["SettlorName"] = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
 
             if (e.CommandName == "EditAddress")
             {
@@ -871,6 +872,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["SettlorName"] = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
                 if (e.CommandName == "EditBank")
                 {
                     bankmessage.InnerText = "Update Bank Details";
@@ -946,7 +948,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), ViewState["SettlorName"].ToString());
                 if (result == 2)
                 {
                     ClearBankControls();
@@ -955,7 +957,7 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), ViewState["SettlorName"].ToString());
                 if (result == 2)
                 {
                     ClearAddressControls();
@@ -981,10 +983,12 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
             DataSet dataset = validateSAID.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtTrustUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
+                int count = 0;
                 for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
                     if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "4")
                     {
+                        count = count + 1;
                         lblTitle.Text = "Warning!";
                         lblTitle.ForeColor = System.Drawing.Color.Red;
                         message.ForeColor = System.Drawing.Color.Red;
@@ -1000,38 +1004,41 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                 //    message.Text = "Sorry,The member already exists as settlor!";
                 //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 //}
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                if (count == 0)
                 {
-                    Disable();
-                    btnSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
-                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
-                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
-                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                    //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
-                    //txtDateOfBirth.Text = DOB.ToShortDateString();
-                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                    {
+                        Disable();
+                        btnSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                        txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                        txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                        txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                        //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString());
+                        //txtDateOfBirth.Text = DOB.ToShortDateString();
+                        if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                            txtDateOfBirth.Text = "";
+                        else
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                    }
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                    {
+                        ddlTitle.SelectedValue = "";
                         txtDateOfBirth.Text = "";
-                    else
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    ddlTitle.SelectedValue = "";
-                    txtDateOfBirth.Text = "";
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    txtEmail.Text = "";
-                    txtMobile.Text = "";
-                    txtPhone.Text = "";
-                    txtTaxRefNo.Text = "";
-                    Enable();
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        txtEmail.Text = "";
+                        txtMobile.Text = "";
+                        txtPhone.Text = "";
+                        txtTaxRefNo.Text = "";
+                        Enable();
+                    }
                 }
             }
         }

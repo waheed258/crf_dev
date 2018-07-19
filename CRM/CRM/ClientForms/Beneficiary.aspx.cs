@@ -67,7 +67,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                             GetBeneficiaryGrid(txtUIC.Text.Trim());
                             BindBankDetails();
                             BindAddressDetails();
-                            
+
                         }
                         Disable();
                         Disable1();
@@ -144,14 +144,14 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             Type = Request.QueryString["t"] != null ? Convert.ToInt32(ObjEn.Decrypt(Request.QueryString["t"].ToString())) : 0,
             Status = 1,
             AdvisorID = 0,
-            BenificiaryType=Convert.ToInt32(dropBenificiaryType.SelectedValue),
+            BenificiaryType = Convert.ToInt32(dropBenificiaryType.SelectedValue),
             UICNo = txtCompanyUIC.Text.Trim(),
-            CompanyName=txtCompanyName.Text.Trim(),
+            CompanyName = txtCompanyName.Text.Trim(),
             CompanyEmailID = txtCompanyEmail.Text.Trim(),
             YearOfEstablishment = string.IsNullOrEmpty(txtYearofFoundation.Text) ? null : txtYearofFoundation.Text,
-            CompanyTelephone=txtTelephoneNum.Text.Trim(),
-            CompanyWebsite=txtWebsite.Text.Trim(),
-            VATNo=txtVATRef.Text.Trim(),
+            CompanyTelephone = txtTelephoneNum.Text.Trim(),
+            CompanyWebsite = txtWebsite.Text.Trim(),
+            VATNo = txtVATRef.Text.Trim(),
         };
         if (btnSubmit.Text == "Update")
         {
@@ -185,8 +185,8 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 Disable();
                 ClearAddressControls();
                 ClearBankControls();
-               // BindBankDetails();
-               // BindAddressDetails();
+                // BindBankDetails();
+                // BindAddressDetails();
 
             }
             else
@@ -345,11 +345,11 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 ViewState["ShareHolderType"] = ((Label)row.FindControl("lblShareHolderType")).Text.ToString();
                 ViewState["UICNO"] = ((Label)row.FindControl("lblUICNo")).Text.ToString();
                 ViewState["CompanyName"] = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
-                if(ViewState["ShareHolderType"].ToString()=="Individual")
+                if (ViewState["ShareHolderType"].ToString() == "Individual")
                 {
                     string BeneficiaryName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
                     txtBeneficiaryNameBank.Text = BeneficiaryName;
-                    txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();                  
+                    txtSAIDBank.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                     txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
                     txtBeneficiaryAddress.Text = BeneficiaryName;
                 }
@@ -360,7 +360,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblUICNo")).Text.ToString();
                     txtBeneficiaryAddress.Text = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
                 }
-                
+
                 //if (e.CommandName == "EditBeneficiary")
                 //{
                 //    Enable();
@@ -390,7 +390,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                             Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["UICNO"].ToString()), false);
                         }
                     }
-                       // Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
+                    // Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("7") + "&type=c" + "&x=" + ObjEn.Encrypt(ViewState["SAID"].ToString()), false);
                 }
                 //else if (e.CommandName == "DeleteBeneficiary")
                 //{
@@ -438,7 +438,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 }
                 else if (e.CommandName == "Bank")
                 {
-                   // DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
+                    // DataSet dsBank = addressbankBL.GetBankDetails(ViewState["SAID"].ToString(), Session["SAID"].ToString(), UIC);
                     DataSet dsBank = new DataSet();
                     if (ViewState["ShareHolderType"].ToString() == "Individual")
                     {
@@ -510,14 +510,14 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             if (ObjEn.Decrypt(Request.QueryString["t"].ToString()) == "1")
             {
                 ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7, txtUIC.Text);
-                
+
             }
             else
             {
                 ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 12, txtUIC.Text);
-                
+
             }
-           // ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7);
+            // ds = addressBL.GetAddressDetails(Session["SAID"].ToString(), 7);
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = ds.Tables[0];
@@ -770,7 +770,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             {
                 bankEntity.Type = 12;
             }
-           
+
             bankEntity.BankName = txtBankName.Text;
             bankEntity.BranchNumber = txtBranchNumber.Text;
             bankEntity.AccountNumber = txtAccountNumber.Text;
@@ -785,7 +785,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             {
                 bankEntity.SAID = ViewState["UICNO"].ToString();
             }
-           // bankEntity.SAID = ViewState["SAID"].ToString();
+            // bankEntity.SAID = ViewState["SAID"].ToString();
             bankEntity.ReferenceID = Session["SAID"].ToString();
             bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.CreatedBy = 0;
@@ -877,7 +877,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
 
     private void ClearBankControls()
     {
-      
+
         txtBankName.Text = "";
         txtBranchNumber.Text = "";
         txtAccountNumber.Text = "";
@@ -899,7 +899,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                 ds = bankBL.GetBankList(Session["SAID"].ToString(), 12, txtUIC.Text);
             }
 
-            
+
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = ds.Tables[0];
@@ -1073,49 +1073,57 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             DataSet dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "5")
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, The member already exists as Share Holder!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-                {
-                    Disable();
-                    btnSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
-                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
-                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
-                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "5")
                     {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, The member already exists as Share Holder!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                }
+                if (count == 0)
+                {
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
+                       dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                       dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                       dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                    {
+                        Disable();
+                        btnSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                        txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                        txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                        txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        }
+                        // txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                    }
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                    {
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        txtEmail.Text = "";
+                        txtMobile.Text = "";
+                        txtPhone.Text = "";
+                        txtTaxRefNo.Text = "";
+                        ddlTitle.SelectedValue = "";
                         txtDateOfBirth.Text = "";
+                        Enable();
                     }
-                    else
-                    {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
-                    }
-                   // txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    txtEmail.Text = "";
-                    txtMobile.Text = "";
-                    txtPhone.Text = "";
-                    txtTaxRefNo.Text = "";
-                    ddlTitle.SelectedValue = "";
-                    txtDateOfBirth.Text = "";
-                    Enable();
                 }
             }
 
@@ -1159,7 +1167,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         try
         {
 
-            DataSet dataset = validateSAIDBL.ValidateBeneficiaryUIC(Session["SAID"].ToString(),txtUIC.Text,txtCompanyUIC.Text);
+            DataSet dataset = validateSAIDBL.ValidateBeneficiaryUIC(Session["SAID"].ToString(), txtUIC.Text, txtCompanyUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
                 if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "ALREADY EXIST")
@@ -1175,14 +1183,14 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     Disable1();
                     btnSubmit.Enabled = true;
                     txtCompanyName.Text = dataset.Tables[0].Rows[0]["CompanyName"].ToString();
-                    if(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()=="")
+                    if (dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString() == "")
                     {
                         txtYearofFoundation.Text = "";
                     }
                     else
                     {
                         txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
-                    }                 
+                    }
                     txtCompanyEmail.Text = dataset.Tables[0].Rows[0]["CompanyEmailID"].ToString();
                     txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
                     txtTelephoneNum.Text = dataset.Tables[0].Rows[0]["CompanyTelephone"].ToString();
@@ -1201,7 +1209,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     else
                     {
                         txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
-                    }    
+                    }
                     //txtYearofFoundation.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["YearOfEstablishment"].ToString()).ToString("yyyy-MM-dd");
                     txtCompanyEmail.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
                     txtVATRef.Text = dataset.Tables[0].Rows[0]["VATNo"].ToString();
@@ -1227,7 +1235,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     protected void Disable1()
     {
         txtCompanyName.ReadOnly = true;
-       // txtYearofFoundation.ReadOnly = true;
+        // txtYearofFoundation.ReadOnly = true;
         txtVATRef.ReadOnly = true;
         txtTelephoneNum.ReadOnly = true;
         txtCompanyEmail.ReadOnly = true;
@@ -1240,7 +1248,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
     protected void Enable1()
     {
         txtCompanyName.ReadOnly = false;
-       // txtYearofFoundation.ReadOnly = false;
+        // txtYearofFoundation.ReadOnly = false;
         txtYearofFoundation.Attributes.Remove("disabled");
         txtVATRef.ReadOnly = false;
         txtTelephoneNum.ReadOnly = false;
@@ -1257,7 +1265,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         {
             DataSet ds = new DataSet();
             ds = _objBeneficiaryBL.GetBeneficiaryType();
-            if(ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 dropBenificiaryType.DataSource = ds;
                 dropBenificiaryType.DataTextField = "BeneficiaryType";
@@ -1305,7 +1313,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
                     divvalidCompany.Visible = true;
                     divvalidIndividual.Visible = false;
                 }
-                
+
                 txtvalidSAIDNum.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
                 txtSAID.ReadOnly = true;
                 dropvalidTitle.SelectedValue = ds.Tables[0].Rows[0]["Title"].ToString();
