@@ -128,7 +128,7 @@
                                 [resdata[i].NAME, "Trust", "Trust"],
                                 ['<div class="hdname">' + resdata[i].NAME + " -</div> Trustee", resdata[i].NAME, "Trustee"],
                                 ['<div class="hdname">' + resdata[i].NAME + " -</div> Trust Settler", resdata[i].NAME, "Trust Settler"],
-                                ['<div class="hdname">' + resdata[i].NAME + " -</div> Trust Beneficiary", resdata[i].NAME, "Beneficiary"]
+                                ['<div class="hdname">' + resdata[i].NAME + " -</div> Trust Shareholder", resdata[i].NAME, "Shareholder"]
 
                             ]);
 
@@ -150,7 +150,7 @@
                             for (var l = 0; l < trustBenef.length; l++) {
                                 if (resdata[i].UIC == trustBenef[l].UIC) {
                                     trustdata.addRows([
-                                       [trustBenef[l].NAME + "<div class='hdname'>(Beneficiary)</div>", '<div class="hdname">' + resdata[i].NAME + " -</div> Trust Beneficiary", "Beneficiary"]
+                                       [trustBenef[l].NAME + "<div class='hdname'>(Shareholder)</div>", '<div class="hdname">' + resdata[i].NAME + " -</div> Trust Shareholder", "Shareholder"]
                                     ]);
                                 }
                             }
@@ -168,7 +168,7 @@
                     // Company Information
                     var companydata = new google.visualization.DataTable();
                     companydata.addColumn('string', 'Company');
-                    companydata.addColumn('string', 'Beneficiary');
+                    companydata.addColumn('string', 'Shareholder');
                     companydata.addColumn('string', 'ToolTip');
 
                     for (var i = 0; i < resdata.length; i++) {
@@ -177,7 +177,7 @@
                             companydata.addRows([
                                 ["Company", "", "Company"],
                                 [resdata[i].NAME, "Company", "Company"],
-                                ['<div class="hdname">' + resdata[i].NAME + " -</div> Beneficiary", resdata[i].NAME, "Beneficiary"],
+                                ['<div class="hdname">' + resdata[i].NAME + " -</div> Shareholder", resdata[i].NAME, "Shareholder"],
                                 ['<div class="hdname">' + resdata[i].NAME + " -</div> Director", resdata[i].NAME, "Director"]
                             ]);
 
@@ -185,7 +185,7 @@
                             for (var j = 0; j < companyInfo.length; j++) {
                                 if (resdata[i].UIC == companyInfo[j].UIC) {
                                     companydata.addRows([
-                                       [companyInfo[j].NAME + "<div class='hdname'>(Beneficiary)</div>", '<div class="hdname">' + resdata[i].NAME + " -</div> Beneficiary", "Beneficiary"]
+                                       [companyInfo[j].NAME + "<div class='hdname'>(Shareholder)</div>", '<div class="hdname">' + resdata[i].NAME + " -</div> Shareholder", "Shareholder"]
                                     ]);
                                 }
                             }
