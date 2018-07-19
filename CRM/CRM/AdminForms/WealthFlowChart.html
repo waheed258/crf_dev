@@ -67,12 +67,21 @@
                         directorInfo = $.grep(resdata, function (element, index) {
                             return element.TYPE == 10;
                         });
+                        grandChildInfo = $.grep(resdata, function (element, index) {
+                            return element.TYPE == 11;
+                        });
+                        parentsInfo = $.grep(resdata, function (element, index) {
+                            return element.TYPE == 12;
+                        });
 
                         if (resdata[i].TYPE == 1) {
-                            data.addRows([                               
+                            data.addRows([
                                 [{ v: resdata[i].SAID, f: resdata[i].NAME }, '', 'Client'],
+                                [{ v: '12', f: 'Parents' }, resdata[i].SAID, 'Parents'],                                
                                 [{ v: '2', f: 'Spouse' }, resdata[i].SAID, 'Spouse'],
-                                [{ v: '3', f: 'Children' }, resdata[i].SAID, 'Children']
+                                [{ v: '3', f: 'Children' }, resdata[i].SAID, 'Children'],
+                                [{ v: '11', f: 'Grand Children' }, resdata[i].SAID, 'Grand Children'],
+                                
                             ]);
                         }
                         if (resdata[i].TYPE == 2) {
@@ -83,6 +92,16 @@
                         if (resdata[i].TYPE == 3) {
                             data.addRows([                                
                                 [{ v: resdata[i].SAID + "_" + i, f: resdata[i].NAME }, '3', 'Children']
+                            ]);
+                        }
+                        if (resdata[i].TYPE == 11) {
+                            data.addRows([
+                                [{ v: resdata[i].SAID + "_" + i, f: resdata[i].NAME }, '11', 'Grand Children']
+                            ]);
+                        }
+                        if (resdata[i].TYPE == 12) {
+                            data.addRows([
+                                [{ v: resdata[i].SAID + "_" + i, f: resdata[i].NAME }, '12', 'Parents']
                             ]);
                         }
                     }
