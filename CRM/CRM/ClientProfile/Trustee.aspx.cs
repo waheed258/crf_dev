@@ -591,7 +591,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["TrusteeName"] = ((Label)row.FindControl("lblTrusteeName")).Text.ToString();
                 if (e.CommandName == "EditAddress")
                 {
                     addressmessage.InnerText = "Update Address Details";
@@ -820,7 +820,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblBankSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["TrusteeName"] = ((Label)row.FindControl("lblTrusteeName")).Text.ToString();
                 if (e.CommandName == "EditBank")
                 {
                     bankmessage.InnerText = "Update Bank Details";
@@ -896,7 +896,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), Session["Name"].ToString());
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankSAID"].ToString(), ViewState["TrusteeName"].ToString());
                 if (result == 2)
                 {
                     ClearBankControls();
@@ -905,7 +905,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), Session["Name"].ToString());
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressSAID"].ToString(), ViewState["TrusteeName"].ToString());
                 if (result == 2)
                 {
                     ClearAddressControls();

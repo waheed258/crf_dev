@@ -12,14 +12,14 @@ using BusinessLogic;
 public partial class ClientForms_DirectorDetails : System.Web.UI.Page
 {
     DirectorBL directorBL = new DirectorBL();
-   
+
     CommanClass _objComman = new CommanClass();
     BankBL bankBL = new BankBL();
     BankInfoEntity bankEntity = new BankInfoEntity();
     AddressBL addressBL = new AddressBL();
     AddressEntity addressEntity = new AddressEntity();
     EncryptDecrypt ObjEn = new EncryptDecrypt();
-    ValidateSAIDBL validateSAIDBL=new ValidateSAIDBL();
+    ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -54,7 +54,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                         BindAddressDetails();
 
                         Disable();
-                            
+
                     }
                 }
 
@@ -99,25 +99,25 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
     private int DirectorInsertUpdate()
     {
         int Result;
-         DirectorEntity directorEntity = new DirectorEntity
-        {
-            DirectorID  = Convert.ToInt32(hfDirectorId.Value.Trim()),
-            ReferenceSAID = Session["SAID"].ToString(),
-            UIC = txtUIC.Text.Trim(),
-            SAID = txtSAID.Text.Trim(),
-            Title=ddlTitle.SelectedValue,
-            FirstName = txtFirstName.Text.Trim(),
-            LastName = txtLastName.Text.Trim(),
-            EmailID = txtEmail.Text.Trim(),
-            Mobile = txtMobile.Text.Trim(),
-            Phone = txtPhone.Text.Trim(),
-            DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
-            TaxRefNo = txtTaxRefNo.Text.Trim(),
-            ShareHolderPercentage = string.IsNullOrEmpty(txtSharePerc.Text) ? null : txtSharePerc.Text,
-            ShareValue=txtShareValue.Text.Trim(),
-            Status = 1,
-            AdvisorID = 0,
-        };
+        DirectorEntity directorEntity = new DirectorEntity
+       {
+           DirectorID = Convert.ToInt32(hfDirectorId.Value.Trim()),
+           ReferenceSAID = Session["SAID"].ToString(),
+           UIC = txtUIC.Text.Trim(),
+           SAID = txtSAID.Text.Trim(),
+           Title = ddlTitle.SelectedValue,
+           FirstName = txtFirstName.Text.Trim(),
+           LastName = txtLastName.Text.Trim(),
+           EmailID = txtEmail.Text.Trim(),
+           Mobile = txtMobile.Text.Trim(),
+           Phone = txtPhone.Text.Trim(),
+           DateOfBirth = string.IsNullOrEmpty(txtDateOfBirth.Text) ? null : txtDateOfBirth.Text,
+           TaxRefNo = txtTaxRefNo.Text.Trim(),
+           ShareHolderPercentage = string.IsNullOrEmpty(txtSharePerc.Text) ? null : txtSharePerc.Text,
+           ShareValue = txtShareValue.Text.Trim(),
+           Status = 1,
+           AdvisorID = 0,
+       };
         if (btnDirectorSubmit.Text == "Update")
         {
             Result = directorBL.DirectorCRUD(directorEntity, 'u');
@@ -174,7 +174,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
 
     private void GetDirectorGrid(string UIC)
     {
-       
+
         DataSet ds = new DataSet();
         ds = directorBL.GetDirector(0, UIC);
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -211,7 +211,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                 txtvalidDOB.Text = ds.Tables[0].Rows[0]["DateOfBirth"].ToString();
                 txtvalidRefNum.Text = ds.Tables[0].Rows[0]["TaxRefNo"].ToString();
                 txtvalidSharePerc.Text = ds.Tables[0].Rows[0]["ShareHolderPercentage"].ToString();
-                txtvalidShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();                
+                txtvalidShareValue.Text = ds.Tables[0].Rows[0]["ShareValue"].ToString();
             }
         }
         catch
@@ -291,7 +291,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         }
     }
 
- 
+
 
 
     protected void gvDirector_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -370,7 +370,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                             ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
                         }
                     }
-                   // btnUpdateAddress.Visible = false;
+                    // btnUpdateAddress.Visible = false;
                     btnAddressSubmit.Visible = true;
                     addressmessage.InnerText = "Save Address Details";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
@@ -396,7 +396,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
                     }
                     bankmessage.InnerText = "Save Bank Details";
                     btnBankSubmit.Visible = true;
-                   // btnUpdateBank.Visible = false;
+                    // btnUpdateBank.Visible = false;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openBankModal();", true);
                 }
                 else if (e.CommandName == "Validate")
@@ -848,7 +848,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
     {
         ClearAddressControls();
     }
-   
+
     //protected void btnSure_Click(object sender, EventArgs e)
     //{
     //    try
@@ -895,7 +895,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
     //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
     //    }
     //}
-     protected void Disable()
+    protected void Disable()
     {
         ddlTitle.Enabled = false;
         txtFirstName.ReadOnly = true;
@@ -905,8 +905,8 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
         //txtDateOfBirth.ReadOnly = true;
-        txtSharePerc.ReadOnly=true;
-        txtShareValue.ReadOnly=true;
+        txtSharePerc.ReadOnly = true;
+        txtShareValue.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtTaxRefNo.Enabled = false;
@@ -914,21 +914,21 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         //rfvtxtMobile.Enabled=false;
         //rfvPhone.Enabled=false;
         //rfvTitle.Enabled = false;
-        btnDirectorSubmit.Enabled=false;
+        btnDirectorSubmit.Enabled = false;
     }
     protected void Enable()
     {
-       ddlTitle.Enabled = true;
+        ddlTitle.Enabled = true;
         txtFirstName.ReadOnly = false;
         txtLastName.ReadOnly = false;
         txtEmail.ReadOnly = false;
         txtMobile.ReadOnly = false;
         txtPhone.ReadOnly = false;
         txtTaxRefNo.ReadOnly = false;
-       // txtDateOfBirth.ReadOnly = false;
+        // txtDateOfBirth.ReadOnly = false;
         txtDateOfBirth.Attributes.Remove("disabled");
-        txtSharePerc.ReadOnly=false;
-        txtShareValue.ReadOnly=false;
+        txtSharePerc.ReadOnly = false;
+        txtShareValue.ReadOnly = false;
         //rfvTitle.Enabled = true;
         rfvtxtFirstName.Enabled = true;
         //rfvtxtLastName.Enabled = true;
@@ -936,7 +936,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
         //rfvtxtEmail.Enabled = true;
         //rfvtxtMobile.Enabled=true;
         //rfvPhone.Enabled=true;
-        btnDirectorSubmit.Enabled=true;
+        btnDirectorSubmit.Enabled = true;
     }
     protected void imgSearchsaid_Click(object sender, ImageClickEventArgs e)
     {
@@ -945,56 +945,63 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             DataSet dataset = validateSAIDBL.ValidateSAID(txtSAID.Text, Session["SAID"].ToString(), txtUIC.Text);
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "6")
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, The member already exists as Director!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" ||dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
-                    dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-                {
-                    Disable();
-                    btnDirectorSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
-                    txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
-                    txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
-                    txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();             
-                   // txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
-                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "6")
                     {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, The member already exists as Director!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                }
+                if (count == 0)
+                {
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS SPOUSE OR CHILD" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH SAME ORG BUT WITH OTHER CLIENT" ||
+                        dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH OTHER ORG AND THER CLIENT" || dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                    {
+                        Disable();
+                        btnDirectorSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["TITLE"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FIRSTNAME"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LASTNAME"].ToString();
+                        txtEmail.Text = dataset.Tables[0].Rows[0]["EMAILID"].ToString();
+                        txtMobile.Text = dataset.Tables[0].Rows[0]["MOBILE"].ToString();
+                        txtPhone.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNo.Text = dataset.Tables[0].Rows[0]["TAXREFNO"].ToString();
+                        // txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        }
+                        txtSharePerc.ReadOnly = false;
+                        txtShareValue.ReadOnly = false;
+                    }
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                    {
+                        ddlTitle.SelectedValue = "";
                         txtDateOfBirth.Text = "";
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        txtEmail.Text = "";
+                        txtMobile.Text = "";
+                        txtPhone.Text = "";
+                        txtTaxRefNo.Text = "";
+                        txtSharePerc.Text = "";
+                        txtShareValue.Text = "";
+                        Enable();
                     }
-                    else
-                    {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
-                    }
-                    txtSharePerc.ReadOnly = false;
-                    txtShareValue.ReadOnly = false;
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    ddlTitle.SelectedValue = "";
-                    txtDateOfBirth.Text = "";
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    txtEmail.Text = "";
-                    txtMobile.Text = "";
-                    txtPhone.Text = "";
-                    txtTaxRefNo.Text = "";
-                    txtSharePerc.Text = "";
-                    txtShareValue.Text = "";
-                    Enable();
                 }
             }
-
         }
         catch
         {
@@ -1004,7 +1011,7 @@ public partial class ClientForms_DirectorDetails : System.Web.UI.Page
             message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
-        
+
     }
     protected void btnValidOK_Click(object sender, EventArgs e)
     {

@@ -608,7 +608,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["CompanyName"] = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     accountmessage.InnerText = "Update Bank Details";
@@ -763,7 +763,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressUIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                ViewState["CompanyName"] = ((Label)row.FindControl("lblCompanyName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     addressmessage.InnerText = "Update Address Details";
@@ -818,7 +818,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 2)
             {
-                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(),Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankUIC"].ToString(), Session["Name"].ToString());
+                int result = bankBL.DeleteBankDetails(ViewState["BankDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["BankUIC"].ToString(), ViewState["CompanyName"].ToString());
                 if (result == 2)
                 {
                     GetBankDetails();
@@ -826,7 +826,7 @@ public partial class ClientProfile_Company : System.Web.UI.Page
             }
             else if (Convert.ToInt32(ViewState["flag"]) == 3)
             {
-                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressUIC"].ToString(), Session["Name"].ToString());
+                int result = addressBL.DeleteAddressDetails(ViewState["AddressDetailID"].ToString(), Convert.ToInt32(Session["AdvisorID"].ToString()), ViewState["AddressUIC"].ToString(), ViewState["CompanyName"].ToString());
                 if (result == 2)
                 {
                     GetAddressDetails();

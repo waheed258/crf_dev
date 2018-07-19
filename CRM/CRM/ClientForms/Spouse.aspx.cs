@@ -431,6 +431,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["SpouseID"] = ((Label)row.FindControl("lblSpouseID")).Text.ToString();
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                
                 string SpouseName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
                 txtSpouseNameBank.Text = SpouseName;
                 txtAddressSpouseName.Text = SpouseName;
@@ -700,7 +701,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                
                 //if (e.CommandName == "Edit")
                 //{
                 //    addressmessage.InnerText = "Update Address Details";
@@ -754,7 +755,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-
+                
                 //if (e.CommandName == "Edit")
                 //{
                 //    bankmessage.InnerText = "Update Bank Details";
