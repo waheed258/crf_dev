@@ -126,7 +126,7 @@
                                     <Columns>                                      
                                 <asp:BoundField HeaderText="SlNo" ReadOnly="true" />
                                 <asp:BoundField DataField="Deletedtype" HeaderText="Deleted Type" ReadOnly="true" />
-                                <asp:BoundField DataField="SAID" HeaderText="SAID" ReadOnly="true" />
+                                <asp:BoundField DataField="SAID" HeaderText="SAID/UIC" ReadOnly="true" />
                                 <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="true" />
                                 <asp:BoundField DataField="ADVISORNAME" HeaderText="DeletedBy" ReadOnly="true" />
                                <%-- <asp:BoundField DataField="TimeStamp" HeaderText="TimeStamp" ReadOnly="true" /> --%>                                

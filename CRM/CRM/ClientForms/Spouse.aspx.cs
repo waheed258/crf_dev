@@ -160,81 +160,118 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Client can't be a Spouse!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Duplicate Spouse ID!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, The member already exists, you cannot add as Spouse!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8" && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
-                {
-                    btnSpouseSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "1")
                     {
-                        txtDateOfBirth.Text = "";
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Duplicate Spouse ID!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     }
-                    else
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "2")
                     {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Child cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     }
-                    //txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
-                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "7")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Grand Child cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "8")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Parent cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
                 }
+                if (count == 0)
+                {
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Client can't be a Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, The member already exists, you cannot add as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                        && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
+                        && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                    {
+                        btnSpouseSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        }
+                        //txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                    }
 
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    ddlTitle.SelectedValue = "";
-                    txtPhoneNum.Text = "";
-                    txtMobileNum.Text = "";
-                    txtEmailId.Text = "";
-                    txtTaxRefNum.Text = "";
-                    txtDateOfBirth.Text = "";
-                    Enable();
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
-                {
-                    btnSpouseSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
                     {
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        ddlTitle.SelectedValue = "";
+                        txtPhoneNum.Text = "";
+                        txtMobileNum.Text = "";
+                        txtEmailId.Text = "";
+                        txtTaxRefNum.Text = "";
                         txtDateOfBirth.Text = "";
+                        Enable();
                     }
-                    else
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
                     {
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        btnSpouseSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString() == "")
+                        {
+                            txtDateOfBirth.Text = "";
+                        }
+                        else
+                        {
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DATEOFBIRTH"].ToString()).ToString("yyyy-MM-dd");
+                        }
                     }
                 }
             }
@@ -249,7 +286,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-   
+
     private void Clear()
     {
         txtSAID.Text = "";
@@ -323,7 +360,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 2,"");
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 2, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
@@ -431,7 +468,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["SpouseID"] = ((Label)row.FindControl("lblSpouseID")).Text.ToString();
                 ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                
+
                 string SpouseName = ((Label)row.FindControl("lblFirstName")).Text.ToString() + " " + ((Label)row.FindControl("lblLastName")).Text.ToString();
                 txtSpouseNameBank.Text = SpouseName;
                 txtAddressSpouseName.Text = SpouseName;
@@ -550,7 +587,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2,"");
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 2, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gdvBankList.DataSource = dataset;
@@ -701,7 +738,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                
+
                 //if (e.CommandName == "Edit")
                 //{
                 //    addressmessage.InnerText = "Update Address Details";
@@ -755,7 +792,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ViewState["BankDetailID"] = ((Label)row.FindControl("lblBankDetailID")).Text.ToString();
                 ViewState["BankSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                
+
                 //if (e.CommandName == "Edit")
                 //{
                 //    bankmessage.InnerText = "Update Bank Details";
@@ -1011,7 +1048,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
     //{
 
     //}
-    
+
     protected void chkClientAddress_CheckedChanged(object sender, EventArgs e)
     {
         try
@@ -1071,7 +1108,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 ddlProvince.SelectedValue = "-1";
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -1167,7 +1205,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
-    
+
     protected void btnValidCancel_Click(object sender, EventArgs e)
     {
 

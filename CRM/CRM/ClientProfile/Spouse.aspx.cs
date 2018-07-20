@@ -159,79 +159,115 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                int count = 0;
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Client can't be a Spouse!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "1")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Duplicate Spouse ID!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
-                {
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry,The member already exists as Child, you cannot add as Spouse!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
-                else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
-                    && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
-                    && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
-                {
-                    btnSpouseSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
-                        txtDateOfBirth.Text = "";
-                    else
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");                  
-                    //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
-                    //txtDateOfBirth.Text = DOB.ToShortDateString();
-                    //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
-                }
 
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
-                {
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    ddlTitle.SelectedValue = "";
-                    txtPhoneNum.Text = "";
-                    txtMobileNum.Text = "";
-                    txtEmailId.Text = "";
-                    txtTaxRefNum.Text = "";
-                    txtDateOfBirth.Text = "";
-                    Enable();
+                    if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "1")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Duplicate Spouse ID!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "2")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Child cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "7")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Grand Child cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "8")
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Parent cannot be added as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
                 }
-                else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                if (count == 0)
                 {
-                    btnSpouseSubmit.Enabled = true;
-                    ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
-                    txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
-                    txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
-                    txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
-                    txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
-                    txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
-                    txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
-                    if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                    if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "CLIENT")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Client can't be a Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "7" || dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "8")
+                    {
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry,The member already exists as Child, you cannot add as Spouse!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
+                    else if (dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "1" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "2"
+                        && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "7" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() != "8"
+                        && dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT")
+                    {
+                        btnSpouseSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                            txtDateOfBirth.Text = "";
+                        else
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                        //txtDateOfBirth.Text = DOB.ToShortDateString();
+                        //txtDateOfBirth.Text = dataset.Tables[0].Rows[0]["DateOfBirth"].ToString();
+                    }
+
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "NO RECORD")
+                    {
+                        txtFirstName.Text = "";
+                        txtLastName.Text = "";
+                        ddlTitle.SelectedValue = "";
+                        txtPhoneNum.Text = "";
+                        txtMobileNum.Text = "";
+                        txtEmailId.Text = "";
+                        txtTaxRefNum.Text = "";
                         txtDateOfBirth.Text = "";
-                    else
-                        txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
-                    //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
-                    //txtDateOfBirth.Text = DOB.ToShortDateString();
+                        Enable();
+                    }
+                    else if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS AS INDIVIDUAL")
+                    {
+                        btnSpouseSubmit.Enabled = true;
+                        ddlTitle.SelectedValue = dataset.Tables[0].Rows[0]["Title"].ToString();
+                        txtFirstName.Text = dataset.Tables[0].Rows[0]["FirstName"].ToString();
+                        txtLastName.Text = dataset.Tables[0].Rows[0]["LastName"].ToString();
+                        txtEmailId.Text = dataset.Tables[0].Rows[0]["EmailID"].ToString();
+                        txtMobileNum.Text = dataset.Tables[0].Rows[0]["Mobile"].ToString();
+                        txtPhoneNum.Text = dataset.Tables[0].Rows[0]["Phone"].ToString();
+                        txtTaxRefNum.Text = dataset.Tables[0].Rows[0]["TaxRefNo"].ToString();
+                        if (dataset.Tables[0].Rows[0]["DateOfBirth"].ToString() == "")
+                            txtDateOfBirth.Text = "";
+                        else
+                            txtDateOfBirth.Text = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString()).ToString("yyyy-MM-dd");
+                        //DateTime DOB = Convert.ToDateTime(dataset.Tables[0].Rows[0]["DateOfBirth"].ToString());
+                        //txtDateOfBirth.Text = DOB.ToShortDateString();
+                    }
                 }
             }
 
