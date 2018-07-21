@@ -1035,7 +1035,7 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
         txtMobile.ReadOnly = true;
         txtPhone.ReadOnly = true;
         txtTaxRefNo.ReadOnly = true;
-        txtDateOfBirth.ReadOnly = true;
+        //txtDateOfBirth.ReadOnly = true;
         rfvtxtFirstName.Enabled = false;
         //rfvtxtLastName.Enabled = false;
         //rfvtxtTaxRefNo.Enabled = false;
@@ -1146,11 +1146,13 @@ public partial class ClientForms_Beneficiary : System.Web.UI.Page
             {
                 divIndividual.Visible = true;
                 divCompany.Visible = false;
+                Disable();
             }
             else
             {
                 divCompany.Visible = true;
                 divIndividual.Visible = false;
+                Disable1();
             }
         }
         catch

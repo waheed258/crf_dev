@@ -609,12 +609,12 @@
                                                             <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Share Holder Name">
+                                                    <asp:TemplateField HeaderText="Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("BEName").ToString()==" "?Eval("CompanyName") :Eval("BEName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                      <asp:TemplateField HeaderText="Company Name">
+                                                      <asp:TemplateField HeaderText="Company Name" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -747,12 +747,12 @@
                                                             <asp:Label runat="server" ID="lblBankSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Share Holder Name">
+                                                    <asp:TemplateField HeaderText="Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("BEName").ToString()==" "?Eval("CompanyName") :Eval("BEName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                      <asp:TemplateField HeaderText="Company Name">
+                                                      <asp:TemplateField HeaderText="Company Name" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
                                                         </ItemTemplate>

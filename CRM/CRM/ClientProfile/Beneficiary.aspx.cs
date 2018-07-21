@@ -708,15 +708,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                 addressEntity.Type = 12;
             }
            // addressEntity.Type = 7;
-            if (ViewState["ShareHolderType"].ToString() == "Individual")
-            {
-                addressEntity.SAID = ViewState["SAID"].ToString();
-            }
-            else
-            {
-                addressEntity.SAID = ViewState["UICNO"].ToString();
-            }
-            //addressEntity.SAID = ViewState["AddressSAID"].ToString();
+           
+            addressEntity.SAID = ViewState["AddressSAID"].ToString();
             addressEntity.ReferenceSAID = ViewState["AddressReferenceSAID"].ToString();
             addressEntity.UIC = txtUIC.Text.Trim();
             addressEntity.HouseNo = txtHouseNo.Text;
@@ -791,6 +784,8 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
                     btnAddressSubmit.Visible = false;
                     btnUpdateAddress.Visible = true;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
+                    txtSAIDBeneficiary.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    txtBeneficiaryAddress.Text = ((Label)row.FindControl("lblBeneficiaryName")).Text.ToString();
                     txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                     txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();
                     txtFloor.Text = ((Label)row.FindControl("lblFloorNo")).Text.ToString();
@@ -932,15 +927,15 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             {
                 bankEntity.Type = 12;
             }
-            if (ViewState["ShareHolderType"].ToString() == "Individual")
-            {
-                bankEntity.SAID = ViewState["SAID"].ToString();
-            }
-            else
-            {
-                bankEntity.SAID = ViewState["UICNO"].ToString();
-            }
-            //bankEntity.SAID = ViewState["BankSAID"].ToString();
+            //if (ViewState["ShareHolderType"].ToString() == "Individual")
+            //{
+            //    bankEntity.SAID = ViewState["SAID"].ToString();
+            //}
+            //else
+            //{
+            //    bankEntity.SAID = ViewState["UICNO"].ToString();
+            //}
+            bankEntity.SAID = ViewState["BankSAID"].ToString();
             bankEntity.ReferenceID = ViewState["ReferenceSAID"].ToString();
             bankEntity.UIC = txtUIC.Text.Trim();
             bankEntity.BankName = txtBankName.Text;
@@ -1413,11 +1408,13 @@ public partial class ClientProfile_Beneficiary : System.Web.UI.Page
             {
                 divIndividual.Visible = true;
                 divCompany.Visible = false;
+                Disable();
             }
             else
             {
                 divCompany.Visible = true;
                 divIndividual.Visible = false;
+                Disable1();
             }
         }
         catch

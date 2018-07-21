@@ -548,7 +548,7 @@
                                                         <asp:TemplateField HeaderText="Delete">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                                    CommandName="DeleteBeneficiary" ToolTip="Address Details" CommandArgument='<%#Eval("BeneficiaryID") %>' />
+                                                                    CommandName="DeleteBeneficiary" ToolTip="Delete" CommandArgument='<%#Eval("BeneficiaryID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -604,12 +604,12 @@
                                                             <asp:Label runat="server" ID="lblBankUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>--%>
-                                                       <asp:TemplateField HeaderText="Share Holder Name">
+                                                       <asp:TemplateField HeaderText="Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("BEName").ToString()==" "?Eval("CompanyName") :Eval("BEName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Company Name">
+                                                        <asp:TemplateField HeaderText="Company Name" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -758,13 +758,13 @@
                                                             <asp:Label runat="server" ID="lblBankUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Share Holder Name">
+                                                    <asp:TemplateField HeaderText="Name">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("FIRSTNAME")+" "+Eval("LASTNAME") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblBeneficiaryName" Text='<%#Eval("BEName").ToString()==" "?Eval("CompanyName") :Eval("BEName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                    
-                                                        <asp:TemplateField HeaderText="Company Name">
+                                                        <asp:TemplateField HeaderText="Company Name" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>
                                                         </ItemTemplate>

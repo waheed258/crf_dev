@@ -459,7 +459,7 @@
                                                         <asp:TemplateField HeaderText="Delete">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnDelete" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/Delete.png"
-                                                                    CommandName="DeleteSettler" ToolTip="Address Details" CommandArgument='<%#Eval("TrustSettlerID") %>' />
+                                                                    CommandName="DeleteSettler" ToolTip="Delete" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
