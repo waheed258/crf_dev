@@ -651,8 +651,8 @@ public partial class ClientProfile_TrustSettlor : System.Web.UI.Page
                 btnUpdateAddress.Visible = true;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAddressModal();", true);
 
-                //txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
-                //txtSettlorNameBank.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
+                txtSAIDAddress.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                txtSettlorNameAddress.Text = ((Label)row.FindControl("lblSettlorName")).Text.ToString();
 
                 txtHouseNo.Text = ((Label)row.FindControl("lblHouseNo")).Text.ToString();
                 txtBulding.Text = ((Label)row.FindControl("lblBuildingName")).Text.ToString();

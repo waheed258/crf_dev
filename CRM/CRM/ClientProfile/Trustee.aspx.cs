@@ -591,7 +591,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                ViewState["TrusteeName"] = ((Label)row.FindControl("lblTrusteeName")).Text.ToString();
+                ViewState["TrusteeName"] = ((Label)row.FindControl("lblFullName")).Text.ToString();
                 if (e.CommandName == "EditAddress")
                 {
                     addressmessage.InnerText = "Update Address Details";
