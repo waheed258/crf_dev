@@ -674,6 +674,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 message.Text = "Address details saved successfully!";
                 lblTitle.Text = "Thank You";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 clearAddresscontrols();
             }

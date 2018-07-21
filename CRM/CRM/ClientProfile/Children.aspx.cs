@@ -755,7 +755,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ViewState["AddressDetailID"] = ((Label)row.FindControl("lblAddressDetailID")).Text.ToString();
                 ViewState["AddressSAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
                 ViewState["AddressReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
-                ViewState["ChildName"] = ((Label)row.FindControl("lblChildName")).Text.ToString();
+                ViewState["ChildName"] = ((Label)row.FindControl("lblAddChildName")).Text.ToString();
                 if (e.CommandName == "Edit")
                 {
                     addressmessage.InnerText = "Update Address Details";
