@@ -402,7 +402,7 @@
                                                             <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Regestration #">
+                                                    <asp:TemplateField HeaderText="Registration #">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                         </ItemTemplate>
