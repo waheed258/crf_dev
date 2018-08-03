@@ -178,9 +178,16 @@ public partial class ClientProfile_Parents : System.Web.UI.Page
             }
             else
             {
-                fuPhoto.SaveAs(Server.MapPath("~/ParentImages/" + txtSAID.Text + this.fuPhoto.FileName));
-                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
-                parentEntity.Image = "~/ParentImages/" + txtSAID.Text + fileName;
+                if (this.fuPhoto.FileName != "")
+                {
+                    fuPhoto.SaveAs(Server.MapPath("~/ParentImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                    fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                    parentEntity.Image = "~/ParentImages/" + txtSAID.Text + fileName;
+                }
+                else
+                {
+                    parentEntity.Image = "";
+                }
             }
             int result = parentBL.ParentCRUD(parentEntity, 'u');
             if (result == 1)

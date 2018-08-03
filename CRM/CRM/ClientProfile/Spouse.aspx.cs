@@ -404,9 +404,16 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
             }
             else
             {
-                fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
-                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
-                spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;
+                if (this.fuPhoto.FileName != "")
+                {
+                    fuPhoto.SaveAs(Server.MapPath("~/SpouseImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                    fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                    spouseEntity.Image = "~/SpouseImages/" + txtSAID.Text + fileName;
+                }
+                else
+                {
+                    spouseEntity.Image = "";
+                }
             }
             int result = spouseBL.SpouseCRUD(spouseEntity, 'u');
             if (result == 1)

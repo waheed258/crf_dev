@@ -368,9 +368,16 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             }
             else
             {
-                fuPhoto.SaveAs(Server.MapPath("~/ChildImages/" + txtSAID.Text + this.fuPhoto.FileName));
-                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
-                childEntity.Image = "~/ChildImages/" + txtSAID.Text + fileName;
+                if (this.fuPhoto.FileName != "")
+                {
+                    fuPhoto.SaveAs(Server.MapPath("~/ChildImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                    fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                    childEntity.Image = "~/ChildImages/" + txtSAID.Text + fileName;
+                }
+                else
+                {
+                    childEntity.Image = "";
+                }
             }
             int result = childBL.ChildCRUD(childEntity, 'u');
             if (result == 1)

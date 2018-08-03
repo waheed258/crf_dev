@@ -220,9 +220,16 @@ public partial class ClientProfile_GrandChildren : System.Web.UI.Page
             }
             else
             {
-                fuPhoto.SaveAs(Server.MapPath("~/GrandChildrenImages/" + txtSAID.Text + this.fuPhoto.FileName));
-                fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
-                GrandChildrenEntity.Image = "~/GrandChildrenImages/" + txtSAID.Text + fileName;
+                if (this.fuPhoto.FileName != "")
+                {
+                    fuPhoto.SaveAs(Server.MapPath("~/GrandChildrenImages/" + txtSAID.Text + this.fuPhoto.FileName));
+                    fileName = Path.GetFileName(this.fuPhoto.PostedFile.FileName);
+                    GrandChildrenEntity.Image = "~/GrandChildrenImages/" + txtSAID.Text + fileName;
+                }
+                else
+                {
+                    GrandChildrenEntity.Image = "";
+                }
             }
             int result = grandchildrenBL.GrandChildCRUD(GrandChildrenEntity, 'u');
             if (result == 1)

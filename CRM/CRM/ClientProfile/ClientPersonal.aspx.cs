@@ -206,17 +206,23 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (lblPhotoName.Text != "" && fuImageUpload.HasFile == false)
                 {
                     img = lblPhotoName.Text;
-                    ClientPersonalInfoEntity.Image=lblPhotoName.Text;
+                    ClientPersonalInfoEntity.Image = lblPhotoName.Text;
                     //ClientPersonalInfoEntity.Image = Session["Image"].ToString(); 
                 }
                 else
                 {
-                    fuImageUpload.SaveAs(Server.MapPath("~/ClientImages/" + txtSAId.Text + this.fuImageUpload.FileName));
-                    fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
-                    ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
-                    img = "~/ClientImages/" + txtSAId.Text + fileName;
-                    ClientPersonalInfoEntity.Image = img;
-                   // Session["Image"] = img;
+                    if (this.fuImageUpload.FileName != "")
+                    {
+                        fuImageUpload.SaveAs(Server.MapPath("~/ClientImages/" + txtSAId.Text + this.fuImageUpload.FileName));
+                        fileName = Path.GetFileName(this.fuImageUpload.PostedFile.FileName);
+                        ClientPersonalInfoEntity.Image = "~/ClientImages/" + txtSAId.Text + fileName;
+                        img = "~/ClientImages/" + txtSAId.Text + fileName;
+                        ClientPersonalInfoEntity.Image = img;
+                    }
+                    else {
+                        ClientPersonalInfoEntity.Image = "";
+                    }
+                    // Session["Image"] = img;
                 }
                 //else
                 //{
@@ -233,7 +239,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 if (txtDateofBirth.Text == "")
                     ClientPersonalInfoEntity.DateOfBirth = null;
                 else
-                    ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;       
+                    ClientPersonalInfoEntity.DateOfBirth = txtDateofBirth.Text;
                 ClientPersonalInfoEntity.TaxRefNo = txtTaxRefNo.Text;
                 ClientPersonalInfoEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
                 ClientPersonalInfoEntity.UpdatedBy = Session["AdvisorID"].ToString();
@@ -264,7 +270,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                 }
                 if (result == 1)
                 {
-                    
+
                     txtSAId.ReadOnly = true;
                     txtFirstName.ReadOnly = true;
                     txtLastName.ReadOnly = true;
@@ -285,7 +291,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     message.ForeColor = System.Drawing.Color.Red;
                     message.Text = "Sorry,Please try again!";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                    
+
                 }
             }
         }
@@ -357,7 +363,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            ds = bankbl.GetBankList(Session["SAID"].ToString(), 1,"");
+            ds = bankbl.GetBankList(Session["SAID"].ToString(), 1, "");
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvBankDetails.DataSource = ds.Tables[0];
@@ -450,7 +456,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     {
         try
         {
-            ds = addressbl.GetAddressDetails(Session["SAID"].ToString(), 1,"");
+            ds = addressbl.GetAddressDetails(Session["SAID"].ToString(), 1, "");
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 gvAddressDetails.DataSource = ds;
@@ -623,7 +629,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             EncryptDecrypt ObjEn = new EncryptDecrypt();
             Response.Redirect("Document.aspx?t=" + ObjEn.Encrypt("1") + "&x=" + ObjEn.Encrypt(txtSAId.Text.ToString()), false);
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -913,5 +920,5 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
     }
 
 
-    
+
 }
