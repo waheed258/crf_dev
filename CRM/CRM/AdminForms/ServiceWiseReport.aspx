@@ -126,7 +126,7 @@
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnPageIndexChanging="gvServiceWiseReport_PageIndexChanging">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>                                      
-                                        <asp:BoundField HeaderText="SlNo" ReadOnly="true" />
+                                        <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
                                         <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
                                         <asp:BoundField DataField="SRNO" HeaderText="SR NO" ReadOnly="true" />
                                         <asp:BoundField DataField="AdvisorName" HeaderText="Advisor Name" ReadOnly="true" />

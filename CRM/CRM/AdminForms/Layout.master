@@ -198,7 +198,7 @@
                                 <li><a href="ServiceWiseReport.aspx">Service Wise Report</a></li>
                                 <li><a href="OpenItemsReport.aspx">Open Items Report</a></li>                   
                                  <li><a href="InvoiceReport.aspx">Invoices Report</a></li> 
-                                <li><a href="AmountReceivedReport.aspx">Amount Received Report</a></li>                                                   
+                                <%--<li><a href="AmountReceivedReport.aspx">Amount Received Report</a></li>--%>                                                   
                             </ul>
                         </li>
                            <li class="treeview">

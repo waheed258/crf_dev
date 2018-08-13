@@ -484,16 +484,17 @@
                                                                 <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Registration #">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="First Name">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblFirstName" Text='<%#Eval("FirstName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                          <asp:TemplateField HeaderText="Registration #">
-                                                            <ItemTemplate>
-                                                                <asp:Label runat="server" ID="lblUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                         
                                                          <asp:TemplateField HeaderText="Company Name">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCompanyName" Text='<%#Eval("CompanyName") %>'></asp:Label>

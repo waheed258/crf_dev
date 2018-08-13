@@ -132,6 +132,7 @@
                                 <div class="col-sm-6 form-group">
                                     <asp:FileUpload ID="fuDoc" runat="server" AllowMultiple="true"></asp:FileUpload>
                                     <asp:Label ID="lblFileName" runat="server" CssClass="control-label"></asp:Label>
+                                    <asp:Label ID="lblSizeError" runat="server" CssClass="control-label"></asp:Label>
                                     <asp:RequiredFieldValidator ID="rfvfuDoc" runat="server" ControlToValidate="fuDoc" Display="Dynamic" ErrorMessage="Select Document"
                                         ForeColor="Red" ValidationGroup="Doc"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ControlToValidate="fuDoc" runat="server" ID="revfuDoc" ForeColor="Red"

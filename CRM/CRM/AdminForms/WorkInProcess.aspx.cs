@@ -166,6 +166,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             followupEntity.DueDate = string.IsNullOrEmpty(txtDueDate.Text) ? null : txtDueDate.Text;
             //followupEntity.DueTime = string.IsNullOrEmpty(txtDueTime.Text) ? null : txtDueTime.Text;
             followupEntity.ActivityType = Convert.ToInt32(dropActivityType.SelectedValue);
+            followupEntity.Notes = txtNotes.Text;
             int Result = followBL.FollowUpCRUD(followupEntity, 'i');
             if (Result > 0)
             {
@@ -258,8 +259,17 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         try
         {
             dataset = followBL.GetFollowupUpdates(clientServiceID);
-            gdvUpdatesList.DataSource = dataset;
-            gdvUpdatesList.DataBind();
+            if(dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {
+                gdvUpdatesList.DataSource = dataset;
+                gdvUpdatesList.DataBind();
+            }
+            else
+            {
+                gdvUpdatesList.DataSource = null;
+                gdvUpdatesList.DataBind();
+            }
+           
         }
         catch
         {

@@ -176,44 +176,55 @@ public partial class ClientForms_Document : System.Web.UI.Page
         int res = 0;
         if (fuDoc.HasFile)
         {
-            List<HttpPostedFile> lst = fuDoc.PostedFiles.ToList();
-            for (int i = 0; i < lst.Count; i++)
+            HttpPostedFile file = fuDoc.PostedFile;
+            int filesize = file.ContentLength;
+            if (filesize <= 1048576)
             {
-                string inFilename = lst[i].FileName;
-                string strfile = Path.GetExtension(inFilename);
-                string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim());
-                if (!Directory.Exists(folder))
+                List<HttpPostedFile> lst = fuDoc.PostedFiles.ToList();
+                for (int i = 0; i < lst.Count; i++)
                 {
-                    Directory.CreateDirectory(folder);
+                    string inFilename = lst[i].FileName;
+                    string strfile = Path.GetExtension(inFilename);
+                    string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    var folder = Server.MapPath("~/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim());
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+                    string fileName = date + strfile;
+                    fuDoc.SaveAs(Path.Combine(folder, fileName));
+
+                    if (File.Exists(Path.Combine(folder, hfDocumentName.Value.ToString())))
+                    {
+                        //delete file in folder
+                        File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
+                    }
+
+                    DocumentBO DocumentEntity = new DocumentBO
+                    {
+                        DocId = Convert.ToInt32(hfDocID.Value),
+                        ReferenceSAID = Session["SAID"].ToString(),
+                        SAID = hfSAID.Value.ToString(),
+                        UIC = hfUIC.Value.ToString(),
+                        Document = fileName,
+                        DocumentName = inFilename,
+                        DocType = Convert.ToInt32(ddlDocType.SelectedValue),
+                        ClientType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0,
+                        AdvisorID = 0,
+                        Status = 1,
+                    };
+
+                    if (btnSubmit.Text == "Update")
+                        res = _objDocBL.DocumentManager(DocumentEntity, 'u');
+                    else
+                        res = _objDocBL.DocumentManager(DocumentEntity, 'i');
                 }
-                string fileName = date + strfile;
-                fuDoc.SaveAs(Path.Combine(folder, fileName));
-
-                if (File.Exists(Path.Combine(folder, hfDocumentName.Value.ToString())))
-                {
-                    //delete file in folder
-                    File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
-                }
-
-                DocumentBO DocumentEntity = new DocumentBO
-                {
-                    DocId = Convert.ToInt32(hfDocID.Value),
-                    ReferenceSAID = Session["SAID"].ToString(),
-                    SAID = hfSAID.Value.ToString(),
-                    UIC = hfUIC.Value.ToString(),
-                    Document = fileName,
-                    DocumentName = inFilename,
-                    DocType = Convert.ToInt32(ddlDocType.SelectedValue),
-                    ClientType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0,
-                    AdvisorID = 0,
-                    Status = 1,
-                };
-
-                if (btnSubmit.Text == "Update")
-                    res = _objDocBL.DocumentManager(DocumentEntity, 'u');
-                else
-                    res = _objDocBL.DocumentManager(DocumentEntity, 'i');
+                lblSizeError.Text = "";
+            }
+            else
+            {
+                lblSizeError.ForeColor = System.Drawing.Color.Red;
+                lblSizeError.Text = "Sorry,the document size should be less than 1MB";
             }
         }
         return res;

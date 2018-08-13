@@ -120,7 +120,7 @@
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>                                      
-                                <asp:BoundField HeaderText="SlNo" ReadOnly="true" />
+                                <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
                                 <asp:BoundField DataField="InvoiceNum" HeaderText="Invoice Number" ReadOnly="true" />
                                 <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" ReadOnly="true" />
                                 <asp:BoundField DataField="AdvisorName" HeaderText="Advisor Name" ReadOnly="true" />

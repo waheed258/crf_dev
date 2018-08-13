@@ -468,8 +468,8 @@ public partial class AdminForms_ClientList : System.Web.UI.Page
          + "  </tr>"
          + "  <tr>"
               + " <td align='center' bgcolor='#ffffff' style='padding: 75px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;'>"
-              + "Thanks for Registering with Activ8 group <br/><br/>"
-              + "Your LogIn Credentials <br/>"
+              + "Thanks for registering with Activ8 Group <br/><br/>"
+              + "Your Login credentials <br/>"
               + "<table><tr><td style='text-align:right;'>User Id :</td><td><b> " + "Your User ID is your SAID" + "</b></td> </tr><tr><td style='text-align:right;'>Password :</td><td><b>" + ViewState["RandomPwd"].ToString() + "</b></td></tr></table>"
 
               + " </td>"

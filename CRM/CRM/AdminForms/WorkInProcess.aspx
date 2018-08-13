@@ -266,6 +266,10 @@
                                                 <asp:DropDownList ID="dropServiceStatus" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                                 </asp:DropDownList>
                                             </div>
+                                          <div class="form-group col-sm-3">
+                                                <label>Notes</label>
+                                               <asp:TextBox ID="txtNotes" runat="server" CssClass="form-control" TextMode="MultiLine" MaxLength="200"></asp:TextBox>
+                                            </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
@@ -317,16 +321,26 @@
                                                             <asp:Label runat="server" ID="lblAssignedTo" Text='<%#Eval("AssignedTo") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="FollowUpDate">
+                                                    <asp:TemplateField HeaderText="Start Date">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblFollowUpDate" Text='<%#Eval("FollowUpDates") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <%--<asp:TemplateField HeaderText="FollowUpTime">
+                                                    <asp:TemplateField HeaderText="End Date">
                                                         <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblFollowUpTime" Text='<%#Eval("FollowUpTime") %>'></asp:Label>
+                                                            <asp:Label runat="server" ID="lblEndDate" Text='<%#Eval("DueDates") %>'></asp:Label>
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>--%>
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Mode Of Contact">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblActivityType" Text='<%#Eval("ActivityTypes") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Notes">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblNotes" Text='<%#Eval("Notes") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Client ServiceID" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblClientServiceID" Text='<%#Eval("ClientServiceID") %>'></asp:Label>

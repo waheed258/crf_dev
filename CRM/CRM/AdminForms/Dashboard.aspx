@@ -349,7 +349,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width: 97.3%">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #82c2d0; font-weight: bold">
-                            <h4>Proposal Requests</h4>
+                            <h4>Accepted Service Requests</h4>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="background-color: #ffffff;">
                             <div class="col-md-5"></div>
