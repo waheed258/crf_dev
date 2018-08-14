@@ -119,17 +119,17 @@
                             </div>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvOpenItemsReport" runat="server" Width="100%"
-                                    AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
+                                    AutoGenerateColumns="False"  CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowDataBound="gvOpenItemsReport_RowDataBound"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnPageIndexChanging="gvOpenItemsReport_PageIndexChanging">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>                                     
                                         <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
-                                        <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
-                                        <asp:BoundField DataField="SRNO" HeaderText="SR NO" ReadOnly="true" />
+                                         <asp:BoundField DataField="ClientName" HeaderText="Client Name" ReadOnly="true" />
                                         <asp:BoundField DataField="AssignTo" HeaderText="Advisor Name" ReadOnly="true" NullDisplayText="-NA-" />
-                                        <asp:BoundField DataField="SRStatus" HeaderText="SR Status" ReadOnly="true" />
+                                        <asp:BoundField DataField="ServiceRequestNo" HeaderText="Service Request NO" ReadOnly="true" />
+                                        <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
                                     </Columns>
                                 </asp:GridView>
                                 
