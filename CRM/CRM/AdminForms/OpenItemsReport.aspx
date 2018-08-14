@@ -130,6 +130,9 @@
                                         <asp:BoundField DataField="AssignTo" HeaderText="Advisor Name" ReadOnly="true" NullDisplayText="-NA-" />
                                         <asp:BoundField DataField="ServiceRequestNo" HeaderText="Service Request NO" ReadOnly="true" />
                                         <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
+                                        <asp:BoundField DataField="Service" HeaderText="Service" ReadOnly="true" />
+                                        <asp:BoundField DataField="Notes" HeaderText="Notes" ReadOnly="true" />
+                                        <asp:BoundField DataField="Priority" HeaderText="Priority" ReadOnly="true" />
                                     </Columns>
                                 </asp:GridView>
                                 
