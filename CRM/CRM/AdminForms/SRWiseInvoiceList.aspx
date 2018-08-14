@@ -144,6 +144,10 @@
                                 </asp:GridView>
                             </div>
                         </div>
+                         <div class="panel-footer">
+                                        <div class="col-sm-5"></div>
+                                        <asp:Button ID="btnClose" runat="server" class="btn btn-danger btn-sm" Text="Back to List" OnClick="btnClose_Click" />
+                                    </div>
                     </div>
                 </div>
             </div>

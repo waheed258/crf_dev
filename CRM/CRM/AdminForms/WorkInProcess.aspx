@@ -118,7 +118,7 @@
                                     AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
-                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvWorkInProcess_RowCommand" OnPageIndexChanging="gvWorkInProcess_PageIndexChanging">
+                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvWorkInProcess_RowCommand" OnPageIndexChanging="gvWorkInProcess_PageIndexChanging" OnRowDataBound="gvWorkInProcess_RowDataBound">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">

@@ -51,7 +51,6 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                         InvoiceSection.Visible = false;
                         BindActivityType();
                         BindServiceStatus();
-
                     }
                 }
             }
@@ -69,6 +68,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
     protected void gvWorkInProcess_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -77,7 +77,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
             {
                 GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
                 ImageButton InvoiceButton = (ImageButton)row.FindControl("btnGenerateInvoice");
-                ImageButton PDFButton = (ImageButton)row.FindControl("btnPDF");
+                ImageButton InvoiceList = (ImageButton)row.FindControl("imgInvoiceList");
                 int RowIndex = row.RowIndex;
                 ViewState["ClientServiceID"] = ((Label)row.FindControl("lblClientServiceID")).Text.ToString();
                 ViewState["ServiceName"] = ((Label)row.FindControl("lblServiceName")).Text.ToString();
@@ -90,6 +90,17 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 string SRNO = ((Label)row.FindControl("lblSRNO")).Text.ToString();
                 int clientServiceID = Convert.ToInt32(((Label)row.FindControl("lblClientServiceID")).Text.ToString());
 
+                //if (dropServiceStatus.SelectedValue == "5" || dropServiceStatus.SelectedValue == "6")
+                //{
+                //    InvoiceButton.Visible = true;
+                //    InvoiceList.Visible = true;
+
+                //}
+                //else
+                //{
+                //    InvoiceButton.Visible = false;
+                //    InvoiceList.Visible = false;
+                //}
                 if (e.CommandName == "FollowUp")
                 {
 
@@ -295,6 +306,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 gvWorkInProcess.DataSource = dataset;
                 gvWorkInProcess.PageSize = Convert.ToInt32(DropPage.SelectedValue);
                 gvWorkInProcess.DataBind();
+
             }
             else
             {
@@ -715,8 +727,23 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         }
     }
 
-
-
-   
-   
+    protected void gvWorkInProcess_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        ImageButton InvoiceButton = (ImageButton)e.Row.FindControl("btnGenerateInvoice");
+        ImageButton InvoiceList = (ImageButton)e.Row.FindControl("imgInvoiceList");
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            DataRowView drv = e.Row.DataItem as DataRowView;
+            if (drv["ServiceStatus"].ToString().Equals("Invoice Generated") || drv["ServiceStatus"].ToString().Equals("Proposal Accepted"))
+            {
+                InvoiceButton.Visible = true;
+                InvoiceList.Visible = true;
+            }
+            else
+            {
+                InvoiceButton.Visible = false;
+                InvoiceList.Visible = false;
+            }
+        }
+    }
 }

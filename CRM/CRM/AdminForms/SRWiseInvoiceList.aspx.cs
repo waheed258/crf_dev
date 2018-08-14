@@ -162,4 +162,8 @@ public partial class AdminForms_SRWiseInvoiceList : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+    protected void btnClose_Click(object sender, System.EventArgs e)
+    {
+        Response.Redirect("WorkInProcess.aspx");
+    }
 }
