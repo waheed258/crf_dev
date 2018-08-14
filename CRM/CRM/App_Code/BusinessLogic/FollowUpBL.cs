@@ -43,7 +43,8 @@ namespace BusinessLogic
             hashtable.Add("@DueDate", followupEntity.DueDate);
             //hashtable.Add("@DueTime", followupEntity.DueTime);            
             hashtable.Add("@ActivityType", followupEntity.ActivityType);
-            hashtable.Add("@ClientServiceID", followupEntity.ClientServiceID);  
+            hashtable.Add("@ClientServiceID", followupEntity.ClientServiceID);
+            hashtable.Add("@Notes", followupEntity.Notes);  
             hashtable.Add("@Operation", Operation);
 
             int result = dataUtilities.ExecuteNonQuery("usp_FollowUpCRUD", hashtable);
