@@ -119,7 +119,8 @@ public partial class AdminForms_ServiceWiseReport : System.Web.UI.Page
             Response.Write(strwritter.ToString());
             Response.End();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -168,14 +169,15 @@ public partial class AdminForms_ServiceWiseReport : System.Web.UI.Page
             Response.Flush();
             Response.End();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
-      
+
     }
     protected void gvServiceWiseReport_RowDataBound(object sender, GridViewRowEventArgs e)
     {

@@ -66,10 +66,10 @@
             });
         });
     </script>
-     <script type="text/javascript">
-         function openModal() {
-             $('#ContentPlaceHolder1_Success').modal('show');
-         }
+    <script type="text/javascript">
+        function openModal() {
+            $('#ContentPlaceHolder1_Success').modal('show');
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -120,17 +120,22 @@
                             </div>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvServiceWiseReport" runat="server" Width="100%"
-                                    AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
+                                    AutoGenerateColumns="False"  CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowDataBound="gvServiceWiseReport_RowDataBound"
                                     CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnPageIndexChanging="gvServiceWiseReport_PageIndexChanging">
                                     <PagerStyle CssClass="pagination_grid" />
-                                    <Columns>                                      
+                                    <Columns>
                                         <asp:BoundField HeaderText="Sl No" ReadOnly="true" />
-                                        <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
-                                        <asp:BoundField DataField="SRNO" HeaderText="SR NO" ReadOnly="true" />
+                                        <asp:BoundField DataField="ClientName" HeaderText="SR Status" ReadOnly="true" />
                                         <asp:BoundField DataField="AdvisorName" HeaderText="Advisor Name" ReadOnly="true" />
-                                        <asp:BoundField DataField="SRStatus" HeaderText="SR Status" ReadOnly="true" />
+                                        <asp:BoundField DataField="ServiceRequestNo" HeaderText="SR Number" ReadOnly="true" />
+                                        <asp:BoundField DataField="InvoiceNumber" HeaderText="Invoice Number" ReadOnly="true" />
+                                        <asp:BoundField DataField="SRDATE" HeaderText="SR DATE" ReadOnly="true" />
+                                        <asp:BoundField DataField="InvoiceDate" HeaderText="Invoice Date" ReadOnly="true" />
+                                        <asp:BoundField DataField="InvoiceAmount" HeaderText="Invoice Amount" ReadOnly="true" />
+                                        <asp:BoundField DataField="AmountReceieved" HeaderText="Amount Receieved" ReadOnly="true" />
+                                        <asp:BoundField DataField="DueAmount" HeaderText="Due Amount" ReadOnly="true" />
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -141,30 +146,31 @@
         </section>
         <!-- /.content -->
     </div>
-     <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-primary">
-                        <h3> <asp:Label ID="lblTitle" runat="server" class="control-label"/></h3>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <fieldset>
-                                    <div class="col-md-12 form-group user-form-group">
-                                       <asp:Label ID="message" runat="server" class="control-label"/>
-                                    </div>
-                                </fieldset>
-                            </div>
+    <div class="modal fade" id="Success" tabindex="-1" role="dialog" aria-hidden="true" runat="server">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <h3>
+                        <asp:Label ID="lblTitle" runat="server" class="control-label" /></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <fieldset>
+                                <div class="col-md-12 form-group user-form-group">
+                                    <asp:Label ID="message" runat="server" class="control-label" />
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
-                <!-- /.modal-content -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <!-- /.modal-dialog -->
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
+    </div>
 </asp:Content>
 
