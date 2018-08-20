@@ -135,7 +135,7 @@
                                                 <asp:ImageButton ID="imgPDF" ImageUrl="../assets/dist/img/pdf-icon.jpg" runat="server" Width="23px" Height="23px" OnClick="imgPDF_Click" title="PDF" OnClientClick="window.document.forms[0].target='blank';" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Make Payments">
+                                        <asp:TemplateField HeaderText="Payments Received History">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/payment-icon.jpg" runat="server" Width="23px" Height="23px" CommandName="Payment" ToolTip="Payment" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                             </ItemTemplate>

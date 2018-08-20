@@ -18,7 +18,7 @@
                                 match = true;
                                 return false;
                             }
-                        });
+                        });f
                         if (match) {
                             $(this).show();
                             $(this).children('th').show();
@@ -134,21 +134,21 @@
                                         <asp:TextBox ID="txtDueAmount" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label>Payment Date</label><span class="style1">*</span>
+                                        <label>Amount Received Date</label><span class="style1">*</span>
                                         <asp:TextBox ID="txtNextFollowUpDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
                                          <asp:RequiredFieldValidator ID="rfvNextFollowUpDate" runat="server" ControlToValidate="txtNextFollowUpDate" ForeColor="red"
-                                            ErrorMessage="Please Enter Payment Date" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            ErrorMessage="Please Enter Amount Received Date" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group col-sm-3">
-                                        <label>Payment Received</label><span class="style1">*</span>
+                                        <label>Amount Received</label><span class="style1">*</span>
                                         <asp:TextBox ID="txtPaymentReceived" class="form-control" runat="server"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvPaymentReceived" runat="server" ControlToValidate="txtPaymentReceived" ForeColor="red"
-                                            ErrorMessage="Please Enter Payment Received" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            ErrorMessage="Please Enter Amount Received" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label>Payment Mode</label><span class="style1">*</span>
+                                        <label>Mode of amount received</label><span class="style1">*</span>
                                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control">
                                             <asp:ListItem Value="-1">--Select--</asp:ListItem>
                                             <asp:ListItem Value="Cash">Cash</asp:ListItem>
@@ -158,7 +158,7 @@
                                             <asp:ListItem Value="DD">DD</asp:ListItem>
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfvPaymentMode" runat="server" ControlToValidate="ddlPaymentMode" ForeColor="red" InitialValue="-1"
-                                            ErrorMessage="Please Select Payment Mode" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
+                                            ErrorMessage="Please Select Mode of amount received" ValidationGroup="Invoice" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-sm-3">
                                         <label>Notes</label>
@@ -215,17 +215,17 @@
                                                         <asp:Label runat="server" ID="lblInvoiceNum" Text='<%#Eval("InvoiceNum") %>'></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Payment Date">
+                                                <asp:TemplateField HeaderText="Amount Received Date">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblPaymentDate" Text='<%#Eval("PaymentDate1") %>'></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Payment Amount">
+                                                <asp:TemplateField HeaderText="Amount received">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblPaymentAmount" Text='<%#Eval("PaymentReceived") %>'></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Payment Mode">
+                                                <asp:TemplateField HeaderText="Mode of amount received">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="lblPaymentMode" Text='<%#Eval("PaymentMode") %>'></asp:Label>
                                                     </ItemTemplate>
