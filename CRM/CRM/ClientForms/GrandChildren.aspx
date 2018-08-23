@@ -1059,18 +1059,19 @@
 
                                                     <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Suburb Name</label> 
+                                                            <label class="control-label">Suburb Name</label>
                                                             <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server" placeholder="Enter Suburb Name"></asp:TextBox>
-                                                            
-                                                        </div>
-                                                        <div class="col-sm-4 form-group">
-                                                            <label class="control-label">City</label>
-                                                            <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="Enter City"></asp:TextBox>
+
                                                         </div>
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Enter Complex/Estate"></asp:TextBox>
                                                         </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">City</label>
+                                                            <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="Enter City"></asp:TextBox>
+                                                        </div>
+
 
                                                     </div>
                                                     <div class="col-sm-12">

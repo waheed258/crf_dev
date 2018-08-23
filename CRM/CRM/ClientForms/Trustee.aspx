@@ -571,7 +571,7 @@
                                                             <asp:Label runat="server" ID="lblSuburbName" Text='<%#Eval("SuburbName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                     <asp:TemplateField HeaderText="Complex" Visible="false">
+                                                    <asp:TemplateField HeaderText="Complex" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblComplex" Text='<%#Eval("Complex") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -884,20 +884,21 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Suburb Name</label>
-                                                    <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server"></asp:TextBox>                                                    
-                                                </div>
-                                                <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label>
-                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" ></asp:TextBox>
+                                                    <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
-                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" ></asp:TextBox>
+                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
-                                               
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+
+
                                             </div>
                                             <div class="col-sm-12">
-                                                 <div class="col-sm-4 form-group">
+                                                <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvtxtPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"

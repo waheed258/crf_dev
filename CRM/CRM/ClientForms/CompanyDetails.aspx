@@ -1078,13 +1078,14 @@
 
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label>
-                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="City"></asp:TextBox>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
                                                     <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
                                                     <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Complex/Estate"></asp:TextBox>
                                                 </div>
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="City"></asp:TextBox>
+                                                </div>
+
 
                                             </div>
                                             <div class="col-sm-12">

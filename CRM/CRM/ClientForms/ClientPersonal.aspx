@@ -14,7 +14,7 @@
 
             });
         });
-        </script>
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -222,15 +222,15 @@
                                             <div class="col-sm-3 form-group">
                                                 <label class="control-label">Phone No</label><%--<span class="style1">*</span>--%>
                                                 <asp:TextBox ID="txtPhoneNo" runat="server" class="form-control" MaxLength="10" placeholder="Enter Phone No"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" Display="Dynamic"
+                                                <%-- <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" Display="Dynamic"
                                                     ErrorMessage="Enter PhoneNo" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 <asp:RegularExpressionValidator ID="rgvPhoneNo" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                     ControlToValidate="txtPhoneNo" ForeColor="Red" ValidationGroup="Client"></asp:RegularExpressionValidator>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <label>Date of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateofBirth" runat="server"  CssClass="form-control" autocomplete="off" placeholder="Enter Date of Birth"></asp:TextBox>
-                                               <%-- <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
+                                                <asp:TextBox ID="txtDateofBirth" runat="server" CssClass="form-control" autocomplete="off" placeholder="Enter Date of Birth"></asp:TextBox>
+                                                <%-- <asp:RequiredFieldValidator ID="rfvDateofBirth" runat="server" ControlToValidate="txtDateofBirth" Display="Dynamic"
                                                     ErrorMessage="Enter Date of Birth" ValidationGroup="Client" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
 
@@ -344,7 +344,7 @@
                                                             <asp:Label runat="server" ID="lblSuburbName" Text='<%#Eval("SuburbName") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                     <asp:TemplateField HeaderText="Complex" Visible="false">
+                                                    <asp:TemplateField HeaderText="Complex" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblComplex" Text='<%#Eval("Complex") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -369,7 +369,7 @@
                                                             <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                   <%-- <asp:TemplateField HeaderText="Edit">
+                                                    <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="EditAddress" ToolTip="Edit" />
@@ -381,8 +381,6 @@
                                                                 CommandName="Delete" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>--%>
-
-
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
@@ -480,7 +478,7 @@
                                                             <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                   <%-- <asp:TemplateField HeaderText="Edit">
+                                                    <%-- <asp:TemplateField HeaderText="Edit">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
                                                                 CommandName="EditBank" ToolTip="Edit" />
@@ -628,18 +626,19 @@
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Suburb Name</label><%--<span class="style1">*</span>--%>
                                                     <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server" placeholder="Enter Suburb Name"></asp:TextBox>
-                                                  <%--  <asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
+                                                    <%--  <asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                        <label class="control-label">City</label>
-                                                        <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="Enter City"></asp:TextBox>
-                                                    </div>
-                                                    <div class="col-sm-4 form-group">
-                                                        <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
-                                                        <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Enter Complex/Estate"></asp:TextBox>
-                                                    </div>
-                                                
+                                                    <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
+                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Enter Complex/Estate"></asp:TextBox>
+                                                </div>
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="Enter City"></asp:TextBox>
+                                                </div>
+
+
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
@@ -741,7 +740,7 @@
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Currency</label><%--<span class="style1">*</span>--%>
                                                             <asp:TextBox ID="txtCurrency" runat="server" class="form-control" placeholder="Enter Currency"></asp:TextBox>
-                                                         <%--   <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
+                                                            <%--   <asp:RequiredFieldValidator ID="rfvCurrency" runat="server" ControlToValidate="txtCurrency" Display="Dynamic" ErrorMessage="Enter Currency"
                                                                 ValidationGroup="Bank" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                         </div>
                                                         <div class="col-sm-4 form-group">

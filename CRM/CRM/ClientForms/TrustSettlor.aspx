@@ -593,7 +593,7 @@
                                                             <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                     <asp:TemplateField HeaderText="Complex" Visible="false">
+                                                    <asp:TemplateField HeaderText="Complex" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblComplex" Text='<%#Eval("Complex") %>'></asp:Label>
                                                         </ItemTemplate>
@@ -911,13 +911,14 @@
 
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label>
-                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" ></asp:TextBox>
+                                                    <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
+                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
-                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" ></asp:TextBox>
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
+
 
                                             </div>
                                             <div class="col-sm-12">
