@@ -37,7 +37,6 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                     if (!IsPostBack)
                     {
                         commonClass.GetAccountType(ddlAccountType);
-                        commonClass.GetCity(ddlCity);
                         commonClass.GetCountry(ddlCountry);
                         commonClass.GetProvince(ddlProvince);
                         commonClass.getRecordsPerPage(DropPage);
@@ -392,7 +391,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
                             txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
                             txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
                             txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
-                            ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtCity.Text = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtComplex.Text = dsAddress.Tables[0].Rows[0]["Complex"].ToString();
                             txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
                             ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
                             ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
@@ -576,7 +576,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
             addressEntity.RoadName = txtRoadName.Text;
             addressEntity.RoadNo = txtRoadNo.Text;
             addressEntity.SuburbName = txtSuburbName.Text;
-            addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+            addressEntity.City = txtCity.Text;
+            addressEntity.Complex = txtComplex.Text;
             addressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.PostalCode = txtPostalCode.Text;
@@ -628,7 +629,8 @@ public partial class ClientForms_CompanyDetails : System.Web.UI.Page
         txtRoadName.Text = "";
         txtRoadNo.Text = "";
         txtSuburbName.Text = "";
-        ddlCity.SelectedValue = "-1";
+        txtComplex.Text = "";
+        txtCity.Text = "";
         ddlProvince.SelectedValue = "-1";
         ddlCountry.SelectedValue = "-1";
         txtPostalCode.Text = "";

@@ -3,18 +3,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="../assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
 
-     <script type="text/javascript">
-         $(document).ready(function () {
-             $("#ContentPlaceHolder1_txtDateOfBirth").datepicker({
-                 changeMonth: true,
-                 changeYear: true,
-                 yearRange: "-100:+0",
-                 dateFormat: 'yy-mm-dd',
-                 //numberOfMonths: 1,                
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ContentPlaceHolder1_txtDateOfBirth").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                dateFormat: 'yy-mm-dd',
+                //numberOfMonths: 1,                
 
-             });
-         });
-        </script>
+            });
+        });
+    </script>
 
 
     <script type="text/javascript">
@@ -296,7 +296,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group col-sm-3">
                                                 <label>Date Of Birth</label><%--<span class="style1">*</span>--%>
-                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" disabled="disabled" autocomplete="off" placeholder="Enter Date Of Birth" ></asp:TextBox>
+                                                <asp:TextBox ID="txtDateOfBirth" CssClass="form-control" runat="server" disabled="disabled" autocomplete="off" placeholder="Enter Date Of Birth"></asp:TextBox>
                                                 <%-- <asp:RequiredFieldValidator ID="rfvDateOfBirth" runat="server" ControlToValidate="txtDateOfBirth" Display="Dynamic" ErrorMessage="Enter Date Of Birth"
                                                     ValidationGroup="Settler" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             </div>
@@ -429,11 +429,11 @@
                                                                 <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                         <asp:TemplateField HeaderText="AdvisorID" Visible="false">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="AdvisorID" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <%--  <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
@@ -462,7 +462,7 @@
                                                         <asp:TemplateField HeaderText="Validate">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="imgbtnValidate" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/tick.jpg"
-                                                                    CommandName="Validate" ToolTip="Validate" CommandArgument='<%#Eval("TrustSettlerID") %>'/>
+                                                                    CommandName="Validate" ToolTip="Validate" CommandArgument='<%#Eval("TrustSettlerID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <%--    <asp:TemplateField HeaderText="Delete">
@@ -591,6 +591,11 @@
                                                     <asp:TemplateField HeaderText="Country" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblCountry" Text='<%#Eval("Country") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Complex" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblComplex" Text='<%#Eval("Complex") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Province" Visible="false">
@@ -901,26 +906,27 @@
 
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Suburb Name</label><span class="style1">*</span>
+                                                    <label class="control-label">Suburb Name</label>
                                                     <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvtxtSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
-                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label><span class="style1">*</span>
-                                                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                                                    </asp:DropDownList>
-                                                    <asp:RequiredFieldValidator ID="rfvddlCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
-                                                        ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" ></asp:TextBox>
                                                 </div>
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
+                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" ></asp:TextBox>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvtxtPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Province</label><span class="style1">*</span>
                                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">
@@ -1017,7 +1023,7 @@
                                                         <div class="form-group col-sm-4">
                                                             <label>Phone</label>
                                                             <asp:TextBox ID="txtvalidPhone" CssClass="form-control" runat="server" ReadOnly="true" MaxLength="10"></asp:TextBox>
-                                                          
+
                                                         </div>
                                                         <div class="form-group col-sm-4">
                                                             <label>Tax Ref Num</label>

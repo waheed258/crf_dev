@@ -14,7 +14,7 @@
 
             });
         });
-        </script>
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -444,10 +444,10 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="AdvisorID" Visible="false">
-                                                        <ItemTemplate>
-                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <%--  <asp:TemplateField HeaderText="Edit">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="btnEdit" runat="server" Width="23px" Height="23px" ImageUrl="~/assets/dist/img/edit_new.png"
@@ -882,7 +882,7 @@
                                             </div>--%>
                                                 </div>
                                             </div>
-                                           
+
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </fieldset>
@@ -1059,26 +1059,27 @@
 
                                                     <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Suburb Name</label><span class="style1">*</span>
+                                                            <label class="control-label">Suburb Name</label> 
                                                             <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server" placeholder="Enter Suburb Name"></asp:TextBox>
-                                                            <asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
-                                                                ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                            
                                                         </div>
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">City</label><span class="style1">*</span>
-                                                            <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                                                            </asp:DropDownList>
-                                                            <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
-                                                                ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                            <label class="control-label">City</label>
+                                                            <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="Enter City"></asp:TextBox>
                                                         </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
+                                                            <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Enter Complex/Estate"></asp:TextBox>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Postal Code</label><span class="style1">*</span>
                                                             <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" placeholder="Enter Postal Code" MaxLength="6"></asp:TextBox>
                                                             <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                                 ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
                                                             <label class="control-label">Province</label><span class="style1">*</span>
                                                             <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">

@@ -39,8 +39,7 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     if (!IsPostBack)
                     {
                         _objComman.GetCountry(ddlCountry);
-                        _objComman.GetProvince(ddlProvince);
-                        _objComman.GetCity(ddlCity);
+                        _objComman.GetProvince(ddlProvince);                    
                         _objComman.GetAccountType(ddlAccountType);
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
@@ -321,7 +320,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         txtFlatNo.Text = "";
         txtBulding.Text = "";
         txtFloor.Text = "";
-        ddlCity.SelectedValue = "-1";
+        txtCity.Text = "";
+        txtComplex.Text = "";
         ddlCountry.SelectedValue = "-1";
         ddlProvince.SelectedValue = "-1";
         chkClientAddress.Checked = false;
@@ -539,7 +539,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                             txtRoadName.Text = dsAddress.Tables[0].Rows[0]["RoadName"].ToString();
                             txtRoadNo.Text = dsAddress.Tables[0].Rows[0]["RoadNo"].ToString();
                             txtSuburbName.Text = dsAddress.Tables[0].Rows[0]["SuburbName"].ToString();
-                            ddlCity.SelectedValue = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtCity.Text = dsAddress.Tables[0].Rows[0]["City"].ToString();
+                            txtComplex.Text = dsAddress.Tables[0].Rows[0]["Complex"].ToString();
                             txtPostalCode.Text = dsAddress.Tables[0].Rows[0]["PostalCode"].ToString();
                             ddlProvince.SelectedValue = dsAddress.Tables[0].Rows[0]["Province"].ToString();
                             ddlCountry.SelectedValue = dsAddress.Tables[0].Rows[0]["Country"].ToString();
@@ -670,7 +671,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
         {
             addressEntity.Type = 2;
             addressEntity.UIC = "0";
-            addressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+            addressEntity.City = txtCity.Text;
+            addressEntity.Complex = txtComplex.Text;
             addressEntity.BuildingName = txtBulding.Text;
             addressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             addressEntity.FlatNo = txtFlatNo.Text;
@@ -1065,7 +1067,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtRoadName.ReadOnly = true;
                     txtRoadNo.ReadOnly = true;
                     txtSuburbName.ReadOnly = true;
-                    ddlCity.Enabled = false;
+                    txtCity.ReadOnly = true;
+                    txtComplex.ReadOnly = true;
                     ddlProvince.Enabled = false;
                     ddlCountry.Enabled = false;
                     txtPostalCode.ReadOnly = true;
@@ -1076,7 +1079,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                     txtRoadName.Text = ds.Tables[0].Rows[0]["RoadName"].ToString();
                     txtRoadNo.Text = ds.Tables[0].Rows[0]["RoadNo"].ToString();
                     txtSuburbName.Text = ds.Tables[0].Rows[0]["SuburbName"].ToString();
-                    ddlCity.SelectedValue = ds.Tables[0].Rows[0]["City"].ToString();
+                    txtCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
+                    txtComplex.Text = ds.Tables[0].Rows[0]["Complex"].ToString();
                     ddlProvince.SelectedValue = ds.Tables[0].Rows[0]["Province"].ToString();
                     ddlCountry.SelectedValue = ds.Tables[0].Rows[0]["Country"].ToString();
                     txtPostalCode.Text = ds.Tables[0].Rows[0]["PostalCode"].ToString();
@@ -1091,7 +1095,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 txtRoadName.ReadOnly = false;
                 txtRoadNo.ReadOnly = false;
                 txtSuburbName.ReadOnly = false;
-                ddlCity.Enabled = true;
+                txtCity.ReadOnly = false;
+                txtComplex.ReadOnly = false;
                 ddlProvince.Enabled = true;
                 ddlCountry.Enabled = true;
                 txtPostalCode.ReadOnly = false;
@@ -1103,7 +1108,8 @@ public partial class ClientProfile_Spouse : System.Web.UI.Page
                 txtFlatNo.Text = "";
                 txtBulding.Text = "";
                 txtFloor.Text = "";
-                ddlCity.SelectedValue = "-1";
+                txtCity.Text = "";
+                txtComplex.Text = "";
                 ddlCountry.SelectedValue = "-1";
                 ddlProvince.SelectedValue = "-1";
             }
