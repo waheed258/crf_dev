@@ -404,7 +404,7 @@
                                                                 <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="UIC">
+                                                        <asp:TemplateField HeaderText="Company Registartion#">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
                                                             </ItemTemplate>
@@ -715,6 +715,11 @@
                                                                 <asp:Label runat="server" ID="lblSuburbName" Text='<%#Eval("SuburbName") %>'></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Complex" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblComplex" Text='<%#Eval("Complex") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="City" Visible="false">
                                                             <ItemTemplate>
                                                                 <asp:Label runat="server" ID="lblCity" Text='<%#Eval("City") %>'></asp:Label>
@@ -1069,26 +1074,30 @@
 
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">Suburb Name</label><span class="style1">*</span>
+                                                    <label class="control-label">Suburb Name</label><%--<span class="style1">*</span>--%>
                                                     <asp:TextBox ID="txtSuburbName" CssClass="form-control" runat="server" placeholder="Suburb Name"></asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
-                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                    <%--<asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
+                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label><span class="style1">*</span>
-                                                    <asp:DropDownList ID="ddlCity" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                                                    </asp:DropDownList>
-                                                    <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" Display="Dynamic" ErrorMessage="Please select City"
-                                                        ValidationGroup="Address" ForeColor="Red" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                    <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
+                                                    <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Complex/Estate"></asp:TextBox>
+                                                    <%--<asp:RequiredFieldValidator ID="rfvSuburbName" runat="server" ControlToValidate="txtSuburbName" Display="Dynamic" ErrorMessage="Enter Suburb Name"
+                                                        ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                                 </div>
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">City</label>
+                                                     <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="City"></asp:TextBox>
+                                                </div>
+                                                </div>
+                                            <div class="col-sm-12">
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Postal Code</label><span class="style1">*</span>
                                                     <asp:TextBox ID="txtPostalCode" CssClass="form-control" runat="server" placeholder="Postal Code" MaxLength="6"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ControlToValidate="txtPostalCode" Display="Dynamic" ErrorMessage="Enter Postal Code"
                                                         ValidationGroup="Address" ForeColor="Red"></asp:RequiredFieldValidator>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-12">
+                                           
                                                 <div class="col-sm-4 form-group">
                                                     <label class="control-label">Province</label><span class="style1">*</span>
                                                     <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" AppendDataBoundItems="true">

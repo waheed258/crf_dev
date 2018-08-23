@@ -22,7 +22,7 @@ namespace EntityManager
         public string RoadName { get; set; }
         public string RoadNo { get; set; }
         public string SuburbName { get; set; }
-        public int? City { get; set; }
+        public string City { get; set; }
         public string PostalCode { get; set; }
         public int? Province { get; set; }
         public int? Country { get; set; }
@@ -30,5 +30,6 @@ namespace EntityManager
         public int? Status { get; set; }
         public int? CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public string Complex { get; set; }
     }
 }

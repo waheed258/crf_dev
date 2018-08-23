@@ -40,7 +40,7 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     {
                         _objComman.GetCountry(ddlCountry);
                         _objComman.GetProvince(ddlProvince);
-                        _objComman.GetCity(ddlCity);
+                       // _objComman.GetCity(ddlCity);
                         _objComman.GetAccountType(ddlAccountType);
                         _objComman.getRecordsPerPage(DropPageBank);
                         _objComman.getRecordsPerPage(DropPageAddress);
@@ -333,7 +333,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
         txtRoadName.Text = "";
         txtRoadNo.Text = "";
         txtSuburbName.Text = "";
-        ddlCity.SelectedIndex = 0;
+        txtCity.Text = "";
+        txtComplex.Text = "";
         txtPostalCode.Text = "";
         ddlProvince.SelectedIndex = 0;
         ddlCountry.SelectedIndex = 0;
@@ -509,7 +510,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
                     txtAddressClientName.Text = ((Label)row.FindControl("lblFullName")).Text.ToString();
                     txtIDNo.Text = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
                     txtSuburbName.Text = ((Label)row.FindControl("lblSuburbName")).Text.ToString();
-                    ddlCity.SelectedValue = ((Label)row.FindControl("lblCity")).Text.ToString();
+                    txtCity.Text = ((Label)row.FindControl("lblCity")).Text.ToString();
+                    txtComplex.Text = ((Label)row.FindControl("lblComplex")).Text.ToString();
                     txtPostalCode.Text = ((Label)row.FindControl("lblPostalCode")).Text.ToString();
                     ddlProvince.SelectedValue = ((Label)row.FindControl("lblProvince")).Text.ToString();
                     ddlCountry.SelectedValue = ((Label)row.FindControl("lblCountry")).Text.ToString();
@@ -654,7 +656,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.RoadName = txtRoadName.Text;
             AddressEntity.RoadNo = txtRoadNo.Text.Trim();
             AddressEntity.SuburbName = txtRoadNo.Text;
-            AddressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+            AddressEntity.City = txtCity.Text;
+            AddressEntity.Complex = txtComplex.Text;
             AddressEntity.PostalCode = txtPostalCode.Text;
             AddressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             AddressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
@@ -727,7 +730,8 @@ public partial class ClientProfile_ClientPersonal : System.Web.UI.Page
             AddressEntity.RoadName = txtRoadName.Text;
             AddressEntity.RoadNo = txtRoadNo.Text;
             AddressEntity.SuburbName = txtSuburbName.Text;
-            AddressEntity.City = Convert.ToInt32(ddlCity.SelectedValue);
+            AddressEntity.City = txtCity.Text;
+            AddressEntity.Complex = txtComplex.Text;
             AddressEntity.Province = Convert.ToInt32(ddlProvince.SelectedValue);
             AddressEntity.Country = Convert.ToInt32(ddlCountry.SelectedValue);
             AddressEntity.PostalCode = txtPostalCode.Text;

@@ -88,10 +88,10 @@ public class CommanClass
             ddlRpP.Items.Clear();
             Dictionary<int, string> objRp = new Dictionary<int, string>();
             //objRp.Add(1, "1");
-            objRp.Add(5, "5");
-            objRp.Add(10, "10");
-            objRp.Add(20, "20");
-            objRp.Add(50, "50");
+            objRp.Add(5, "50");
+            objRp.Add(10, "100");
+            objRp.Add(20, "200");
+            //objRp.Add(50, "50");
             ddlRpP.DataSource = objRp;
             ddlRpP.DataTextField = "Value";
             ddlRpP.DataValueField = "Key";

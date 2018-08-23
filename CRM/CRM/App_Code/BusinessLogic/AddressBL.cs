@@ -35,6 +35,7 @@ namespace BusinessLogic
                         {"@inStatus",_objAddress.Status},
                         {"@inCreatedBy",_objAddress.CreatedBy},
                         {"@inUpdatedBy",_objAddress.CreatedBy},
+                        {"@inComplex",_objAddress.Complex},
                         {"@OperationName",operation}
                     };
             return ExecuteNonQuery("InsUpAddressDetail", hsparams);
