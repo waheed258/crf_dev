@@ -134,6 +134,45 @@
                             });
                 }
             });
+            $("#target3").keyup(function () {
+                if ($("[id *=target3]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvDocumentsList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvDocumentsList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target3]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvDocumentsList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvDocumentsList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
         });
     </script>
     <script type="text/javascript">
@@ -225,6 +264,7 @@
                                 <li class="active"><a href="#tabTrust" data-toggle="tab">Settlor Details</a></li>
                                 <li><a href="#tabAddress" data-toggle="tab">Address Details</a></li>
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
+                                 <li><a href="#tabDocumentsList" data-toggle="tab">Documents List</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -250,7 +290,7 @@
                                             </div>
 
                                             <div class="col-sm-1" style="padding: 0px; margin-top: 14px;">
-                                                <asp:ImageButton ID="imgSearchsaid" runat="server" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
+                                                <asp:ImageButton ID="imgSearchsaid" runat="server" ValidationGroup="Settler" ImageUrl="~/assets/dist/img/search-icon.png" Height="35" Width="35" ToolTip="Search" OnClick="imgSearchsaid_Click" />
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -729,6 +769,72 @@
                                                                 CommandName="DeleteBank" ToolTip="Delete" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>--%>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tabDocumentsList">
+                                    <div class="panel-body">
+                                        <div class="row" id="divDocument" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="DropPageDocuments" runat="server"
+                                                        OnSelectedIndexChanged="DropPageDocuments_SelectedIndexChanged" CssClass="form-control"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
+                                                    <label class="control-label">
+                                                        Records per page</label>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3">
+                                                    <input id="target3" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gvDocumentsList" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="DocId" CssClass="rounded-corners"
+                                                EmptyDataText="There are no data records to display. Please add documents." OnPageIndexChanging="gvDocumentsList_PageIndexChanging"
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5"
+                                                CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowDataBound="gvDocumentsList_RowDataBound">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="S No.">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Client Type" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblClientType" Text='<%#Eval("ClientType") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Document Type">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblDocType" Text='<%#Eval("DocumentType") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="UIC" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblUIC" Text='<%#Eval("UIC") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="SAID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>                                               
+                                                    <asp:TemplateField HeaderText="Document Name">
+                                                        <ItemTemplate>
+                                                            <a id="anchorId" runat="server" href="#" target="_blank">
+                                                                <%#Eval("DocumentName") %>  </a>
+                                                            <asp:Label ID="lblDoc" runat="server" OnClick="linkDoc_Click" Text='<%#Eval("Document") %>' Visible="false" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

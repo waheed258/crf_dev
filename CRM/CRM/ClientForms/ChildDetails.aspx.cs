@@ -9,6 +9,7 @@ using System.Data;
 using EntityManager;
 using DataManager;
 using BusinessLogic;
+using System.Web.UI.HtmlControls;
 
 public partial class ClientForms_ChildDetails : System.Web.UI.Page
 {
@@ -23,6 +24,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
     DataSet dataset = new DataSet();
     ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
+    DocumentBL _objDocumentBL = new DocumentBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -45,6 +47,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
+                        _objComman.getRecordsPerPage(DropPageDocuments);
                         chkClientAddress.Visible = false;
                         GetClientAddress();
                         Disable();
@@ -52,6 +55,7 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                         BindAddressDetails();
                         BindBankDetails();
                         //btnChildUpdate.Visible = false;
+                        BindDocumentList();
                     }
                     if (this.IsPostBack)
                     {
@@ -66,6 +70,10 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
                         else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
                         {
                             TabName.Value = "tab3";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvDocumentsList"))
+                        {
+                            TabName.Value = "tabDocumentsList";
                         }
                         else
                         {
@@ -1287,8 +1295,78 @@ public partial class ClientForms_ChildDetails : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+    private void BindDocumentList()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = _objDocumentBL.GetDocumentList(Session["SAID"].ToString(), 3, "0");
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvDocumentsList.DataSource = ds.Tables[0];
+                divDocument.Visible = true;
+            }
+            else
+            {
+                gvDocumentsList.DataSource = null;
+                divDocument.Visible = false;
+            }
+            gvDocumentsList.PageSize = Convert.ToInt32(DropPageDocuments.SelectedValue);
+            gvDocumentsList.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
     protected void btnValidCancel_Click(object sender, EventArgs e)
     {
 
+    }
+    protected void DropPageDocuments_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindDocumentList();
+    }
+    protected void gvDocumentsList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvDocumentsList.PageIndex = e.NewPageIndex;
+            BindDocumentList();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvDocumentsList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDoc");
+                Label lblSAID = (Label)e.Row.FindControl("lblSAID");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Child" + "/" + lblSAID.Text + "/" + LblDoc.Text;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
     }
 }
