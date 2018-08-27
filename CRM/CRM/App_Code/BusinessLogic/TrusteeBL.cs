@@ -45,12 +45,12 @@ namespace BusinessLogic
             return ExecuteDataSet("GetTrustee", hsparams);
         }
 
-        public DataSet GetTrusteeTest(string ReferenceUIC,string SAID)
+        public DataSet GetTrusteeTest(string ReferenceSAID, string ReferenceUIC)
         {
             Hashtable hsparams = new Hashtable();
-           
-            hsparams.Add("@inReferenceUIC", ReferenceUIC);
-            hsparams.Add("@inSAID", SAID);           
+
+            hsparams.Add("@ReferenceSAID", ReferenceSAID);
+            hsparams.Add("@ReferenceUIC", ReferenceUIC);
 
             return ExecuteDataSet("GetTrusteeTest", hsparams);
         }

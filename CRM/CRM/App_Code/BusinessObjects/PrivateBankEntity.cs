@@ -16,6 +16,8 @@ namespace EntityManager
         public string UICNo { get; set; }
         public int AdvisorID { get; set; }
         public string ReferenceSAID { get; set; }
+        public string BankerName { get; set; }
+        public string BankerEmailId { get; set; }
      
     }
 }

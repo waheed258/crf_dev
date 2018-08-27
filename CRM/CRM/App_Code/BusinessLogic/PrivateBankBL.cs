@@ -23,6 +23,8 @@ namespace BusinessLogic
                 {"@UICNo",privateentity.UICNo},
                 {"@AdvisorID",privateentity.AdvisorID},
                 {"@ReferenceSAID",privateentity.ReferenceSAID},
+                {"@BankerName",privateentity.BankerName},
+                {"@BankerEmailId",privateentity.BankerEmailId},
                 {"@OperationName",Operation}
             };
             return dataUtilities.ExecuteNonQuery("InsUpdatePrivatebank", htable);

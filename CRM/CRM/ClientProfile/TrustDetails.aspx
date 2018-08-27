@@ -211,6 +211,45 @@
                             });
                 }
             });
+            ("#targetTrustee").keyup(function () {
+                if ($("[id *=target5]").val() != "") {
+                    $("[id *=ContentPlaceHolder1_gvTrusteeList]").children
+                    ('tbody').children('tr').each(function () {
+                        $(this).show();
+                    });
+                    $("[id *=ContentPlaceHolder1_gvTrusteeList]").children
+                    ('tbody').children('tr').each(function () {
+                        var match = false;
+                        $(this).children('td').each(function () {
+                            if ($(this).text().toUpperCase().indexOf($("[id *=target]").val().toUpperCase()) > -1) {
+                                match = true;
+                                return false;
+                            }
+                        });
+                        if (match) {
+                            $(this).show();
+                            $(this).children('th').show();
+                        }
+                        else {
+                            $(this).hide();
+                            $(this).children('th').show();
+                        }
+                    });
+
+
+                    $("[id *=ContentPlaceHolder1_gvTrusteeList]").children('tbody').
+                            children('tr').each(function (index) {
+                                if (index == 0)
+                                    $(this).show();
+                            });
+                }
+                else {
+                    $("[id *=ContentPlaceHolder1_gvTrusteeList]").children('tbody').
+                            children('tr').each(function () {
+                                $(this).show();
+                            });
+                }
+            });
         });
     </script>
 
@@ -264,6 +303,7 @@
                                 <li><a href="#tabBank" data-toggle="tab">Bank Details</a></li>
                                 <li><a href="#tabAccountant" data-toggle="tab">Accountant Details</a></li>
                                 <li><a href="#tabPrivateBanker" data-toggle="tab">Private Banker</a></li>
+                                <li><a href="#tabTrustee" data-toggle="tab">Trustee List</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="tabTrust">
@@ -910,7 +950,16 @@
                                                             <asp:Label runat="server" ID="lblPrivateContactNum" Text='<%#Eval("PrivateContactNum") %>'></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-
+                                                    <asp:TemplateField HeaderText="Banker Name" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBankerName" Text='<%#Eval("BankerName") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Banker EmailId" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblBankerEmailId" Text='<%#Eval("BankerEmailId") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Banker UICNo" Visible="false">
                                                         <ItemTemplate>
                                                             <asp:Label runat="server" ID="lblBankerUICNo" Text='<%#Eval("UICNo") %>'></asp:Label>
@@ -931,6 +980,95 @@
                                                     </asp:TemplateField>
 
                                                 </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tabTrustee">
+                                    <div class="panel-body">
+                                        <div class="row" id="divTrustee" runat="server">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1 form-group">
+                                                    <asp:DropDownList ID="dropTrusteeList" runat="server" CssClass="form-control"
+                                                        OnSelectedIndexChanged="dropTrusteeList_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
+                                                    <label class="control-label">Records per page</label>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                                <div class="col-lg-3 form-group">
+                                                    <input id="targetTrustee" type="text" class="form-control" placeholder="Text To Search" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gvTrusteeList" runat="server" Width="100%"
+                                                AutoGenerateColumns="False" DataKeyNames="TrusteeID" CssClass="rounded-corners" EmptyDataText="There are no data records to display."
+                                                BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="5" CellPadding="4" CellSpacing="2" Style="font-size: 100%;"
+                                                ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnPageIndexChanging="gvTrusteeList_PageIndexChanging">
+                                                <PagerStyle CssClass="pagination_grid" />
+                                                 <Columns>
+                                                        <asp:TemplateField HeaderText="S No.">
+                                                            <ItemTemplate>
+                                                                <%#Container.DataItemIndex+1 %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Trustee Id" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblTrusteeId" Text='<%#Eval("TrusteeID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Client Identification #" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblReferenceSAID" Text='<%#Eval("ReferenceSAID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Trust Registration #">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblReferenceUIC" Text='<%#Eval("ReferenceUIC") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Trustee Identification #">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblSAID" Text='<%#Eval("SAID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="First Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFirstName" Text='<%#Eval("FirstName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Last Name">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblLastName" Text='<%#Eval("LastName") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+
+                                                        <asp:TemplateField HeaderText="Mobile" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblMobile" Text='<%#Eval("Mobile") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="EmailID" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblEmailID" Text='<%#Eval("EmailID") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                          <asp:TemplateField HeaderText="Flag" Visible="false">
+                                                            <ItemTemplate>
+                                                                <asp:Label runat="server" ID="lblFlag" Text='<%#Eval("Flag") %>'></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                           <asp:TemplateField HeaderText="AdvisorID" Visible="false">
+                                                        <ItemTemplate>
+                                                            <asp:Label runat="server" ID="lblAdvisorID" Text='<%#Eval("AdvisorID") %>'></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                      
+                                                    </Columns>
                                             </asp:GridView>
                                         </div>
                                     </div>
@@ -1261,9 +1399,20 @@
                                                             <asp:RegularExpressionValidator ID="revtxtPrivBankTelNum" runat="server" ErrorMessage="Please enter 10 digits" ValidationExpression="[0-9]{10}" Display="Dynamic"
                                                                 ControlToValidate="txtPrivBankTelNum" ForeColor="Red" ValidationGroup="Banker"></asp:RegularExpressionValidator>
                                                         </div>
-
-
-
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Banker Name</label><span class="style1">*</span>
+                                                            <asp:TextBox ID="txtBankerName" runat="server" class="form-control"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="rfvBankerName" runat="server" ControlToValidate="txtBankerName" Display="Dynamic" ErrorMessage="Enter Bank Name"
+                                                                ValidationGroup="Banker" ForeColor="Red"></asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                            <label class="control-label">Banker EmailID</label>
+                                                            <asp:TextBox ID="txtBankerEmailID" runat="server" class="form-control"></asp:TextBox>                           
+                                                            <asp:RegularExpressionValidator ID="revtxtBankerEmailID" runat="server" ErrorMessage="Please enter valid EmailID" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" Display="Dynamic"
+                                                                ControlToValidate="txtBankerEmailID" ForeColor="Red" ValidationGroup="Banker"></asp:RegularExpressionValidator>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

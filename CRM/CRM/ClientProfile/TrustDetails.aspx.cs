@@ -26,6 +26,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     AccountantBL accountBL = new AccountantBL();
     PrivateBankEntity privateEntity = new PrivateBankEntity();
     PrivateBankBL privateBL = new PrivateBankBL();
+    TrusteeBL _objTrusteeBL = new TrusteeBL();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -52,11 +54,13 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(dropBank);
                         _objComman.getRecordsPerPage(dropAccountant);
                         _objComman.getRecordsPerPage(dropPrivateBank);
+                        _objComman.getRecordsPerPage(dropTrusteeList);
                         GetTrustGrid();
                         BindBankDetails();
                         BindAddressDetails();
                         BindAccountant();
                         BindPrivateBanker();
+                        GetTrusteeGrid();
                         Disable();
                     }
                 }
@@ -83,6 +87,10 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                     else if (Request.Form[TabName.UniqueID].Contains("gvPrivateBank"))
                     {
                         TabName.Value = "tabPrivateBank";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvTrusteeList"))
+                    {
+                        TabName.Value = "tabTrustee";
                     }
                     else
                     {
@@ -1231,7 +1239,7 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                 gvPrivateBank.DataSource = null;
                 searchprivatebank.Visible = false;
             }
-            gvPrivateBank.PageSize = Convert.ToInt32(dropAccountant.SelectedValue);
+            gvPrivateBank.PageSize = Convert.ToInt32(dropPrivateBank.SelectedValue);
             gvPrivateBank.DataBind();
         }
         catch
@@ -1270,6 +1278,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
                     txtBankerTrustname.Text = ((Label)row.FindControl("lblTrustName")).Text.ToString();
                     txtPrivBankName.Text = ((Label)row.FindControl("lblPrivateBankName")).Text.ToString();
                     txtPrivBankTelNum.Text = ((Label)row.FindControl("lblPrivateContactNum")).Text.ToString();
+                    txtBankerName.Text = ((Label)row.FindControl("lblBankerName")).Text.ToString();
+                    txtBankerEmailID.Text = ((Label)row.FindControl("lblBankerEmailId")).Text.ToString();
                 }
                 else if (e.CommandName == "DeleteBanker")
                 {
@@ -1312,6 +1322,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
 
             privateEntity.PrivateBankName = txtPrivBankName.Text;
             privateEntity.PrivateContactNum = txtPrivBankTelNum.Text;
+            privateEntity.BankerName = txtBankerName.Text;
+            privateEntity.BankerEmailId = txtBankerEmailID.Text;
             privateEntity.UICNo = ViewState["UIC"].ToString();
             privateEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             privateEntity.ReferenceSAID = Session["SAID"].ToString();
@@ -1354,6 +1366,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             privateEntity.PrivateBankID = Convert.ToInt32(ViewState["PrivateBankID"].ToString());
             privateEntity.PrivateBankName = txtPrivBankName.Text;
             privateEntity.PrivateContactNum = txtPrivBankTelNum.Text;
+            privateEntity.BankerName = txtBankerName.Text;
+            privateEntity.BankerEmailId = txtBankerEmailID.Text;
             privateEntity.UICNo = ViewState["BankerUICNo"].ToString();
             privateEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             privateEntity.ReferenceSAID = Session["SAID"].ToString();
@@ -1392,6 +1406,8 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
     {
         txtPrivBankName.Text = "";
         txtPrivBankTelNum.Text = "";
+        txtBankerName.Text = "";
+        txtBankerEmailID.Text = "";
     }
     protected void btnBankerCancel_Click(object sender, EventArgs e)
     {
@@ -1440,6 +1456,54 @@ public partial class ClientProfile_TrustDetails : System.Web.UI.Page
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    private void GetTrusteeGrid()
+    {
+        try
+        {
+            ds = _objTrusteeBL.GetTrusteeTest(Session["SAID"].ToString(), "0");
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvTrusteeList.DataSource = ds.Tables[0];
+                divTrustee.Visible = true;
+            }
+            else
+            {
+                gvTrusteeList.DataSource = null;
+                divTrustee.Visible = false;
+            }
+            gvTrusteeList.PageSize = Convert.ToInt32(dropTrusteeList.SelectedValue);
+            gvTrusteeList.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropTrusteeList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetTrusteeGrid();
+    }
+    protected void gvTrusteeList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvTrusteeList.PageIndex = e.NewPageIndex;
+            GetTrusteeGrid();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

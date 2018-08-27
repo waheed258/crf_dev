@@ -1146,11 +1146,11 @@
                                                 <div class="panel-body">
                                                     <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Trust Reg No.</label>
+                                                            <label class="control-label">Company Reg No.</label>
                                                             <asp:TextBox ID="txtaccCompanyRegNum" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                         </div>
                                                         <div class="col-sm-8 form-group">
-                                                            <label class="control-label">Trust Name</label>
+                                                            <label class="control-label">Company Name</label>
                                                             <asp:TextBox ID="txtaccCompanyName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                         </div>
                                                     </div>
