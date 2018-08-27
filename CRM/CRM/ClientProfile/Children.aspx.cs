@@ -9,6 +9,7 @@ using System.Data;
 using EntityManager;
 using DataManager;
 using BusinessLogic;
+using System.Web.UI.HtmlControls;
 
 public partial class ClientProfile_Children : System.Web.UI.Page
 {
@@ -24,6 +25,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     DataSet dataset = new DataSet();
     ValidateSAIDBL validateSAIDBL = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
+    DocumentBL _objDocumentBL = new DocumentBL();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -48,12 +50,14 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(DropPage1);
                         _objComman.getRecordsPerPage(dropPage2);
+                        _objComman.getRecordsPerPage(dropDocument);
                         chkClientAddress.Visible = false;
                         GetClientAddress();
                         Disable();
                         BindChildDetails();
                         BindAddressDetails();
                         BindBankDetails();
+                        BindDocumentList();
                         btnChildUpdate.Visible = false;
                     }
                     if (this.IsPostBack)
@@ -69,6 +73,10 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                         else if (Request.Form[TabName.UniqueID].Contains("gvAddress"))
                         {
                             TabName.Value = "tab3";
+                        }
+                        else if (Request.Form[TabName.UniqueID].Contains("gvDocumentList"))
+                        {
+                            TabName.Value = "tabDocument";
                         }
                         else
                         {
@@ -101,7 +109,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
         txtMobileNum.ReadOnly = true;
         txtPhoneNum.ReadOnly = true;
         txtTaxRefNum.ReadOnly = true;
-       // txtDateOfBirth.ReadOnly = true;
+        // txtDateOfBirth.ReadOnly = true;
         ddlTitle.Enabled = false;
         rfvFirstName.Enabled = false;
         //rfvLastName.Enabled = false;
@@ -426,7 +434,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3,"");
+            dataset = addressBL.GetAddressDetails(Session["SAID"].ToString(), 3, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 gvAddress.DataSource = dataset;
@@ -454,7 +462,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
     {
         try
         {
-            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3,"");
+            dataset = bankBL.GetBankList(Session["SAID"].ToString(), 3, "");
             if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
             {
                 searchbank.Visible = true;
@@ -549,7 +557,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.ReferenceID = Session["SAID"].ToString();
             bankEntity.UIC = "0";
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); 
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
             int result = bankBL.CURDBankInfo(bankEntity, 'i');
             if (result == 1)
@@ -570,7 +578,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Sorry,Please Try Again";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                
+
             }
 
 
@@ -655,7 +663,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             bankEntity.Currency = txtCurrency.Text;
             bankEntity.SWIFT = txtSwift.Text;
             bankEntity.CreatedBy = 0;
-            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()); 
+            bankEntity.AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString());
             bankEntity.UpdatedBy = 0;
 
             int result = bankBL.CURDBankInfo(bankEntity, 'u');
@@ -676,7 +684,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 lblTitle.ForeColor = System.Drawing.Color.Red;
                 message.ForeColor = System.Drawing.Color.Red;
                 message.Text = "Sorry,Please Try Again";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);              
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 BindBankDetails();
             }
         }
@@ -731,7 +739,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
             }
             else
-            {                
+            {
                 ClearAddress();
                 lblTitle.Text = "Warning!";
                 lblTitle.ForeColor = System.Drawing.Color.Red;
@@ -850,7 +858,7 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 BindAddressDetails();
             }
             else
-            {            
+            {
                 ClearAddress();
                 lblTitle.Text = "Warning!";
                 lblTitle.ForeColor = System.Drawing.Color.Red;
@@ -1056,7 +1064,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 ddlProvince.SelectedValue = "-1";
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -1074,18 +1083,18 @@ public partial class ClientProfile_Children : System.Web.UI.Page
 
             if (dataset.Tables[0].Rows.Count > 0)
             {
-                 int count = 0;
+                int count = 0;
                 for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
                     if (dataset.Tables[0].Rows[0]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[0]["MEMBERTYPE"].ToString() == "2")
-                {
-                    count = count + 1;
-                    lblTitle.Text = "Warning!";
-                    lblTitle.ForeColor = System.Drawing.Color.Red;
-                    message.ForeColor = System.Drawing.Color.Red;
-                    message.Text = "Sorry, Duplicate Child ID!";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }
+                    {
+                        count = count + 1;
+                        lblTitle.Text = "Warning!";
+                        lblTitle.ForeColor = System.Drawing.Color.Red;
+                        message.ForeColor = System.Drawing.Color.Red;
+                        message.Text = "Sorry, Duplicate Child ID!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    }
                     else if (dataset.Tables[0].Rows[i]["EXIST"].ToString() == "EXISTS WITH CLIENT" && dataset.Tables[0].Rows[i]["MEMBERTYPE"].ToString() == "1")
                     {
                         count = count + 1;
@@ -1183,7 +1192,8 @@ public partial class ClientProfile_Children : System.Web.UI.Page
                 }
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -1251,6 +1261,77 @@ public partial class ClientProfile_Children : System.Web.UI.Page
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    private void BindDocumentList()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = _objDocumentBL.GetDocumentList(Session["SAID"].ToString(), 3, "0");
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvDocumentList.DataSource = ds.Tables[0];
+                searchDocument.Visible = true;
+            }
+            else
+            {
+                gvDocumentList.DataSource = null;
+                searchDocument.Visible = false;
+            }
+            gvDocumentList.PageSize = Convert.ToInt32(dropDocument.SelectedValue);
+            gvDocumentList.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropDocument_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindDocumentList();
+    }
+    protected void gvDocumentList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvDocumentList.PageIndex = e.NewPageIndex;
+            BindDocumentList();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvDocumentList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDoc");
+                Label lblsaid = (Label)e.Row.FindControl("lblSAID");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Child" + "/" + lblsaid.Text + "/" + LblDoc.Text;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }

@@ -100,7 +100,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 case "5":
                     txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                     lblName.Text = "Identification #";
-                    hfUIC.Value = "0";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
                     hfSAID.Value = txtSAID.Text;
                     lblHeading.Text = "Trust Settlor Documents";
                     ViewState["FoldertName"] = "Settlor";
@@ -109,7 +109,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 case "6":
                     txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                     lblName.Text = "Identification #";
-                    hfUIC.Value = "0";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
                     hfSAID.Value = txtSAID.Text;
                     lblHeading.Text = "Trustee Documents";
                     ViewState["FoldertName"] = "Trustee";
@@ -135,7 +135,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 case "9":
                     txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                     lblName.Text = "Identification #";
-                    hfUIC.Value = "0";
+                    hfUIC.Value = Session["CompanyUIC"].ToString();
                     hfSAID.Value = txtSAID.Text;
                     lblHeading.Text = "Director Documents";
                     ViewState["FoldertName"] = "Director";

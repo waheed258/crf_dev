@@ -56,5 +56,13 @@ public class DocumentBL:DataUtilities
 
         return ExecuteNonQuery("DeleteDocumet", hsparams);
     }
-    
+
+    public DataSet GetDocumentList(string ReferenceSAID,int ClientType,string RefUIC)
+    {
+        Hashtable hsparams = new Hashtable();
+        hsparams.Add("@ReferenceSAID", ReferenceSAID);
+        hsparams.Add("@ClientType", ClientType);
+        hsparams.Add("@RefUIC", RefUIC);
+        return ExecuteDataSet("usp_GetDocumentList", hsparams);
+    }
 }

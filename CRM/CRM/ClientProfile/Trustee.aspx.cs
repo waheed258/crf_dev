@@ -8,7 +8,7 @@ using System.IO;
 using System.Web.UI.WebControls;
 using EntityManager;
 using BusinessLogic;
-
+using System.Web.UI.HtmlControls;
 public partial class ClientProfile_Trustee : System.Web.UI.Page
 {
     CommanClass _objComman = new CommanClass();
@@ -20,6 +20,7 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
     AddressEntity addressEntity = new AddressEntity();
     ValidateSAIDBL validateSAID = new ValidateSAIDBL();
     AddressAndBankBL addressbankBL = new AddressAndBankBL();
+    DocumentBL _objDocumentBL = new DocumentBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -45,10 +46,12 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                         _objComman.getRecordsPerPage(DropPage);
                         _objComman.getRecordsPerPage(dropAddress);
                         _objComman.getRecordsPerPage(dropBank);
+                        _objComman.getRecordsPerPage(dropDocument);
                         txtUIC.Text = Session["TrustUIC"].ToString();
                         GetTrusteeGrid(txtUIC.Text);
                         BindBankDetails();
                         BindAddressDetails();
+                        BindDocumentList();
                         Disable();
                     }
                 }
@@ -65,6 +68,10 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
                     else if (Request.Form[TabName.UniqueID].Contains("gdvBankList"))
                     {
                         TabName.Value = "tabBank";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvDocumentList"))
+                    {
+                        TabName.Value = "tabDocument";
                     }
                     else
                     {
@@ -1060,6 +1067,76 @@ public partial class ClientProfile_Trustee : System.Web.UI.Page
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
             message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    private void BindDocumentList()
+    {
+        try
+        {
+            DataSet ds = new DataSet();
+            ds = _objDocumentBL.GetDocumentList(Session["SAID"].ToString(), 6, txtUIC.Text);
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvDocumentList.DataSource = ds.Tables[0];
+                searchDocument.Visible = true;
+            }
+            else
+            {
+                gvDocumentList.DataSource = null;
+                searchDocument.Visible = false;
+            }
+            gvDocumentList.PageSize = Convert.ToInt32(dropDocument.SelectedValue);
+            gvDocumentList.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropDocument_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindDocumentList();
+    }
+    protected void gvDocumentList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            gvDocumentList.PageIndex = e.NewPageIndex;
+            BindDocumentList();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void gvDocumentList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label LblDoc = (Label)e.Row.FindControl("lblDoc");
+                Label lblsaid = (Label)e.Row.FindControl("lblSAID");
+                HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
+                string url = HttpContext.Current.Request.Url.Authority;
+                AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + "Trustee" + "/" + lblsaid.Text + "/" + LblDoc.Text;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
