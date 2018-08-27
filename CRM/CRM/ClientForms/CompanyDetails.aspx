@@ -1078,13 +1078,14 @@
 
                                                 </div>
                                                 <div class="col-sm-4 form-group">
-                                                    <label class="control-label">City</label>
-                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="City"></asp:TextBox>
-                                                </div>
-                                                <div class="col-sm-4 form-group">
                                                     <label class="control-label">Complex/Estate</label><%--<span class="style1">*</span>--%>
                                                     <asp:TextBox ID="txtComplex" CssClass="form-control" runat="server" placeholder="Complex/Estate"></asp:TextBox>
                                                 </div>
+                                                <div class="col-sm-4 form-group">
+                                                    <label class="control-label">City</label>
+                                                    <asp:TextBox ID="txtCity" CssClass="form-control" runat="server" placeholder="City"></asp:TextBox>
+                                                </div>
+
 
                                             </div>
                                             <div class="col-sm-12">
@@ -1141,11 +1142,11 @@
                                                 <div class="panel-body">
                                                     <div class="col-sm-12">
                                                         <div class="col-sm-4 form-group">
-                                                            <label class="control-label">Company Reg No.</label>
+                                                            <label class="control-label">Trust Reg No.</label>
                                                             <asp:TextBox ID="txtaccCompanyRegNum" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                         </div>
                                                         <div class="col-sm-8 form-group">
-                                                            <label class="control-label">Company Name</label>
+                                                            <label class="control-label">Trust Name</label>
                                                             <asp:TextBox ID="txtaccCompanyName" runat="server" class="form-control" ReadOnly="true"></asp:TextBox>
                                                         </div>
                                                     </div>

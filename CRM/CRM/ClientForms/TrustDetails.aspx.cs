@@ -24,6 +24,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     AccountantBL accountBL = new AccountantBL();
     PrivateBankEntity privateEntity = new PrivateBankEntity();
     PrivateBankBL privateBL = new PrivateBankBL();
+    TrusteeBL _objTrusteeBL = new TrusteeBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -49,10 +50,12 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                         _objComman.getRecordsPerPage(dropBank);
                         _objComman.getRecordsPerPage(dropAccountant);
                         _objComman.getRecordsPerPage(dropPrivateBank);
+                        _objComman.getRecordsPerPage(dropTrustee);
                         GetTrustGrid();
                         BindBankDetails();
                         BindAddressDetails();
                         BindAccountant();
+                        GetTrusteeGrid();
                         Disable();
                         BindPrivateBanker();
                     }
@@ -80,6 +83,10 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                     else if (Request.Form[TabName.UniqueID].Contains("gvPrivateBank"))
                     {
                         TabName.Value = "tabPrivateBank";
+                    }
+                    else if (Request.Form[TabName.UniqueID].Contains("gvTrustee"))
+                    {
+                        TabName.Value = "tabTrustee";
                     }
                     else
                     {
@@ -237,7 +244,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         ds = _objTrustBL.GetTrust(Session["SAID"].ToString(), "0");
         if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-        {
+        {            
             gvTrust.DataSource = ds.Tables[0];
             divTrustlist.Visible = true;
         }
@@ -1177,7 +1184,7 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
                 gvPrivateBank.DataSource = null;
                 searchprivatebank.Visible = false;
             }
-            gvPrivateBank.PageSize = Convert.ToInt32(dropAccountant.SelectedValue);
+            gvPrivateBank.PageSize = Convert.ToInt32(dropPrivateBank.SelectedValue);
             gvPrivateBank.DataBind();
         }
         catch
@@ -1212,6 +1219,8 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
 
             privateEntity.PrivateBankName = txtPrivBankName.Text;
             privateEntity.PrivateContactNum = txtPrivBankTelNum.Text;
+            privateEntity.BankerName = txtBankerName.Text;
+            privateEntity.BankerEmailId = txtBankerEmailId.Text;
             privateEntity.UICNo = ViewState["UIC"].ToString();
             privateEntity.AdvisorID = 0;
             privateEntity.ReferenceSAID = Session["SAID"].ToString();
@@ -1251,6 +1260,8 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
     {
         txtPrivBankName.Text = "";
         txtPrivBankTelNum.Text = "";
+        txtBankerEmailId.Text = "";
+        txtBankerName.Text = "";
     }
     protected void btnBankerCancel_Click(object sender, EventArgs e)
     {
@@ -1311,5 +1322,42 @@ public partial class ClientForms_TrustDetails : System.Web.UI.Page
             message.Text = "Sorry, Something went wrong, please contact administrator";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+    }
+
+    private void GetTrusteeGrid()
+    {
+        try
+        {
+            ds = _objTrusteeBL.GetTrusteeTest(Session["SAID"].ToString(), "0");
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvTrustee.DataSource = ds.Tables[0];
+                divtrustee.Visible = true;
+            }
+            else
+            {
+                gvTrustee.DataSource = null;
+                divtrustee.Visible = false;
+            }
+            gvTrustee.PageSize = Convert.ToInt32(DropPage.SelectedValue);
+            gvTrustee.DataBind();
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void dropTrustee_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GetTrusteeGrid();
+    }
+    protected void gvTrustee_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvTrustee.PageIndex = e.NewPageIndex;
+        GetTrusteeGrid();
     }
 }
