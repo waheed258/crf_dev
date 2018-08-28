@@ -118,7 +118,7 @@
                                     AutoGenerateColumns="False" DataKeyNames="ClientServiceID" CssClass="rounded-corners"
                                     EmptyDataText="There are no data records to display."
                                     BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
-                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvWorkInProcess_RowCommand" OnPageIndexChanging="gvWorkInProcess_PageIndexChanging" OnRowDataBound="gvWorkInProcess_RowDataBound">
+                                    CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" HeaderStyle-BackColor="#e8f1f3" OnRowCommand="gvWorkInProcess_RowCommand" OnPageIndexChanging="gvWorkInProcess_PageIndexChanging">
                                     <PagerStyle CssClass="pagination_grid" />
                                     <Columns>
                                         <asp:TemplateField HeaderText="S No.">
@@ -198,8 +198,8 @@
                                                 <asp:ImageButton ID="btnFollowUp" ImageUrl="~/assets/dist/img/Trustee.jpg" data-toggle="modal" data-target="#FollowUp" runat="server" Width="23px" Height="23px"
                                                     CommandName="FollowUp" ToolTip="FollowUp" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
                                                 <asp:ImageButton ID="btnGenerateInvoice" ImageUrl="~/assets/dist/img/invoice.jpg" data-toggle="modal" data-target="#GenerateInvoice" runat="server" Width="23px" Height="23px"
-                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
-                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />
+                                                    CommandName="GenerateInvoice" ToolTip="Generate Invoice" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" Visible="false"/>
+                                                <asp:ImageButton ID="imgInvoiceList" ImageUrl="../assets/dist/img/invoicelist.png" runat="server" Width="23px" Height="23px" CommandName="InvoiceList" ToolTip="Invoice List" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" Visible="false" />
 
                                             </ItemTemplate>
                                         </asp:TemplateField>

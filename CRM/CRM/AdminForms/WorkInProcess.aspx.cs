@@ -131,7 +131,7 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
                 }
                 else if (e.CommandName == "GenerateInvoice")
                 {
-                    InvoiceSection.Visible = true;
+                    InvoiceSection.Visible = false;
                     FollowUpSection.Visible = false;
                     sectionRequestList.Visible = false;
                     GetPDFClientData(SRNO);                
@@ -727,23 +727,23 @@ public partial class AdminForms_WorkInProcess : System.Web.UI.Page
         }
     }
 
-    protected void gvWorkInProcess_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        ImageButton InvoiceButton = (ImageButton)e.Row.FindControl("btnGenerateInvoice");
-        ImageButton InvoiceList = (ImageButton)e.Row.FindControl("imgInvoiceList");
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            DataRowView drv = e.Row.DataItem as DataRowView;
-            if (drv["ServiceStatus"].ToString().Equals("Invoice Generated") || drv["ServiceStatus"].ToString().Equals("Proposal Accepted"))
-            {
-                InvoiceButton.Visible = true;
-                InvoiceList.Visible = true;
-            }
-            else
-            {
-                InvoiceButton.Visible = false;
-                InvoiceList.Visible = false;
-            }
-        }
-    }
+    //protected void gvWorkInProcess_RowDataBound(object sender, GridViewRowEventArgs e)
+    //{
+    //    ImageButton InvoiceButton = (ImageButton)e.Row.FindControl("btnGenerateInvoice");
+    //    ImageButton InvoiceList = (ImageButton)e.Row.FindControl("imgInvoiceList");
+    //    if (e.Row.RowType == DataControlRowType.DataRow)
+    //    {
+    //        DataRowView drv = e.Row.DataItem as DataRowView;
+    //        if (drv["ServiceStatus"].ToString().Equals("Invoice Generated") || drv["ServiceStatus"].ToString().Equals("Proposal Accepted"))
+    //        {
+    //            InvoiceButton.Visible = true;
+    //            InvoiceList.Visible = true;
+    //        }
+    //        else
+    //        {
+    //            InvoiceButton.Visible = false;
+    //            InvoiceList.Visible = false;
+    //        }
+    //    }
+    //}
 }
