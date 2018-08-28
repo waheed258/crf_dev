@@ -32,6 +32,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                     {
                         ddlAdvisorType.Visible = false;
                         lblAdvisorType.Visible = false;
+                        chkIscontentValidator.Visible = false;
                         GetAdvisor();
                         GetDesignation();
                         GetBranch();
@@ -77,12 +78,15 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                 ddlBranch.SelectedValue = ds.Tables[0].Rows[0]["Branch"].ToString();
                 ddlStatus.SelectedValue = ds.Tables[0].Rows[0]["Status"].ToString();
                 ddlDesignation.SelectedValue = ds.Tables[0].Rows[0]["Designation"].ToString();
+                
                 if (ds.Tables[0].Rows[0]["Designation"].ToString() == "1")
                 {
                     ddlAdvisorType.Items.Clear();
                     lblAdvisorType.Visible = true;
                     ddlAdvisorType.Visible = true;
                     GetAdvisorType(1);
+                    chkIscontentValidator.Visible = true;
+                    chkIscontentValidator.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["isContentValidator"].ToString());
                     
                 }
                 else if (ds.Tables[0].Rows[0]["Designation"].ToString() == "2")
@@ -92,9 +96,10 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
                     lblAdvisorType.Visible = true;
                     ddlAdvisorType.Visible = true;
                     lblAdvisorType.Text = "Consultant Type";
+                    chkIscontentValidator.Visible = false;
                 }
                 ddlAdvisorType.SelectedValue = ds.Tables[0].Rows[0]["AdvisorType"].ToString();
-
+                
                 // ddlRole.SelectedValue = ds.Tables[0].Rows[0]["AdvisorRole"].ToString();
                 hfImage.Value = ds.Tables[0].Rows[0]["Image"].ToString();
 
@@ -208,6 +213,7 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
           //  advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             //advisorentity.Image = hfImage.Value;
             //need to initialize with login advisor id
+            advisorentity.isContentValidator = Convert.ToInt32(chkIscontentValidator.Checked);
 
             advisorentity.UpdatedBy = 0;
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'u');
@@ -286,15 +292,18 @@ public partial class AdminForms_UserProfile : System.Web.UI.Page
             {
 
                 lblAdvisorType.Text = "Advisor Type";
+                chkIscontentValidator.Visible = true;
             }
             else if (ddlDesignation.SelectedIndex == 2)
             {
                 lblAdvisorType.Text = "Consultant Type";
+                chkIscontentValidator.Visible = false;
             }
             else
             {
                 lblAdvisorType.Visible = false;
                 ddlAdvisorType.Visible = false;
+                chkIscontentValidator.Visible = false;
             }
         }
         catch

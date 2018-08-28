@@ -111,7 +111,7 @@
                                         </div>
                                          <div class="form-group col-sm-3">
                                             <label>Designation</label><span class="style1">*</span>
-                                            <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>
+                                            <asp:DropDownList ID="ddlDesignation" runat="server" class="form-control" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged"></asp:DropDownList>                            
                                             <asp:RequiredFieldValidator ID="rfvDesignation" runat="server" ControlToValidate="ddlDesignation" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Designation" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>
@@ -119,6 +119,7 @@
                                         <div class="form-group col-sm-3">
                                              <asp:Label ID="lblAdvisorType" runat="server">Advisor Type</asp:Label><span class="style1">*</span>
                                             <asp:DropDownList ID="ddlAdvisorType" runat="server" class="form-control" AppendDataBoundItems="true"></asp:DropDownList>
+                                            <asp:CheckBox ID="chkIscontentValidator" runat="server" Text="Content Validator"/>
                                             <asp:RequiredFieldValidator ID="rfvAdvisorType" runat="server" ControlToValidate="ddlAdvisorType" ForeColor="#d0582e"
                                                 ErrorMessage="Please Select Advisor Type" ValidationGroup="Advisor" InitialValue="-1" Display="Dynamic"></asp:RequiredFieldValidator>
                                         </div>

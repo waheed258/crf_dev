@@ -76,6 +76,7 @@ namespace BusinessLogic
             hashtable.Add("@Image", advisorEntity.Image);
             hashtable.Add("@AdvisorRole", advisorEntity.AdvisorRole);
             hashtable.Add("@AdvisorSAID", advisorEntity.AdvisorSAID);
+            hashtable.Add("@isContentValidator", advisorEntity.isContentValidator);
             hashtable.Add("@Operation", Operation);           
             
             int result = dataUtilities.ExecuteNonQuery("AdvisorCRUD", hashtable);
