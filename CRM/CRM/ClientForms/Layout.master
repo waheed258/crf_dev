@@ -157,7 +157,7 @@
                             </ul>
                         </li>
                        
-                        <li class="treeview">
+                      <%--  <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-list"></i><span>Service Request</span>
                                 <span class="pull-right-container">
@@ -166,9 +166,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="ServiceRequest.aspx">Raise a Service Request</a></li>
-                               <%-- <li><a href="InvoicesList.aspx">Invoices List</a></li>--%>
+                                <li><a href="InvoicesList.aspx">Invoices List</a></li>
                             </ul>
-                        </li>
+                        </li>--%>
 
                     </ul>
                 </div>

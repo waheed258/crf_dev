@@ -184,6 +184,7 @@ public partial class AdminForms_ActiveClientList : System.Web.UI.Page
                 if (e.CommandName == "SaveClient")
                 {                   
                     Session["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    Session["email"] = ((Label)row.FindControl("lblEmailID")).Text.ToString();
                     string url = "../ClientProfile/ClientPersonal.aspx";
                     string s = "window.open('" + url + "', '_blank');";
                     ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);

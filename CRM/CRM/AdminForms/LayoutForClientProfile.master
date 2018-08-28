@@ -48,7 +48,7 @@
 
     <link href="../assets/bootstrap/css/paging-style.css" rel="stylesheet" />
     <!--Pagenation-->
-    <script type = "text/javascript" >
+    <script type="text/javascript">
         function preventBack() { window.history.forward(); }
         setTimeout("preventBack()", 0);
         window.onunload = function () { null };
@@ -80,7 +80,7 @@
                         <!-- Sidebar toggle button-->
                         <span class="sr-only">Toggle navigation</span>
                         <span class="pe-7s-angle-left-circle"></span>
-                    </a>                    
+                    </a>
                 </nav>
             </header>
             <!-- =============================================== -->
@@ -89,7 +89,7 @@
                 <!-- sidebar -->
                 <div class="sidebar">
                     <!-- sidebar menu -->
-                    <ul class="sidebar-menu">                       
+                    <ul class="sidebar-menu">
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-users"></i><span>Personnel Info</span>
@@ -129,7 +129,19 @@
                                 <li><a href="../ClientProfile/Company.aspx">Add Company</a></li>
                             </ul>
                         </li>
-                        
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list"></i><span>Service Request</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="ServiceRequest.aspx">Raise a Service Request</a></li>                            
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar -->
