@@ -61,6 +61,7 @@ namespace BusinessLogic
                 hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
                 hashtable.Add("@inStatus", clinetservicem.Status);
                 hashtable.Add("@Priority", clinetservicem.Priority);
+                hashtable.Add("@LoginAdvisorID", clinetservicem.LoginAdvisorID);
                 hashtable.Add("@OperationName", Operation);
 
             }
@@ -73,6 +74,7 @@ namespace BusinessLogic
                 hashtable.Add("@inDetailInformation", DBNull.Value);
                 hashtable.Add("@inStatus", DBNull.Value);
                 hashtable.Add("@Priority", DBNull.Value);
+                hashtable.Add("@LoginAdvisorID", DBNull.Value);
                 hashtable.Add("@OperationName", Operation);
 
             }
@@ -84,6 +86,7 @@ namespace BusinessLogic
                 hashtable.Add("@inDetailInformation", clinetservicem.DetailInformation);
                 hashtable.Add("@inStatus", clinetservicem.Status);
                 hashtable.Add("@Priority", clinetservicem.Priority);
+                hashtable.Add("@LoginAdvisorID", clinetservicem.LoginAdvisorID);
                 hashtable.Add("@OperationName", Operation);
             }
            

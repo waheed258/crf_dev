@@ -18,5 +18,6 @@ namespace EntityManager
         public string UpdatedOn { get; set; }
         public int Priority { get; set; }
         public int? Status { get; set; }
+        public int LoginAdvisorID { get; set; }
     }
 }

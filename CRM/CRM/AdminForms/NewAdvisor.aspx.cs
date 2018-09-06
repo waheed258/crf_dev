@@ -38,6 +38,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
                       //  GetRole();
                         ddlAdvisorType.Visible = false;
                         lblAdvisorType.Visible = false;
+                        chkIscontentValidator.Visible = false;
                         Disable();
                     }
                 }
@@ -154,7 +155,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             advisorentity.Status = Convert.ToInt32(ddlStatus.SelectedValue);
          //   advisorentity.AdvisorRole = Convert.ToInt32(ddlRole.SelectedValue);
             advisorentity.AdvisorSAID = txtSAId.Text.Trim();
-          
+            advisorentity.isContentValidator = Convert.ToInt32(chkIscontentValidator.Checked);
 
             int result = newAdvisorBL.CUDAdvisor(advisorentity, 'i');
             if (result == 1)
@@ -207,6 +208,7 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
         txtPassword.Text = "";
         txtConfirmPassword.Text = "";
         txtSAId.Text = "";
+        chkIscontentValidator.Visible = false;
 
     }
     protected void Disable()
@@ -264,15 +266,18 @@ public partial class AdminForms_NewAdvisor : System.Web.UI.Page
             {
                
                 lblAdvisorType.Text = "Advisor Type";
+                chkIscontentValidator.Visible = true;
             }
             else if (ddlDesignation.SelectedIndex==2)
             {
                 lblAdvisorType.Text = "Consultant Type";
+                chkIscontentValidator.Visible = false;
             }
             else
             {
                 lblAdvisorType.Visible = false;
                 ddlAdvisorType.Visible = false;
+                chkIscontentValidator.Visible = false;
             }
         }
         catch

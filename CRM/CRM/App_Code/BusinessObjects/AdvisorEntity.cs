@@ -27,5 +27,6 @@ namespace EntityManager
         public string AdvisorSAID { get; set; }
         public int AdvisorRole { get; set; }
         public int? UpdatedBy { get; set; }
+        public int isContentValidator { get; set; }
     }
 }
