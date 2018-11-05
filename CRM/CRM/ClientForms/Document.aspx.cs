@@ -9,14 +9,15 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data;
 using BusinessLogic;
-
+using System.Web.Services;
+using System.Web.Script.Services;
 public partial class ClientForms_Document : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     DocumentBL _objDocumentBL = new DocumentBL();
     CommanClass _objComman = new CommanClass();
     EncryptDecrypt ObjDec = new EncryptDecrypt();
-
+    static Dictionary<string, string> allDocType = new Dictionary<string, string>();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -59,116 +60,154 @@ public partial class ClientForms_Document : System.Web.UI.Page
     #region Private Methods
     private void GetUICSAId()
     {
-        switch (ObjDec.Decrypt(Request.QueryString["t"]))
+        try
         {
-            case "1":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Client Documents";
-                ViewState["FoldertName"] = "Client";
-                break;
-            case "2":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Spouse Documents";
-                ViewState["FoldertName"] = "Spouse";
-                break;
+            switch (ObjDec.Decrypt(Request.QueryString["t"]))
+            {
+                case "1":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = "0";
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Client Documents";
+                    ViewState["FoldertName"] = "Client";
+                    break;
+                case "2":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = "0";
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Spouse Documents";
+                    ViewState["FoldertName"] = "Spouse";
+                    break;
 
-            case "3":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Child Documents";
-                ViewState["FoldertName"] = "Child";
-                break;
+                case "3":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = "0";
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Child Documents";
+                    ViewState["FoldertName"] = "Child";
+                    break;
 
-            case "4":
-                txtSAID.Text = Session["TrustUIC"].ToString();
-                lblName.Text = "Trust Registration #";
-                hfUIC.Value = Session["TrustUIC"].ToString();
-                hfSAID.Value = "0";
-                lblHeading.Text = "Trust Documents";
-                ViewState["FoldertName"] = "Trust";
-                break;
+                case "4":
+                    txtSAID.Text = Session["TrustUIC"].ToString();
+                    lblName.Text = "Trust Registration #";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
+                    hfSAID.Value = "0";
+                    lblHeading.Text = "Trust Documents";
+                    ViewState["FoldertName"] = "Trust";
+                    break;
 
-            case "5":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = Session["TrustUIC"].ToString();
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Trust Settlor Documents";
-                ViewState["FoldertName"] = "Settlor";
-                break;
+                case "5":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Trust Settlor Documents";
+                    ViewState["FoldertName"] = "Settlor";
+                    break;
 
-            case "6":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = Session["TrustUIC"].ToString();
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Trustee Documents";
-                ViewState["FoldertName"] = "Trustee";
-                break;
+                case "6":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Trustee Documents";
+                    ViewState["FoldertName"] = "Trustee";
+                    break;
 
-            case "7":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Share Holder Documents";
-                ViewState["FoldertName"] = "Beneficiary";
-                break;
+                case "7":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Share Holder Documents";
+                    ViewState["FoldertName"] = "Beneficiary";
+                    break;
 
-            case "8":
-                txtSAID.Text = Session["CompanyUIC"].ToString();
-                lblName.Text = "Company Registration #";
-                hfUIC.Value = Session["CompanyUIC"].ToString();
-                hfSAID.Value = "0";
-                lblHeading.Text = "Company Documents";
-                ViewState["FoldertName"] = "Company";
-                break;
-            case "9":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Identification #";
-                hfUIC.Value = Session["CompanyUIC"].ToString();
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Director Documents";
-                ViewState["FoldertName"] = "Director";
-                break;
-            case "10":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "GrandChildren #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "GrandChildren Documents";
-                ViewState["FoldertName"] = "GrandChildren";
-                break;
-            case "11":
-                txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
-                lblName.Text = "Parent #";
-                hfUIC.Value = "0";
-                hfSAID.Value = txtSAID.Text;
-                lblHeading.Text = "Parent Documents";
-                ViewState["FoldertName"] = "Parent";
-                break;
+                case "8":
+                    txtSAID.Text = Session["CompanyUIC"].ToString();
+                    lblName.Text = "Company Registration #";
+                    hfUIC.Value = Session["CompanyUIC"].ToString();
+                    hfSAID.Value = "0";
+                    lblHeading.Text = "Company Documents";
+                    ViewState["FoldertName"] = "Company";
+                    break;
+                case "9":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["CompanyUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Director Documents";
+                    ViewState["FoldertName"] = "Director";
+                    break;
+                case "10":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "GrandChildren #";
+                    hfUIC.Value = "0";
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "GrandChildren Documents";
+                    ViewState["FoldertName"] = "GrandChildren";
+                    break;
+                case "11":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Parent #";
+                    hfUIC.Value = "0";
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Parent Documents";
+                    ViewState["FoldertName"] = "Parent";
+                    break;
+                case "12":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["CompanyUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Share Holder Documents";
+                    ViewState["FoldertName"] = "Share Holder";
+                    break;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
     private void GetDocuType()
     {
-        ds = _objDocumentBL.GetDocumentType();
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            ddlDocType.Items.Clear();
-            ddlDocType.Items.Add(new ListItem("-Select-", "-1"));
-            ddlDocType.DataSource = ds.Tables[0];
-            ddlDocType.DataTextField = "DocumentType";
-            ddlDocType.DataValueField = "TypeId";
-            ddlDocType.DataBind();
+            ds = _objDocumentBL.GetDocumentType();
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                //ddlDocType.Items.Clear();
+                //ddlDocType.Items.Add(new ListItem("-Select-", "-1"));
+                //ddlDocType.DataSource = ds.Tables[0];
+                //ddlDocType.DataTextField = "DocumentType";
+                //ddlDocType.DataValueField = "TypeId";
+                //ddlDocType.DataBind();
+                allDocType = ds.Tables[0].AsEnumerable().ToDictionary<DataRow, string, string>(row => row.Field<int>(0).ToString(), row => row.Field<string>(1));
+            }
         }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static Dictionary<string, string> GetDocumnetTypes(string pre)
+    {
+        return allDocType;
     }
     private int InsertDocument()
     {
@@ -178,8 +217,8 @@ public partial class ClientForms_Document : System.Web.UI.Page
         {
             HttpPostedFile file = fuDoc.PostedFile;
             int filesize = file.ContentLength;
-            if (filesize <= 1048576)
-            {
+            //if (filesize <= 1048576)
+            //{
                 List<HttpPostedFile> lst = fuDoc.PostedFiles.ToList();
                 for (int i = 0; i < lst.Count; i++)
                 {
@@ -199,7 +238,15 @@ public partial class ClientForms_Document : System.Web.UI.Page
                         //delete file in folder
                         File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
                     }
-
+                    int DocID = 0;
+                    if (Convert.ToInt32(hfID.Value) == 0)
+                    {
+                        DocID = _objDocBL.InsertDocType(txtDocumentType.Text);
+                    }
+                    else
+                    {
+                        DocID = Convert.ToInt32(hfID.Value);
+                    }
                     DocumentBO DocumentEntity = new DocumentBO
                     {
                         DocId = Convert.ToInt32(hfDocID.Value),
@@ -208,7 +255,8 @@ public partial class ClientForms_Document : System.Web.UI.Page
                         UIC = hfUIC.Value.ToString(),
                         Document = fileName,
                         DocumentName = inFilename,
-                        DocType = Convert.ToInt32(ddlDocType.SelectedValue),
+                        //DocType = Convert.ToInt32(ddlDocType.SelectedValue),
+                        DocType = DocID,
                         ClientType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0,
                         AdvisorID = 0,
                         Status = 1,
@@ -220,57 +268,82 @@ public partial class ClientForms_Document : System.Web.UI.Page
                         res = _objDocBL.DocumentManager(DocumentEntity, 'i');
                 }
                 lblSizeError.Text = "";
-            }
-            else
-            {
-                lblSizeError.ForeColor = System.Drawing.Color.Red;
-                lblSizeError.Text = "Sorry,the document size should be less than 1MB";
-            }
+            //}
+            //else
+            //{
+            //    lblSizeError.ForeColor = System.Drawing.Color.Red;
+            //    lblSizeError.Text = "Sorry,the document size should be less than 1MB";
+            //}
         }
         return res;
 
     }
     private void GetDouments()
     {
-        int CliType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0;
+        try
+        {
 
-        ds = _objDocumentBL.GetDocuments(hfSAID.Value.ToString(), hfUIC.Value.ToString(), CliType, Session["SAID"].ToString());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-        {
-            gvDocument.DataSource = ds.Tables[0];
-            search.Visible = true;
+            int CliType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0;
+
+            ds = _objDocumentBL.GetDocuments(hfSAID.Value.ToString(), hfUIC.Value.ToString(), CliType, Session["SAID"].ToString());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                gvDocument.DataSource = ds.Tables[0];
+                search.Visible = true;
+            }
+            else
+            {
+                gvDocument.DataSource = null;
+                search.Visible = false;
+            }
+            gvDocument.PageSize = Convert.ToInt32(DropPage.SelectedValue.ToString());
+            gvDocument.DataBind();
         }
-        else
+        catch
         {
-            gvDocument.DataSource = null;
-            search.Visible = false;
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
-        gvDocument.PageSize = Convert.ToInt32(DropPage.SelectedValue.ToString());
-        gvDocument.DataBind();
     }
 
     private void BindDocument(int DocId)
     {
-        ds = _objDocumentBL.GetDocumentById(DocId, Session["SAID"].ToString());
-        if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+        try
         {
-            hfDocID.Value = ds.Tables[0].Rows[0]["DocId"].ToString();
-            if (ds.Tables[0].Rows[0]["SAID"].ToString() == "0")
-                txtSAID.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
-            else
-                txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-            ddlDocType.SelectedIndex = ddlDocType.Items.IndexOf(ddlDocType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
-            lblFileName.Text = ds.Tables[0].Rows[0]["DocumentName"].ToString();
-            hfDocumentName.Value = ds.Tables[0].Rows[0]["Document"].ToString();
+            ds = _objDocumentBL.GetDocumentById(DocId, Session["SAID"].ToString());
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                hfDocID.Value = ds.Tables[0].Rows[0]["DocId"].ToString();
+                if (ds.Tables[0].Rows[0]["SAID"].ToString() == "0")
+                    txtSAID.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
+                else
+                    txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
+                //ddlDocType.SelectedIndex = ddlDocType.Items.IndexOf(ddlDocType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
+                txtDocumentType.Text = allDocType[ds.Tables[0].Rows[0]["DocType"].ToString()];
+                lblFileName.Text = ds.Tables[0].Rows[0]["DocumentName"].ToString();
+                hfDocumentName.Value = ds.Tables[0].Rows[0]["Document"].ToString();
 
-            fuDoc.AllowMultiple = false;
+                fuDoc.AllowMultiple = false;
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry,Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
 
     private void ClearControls()
     {
         btnSubmit.Text = "Save";
-        ddlDocType.SelectedIndex = -1;
+        //ddlDocType.SelectedIndex = -1;
+        txtDocumentType.Text = "";
         lblFileName.Text = "";
         fuDoc.AllowMultiple = true;
     }

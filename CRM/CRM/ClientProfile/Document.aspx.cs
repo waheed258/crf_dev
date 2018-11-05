@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data;
 using BusinessLogic;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 public partial class ClientProfile_Document : System.Web.UI.Page
 {
@@ -15,6 +17,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     DocumentBL _objDocumentBL = new DocumentBL();
     CommanClass _objComman = new CommanClass();
     EncryptDecrypt ObjDec = new EncryptDecrypt();
+    static Dictionary<string, string> allDocType = new Dictionary<string, string>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -118,7 +121,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 case "7":
                     txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
                     lblName.Text = "Identification #";
-                    hfUIC.Value = "0";
+                    hfUIC.Value = Session["TrustUIC"].ToString();
                     hfSAID.Value = txtSAID.Text;
                     lblHeading.Text = "Share Holder Documents";
                     ViewState["FoldertName"] = "Beneficiary";
@@ -156,6 +159,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     lblHeading.Text = "Parent Documents";
                     ViewState["FoldertName"] = "Parent";
                     break;
+                case "12":
+                    txtSAID.Text = ObjDec.Decrypt(Request.QueryString["x"]);
+                    lblName.Text = "Identification #";
+                    hfUIC.Value = Session["CompanyUIC"].ToString();
+                    hfSAID.Value = txtSAID.Text;
+                    lblHeading.Text = "Share Holder Documents";
+                    ViewState["FoldertName"] = "Share Holder";
+                    break;
             }
         }
         catch
@@ -174,12 +185,13 @@ public partial class ClientProfile_Document : System.Web.UI.Page
             ds = _objDocumentBL.GetDocumentType();
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                ddlDocType.Items.Clear();
-                ddlDocType.Items.Add(new ListItem("-Select-", "-1"));
-                ddlDocType.DataSource = ds.Tables[0];
-                ddlDocType.DataTextField = "DocumentType";
-                ddlDocType.DataValueField = "TypeId";
-                ddlDocType.DataBind();
+                //ddlDocType.Items.Clear();
+                //ddlDocType.Items.Add(new ListItem("-Select-", "-1"));
+                //ddlDocType.DataSource = ds.Tables[0];
+                //ddlDocType.DataTextField = "DocumentType";
+                //ddlDocType.DataValueField = "TypeId";
+                //ddlDocType.DataBind();
+                allDocType = ds.Tables[0].AsEnumerable().ToDictionary<DataRow, string, string>(row => row.Field<int>(0).ToString(), row => row.Field<string>(1));
             }
         }
         catch
@@ -191,6 +203,13 @@ public partial class ClientProfile_Document : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
     }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static Dictionary<string, string> GetDocumnetTypes(string pre)
+    {
+        return allDocType;
+    }
     private int InsertDocument()
     {
         DocumentBL _objDocBL = new DocumentBL();
@@ -199,8 +218,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
         {
             HttpPostedFile file = fuDoc.PostedFile;
             int filesize = file.ContentLength;
-            if (filesize <= 1048576)
-            {
+            //if (filesize <= 1048576)
+            //{
                 List<HttpPostedFile> lst = fuDoc.PostedFiles.ToList();
                 for (int i = 0; i < lst.Count; i++)
                 {
@@ -220,7 +239,15 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                         //delete file in folder
                         File.Delete(Path.Combine(folder, hfDocumentName.Value.ToString()));
                     }
-
+                    int DocID = 0;
+                    if (Convert.ToInt32(hfID.Value) == 0)
+                    {
+                        DocID = _objDocBL.InsertDocType(txtDocumentType.Text);
+                    }
+                    else
+                    {
+                        DocID = Convert.ToInt32(hfID.Value);
+                    }   
                     DocumentBO DocumentEntity = new DocumentBO
                     {
                         DocId = Convert.ToInt32(hfDocID.Value),
@@ -229,7 +256,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                         UIC = hfUIC.Value.ToString(),
                         Document = fileName,
                         DocumentName = inFilename,
-                        DocType = Convert.ToInt32(ddlDocType.SelectedValue),
+                        //DocType = Convert.ToInt32(ddlDocType.SelectedValue),
+                        DocType = DocID,
                         ClientType = Request.QueryString["t"] != null ? Convert.ToInt32(ObjDec.Decrypt(Request.QueryString["t"])) : 0,
                         AdvisorID = Convert.ToInt32(Session["AdvisorID"].ToString()),
                         Status = 1,
@@ -241,12 +269,12 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                         res = _objDocBL.DocumentManager(DocumentEntity, 'i');
                 }
                 lblSizeError.Text = "";
-            }
-            else
-            {
-                lblSizeError.ForeColor = System.Drawing.Color.Red;
-                lblSizeError.Text = "Sorry,the document size should be less than 1MB";
-            }
+            //}
+            //else
+            //{
+            //    lblSizeError.ForeColor = System.Drawing.Color.Red;
+            //    lblSizeError.Text = "Sorry,the document size should be less than 1MB";
+            //}
         }
         return res;
 
@@ -294,7 +322,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     txtSAID.Text = ds.Tables[0].Rows[0]["UIC"].ToString();
                 else
                     txtSAID.Text = ds.Tables[0].Rows[0]["SAID"].ToString();
-                ddlDocType.SelectedIndex = ddlDocType.Items.IndexOf(ddlDocType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
+                //ddlDocType.SelectedIndex = ddlDocType.Items.IndexOf(ddlDocType.Items.FindByValue(ds.Tables[0].Rows[0]["DocType"].ToString()));
+                txtDocumentType.Text = allDocType[ds.Tables[0].Rows[0]["DocType"].ToString()];
                 lblFileName.Text = ds.Tables[0].Rows[0]["DocumentName"].ToString();
                 hfDocumentName.Value = ds.Tables[0].Rows[0]["Document"].ToString();
 
@@ -314,7 +343,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     private void ClearControls()
     {
         btnSubmit.Text = "Save";
-        ddlDocType.SelectedIndex = -1;
+        //ddlDocType.SelectedIndex = -1;
+        txtDocumentType.Text = "";
         lblFileName.Text = "";
         fuDoc.AllowMultiple = true;
     }
@@ -333,6 +363,7 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     message.Text = "Document updated successfully!";
                 else
                     message.Text = "Documents saved successfully!";
+                GetDocuType();
                 lblTitle.Text = "Thank You";
                 lblTitle.ForeColor = System.Drawing.Color.Green;
                 message.ForeColor = System.Drawing.Color.Green;
@@ -366,7 +397,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     Response.Redirect("Children.aspx", false);
                     break;
                 case "4":
-                    Response.Redirect("TrustDetails.aspx", false);
+                    if (Session["TypeFlag"].ToString() == "1")
+                    {
+                        Response.Redirect("TrustDetails.aspx", false);
+                    }
+                    else if (Session["TypeFlag"].ToString() == "3")
+                    {
+                        Response.Redirect("TrustPersonal.aspx", false);
+                    }
                     break;
                 case "5":
                     Response.Redirect("TrustSettlor.aspx", false);
@@ -381,7 +419,14 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                         Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("2"), false);
                     break;
                 case "8":
-                    Response.Redirect("Company.aspx", false);
+                    if (Session["TypeFlag"].ToString() == "1")
+                    {
+                        Response.Redirect("Company.aspx", false);
+                    }
+                    else if (Session["TypeFlag"].ToString() == "2")
+                    {
+                        Response.Redirect("CompanyPersonal.aspx", false);
+                    }
                     break;
                 case "9":
                     Response.Redirect("Director.aspx", false);
@@ -392,10 +437,17 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 case "11":
                     Response.Redirect("Parents.aspx", false);
                     break;
+                case "12":
+                    if (Request.QueryString["type"] == "t")
+                        Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("1"), false);
+                    else
+                        Response.Redirect("Beneficiary.aspx?t=" + ObjDec.Encrypt("2"), false);
+                    break;
             }
             ClearControls();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -410,7 +462,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
             gvDocument.PageIndex = e.NewPageIndex;
             GetDouments();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -424,9 +477,17 @@ public partial class ClientProfile_Document : System.Web.UI.Page
         {
             if (e.CommandName != "Page")
             {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                int RowIndex = row.RowIndex;
+                ViewState["ClientType"] = ((Label)row.FindControl("lblClientType")).Text.ToString();
+                ViewState["DocId"] = ((Label)row.FindControl("lblDocId")).Text.ToString();
+                ViewState["ReferenceSAID"] = ((Label)row.FindControl("lblReferenceSAID")).Text.ToString();
+                ViewState["SAID"] = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                ViewState["UIC"] = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                ViewState["ClientTypeID"] = ((Label)row.FindControl("lblClientTypeID")).Text.ToString();
+                int DocID = Convert.ToInt32(ViewState["DocId"].ToString());
                 if (e.CommandName == "EditDoc")
                 {
-                    int DocID = Convert.ToInt32(e.CommandArgument.ToString());
                     BindDocument(DocID);
                     btnSubmit.Text = "Update";
                 }
@@ -437,6 +498,31 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                     hfDocumentName.Value = strparas[1];
                     lbldeletemessage.Text = "Are you sure, you want to delete Document ?";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDeleteModal();", true);
+                }
+                else if (e.CommandName == "Validate")
+                {
+                    if (ViewState["SAID"].ToString() != "0" && ViewState["UIC"].ToString() == "0")
+                    {
+                        divSAID.Visible = true;
+                        divUIC.Visible = false;
+                    }
+                    else if (ViewState["SAID"].ToString() == "0" && ViewState["UIC"].ToString() != "0")
+                    {
+                        divSAID.Visible = false;
+                        divUIC.Visible = true;
+                    }
+                    else if (ViewState["SAID"].ToString() != "0" && ViewState["UIC"].ToString() != "0")
+                    {
+                        divSAID.Visible = true;
+                        divUIC.Visible = true;
+                    }
+                    txtvalidSAID.Text = ((Label)row.FindControl("lblSAID")).Text.ToString();
+                    txtvalidUIC.Text = ((Label)row.FindControl("lblUIC")).Text.ToString();
+                    txtDocType.Text = ((Label)row.FindControl("lblDocType")).Text.ToString();
+                    lblDocName.Text = ((Label)row.FindControl("lblDocumentName")).Text.ToString();
+                    validatedocmsg.InnerText = "Document Details";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openValidateModal();", true);
+
                 }
             }
         }
@@ -455,7 +541,8 @@ public partial class ClientProfile_Document : System.Web.UI.Page
         {
             GetDouments();
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -502,9 +589,63 @@ public partial class ClientProfile_Document : System.Web.UI.Page
                 HtmlAnchor AnchorDoc = (HtmlAnchor)e.Row.FindControl("anchorId");
                 string url = HttpContext.Current.Request.Url.Authority;
                 AnchorDoc.HRef = "http://" + url + "/ClientDocuments/" + Session["SAID"].ToString() + "/" + ViewState["FoldertName"].ToString() + "/" + txtSAID.Text.Trim() + "/" + LblDoc.Text;
+
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                if (drv["Flag"].ToString().Equals("0") && drv["AdvisorID"].ToString() != "0")
+                {
+                    if (Session["Designation"].ToString() == "1" && Session["isContentValidator"].ToString() == "True")
+                    {
+                       // e.Row.BackColor = System.Drawing.Color.LightPink;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = true;
+                      //  ((Image)e.Row.FindControl("imgbtnValidate")).Visible = true;
+
+                    }
+                    else if (Session["Designation"].ToString() == "1" && Session["isContentValidator"].ToString() == "False")
+                    {
+                       // e.Row.BackColor = System.Drawing.Color.LightPink;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = false;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = false;
+                       // ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                    }
+                    else if (Session["Designation"].ToString() == "2" && Session["isContentValidator"].ToString() == "False")
+                    {
+                       // e.Row.BackColor = System.Drawing.Color.LightPink;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = false;
+                       // ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                    }
+                }
+
+                else
+                {
+                    if (Session["Designation"].ToString() == "1" && Session["isContentValidator"].ToString() == "True")
+                    {
+                       // e.Row.BackColor = System.Drawing.Color.White;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = true;
+                       // ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+
+                    }
+                    else if (Session["Designation"].ToString() == "1" && Session["isContentValidator"].ToString() == "False")
+                    {
+                     //   e.Row.BackColor = System.Drawing.Color.White;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = true;
+                       // ((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                    }
+                    else if (Session["Designation"].ToString() == "2" && Session["isContentValidator"].ToString() == "False")
+                    {
+                       // e.Row.BackColor = System.Drawing.Color.White;
+                        ((Image)e.Row.FindControl("btnEdit")).Visible = true;
+                        ((Image)e.Row.FindControl("btnDelete")).Visible = false;
+                        //((Image)e.Row.FindControl("imgbtnValidate")).Visible = false;
+                    }
+                }
             }
         }
-        catch {
+        catch
+        {
             lblTitle.Text = "Warning!";
             lblTitle.ForeColor = System.Drawing.Color.Red;
             message.ForeColor = System.Drawing.Color.Red;
@@ -514,4 +655,34 @@ public partial class ClientProfile_Document : System.Web.UI.Page
     }
 
 
+    protected void btnvalidDocOK_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int DocID = Convert.ToInt32(ViewState["DocId"].ToString());
+            int ClientType = Convert.ToInt32(ViewState["ClientTypeID"].ToString());
+            int result = _objDocumentBL.UpdateDocumentValidation(ViewState["ReferenceSAID"].ToString(), ViewState["SAID"].ToString(), ViewState["UIC"].ToString(), ClientType, DocID);
+            if (result > 0)
+            {
+                lblTitle.Text = "Thank You!";
+                lblTitle.ForeColor = System.Drawing.Color.Green;
+                message.ForeColor = System.Drawing.Color.Green;
+                message.Text = "Details Validated successfully!";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                GetDouments();
+            }
+        }
+        catch
+        {
+            lblTitle.Text = "Warning!";
+            lblTitle.ForeColor = System.Drawing.Color.Red;
+            message.ForeColor = System.Drawing.Color.Red;
+            message.Text = "Sorry, Something went wrong, please contact administrator";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        }
+    }
+    protected void btnvalidDocCancel_Click(object sender, EventArgs e)
+    {
+
+    }
 }
